@@ -91,10 +91,6 @@
     transition: opacity ease 0.5s;
 }
 
-.login-help{
-    font-size: 12px;
-}
-
 #login_image{
     width: 90%;
     height: auto;
