@@ -1,8 +1,6 @@
 language: java
-sudo: required
-script:
-  - sudo mvn clean package
-  - sudo mvn install
+sudo: false
+script: mvn clean verify
 jdk:
   - oraclejdk8
 after_success:
