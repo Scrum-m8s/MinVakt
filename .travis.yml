@@ -1,4 +1,5 @@
 language: java
+sudo: required
 cache:
   directories:
     - $HOME/.m2
@@ -8,7 +9,7 @@ install:
   - git clone --depth=1 https://github.com/n1k0/casperjs.git /tmp/casperjs
   - export PATH=$PATH:/tmp/casperjs/bin
 script:
-  - mvn clean install -X
+  - sudo mvn clean install -X
 jdk:
   - oraclejdk8
 after_success:
