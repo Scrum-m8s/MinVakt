@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/systemutvikling-case.iml" filepath="$PROJECT_DIR$/systemutvikling-case.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MinVakt.iml" filepath="$PROJECT_DIR$/MinVakt.iml" />
     </modules>
   </component>
 </project>
