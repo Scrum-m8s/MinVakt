@@ -2,11 +2,15 @@ language: java
 
 sudo: false
 
+env:
+ - TESTFOLDER=java/DatabaseTest
+
 script:
-  - mvn clean verify
+ - mvn clean verify
+ - bundle exec rspec $TESTFOLDER
 
 jdk:
-  - oraclejdk8
+ - oraclejdk8
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+ - bash <(curl -s https://codecov.io/bash)
