@@ -2,12 +2,8 @@ language: java
 
 sudo: false
 
-env:
- - TESTFOLDER=java/org.team8.webapp/DatabaseTest
-
  script:
   - mvn clean verify
-  - "bundle exec rspec $TESTFOLDER"
 
 
 jdk:
