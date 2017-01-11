@@ -1,7 +1,7 @@
 # MinVakt
 Scrumprosjekt 2017 - Team 8
 
-Install:
+# Install:
 1. Aktiver maven
 2. Høyreklikk pom.xml -> Add as Maven Project
 3. Sett opp Tomcat Server
