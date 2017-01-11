@@ -3,6 +3,7 @@ package org.team8.webapp.LoginManagment;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
+import javax.xml.bind.DatatypeConverter;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
@@ -44,6 +45,18 @@ public class Hash {
             throw new RuntimeException( e );
         }
     }
+
+    public static String createHashedPassword(String password){
+
+        byte[] salt = generateSalt();
+        byte[] hashedPassword = hashPassword(password.toCharArray(), salt);
+
+        String saltString = DatatypeConverter.printHexBinary(salt);
+        String hashedPasswordString = DatatypeConverter.printHexBinary(hashedPassword);
+
+        return hashedPasswordString + saltString;
+    }
+
 
     public static void main(String[] args){
         String password = "123456";
