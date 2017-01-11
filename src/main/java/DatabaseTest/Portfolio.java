@@ -1,4 +1,4 @@
-package org.team8.webapp.DatabaseTest;
+package DatabaseTest;
 
 import java.util.List;
 

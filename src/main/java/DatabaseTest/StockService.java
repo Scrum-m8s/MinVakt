@@ -1,4 +1,4 @@
-package org.team8.webapp.DatabaseTest;
+package DatabaseTest;
 
 /**
  * Created by KristofferLaptop on 11-Jan-17.
