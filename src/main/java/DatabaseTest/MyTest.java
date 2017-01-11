@@ -11,7 +11,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 // @RunWith attaches a runner with the test class to initialize the test data
 @RunWith(MockitoJUnitRunner.class)
-public class Test {
+public class MyTest {
 
     //@InjectMocks annotation is used to create and inject the mock object
     @InjectMocks
