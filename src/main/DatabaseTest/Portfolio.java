@@ -1,5 +1,3 @@
-package DatabaseTest;
-
 import java.util.List;
 
 public class Portfolio {

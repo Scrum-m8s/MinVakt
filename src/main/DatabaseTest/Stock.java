@@ -1,8 +1,3 @@
-package DatabaseTest;
-
-/**
- * Created by KristofferLaptop on 11-Jan-17.
- */
 public class Stock {
     private String stockId;
     private String name;
