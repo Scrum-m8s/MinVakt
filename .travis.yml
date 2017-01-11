@@ -1,0 +1,16 @@
+language: java
+sudo: required
+cache:
+  directories:
+    - $HOME/.m2
+install:
+  - sudo apt-get update -y
+  - sudo apt-get install -y phantomjs
+  - git clone --depth=1 https://github.com/n1k0/casperjs.git /tmp/casperjs
+  - export PATH=$PATH:/tmp/casperjs/bin
+script:
+  - sudo mvn clean install -X
+jdk:
+  - oraclejdk8
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
