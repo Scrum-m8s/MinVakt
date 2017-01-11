@@ -68,7 +68,7 @@
                 <version>2.18.1</version>
                 <configuration>
                     <includes>
-                        <include>main/java/DatabaseTest/MathApplicationTester.java</include>
+                        <include>src/main/java/DatabaseTest/MathApplicationTester.java</include>
                     </includes>
                 </configuration>
             </plugin>
