@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="./shift_book.css">
     <meta charset="UTF-8">
     <title>Vaktoversikt</title>
+    <link rel="stylesheet" href="layout.css">
 </head>
 <body>
 <ul class="sidenav">
@@ -25,20 +26,24 @@
 <br>
 <br>
 <div id="padding"></div>
-<table style="width:100%">
-    <tr>
-        <th>Personer på jobb i dag</th>
-        <th>Dagvakt</th>
-        <th>Aftenvakt</th>
-        <th>Nattevakt</th>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-</table>
+    <!-- bootstrap -->
+    <div class="container-fluid">
+        <div class="row" style = "background-color: lightgreen">
+            <div class="col-sm-1">Personer på jobb i dag</div>
+            <div class="col-sm-1">Dagvakt</div>
+            <div class="col-sm-1">Aftenvakt</div>
+            <div class="col-sm-1">Nattevakt</div>
+            <div class="col-sm-8"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-1"></div>
+        </div>
+        <div class="row">
+        </div>
+    </div>
 </div>
 </body>
 </html>
