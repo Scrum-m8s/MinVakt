@@ -63,7 +63,82 @@ public class ShiftDAO extends DatabaseManagement {
         return out;
     }
 
-    //TODO: Add create, update, remove. Look at EmployeeDAO for guidelines.
+    //TODO: Test funksjonene create, update og remove shift opp mot en dummy database/junit
+    public boolean createShift(Shift s) {
+        int numb = 0;
+        if(setUp()){
+            try {
+                conn = getConnection();
+                prep = conn.prepareStatement("INSERT INTO Shift_list (user_id, shift_id, on_duty, my_date, deviance) VALUES (?, ?, ?, ?, ?);");
+                prep.setString(1, s.getUserId());
+                prep.setInt(2, s.getShiftId());
+                prep.setBoolean(3, s.isOnDuty());
+                prep.setDate(4, s.getMyDate());
+                prep.setInt(5, s.getDeviance());
+                numb = prep.executeUpdate();
+            }
+            catch (SQLException sqle) {
+                System.err.println("Issue with creating shift.");
+                rollbackStatement();
+                return false;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return numb > 0;
+    }
+
+    public boolean updateShift(Shift s) {
+        int numb = 0;
+        if(setUp()){
+            try {
+                conn = getConnection();
+                conn.setAutoCommit(false);
+                prep = conn.prepareStatement("UPDATE Shift_list SET user_id=?, shift_id=?, on_duty=?, my_date=?, deviance=? WHERE user_id=?;");
+                prep.setString(1, s.getUserId());
+                prep.setInt(2, s.getShiftId());
+                prep.setBoolean(3, s.isOnDuty());
+                prep.setDate(4, s.getMyDate());
+                prep.setInt(5, s.getDeviance());
+                prep.setString(6, s.getUserId());
+                numb = prep.executeUpdate();
+            }
+            catch (SQLException sqle) {
+                System.err.println("Issue with updating shift.");
+                rollbackStatement();
+                return false;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return numb > 0;
+    }
+
+    public boolean removeShift(String userId, int shiftId, Date date) {
+        int numb = 0;
+        if(setUp()) {
+            try {
+                conn = getConnection();
+                conn.setAutoCommit(false);
+                prep = conn.prepareStatement("DELETE FROM Shift_list WHERE user_id=? AND shift_id=? AND my_date=?;");
+                prep.setString(1, userId);
+                prep.setInt(2, shiftId);
+                prep.setDate(3, date);
+                numb = prep.executeUpdate();
+            }
+            catch (SQLException sqle) {
+                System.err.println("Issue with removing shift.");
+                rollbackStatement();
+                return false;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return numb > 0;
+    }
 
     protected Shift processRow(ResultSet res) throws SQLException {
         Shift s = new Shift();
