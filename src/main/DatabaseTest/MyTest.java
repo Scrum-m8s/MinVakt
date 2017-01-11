@@ -1,5 +1,3 @@
-package DatabaseTest;
-
 import static org.mockito.Mockito.when;
 
 import org.junit.Assert;

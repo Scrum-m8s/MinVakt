@@ -1,5 +1,3 @@
-package DatabaseTest;
-
 public class MathApplication {
     private CalculatorService calcService;
 
