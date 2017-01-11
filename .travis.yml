@@ -2,15 +2,8 @@ language: java
 
 sudo: false
 
-env:
-  - TESTFOLDER=java/DatabaseTest
-
-gemfile:
-  - Gemfile
-
 script:
   - mvn clean verify
-  - bundle exec rspec $TESTFOLDER
 
 jdk:
   - oraclejdk8

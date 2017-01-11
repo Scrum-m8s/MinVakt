@@ -1,5 +1,7 @@
 package DatabaseTest;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +13,7 @@ public class PortfolioTester {
     Portfolio portfolio;
     StockService stockService;
 
+    @Test
     public static void main(String[] args){
         PortfolioTester tester = new PortfolioTester();
         tester.setUp();
