@@ -4,6 +4,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 
+import static org.team8.webapp.LoginManagment.Hash.createHashedPassword;
 /**
  *
  * @author Mr.Easter
@@ -31,6 +32,8 @@ public class UserResource {
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean createUser(User e) {
         System.out.println("createUser");
+        String hashedPassword = createHashedPassword(e.getPassword());
+        e.setPassword(hashedPassword);
         return dao.createUser(e);
     }
 
