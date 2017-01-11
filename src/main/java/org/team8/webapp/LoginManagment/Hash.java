@@ -13,6 +13,8 @@ import java.security.spec.InvalidKeySpecException;
 public class Hash {
 
     private static final int SALT_LENGTH = 32;
+    private static final int NUM_OF_ITERATIONS = 10;
+    private static final int KEY_LENGTH = 256;
 
     // Generer salt til hashfunsksjon, må lagres sammen med hashet passord
     public static byte[] generateSalt(){
@@ -28,11 +30,12 @@ public class Hash {
     // Hentet fra https://www.owasp.org/index.php/Hashing_Java
     // Antall iterasjoner burde være slik at det tar ca 1,5 sekund å hashe på server
     // keyLength burde være 256
-    public static byte[] hashPassword( final char[] password, final byte[] salt, final int iterations, final int keyLength ) {
+    // Generert hash er 64 byte
+    public static byte[] hashPassword( final char[] password, final byte[] salt) {
 
         try {
             SecretKeyFactory skf = SecretKeyFactory.getInstance( "PBKDF2WithHmacSHA512" );
-            PBEKeySpec spec = new PBEKeySpec( password, salt, iterations, keyLength );
+            PBEKeySpec spec = new PBEKeySpec( password, salt, NUM_OF_ITERATIONS, KEY_LENGTH);
             SecretKey key = skf.generateSecret( spec );
             byte[] res = key.getEncoded( );
             return res;
@@ -50,7 +53,7 @@ public class Hash {
 
         System.out.println(salt.length);
 
-        byte[] hashet = hashPassword(pword, salt, 10, 256);
+        byte[] hashet = hashPassword(pword, salt);
 
         for(int i=0;i<hashet.length;i++){
             System.out.println(hashet[i]);
