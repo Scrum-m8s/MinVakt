@@ -1,4 +1,4 @@
-package org.chiaboy.webapp;
+package org.chiaboy.webapp.Employee;
 
 /**
  * Created by asdfLaptop on 10.01.2017.

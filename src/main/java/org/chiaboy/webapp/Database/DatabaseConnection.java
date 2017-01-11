@@ -1,4 +1,4 @@
-package org.chiaboy.webapp;
+package org.chiaboy.webapp.Database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
