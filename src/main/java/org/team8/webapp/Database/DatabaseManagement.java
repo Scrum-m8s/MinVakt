@@ -1,4 +1,4 @@
-package org.chiaboy.webapp;
+package org.team8.webapp.Database;
 
 import org.apache.commons.dbutils.DbUtils;
 

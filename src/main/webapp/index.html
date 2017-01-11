@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Logg inn</title>
+        <title>Hjem</title>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -19,21 +19,50 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
         <!-- user-defined styles -->
-        <link rel="stylesheet" href="css/index.css">
-
+        <link rel="stylesheet" href="css/layout.css">
     </head>
-
     <body>
-        <!-- add top taskbar w/info(?) -->
-        <div class="modal-dialog">
-            <div class="loginmodal-container">
-                <img src="img/login_kommune.png" alt="" id="login_image">
-                <h1>Login to Your Account</h1><br>
-                <form>
-                    <input type="text" name="user" placeholder="Username">
-                    <input type="password" name="pass" placeholder="Password">
-                    <input type="submit" name="login" class="login loginmodal-submit" value="Login">
-                </form>
+    <ul class="sidenav">
+        <li><a class="active" href="index.html">Hjem</a></li>
+        <li><a href="timeliste.html">Timelister</a></li>
+        <li><a href="endre_passord.html">Endre passord</a></li>
+        <li><a href="vaktbytte.html">Vaktbytte</a></li>
+        <li><a href = "ny_bruker.html">Ny bruker</a></li>
+        <li><a href = "shift_book.html">Skiftbok</a></li>
+        <li><a href = "employees.html">Ansatte</a></li>
+        <li><a href = "kvalifisert_for_vakt.html">Ledige ansatte</a></li>
+    </ul>
+
+        <div class="content">
+            <h1>Velkommen, </h1> <!-- insert fornavn -->
+            <p>Under ser du når du jobber denne måneden.</p>
+            <h4>Januar</h4> <!-- denne måneden. feks Januar -->
+
+            <!-- bootstrap -->
+            <div class="container-fluid">
+                <div class="row" style = "background-color: lightgreen">
+                    <div class="col-sm-1">Uke</div>
+                    <div class="col-sm-1">Mandag</div>
+                    <div class="col-sm-1">Tirsdag</div>
+                    <div class="col-sm-1">Onsdag</div>
+                    <div class="col-sm-1">Torsdag</div>
+                    <div class="col-sm-1">Fredag</div>
+                    <div class="col-sm-1">Lørdag</div>
+                    <div class="col-sm-1">Søndag</div>
+                    <div class="col-sm-4"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-4"></div>
+                </div>
+                <div class="row">
+                </div>
             </div>
         </div>
     </body>
