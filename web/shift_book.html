@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="./shift_book.css">
     <meta charset="UTF-8">
-    <title>Vaktoversikt</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./shift_book.css">
     <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="Bootstrap-3.3.6/css/bootstrap.min.css">
+
+    <script src="Bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script src="jquery-3.1.0.min.js"></script>
+    <title>Vaktoversikt</title>
 </head>
 <body>
 <ul class="sidenav">
-    <li><a class="active" href="index.html">Hjem</a></li>
+    <li><a href="index.html">Hjem</a></li>
     <li><a href="timeliste.html">Timelister</a></li>
     <li><a href="endre_passord.html">Endre passord</a></li>
     <li><a href="vaktbytte.html">Vaktbytte</a></li>
     <li><a href = "ny_bruker.html">Ny bruker</a></li>
+    <li><a class="active" href = "shift_book.html">Skiftbok</a></li>
+    <li><a href = "employees.html">Ansatte</a></li>
 </ul>
 
 <div id="margin_left"><div class="content">
@@ -21,27 +28,17 @@
 <label for="maned">Velg måned: </label>
 <br>
 <input type="date"/></div>
-<br>
-<br>
-<br>
-<br>
-<div id="padding"></div>
-    <!-- bootstrap -->
     <div class="container-fluid">
         <div class="row" style = "background-color: lightgreen">
-            <div class="col-sm-1">Personer på jobb i dag</div>
-            <div class="col-sm-1">Dagvakt</div>
-            <div class="col-sm-1">Aftenvakt</div>
-            <div class="col-sm-1">Nattevakt</div>
-            <div class="col-sm-8"></div>
-        </div>
-        <div class="row">
-            <div class="col-sm-1"></div>
-            <div class="col-sm-1"></div>
-            <div class="col-sm-1"></div>
-            <div class="col-sm-1"></div>
-        </div>
-        <div class="row">
+            <div class="col-sm-1">Uke</div>
+            <div class="col-sm-1">Mandag</div>
+            <div class="col-sm-1">Tirsdag</div>
+            <div class="col-sm-1">Onsdag</div>
+            <div class="col-sm-1">Torsdag</div>
+            <div class="col-sm-1">Fredag</div>
+            <div class="col-sm-1">Lørdag</div>
+            <div class="col-sm-1">Søndag</div>
+            <div class="col-sm-4"></div>
         </div>
     </div>
 </div>
