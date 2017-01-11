@@ -68,7 +68,7 @@
                 <version>2.18.1</version>
                 <configuration>
                     <includes>
-                        <include>src/main/java/DatabaseTest/MathApplicationTester.java</include>
+                        <include>src/main/java/DatabaseTest/Test.java</include>
                     </includes>
                 </configuration>
             </plugin>
@@ -86,6 +86,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>

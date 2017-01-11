@@ -11,7 +11,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 // @RunWith attaches a runner with the test class to initialize the test data
 @RunWith(MockitoJUnitRunner.class)
-public class MathApplicationTester {
+public class Test {
 
     //@InjectMocks annotation is used to create and inject the mock object
     @InjectMocks
@@ -21,7 +21,7 @@ public class MathApplicationTester {
     @Mock
     CalculatorService calcService;
 
-    @Test
+    @org.junit.Test
     public void testAdd(){
         //add the behavior of calc service to add two numbers
         when(calcService.add(10.0,20.0)).thenReturn(30.00);
