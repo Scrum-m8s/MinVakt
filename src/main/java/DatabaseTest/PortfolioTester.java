@@ -3,13 +3,13 @@ package DatabaseTest;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import static org.mockito.Mockito.*;
 
 public class PortfolioTester {
 
     Portfolio portfolio;
     StockService stockService;
-
 
     public static void main(String[] args){
         PortfolioTester tester = new PortfolioTester();
