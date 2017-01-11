@@ -1,6 +1,6 @@
-package org.chiaboy.webapp.Shift;
+package org.team8.webapp.Shift;
 
-import org.chiaboy.webapp.Database.DatabaseManagement;
+import org.team8.webapp.Database.DatabaseManagement;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -63,7 +63,7 @@ public class ShiftDAO extends DatabaseManagement {
         return out;
     }
 
-    //Add create, update, remove. Look at EmployeeDAO for guidelines.
+    //TODO: Add create, update, remove. Look at EmployeeDAO for guidelines.
 
     protected Shift processRow(ResultSet res) throws SQLException {
         Shift s = new Shift();

@@ -1,4 +1,4 @@
-package org.chiaboy.webapp.Shift;
+package org.team8.webapp.Shift;
 
 import java.sql.Date;
 

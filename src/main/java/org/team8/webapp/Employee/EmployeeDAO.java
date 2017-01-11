@@ -1,6 +1,6 @@
-package org.chiaboy.webapp.Employee;
+package org.team8.webapp.Employee;
 
-import org.chiaboy.webapp.Database.DatabaseManagement;
+import org.team8.webapp.Database.DatabaseManagement;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
