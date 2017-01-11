@@ -7939,7 +7939,10 @@ button.close {
 }
 
 @-ms-viewport {
+    /*
     width: device-width;
+    */
+    width: auto;
 }
 
 .visible-xs,
