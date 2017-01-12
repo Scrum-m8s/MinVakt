@@ -4,4 +4,4 @@ development:
   database: testdb
   username: travis
   host: 127.0.0.1
-  port: ~travis/.my.cnf
+  socket: ~travis/.my.cnf
