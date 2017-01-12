@@ -3,8 +3,6 @@ package org.team8.webapp.LoginManagment;
 import org.team8.webapp.User.User;
 import org.team8.webapp.User.UserDAO;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
 import javax.xml.bind.DatatypeConverter;
 
 import java.util.Arrays;
@@ -15,15 +13,12 @@ import static org.team8.webapp.LoginManagment.Hash.hashPassword;
  * Created by espen on 11.01.2017.
  */
 
- @Path("/login")
 public class LoginCheck {
 
+    // Midlertidig til REST service er implementert
     public UserDAO dbUser = new UserDAO();
 
     // Tar brukernavn og passord, skal returnere token hvis lykkes, ellers -1
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
     public int login(User user) {
 
         User databaseUser = dbUser.getUserById(user.getUserId());
