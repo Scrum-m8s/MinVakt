@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:data-target="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,8 +43,8 @@
 
         </div>
         <div class="row">
-            <div class="col-sm-1"><a href="../../../web/index.html">1</a></div> <!-- testdata. ønsker å linke til uke -->
-            <div class="col-sm-1">Vakt</div> <!-- lag modal i js for å vise detaljer om vakt -->
+            <div class="col-sm-1"><a href="index.html">1</a></div> <!-- testdata. ønsker å linke til uke -->
+            <div class="col-sm-1">Vakt</div>
             <div class="col-sm-1" style = "background-color: lightblue">kveld</div>
             <div class="col-sm-1" style = "background-color: yellowgreen">dag</div>
             <div class="col-sm-1"></div>
@@ -52,8 +52,30 @@
             <div class="col-sm-1">vakt</div>
             <div class="col-sm-4"></div>
         </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Modal Header</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Some text in the modal.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
         <div class="row">
-            <div class="col-sm-1"><a href="../../../web/index.html">2</a></div>
+            <div class="col-sm-1"><a href="index.html">2</a></div>
             <div class="col-sm-1"></div>
             <div class="col-sm-1">vakt</div>
             <div class="col-sm-1">vakt</div>
