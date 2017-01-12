@@ -3,6 +3,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 /**
@@ -11,9 +12,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class TestConncetion {
 
+    @Mock
+    TravisDbConnection connection = new TravisDbConnection();
+
     @Test
     void testConnection(){
-        TravisDbConnection connection = new TravisDbConnection();
         Assert.assertNotNull(connection.getConnection());
     }
 }
