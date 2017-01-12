@@ -13,6 +13,7 @@ import java.security.spec.InvalidKeySpecException;
  */
 public class Hash {
 
+    // Juster etter behov
     private static final int SALT_LENGTH = 32;
     private static final int NUM_OF_ITERATIONS = 10;
     private static final int KEY_LENGTH = 256;
@@ -46,6 +47,8 @@ public class Hash {
         }
     }
 
+    // returnerer hash + salt som hexadesimal string med lengde på 128
+    // første 64 er hash, siste 64 er salt
     public static String createHashedPassword(String password){
 
         byte[] salt = generateSalt();
