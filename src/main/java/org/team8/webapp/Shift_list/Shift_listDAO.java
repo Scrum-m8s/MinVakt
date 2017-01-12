@@ -8,6 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/*
+* Created by mariyashchekanenko on 12/01/2017.
+* Edited by Mr_Easter on 12/01/2017.
+*/
+
 public class Shift_listDAO extends DatabaseManagement{
 
     public Shift_listDAO () {
@@ -45,7 +50,7 @@ public class Shift_listDAO extends DatabaseManagement{
         if(setUp()){
             try {
                 conn = getConnection();
-                prep = conn.prepareStatement("SELECT * FROM Shift_list WHERE user_id = ?, shift_id = ?;");
+                prep = conn.prepareStatement("SELECT * FROM Shift_list WHERE user_id =  AND shift_id = ?;");
                 prep.setString(1, user_id);
                 prep.setInt(2, shift_id);
                 res = prep.executeQuery();
@@ -89,18 +94,18 @@ public class Shift_listDAO extends DatabaseManagement{
         return numb > 0;
     }
 
-    public boolean updateShiflist(Shift_list s_l){
+    public boolean updateShiftlist(Shift_list s_l){
         int numb = 0;
         if(setUp()) {
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
-                prep = conn.prepareStatement("UPDATE Shift_list SET user_id=?, shift_id=?, on_duty=?, my_date=?, deviance=? WHERE user_id=?, shift_id=?;");
-                prep.setString(1, s_l.getUser_id());
-                prep.setInt(2, s_l.getShift_id());
-                prep.setBoolean(3, s_l.isOn_duty());
-                prep.setDate(4, s_l.getMy_date());
-                prep.setInt(5, s_l.getDeviance());
+                prep = conn.prepareStatement("UPDATE Shift_list SET on_duty=?, my_date=?, deviance=? WHERE user_id=? AND shift_id=?;");
+                prep.setBoolean(1, s_l.isOn_duty());
+                prep.setDate(2, s_l.getMy_date());
+                prep.setInt(3, s_l.getDeviance());
+                prep.setString(4, s_l.getUser_id());
+                prep.setInt(5, s_l.getShift_id());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
@@ -121,7 +126,7 @@ public class Shift_listDAO extends DatabaseManagement{
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
-                prep = conn.prepareStatement("DELETE FROM Shift_list WHERE user_id = ?, shift_id = ?;");
+                prep = conn.prepareStatement("DELETE FROM Shift_list WHERE user_id = ? AND shift_id = ?;");
                 prep.setString(1, user_id);
                 prep.setInt(2, shift_id);
                 numb = prep.executeUpdate();

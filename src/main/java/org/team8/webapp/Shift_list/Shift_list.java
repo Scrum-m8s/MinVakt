@@ -1,9 +1,9 @@
 package org.team8.webapp.Shift_list;
 
-import javax.xml.bind.annotation.XmlRootElement;
 import java.sql.Date;
 /**
  * Created by mariyashchekanenko on 12/01/2017.
+ * Edited by Mr_Easter on 12/01/2017.
  */
 public class Shift_list {
     private String user_id;

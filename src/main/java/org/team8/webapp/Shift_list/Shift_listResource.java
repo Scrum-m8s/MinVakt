@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 /**
  * Created by mariyashchekanenko on 12/01/2017.
+ * Edited by Mr_Easter on 12/01/2017.
  */
 @Path("/shift_lists")
 public class Shift_listResource {
@@ -41,7 +42,7 @@ public class Shift_listResource {
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean updateShiftlist(Shift_list s_l){
         System.out.println("update Shift_list");
-        return dao.updateShiflist(s_l);
+        return dao.updateShiftlist(s_l);
     }
 
     @Path("/{shift_id}/{user_id}")
