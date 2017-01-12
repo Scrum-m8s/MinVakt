@@ -11,11 +11,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class TestConncetion {
 
-    @InjectMocks
-    TravisDbConnection connection = new TravisDbConnection();
-
     @Test
     void testConnection(){
+        TravisDbConnection connection = new TravisDbConnection();
         Assert.assertNotNull(connection.getConnection());
     }
 }
