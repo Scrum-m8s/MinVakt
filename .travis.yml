@@ -1,6 +1,6 @@
 language: java
 
-sudo: false
+sudo: required
 
 before_install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
