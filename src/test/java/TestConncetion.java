@@ -16,7 +16,7 @@ public class TestConncetion {
     TravisDbConnection connection = new TravisDbConnection();
 
     @Test
-    void testConnection(){
+    public void testConnection(){
         Assert.assertNotNull(connection.getConnection());
     }
 }
