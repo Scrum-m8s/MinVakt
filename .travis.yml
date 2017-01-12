@@ -2,8 +2,14 @@ language: java
 
 sudo: false
 
+before_install:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
+
 script:
   - mvn test
+
+services:
+  - mysql
 
 jdk:
   - oraclejdk8
