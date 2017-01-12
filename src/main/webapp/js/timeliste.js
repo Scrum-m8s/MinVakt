@@ -4,3 +4,12 @@ relevant informasjon om vakten
 
 fargekode vaktene etter type vakt. feks gul = dag, mørkeblå = natt og grønn = kveld
  */
+
+function listVakter(){
+    // uke = rad og kolonne = dag
+
+}
+
+function selectVakt(vaktID){
+
+}
