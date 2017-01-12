@@ -5,7 +5,6 @@ import java.sql.Date;
 /**
  * Created by mariyashchekanenko on 12/01/2017.
  */
-@XmlRootElement
 public class Shift_list {
     private String user_id;
     private int shift_id;
