@@ -1,0 +1,7 @@
+development:
+  adapter: mysql2
+  encoding: utf8
+  database: testdb
+  username: travis
+  host: 127.0.0.1
+  port: ~travis/.my.cnf

@@ -3,7 +3,7 @@ language: java
 sudo: required
 
 before_install:
-  - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS testdb;'
 
 script:
   - mvn test
