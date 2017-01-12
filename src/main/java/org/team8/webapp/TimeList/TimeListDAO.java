@@ -45,7 +45,7 @@ public class TimeListDAO extends DatabaseManagement{
         if(setUp()){
             try {
                 conn = getConnection();
-                prep = conn.prepareStatement("SELECT * FROM Time_list WHERE user_id =? AND month=?;");
+                prep = conn.prepareStatement("SELECT * FROM Time_list WHERE user_id=? AND month=?;");
                 prep.setString(1, id);
                 prep.setString(2, month);
                 res = prep.executeQuery();

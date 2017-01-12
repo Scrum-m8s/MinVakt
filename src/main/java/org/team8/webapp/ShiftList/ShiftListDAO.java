@@ -1,4 +1,4 @@
-package org.team8.webapp.Shift_list;
+package org.team8.webapp.ShiftList;
 
 import org.team8.webapp.Database.DatabaseManagement;
 
@@ -13,9 +13,9 @@ import java.util.ArrayList;
 * Edited by Mr_Easter on 12/01/2017.
 */
 
-public class Shift_listDAO extends DatabaseManagement{
+public class ShiftListDAO extends DatabaseManagement{
 
-    public Shift_listDAO () {
+    public ShiftListDAO () {
         super();
     }
 
@@ -23,8 +23,8 @@ public class Shift_listDAO extends DatabaseManagement{
     PreparedStatement prep = null;
     ResultSet res = null;
 
-    public ArrayList<Shift_list> getShiftLists(){
-        ArrayList<Shift_list> out = new ArrayList<Shift_list>();
+    public ArrayList<ShiftList> getShiftLists(){
+        ArrayList<ShiftList> out = new ArrayList<ShiftList>();
         if(setUp()){
             try {
                 conn = getConnection();
@@ -45,12 +45,12 @@ public class Shift_listDAO extends DatabaseManagement{
         return out;
     }
 
-    public Shift_list getShiftListById(String user_id, int shift_id){
-        Shift_list out = null;
+    public ShiftList getShiftListById(String user_id, int shift_id){
+        ShiftList out = null;
         if(setUp()){
             try {
                 conn = getConnection();
-                prep = conn.prepareStatement("SELECT * FROM Shift_list WHERE user_id =  AND shift_id = ?;");
+                prep = conn.prepareStatement("SELECT * FROM Shift_list WHERE user_id=? AND shift_id=?;");
                 prep.setString(1, user_id);
                 prep.setInt(2, shift_id);
                 res = prep.executeQuery();
@@ -69,7 +69,7 @@ public class Shift_listDAO extends DatabaseManagement{
         return out;
     }
 
-    public boolean createShiftlist(Shift_list s_l){
+    public boolean createShiftlist(ShiftList s_l){
         int numb = 0;
         if(setUp()){
             try {
@@ -94,7 +94,7 @@ public class Shift_listDAO extends DatabaseManagement{
         return numb > 0;
     }
 
-    public boolean updateShiftlist(Shift_list s_l){
+    public boolean updateShiftlist(ShiftList s_l){
         int numb = 0;
         if(setUp()) {
             try {
@@ -142,8 +142,8 @@ public class Shift_listDAO extends DatabaseManagement{
         }
         return numb > 0;
     }
-    protected Shift_list processRow(ResultSet res) throws SQLException {
-        Shift_list s_l = new Shift_list();
+    protected ShiftList processRow(ResultSet res) throws SQLException {
+        ShiftList s_l = new ShiftList();
         s_l.setUser_id(res.getString("user_id"));
         s_l.setShift_id(res.getInt("shift_id"));
         s_l.setOn_duty(res.getBoolean("on_duty"));
