@@ -8,9 +8,10 @@ import java.sql.SQLException;
  */
 public class TravisDbConnection {
     private final String username = "travis";
+    private final String password = "";
     private final String databasedriver = "com.mysql.cj.jdbc.Driver";
     private final String databasename = "jdbc:mysql://127.0.0.1/" + username +
-            "?user=" + username;
+            "?user=" + username + "&password=" + password;
     private Connection connection = null;
 
 
