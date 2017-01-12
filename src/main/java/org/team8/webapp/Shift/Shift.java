@@ -15,6 +15,19 @@ public class Shift {
     private Date my_date;
     private int deviance;
 
+    public Shift(){}
+
+    public Shift(int shift_id, int hours, int start_time, int end_time, String user_id, boolean on_duty, Date my_date, int deviance) {
+        this.shift_id = shift_id;
+        this.hours = hours;
+        this.start_time = start_time;
+        this.end_time = end_time;
+        this.user_id = user_id;
+        this.on_duty = on_duty;
+        this.my_date = my_date;
+        this.deviance = deviance;
+    }
+
     public int getShiftId() {
         return shift_id;
     }

@@ -141,7 +141,9 @@ public class ShiftDAO extends DatabaseManagement {
     }
 
     protected Shift processRow(ResultSet res) throws SQLException {
+        //res.getInt("shift_id"), res.getInt("hours"), res.getInt("start_time"), res.getInt("end_time"), res.getString("user_id"), res.getBoolean("on_duty"), res.getDate("my_date"), res.getInt("deviance")
         Shift s = new Shift();
+
         s.setShiftId(res.getInt("shift_id"));
         s.setHours(res.getInt("hours"));
         s.setStartTime(res.getInt("start_time"));
@@ -150,6 +152,7 @@ public class ShiftDAO extends DatabaseManagement {
         s.setOnDuty(res.getBoolean("on_duty"));
         s.setMyDate(res.getDate("my_date"));
         s.setDeviance(res.getInt("deviance"));
+
         return s;
     }
 }

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>testTable</title>
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <!-- user-defined styles and scripts -->
+        <script src="js/testTable.js"></script>
+        <link rel="stylesheet" href="css/testTable.css">
+
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="panel panel-primary filterable">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Employees</h3>
+                        <div class="pull-right">
+                            <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
+                            <button class="btn btn-default btn-xs" id="createUser"><span class="glyphicon"></span> Create</button>
+                            <button class="btn btn-default btn-xs" id="updateUser"><span class="glyphicon"></span> Update</button>
+                            <button class="btn btn-default btn-xs" id="removeUser"><span class="glyphicon"></span> Remove</button>
+                        </div>
+                    </div>
+                    <table class="table" id="testTable">
+                        <thead>
+                        <tr class="filters">
+                            <th></th>
+                            <th><input type="text" class="form-control" placeholder="#" disabled></th>
+                            <th><input type="text" class="form-control" placeholder="First Name" disabled></th>
+                            <th><input type="text" class="form-control" placeholder="Last Name" disabled></th>
+                            <th><input type="text" class="form-control" placeholder="Username" disabled></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <!-- data from db will be filled in here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

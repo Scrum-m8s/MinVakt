@@ -67,14 +67,14 @@ public class UserDAO extends DatabaseManagement {
         return out;
     }
 
-    public boolean createUser(User e) {
+    public boolean createUser(User u) {
         int numb = 0;
         if(setUp()){
             try {
                 conn = getConnection();
                 prep = conn.prepareStatement("INSERT INTO User (user_id, password) VALUES (?, ?);");
-                prep.setString(1, e.getUserId());
-                prep.setString(2, e.getPassword());
+                prep.setString(1, u.getUserId());
+                prep.setString(2, u.getPassword());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
@@ -89,15 +89,15 @@ public class UserDAO extends DatabaseManagement {
         return numb > 0;
     }
 
-    public boolean updateUser(User e) {
+    public boolean updateUser(User u) {
         int numb = 0;
         if(setUp()) {
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
                 prep = conn.prepareStatement("UPDATE User SET password=? WHERE user_id=?;");
-                prep.setString(1, e.getPassword());
-                prep.setString(2, e.getUserId());
+                prep.setString(1, u.getPassword());
+                prep.setString(2, u.getUserId());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
@@ -135,9 +135,12 @@ public class UserDAO extends DatabaseManagement {
     }
 
     protected User processRow(ResultSet res) throws SQLException {
-        User e = new User();
-        e.setUserId(res.getString("user_id"));
-        e.setPassword(res.getString("password"));
-        return e;
+        //res.getString("user_id"), res.getString("password")
+        User u = new User();
+
+        u.setUserId(res.getString("user_id"));
+        u.setPassword(res.getString("password"));
+
+        return u;
     }
 }

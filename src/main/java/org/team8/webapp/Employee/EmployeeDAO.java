@@ -144,13 +144,16 @@ public class EmployeeDAO extends DatabaseManagement {
     }
 
     protected Employee processRow(ResultSet res) throws SQLException {
+        //res.getString("user_id"), res.getString("firstname"), res.getString("surname"), res.getString("email"), res.getString("phone_number"), res.getInt("category")
         Employee e = new Employee();
+
         e.setUserId(res.getString("user_id"));
         e.setFirstname(res.getString("firstname"));
         e.setSurname(res.getString("surname"));
         e.setEmail(res.getString("email"));
         e.setPhoneNumber(res.getString("phone_number"));
         e.setCategory(res.getInt("category"));
+
         return e;
     }
 }
