@@ -51,7 +51,7 @@ public class MinvaktLoginModule implements LoginModule {
             user.setUserId(name);
             user.setPassword(password);
 
-            if(validateCredentials(user)){
+            if(validateCredentials(user) > -1){
                 login = name;
                 userGroups = new ArrayList<String>();
                 userGroups.add("employee");
