@@ -2,12 +2,13 @@ package org.team8.webapp.Busy;
 
 /**
  * Created by Nina on 12.01.2017.
+ * Edited by Mr_Easter on 13.01.2017
  */
 
 import java.sql.Date;
 public class Busy {
     private String user_id;
-    private int shiftID;
+    private int shift_id;
     private Date my_date;
 
     public String getUserId() {
@@ -19,11 +20,11 @@ public class Busy {
     }
 
     public int getShiftId(){
-        return shiftID;
+        return shift_id;
     }
 
-    public void setShift_Id(int shiftID){
-        this.shiftID = shiftID;
+    public void setShiftId(int shift_id){
+        this.shift_id = shift_id;
     }
 
     public Date getMyDate(){
