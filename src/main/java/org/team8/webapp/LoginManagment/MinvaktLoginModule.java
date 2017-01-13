@@ -47,14 +47,14 @@ public class MinvaktLoginModule implements LoginModule {
             String name = ((NameCallback) callbacks[0]).getName();
             String password = String.valueOf(((PasswordCallback)callbacks[1]).getPassword());
 
-            User u = new User();
-            u.setUserId(name);
-            u.setPassword(password);
+            User user = new User();
+            user.setUserId(name);
+            user.setPassword(password);
 
-            if(validateCredentials(u)){
+            if(validateCredentials(user)){
                 login = name;
                 userGroups = new ArrayList<String>();
-                userGroups.add("admin");
+                userGroups.add("employee");
                 return true;
             }
 
