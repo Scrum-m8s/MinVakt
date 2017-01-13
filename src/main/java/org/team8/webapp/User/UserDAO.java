@@ -112,6 +112,29 @@ public class UserDAO extends DatabaseManagement {
         return numb > 0;
     }
 
+    public boolean updateRole(User e) {
+        int numb = 0;
+        if(setUp()) {
+            try {
+                conn = getConnection();
+                conn.setAutoCommit(false);
+                prep = conn.prepareStatement("UPDATE User SET role=? WHERE user_id=?;");
+                prep.setInt(1, e.getRole());
+                prep.setString(2, e.getUserId());
+                numb = prep.executeUpdate();
+            }
+            catch (SQLException sqle) {
+                System.err.println("Issue with updating role.");
+                rollbackStatement();
+                return false;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return numb > 0;
+    }
+
     public boolean removeUser(String id) {
         int numb = 0;
         if(setUp()) {
