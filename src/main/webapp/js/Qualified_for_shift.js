@@ -34,4 +34,4 @@ $(document).ready(function() {
             { data: 'tid'}
         ]
     });
-}
+});

@@ -26,19 +26,11 @@ public class User {
         this.password = password;
     }
 
-    public String getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
-    }
-
     public int getRole() {
         return role;
     }
 
-    public void setUserRole(int role) {
+    public void setRole(int role) {
         this.role = role;
     }
 }

@@ -72,9 +72,10 @@ public class UserDAO extends DatabaseManagement {
         if(setUp()){
             try {
                 conn = getConnection();
-                prep = conn.prepareStatement("INSERT INTO User (user_id, password) VALUES (?, ?);");
+                prep = conn.prepareStatement("INSERT INTO User (user_id, password, role) VALUES (?, ?, ?);");
                 prep.setString(1, e.getUserId());
                 prep.setString(2, e.getPassword());
+                prep.setInt(3, e.getRole());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
@@ -95,9 +96,10 @@ public class UserDAO extends DatabaseManagement {
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
-                prep = conn.prepareStatement("UPDATE User SET password=? WHERE user_id=?;");
+                prep = conn.prepareStatement("UPDATE User SET password=?, role = ? WHERE user_id=?;");
                 prep.setString(1, e.getPassword());
-                prep.setString(2, e.getUserId());
+                prep.setInt(2, e.getRole());
+                prep.setString(3, e.getUserId());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
@@ -161,6 +163,7 @@ public class UserDAO extends DatabaseManagement {
         User e = new User();
         e.setUserId(res.getString("user_id"));
         e.setPassword(res.getString("password"));
+        e.setRole(res.getInt("role"));
         return e;
     }
 }
