@@ -19,18 +19,18 @@ public class LoginCheckTest {
         u.setUserId("canders");
         u.setPassword("Anders123");
 
-        assertTrue(validateCredentials(u));
+        assertTrue(validateCredentials(u) > -1);
 
         // Feil passord
         u.setPassword("aksjbfhjjh");
 
-        assertFalse(validateCredentials(u));
+        assertFalse(validateCredentials(u) > -1);
 
         // Finnes ikke i databasen
         u.setUserId("aslflbaglb");
         u.setPassword("Anders123");
 
-        assertFalse(validateCredentials(u));
+        assertFalse(validateCredentials(u) > -1);
 
     }
 }
