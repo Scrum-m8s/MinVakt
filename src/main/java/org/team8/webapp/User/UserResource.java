@@ -50,7 +50,7 @@ public class UserResource {
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean updateRole(User e) {
         System.out.println("updateRole");
-        return dao.updateUser(e);
+        return dao.updateRole(e);
     }
 
     @Path("{id}")

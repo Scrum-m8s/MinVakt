@@ -161,6 +161,7 @@ public class UserDAO extends DatabaseManagement {
         User e = new User();
         e.setUserId(res.getString("user_id"));
         e.setPassword(res.getString("password"));
+        e.setUserRole(res.getInt("role"));
         return e;
     }
 }

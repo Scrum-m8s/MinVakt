@@ -10,9 +10,29 @@ function drawTable(data) {
     drawRow(data[i]);
 }
 
+function formatCategory(user_id, category){
+    var cat;
+    if(category == 1){
+        cat = "Sykepleier ";
+    }else if(type == 2){
+        cat = "Helsefagarbeider ";
+    }else if(type == 3){
+        cat = "Assistent ";
+    }
+    if(fish == 1){
+        name = name + "Salmon";
+    }else if(fish == 2){
+        name = name + "Tuna";
+    }else if (fish == 3){
+        name = name + "Shrimp";
+    }
+    return name;
+}
+
 function drawRow(rowData) {
     var row = $("<tr />");
     $("#qualifiedTable").append(row); //this will append tr element to table
+    if(rowData.category == 1)
     if(rowData.type !== 99){
         row.append($("<td id='sushi11'>" + formatSushi(rowData.type, rowData.fish) + "</td>"));
         row.append($("<td>" + rowData.price + "</td>"));
@@ -27,11 +47,9 @@ $(document).ready(function() {
             dataSrc: ''
         },
         columns: [
-            { data: '' },
-            { data: 'parkeringsplass'},
-            { data: 'batteri'},
-            { data: 'ledig'},
-            { data: 'tid'}
+            { data: 'firstname' },
+            { data: 'surname'},
+            { data: 'role'}
         ]
     });
-}
+})
