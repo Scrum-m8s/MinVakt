@@ -44,6 +44,15 @@ public class UserResource {
         return dao.updateUser(e);
     }
 
+    @Path("{role}")
+    @PUT
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public boolean updateRole(User e) {
+        System.out.println("updateRole");
+        return dao.updateUser(e);
+    }
+
     @Path("{id}")
     @DELETE
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
