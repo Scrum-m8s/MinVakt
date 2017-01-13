@@ -62,6 +62,28 @@ public class BusyDAO extends DatabaseManagement {
         return out;
     }
 
+    public boolean removeBusy(String user_id) {
+        int numb = 0;
+        if(setUp()) {
+            try {
+                conn = getConnection();
+                conn.setAutoCommit(false);
+                prep = conn.prepareStatement("DELETE FROM Busy WHERE user_id=?;");
+                prep.setString(1, user_id);
+                numb = prep.executeUpdate();
+            }
+            catch (SQLException sqle) {
+                System.err.println("Issue with removing busy.");
+                rollbackStatement();
+                return false;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return numb > 0;
+    }
+
     public Busy getBusyByShiftId(int shiftID){
         Busy out = null;
         if(setUp()){
@@ -134,7 +156,7 @@ public class BusyDAO extends DatabaseManagement {
     protected Busy processRow(ResultSet res) throws SQLException {
         Busy b = new Busy();
         b.setUserId(res.getString("user_id"));
-        b.setShift_Id(res.getInt("shiftID"));
+        b.setShift_Id(res.getInt("shift_id"));
         b.setMyDate(res.getDate("my_date"));
         return b;
     }

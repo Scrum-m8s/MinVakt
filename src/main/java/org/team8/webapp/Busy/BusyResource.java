@@ -4,9 +4,6 @@ package org.team8.webapp.Busy;
  * Created by Nina on 12.01.2017.
  */
 
-import org.team8.webapp.Employee.Employee;
-import org.team8.webapp.User.User;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
@@ -21,7 +18,8 @@ public class BusyResource{
             System.out.println("getBusy");
             return dao.getAllBusy();
         }
-        @Path("{user_id}")
+
+        @Path("user/{user_id}")
         @GET
         @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
         public Busy getBusyByUserId(@PathParam("user_id") String user_id) {
@@ -29,7 +27,7 @@ public class BusyResource{
             return dao.getBusyByUserId(user_id);
         }
 
-        @Path("{busy_id}")
+        @Path("shift/{busy_id}")
         @GET
         @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
         public Busy getBusyByShiftId(@PathParam("busy_id") int shiftID) {
@@ -44,4 +42,11 @@ public class BusyResource{
         System.out.println("createBusy");
         return dao.createBusy(b);
         }
+
+        @Path("{user_id}")
+        @DELETE
+        @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+        public void removeBusy(@PathParam("user_id") String user_id) {
+        dao.removeBusy(user_id);
+    }
 }
