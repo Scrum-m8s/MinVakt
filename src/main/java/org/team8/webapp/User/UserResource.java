@@ -44,7 +44,7 @@ public class UserResource {
         return dao.updateUser(e);
     }
 
-    @Path("{role}")
+    @Path("updateRole/{role}")
     @PUT
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})

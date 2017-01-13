@@ -10,23 +10,17 @@ function drawTable(data) {
     drawRow(data[i]);
 }
 
-function formatCategory(user_id, category){
+function formatCategory(category){
     var cat;
     if(category == 1){
         cat = "Sykepleier ";
-    }else if(type == 2){
+    }else if(category == 2){
         cat = "Helsefagarbeider ";
-    }else if(type == 3){
+    }else if(category == 3){
         cat = "Assistent ";
     }
-    if(fish == 1){
-        name = name + "Salmon";
-    }else if(fish == 2){
-        name = name + "Tuna";
-    }else if (fish == 3){
-        name = name + "Shrimp";
-    }
-    return name;
+
+
 }
 
 function drawRow(rowData) {

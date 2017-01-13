@@ -39,7 +39,7 @@ public class EmployeeResource {
     @PUT
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public boolean updateEmplyee(Employee e) {
+    public boolean updateEmployee(Employee e) {
         System.out.println("updateEmployee");
         return dao.updateEmployee(e);
     }
