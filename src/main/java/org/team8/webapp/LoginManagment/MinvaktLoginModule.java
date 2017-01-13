@@ -18,6 +18,9 @@ import static org.team8.webapp.LoginManagment.LoginCheck.validateCredentials;
  */
 public class MinvaktLoginModule implements LoginModule {
 
+    public static final int ROLE_ADMIN = 0;
+    public static final int ROLE_EMPLOYEE = 1;
+
     private CallbackHandler handler;
     private Subject subject;
     private UserPrincipal userPrincipal;
@@ -51,10 +54,18 @@ public class MinvaktLoginModule implements LoginModule {
             user.setUserId(name);
             user.setPassword(password);
 
-            if(validateCredentials(user) > -1){
+            int userRole = validateCredentials(user);
+
+            if(userRole > -1){
                 login = name;
                 userGroups = new ArrayList<String>();
-                userGroups.add("employee");
+
+                if(ROLE_ADMIN == userRole){
+                    userGroups.add("admin");
+                }else{
+                    userGroups.add("employee");
+                }
+
                 return true;
             }
 
