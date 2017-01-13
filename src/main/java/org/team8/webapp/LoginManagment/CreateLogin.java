@@ -16,14 +16,14 @@ public class CreateLogin {
 
     public UserDAO dbUser = new UserDAO();
 
-    public int signUp(User user){
+    public boolean signUp(User user){
 
         String userName = user.getUserId();
         String password = user.getPassword();
 
         // Hvis brukernavn allerede eksisterer
         if(dbUser.getUserById(userName) != null){
-            return -1;
+            return false;
         }
 
         byte[] salt = generateSalt();
@@ -34,10 +34,8 @@ public class CreateLogin {
 
         user.setPassword(hashedPasswordString+saltString);
 
-        dbUser.createUser(user);
+        return dbUser.createUser(user);
 
-        // TODO: Endre returtype?
-        return 1;
     }
 
     public static void main(String[] args){
@@ -45,7 +43,8 @@ public class CreateLogin {
         User u = new User();
         u.setUserId("canders");
         u.setPassword("Anders123");
-        int s = c.signUp(u);
+        u.setRole(0);
+        boolean s = c.signUp(u);
 
         System.out.println(s);
     }
