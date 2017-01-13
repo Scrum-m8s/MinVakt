@@ -18,13 +18,13 @@ public class LoginCheck {
     // Midlertidig til REST service er implementert
     public static UserDAO dbUser = new UserDAO();
 
-    // Tar brukernavn og passord, skal returnere token hvis lykkes, ellers -1
-    public static boolean validateCredentials(User user) {
+    // Tar brukernavn og passord, skal returnere brukerrolle hvis lykkes, ellers -1
+    public static int validateCredentials(User user) {
 
         User databaseUser = dbUser.getUserById(user.getUserId());
 
         if (databaseUser == null) {
-            return false;
+            return -1;
         } else {
 
             String hashAndSalt = databaseUser.getPassword();
@@ -33,16 +33,19 @@ public class LoginCheck {
 
             byte[] passwordHash = hashPassword(user.getPassword().toCharArray(), salt);
 
-            return Arrays.equals(hash, passwordHash);
-
+            if(Arrays.equals(hash, passwordHash)){
+                return databaseUser.getRole();
+            }else{
+                return -1;
+            }
         }
     }
 
     public static void main(String[] args){
         User u = new User();
-        u.setUserId("canders");
-        u.setPassword("Anders123");
-        boolean i = validateCredentials(u);
+        u.setUserId("admin");
+        u.setPassword("123");
+        int i = validateCredentials(u);
         System.out.println(i);
     }
 }
