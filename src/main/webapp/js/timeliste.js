@@ -5,55 +5,39 @@ relevant informasjon om vakten
 fargekode vaktene etter type vakt. feks gul = dag, mørkeblå = natt og grønn = kveld
  */
 
-$(document).ready(initialize());
+$(document).ready(function initialize() {
 
-//current date
-var currd = new Date();
-var mnd = currd.getMonth();
+    var currd = new Date();
+    var mnd = currd.getMonth();
 
 //get week of the year by date
-Date.prototype.getWeek = function() {
-    var onejan = new Date(this.getFullYear(),0,1);
-    var millisecsInDay = 86400000; // 1000*60*60*24 ms-s-min-hr
-    return Math.ceil((((this - onejan) /millisecsInDay) + onejan.getDay()+1)/7);
-};
+    Date.prototype.getWeek = function() {
+        var onejan = new Date(this.getFullYear(),0,1);
+        var millisecsInDay = 86400000; // 1000*60*60*24 ms-s-min-hr
+        return Math.ceil((((this - onejan) /millisecsInDay) + onejan.getDay()+1)/7);
+    };
 
 //get first day of current month to know when to initialize calendar
-var first = new Date(currd.getFullYear(), mnd,1);
-var firstWeek = first.getWeek();
+    var first = new Date(currd.getFullYear(), mnd,1);
+    var firstWeek = first.getWeek();
+
 
 //id of first element on each row in timeliste grid
-var calid = [
-    "r1c1",
-    "r2c1",
-    "r3c1",
-    "r4c1",
-    "r5c1",
-    "r6c1",
-    "r71c1"
-];
+    var calid = ["r2c1", "r3c1", "r4c1", "r5c1", "r6c1", "r7c1", "r8c1"];
 
-function initialize() {
-    /*var cal = [
-      [0, 1, 2, 3, 4, 5, 6, 7],
-      [0, 1, 2, 3, 4, 5, 6, 7],
-      [0, 1, 2, 3, 4, 5, 6, 7],
-      [0, 1, 2, 3, 4, 5, 6, 7],
-      [0, 1, 2, 3, 4, 5, 6, 7],
-      [0, 1, 2, 3, 4, 5, 6, 7],
-      [0, 1, 2, 3, 4, 5, 6, 7]
-    ];*/
-
-    for (var j = 0; j < 6; ++j) {
+    for (var j = 0; j < calid.length; ++j) {
         var newDiv = document.createElement("div");
         var newContent = document.createTextNode(firstWeek + j);
         newDiv.appendChild(newContent); //add the text node to newly created div
 
         // add the newly created element and its content into the DOM
-        var currentDiv = document.getElementById(calid[j + 1].toString());
-        document.body.insertBefore(newDiv, currentDiv);
+        var currentDiv = document.getElementById(calid[j]);
+        currentDiv.insertBefore(newDiv, null);
     }
-}
+
+});
+
+
 
 /*
 /*
@@ -113,3 +97,13 @@ function selectVakt(vaktID){
 
 }
 */
+
+/*var cal = [
+ [0, 1, 2, 3, 4, 5, 6, 7],
+ [0, 1, 2, 3, 4, 5, 6, 7],
+ [0, 1, 2, 3, 4, 5, 6, 7],
+ [0, 1, 2, 3, 4, 5, 6, 7],
+ [0, 1, 2, 3, 4, 5, 6, 7],
+ [0, 1, 2, 3, 4, 5, 6, 7],
+ [0, 1, 2, 3, 4, 5, 6, 7]
+ ];*/
