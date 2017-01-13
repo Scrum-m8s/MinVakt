@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/layout.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css">
+    <script src="employees.js" type="text/javascript"></script>
     <title>Ny bruker</title>
 </head>
 <body>
@@ -19,17 +24,32 @@
     <li><a href = "godkjenne_vaktbytte.html">Ønsker om vaktbytte</a></li>
 </ul>
 
+<div class="tab-pane" id="EmployeeTab">
+    <table id="employeeTable">
+        <thead>
+        <tr>
+            <th>Fornavn</th>
+            <th>Etternavn</th>
+            <th>Telefon</th>
+            <th>Epost</th>
+            <th>Kategori</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+
 <div class="content">
     <h1>Opprett ny bruker</h1>
     <form action=""> <!-- knappen må skrive informasjon fra feltene til DB -->
-        Fornavn: <input type="text" name="fornavn"><br>
-        Etternavn: <input type="text" name="etternavn"><br>
-        Telefon: <input type="text" name="tlf"><br>
-        Epost: <input type="text" name="epost"><br>
-        Stilling: <input type="text" name="stilling"><br>
-        <input type="submit" value="Registrer">
+        Fornavn: <input type="text" id="new_firstname" name="fornavn"><br>
+        Etternavn: <input type="text"id="new_surname" name="etternavn"><br>
+        Telefon: <input type="text" id="new_phone_number" name="tlf"><br>
+        Epost: <input type="text" id="new_email" name="epost"><br>
+        Stilling: <input type="text" id="new_category" name="stilling"><br>
+        <input type="submit" value="Registrer" id="createEmployee">
     </form>
 </div>
+
 
 
 </body>
