@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="Bootstrap-3.3.6/css/bootstrap.min.css">
-
-    <script src="Bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
     <script src="js/jquery-3.1.0.min.js"></script>
-
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/dt-1.10.13/b-1.2.4/b-colvis-1.2.4/b-print-1.2.4/r-2.1.0/se-1.2.0/datatables.min.js"></script>
+    <script src="Bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script src="js/List_employees.js"></script>
     <title>Oversikt over ansatte</title>
 </head>
 <body>
@@ -26,20 +27,25 @@
 
     <div class="content">
         <h1>Oversikt over ansatte</h1>
-        <table class="table">
-            <tr>
-                <th>Fornavn</th>
-                <th>Etternavn</th>
-                <th>Kontaktinformasjon</th>
-                <th>Stilling</th>
-            </tr>
+        <table id="table_employees" class="stripe hover" width="100%">
+            <thead>
+                <tr>
+                    <th>Etternavn</th>
+                    <th>Fornavn</th>
+                    <th>Telefon</th>
+                    <th>Epost</th>
+                    <th>Stilling</th>
+                </tr>
+            </thead>
         </table>
+
+
         <div class="dropdown">
             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Rediger
                 <span class="caret"></span></button>
             <ul class="dropdown-menu">
-                <li><a href="#">Fornavn</a></li>
                 <li><a href="#">Etternavn</a></li>
+                <li><a href="#">Fornavn</a></li>
                 <li><a href="#">Kontaktinformasjon</a></li>
                 <li><a href="#">Stilling</a></li>
             </ul>
