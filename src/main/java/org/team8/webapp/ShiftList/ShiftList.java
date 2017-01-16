@@ -1,12 +1,11 @@
-package org.team8.webapp.Shift_list;
+package org.team8.webapp.ShiftList;
 
-import javax.xml.bind.annotation.XmlRootElement;
 import java.sql.Date;
 /**
  * Created by mariyashchekanenko on 12/01/2017.
+ * Edited by Mr_Easter on 12/01/2017.
  */
-@XmlRootElement
-public class Shift_list {
+public class ShiftList {
     private String user_id;
     private int shift_id;
     private boolean on_duty;

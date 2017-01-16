@@ -1,11 +1,15 @@
 package org.team8.webapp.Busy;
-import org.team8.webapp.Database.DatabaseManagement;
-import org.team8.webapp.User.User;
 
-import java.sql.*;
+import org.team8.webapp.Database.DatabaseManagement;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 /**
  * Created by Nina on 12.01.2017.
+ * Edited by Mr_Easter on 12.01.2017
  */
 public class BusyDAO extends DatabaseManagement {
 
@@ -17,7 +21,7 @@ public class BusyDAO extends DatabaseManagement {
     PreparedStatement prep = null;
     ResultSet res = null;
 
-    public ArrayList<Busy> getAllBusy(){
+    public ArrayList<Busy> getBusy(){
         ArrayList<Busy> out = new ArrayList<Busy>();
         if(setUp()){
             try {
@@ -39,13 +43,14 @@ public class BusyDAO extends DatabaseManagement {
         return out;
     }
 
-    public Busy getBusyByUserId(String user_id){
+    public Busy getBusyByUserIdAndShiftId(String user_id, int shift_id){
         Busy out = null;
         if(setUp()){
             try {
                 conn = getConnection();
-                prep = conn.prepareStatement("SELECT * FROM Busy WHERE user_id = ?;");
+                prep = conn.prepareStatement("SELECT * FROM Busy WHERE user_id=? AND shift_id=?;");
                 prep.setString(1, user_id);
+                prep.setInt(2, shift_id);
                 res = prep.executeQuery();
                 if (res.next()){
                     out = processRow(res);
@@ -53,74 +58,6 @@ public class BusyDAO extends DatabaseManagement {
             }
             catch (SQLException sqle){
                 System.err.println("Issue with getting busy by id.");
-                return null;
-            }
-            finally {
-                finallyStatement(res, prep);
-            }
-        }
-        return out;
-    }
-
-    public boolean removeBusy(String user_id) {
-        int numb = 0;
-        if(setUp()) {
-            try {
-                conn = getConnection();
-                conn.setAutoCommit(false);
-                prep = conn.prepareStatement("DELETE FROM Busy WHERE user_id=?;");
-                prep.setString(1, user_id);
-                numb = prep.executeUpdate();
-            }
-            catch (SQLException sqle) {
-                System.err.println("Issue with removing busy.");
-                rollbackStatement();
-                return false;
-            }
-            finally {
-                finallyStatement(res, prep);
-            }
-        }
-        return numb > 0;
-    }
-
-    public Busy getBusyByShiftId(int shiftID){
-        Busy out = null;
-        if(setUp()){
-            try {
-                conn = getConnection();
-                prep = conn.prepareStatement("SELECT * FROM Busy WHERE Busy.shift_id = ?;");
-                prep.setInt(1, shiftID);
-                res = prep.executeQuery();
-                if (res.next()){
-                    out = processRow(res);
-                }
-            }
-            catch (SQLException sqle){
-                System.err.println("Issue with getting busy by shift id.");
-                return null;
-            }
-            finally {
-                finallyStatement(res, prep);
-            }
-        }
-        return out;
-    }
-
-    public Busy getBusyByDate(Date my_date){
-        Busy out = null;
-        if(setUp()){
-            try {
-                conn = getConnection();
-                prep = conn.prepareStatement("SELECT * FROM Busy WHERE my_date = ?;");
-                prep.setDate(1, my_date);
-                res = prep.executeQuery();
-                if (res.next()){
-                    out = processRow(res);
-                }
-            }
-            catch (SQLException sqle){
-                System.err.println("Issue with getting busy by date.");
                 return null;
             }
             finally {
@@ -152,11 +89,58 @@ public class BusyDAO extends DatabaseManagement {
         }
         return numb > 0;
     }
+    
+  public boolean updateBusy(Busy e) {
+        int numb = 0;
+        if(setUp()) {
+            try {
+                conn = getConnection();
+                conn.setAutoCommit(false);
+                prep = conn.prepareStatement("UPDATE Busy SET my_date=?,  WHERE user_id=? AND shift_id=?;");
+                prep.setDate(1, e.getMyDate());
+                prep.setString(2, e.getUserId());
+                prep.setInt(3, e.getShiftId());
+                numb = prep.executeUpdate();
+            }
+            catch (SQLException sqle) {
+                System.err.println("Issue with updating user.");
+                rollbackStatement();
+                return false;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return numb > 0;
+    }
 
+    public boolean removeBusy(String user_id, int shift_id){
+        int numb = 0;
+        if(setUp()) {
+            try {
+                conn = getConnection();
+                conn.setAutoCommit(false);
+                prep = conn.prepareStatement("DELETE FROM Busy WHERE user_id = ? AND shift_id = ?;");
+                prep.setString(1, user_id);
+                prep.setInt(2, shift_id);
+                numb = prep.executeUpdate();
+            }
+            catch (SQLException sqle) {
+                System.err.println("Issue with removing busy.");
+                rollbackStatement();
+                return false;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return numb > 0;
+    }
+    
     protected Busy processRow(ResultSet res) throws SQLException {
         Busy b = new Busy();
         b.setUserId(res.getString("user_id"));
-        b.setShift_Id(res.getInt("shift_id"));
+        b.setShiftId(res.getInt("shift_id"));
         b.setMyDate(res.getDate("my_date"));
         return b;
     }

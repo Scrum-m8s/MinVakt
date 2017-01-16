@@ -2,6 +2,7 @@ package org.team8.webapp.Busy;
 
 /**
  * Created by Nina on 12.01.2017.
+ * Edited by Mr_Easter on 12.01.2017
  */
 
 import javax.ws.rs.*;
@@ -16,23 +17,14 @@ public class BusyResource{
         @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
         public ArrayList<Busy> getBusy() {
             System.out.println("getBusy");
-            return dao.getAllBusy();
+            return dao.getBusy();
         }
-
-        @Path("user/{user_id}")
+        @Path("{user_id}/{shift_id}")
         @GET
         @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-        public Busy getBusyByUserId(@PathParam("user_id") String user_id) {
-            System.out.println("getBusyUserId: " + user_id);
-            return dao.getBusyByUserId(user_id);
-        }
-
-        @Path("shift/{busy_id}")
-        @GET
-        @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-        public Busy getBusyByShiftId(@PathParam("busy_id") int shiftID) {
-            System.out.println("getBusyShiftId: " + shiftID);
-            return dao.getBusyByShiftId(shiftID);
+        public Busy getBusyByUserId(@PathParam("user_id") String user_id, @PathParam("shift_id") int shift_id) {
+            System.out.println("getBusyUserId: " + user_id + " " + shift_id);
+            return dao.getBusyByUserIdAndShiftId(user_id,shift_id);
         }
 
         @POST
@@ -42,11 +34,11 @@ public class BusyResource{
         System.out.println("createBusy");
         return dao.createBusy(b);
         }
-
-        @Path("{user_id}")
+        
+        @Path("{user_id}/{shift_id}")
         @DELETE
         @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-        public void removeBusy(@PathParam("user_id") String user_id) {
-        dao.removeBusy(user_id);
+        public void removeBusy(@PathParam("user_id") String user_id, @PathParam("shift_id") int shift_id) {
+            dao.removeBusy(user_id, shift_id);
     }
 }
