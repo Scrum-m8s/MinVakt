@@ -4,7 +4,7 @@ sudo: required
 
 before_install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS testdb;'
-  - mysql -u root test < sql/db.sql
+  - mysql -u root test < sql/dummy.sql
 
 script:
   - mvn test
