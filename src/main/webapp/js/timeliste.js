@@ -25,21 +25,25 @@ $(document).ready(function initialize() {
     var firstWeek = first.getWeek();
 
 //creates an empty 6x8 grid with IDs
-    var currRow = document.getElementById("row1id");
-    for(var l = 1; l < 7; ++l){ //weeks
-        var newRow = document.createElement("div");
+    var newRow;
+    for(var l = 1; l < 7; ++l) { //weeks
+        newRow = document.createElement("div");
         newRow.className = "row";
-        newRow.setAttribute("id", "r" + l);
+        newRow.id = "r" + l;
+        document.getElementById("bscal").appendChild(newRow);
         for(var m = 1; m < 9; ++m){ //days
+            //insertbefore
             var newDateDiv = document.createElement("div");
             newDateDiv.className = "col-sm-1";
-            newDateDiv.setAttribute("id", "r" + l + "c" + m)
+            newDateDiv.setAttribute("id", "r" + l + "c" + m);
+            document.getElementById("r" + l).appendChild(newDateDiv);
         }
-        var newEndRow = document.createElement("div");
-        newEndRow.className = "col-sm-4";
-        currRow.insertBefore(newRow, null);
-        currRow = newRow;
+        var newEndCol = document.createElement("div");
+        newEndCol.className = "col-sm-4";
+        document.getElementById("r" + l).appendChild(newEndCol);
+
     }
+    //}
 
     var currentDay = first; //variable for counting days when looping through days of the month
     var currentWOM = 1; //variable for counting weeks when looping through days of the month
@@ -47,21 +51,20 @@ $(document).ready(function initialize() {
 //populate a div for each day of the month. last.getDate is the amount of days current month
     for(var k = 0; k < last.getDate(); ++k){
         var newDay = document.createElement("div");
-        var newDayContent = document.createTextNode((first + k).toDateString);
+        var newDayContent = document.createTextNode(currentDay.toDateString());
         newDay.appendChild(newDayContent);
 
         var currentDiv = document.getElementById("r" + (currentWOM) + "c" + (currentDay.getDay() + 1));
         currentDiv.insertBefore(newDay, null);
         //update week of month
-        if(currentDay.getDay() == 6){
+        if(currentDay.getDay() == 0){
             ++currentWOM;
         }
         currentDay.setDate(currentDay.getDate() + 1); //increment currentDay -> tomorrow
     }
 });
 
-    /*
-
+/*
 //generate the week numbers and insert them in the grid
 //TODO: make sure week 1 is whole (1/1 could be part of week 52)
     for (var j = 0; j < c1id.length; ++j) {
