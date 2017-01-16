@@ -5,7 +5,9 @@ import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.SecurityContext;
 
 /**
  * Created by espen on 12.01.2017.
@@ -16,8 +18,8 @@ public class DummyPrivilegedResource {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String displayPrivilegedText(){
-        return "You have general user privilege";
+    public String displayPrivilegedText(@Context SecurityContext sc){
+        return "Hello, "+ sc.getUserPrincipal().getName() + ", you have general user privilege";
     }
 
     @RolesAllowed("admin")
