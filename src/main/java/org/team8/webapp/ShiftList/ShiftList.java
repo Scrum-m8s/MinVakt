@@ -12,6 +12,16 @@ public class ShiftList {
     private Date my_date;
     private int deviance;
 
+    public ShiftList() {}
+
+    public ShiftList(String user_id, int shift_id, boolean on_duty, Date my_date, int deviance) {
+        this.user_id = user_id;
+        this.shift_id = shift_id;
+        this.on_duty = on_duty;
+        this.my_date = my_date;
+        this.deviance = deviance;
+    }
+
     public String getUser_id() {
         return user_id;
     }

@@ -11,6 +11,15 @@ public class Shift {
     private int start_time;
     private int end_time;
 
+    public Shift(){}
+
+    public Shift(int shift_id, int hours, int start_time, int end_time) {
+        this.shift_id = shift_id;
+        this.hours = hours;
+        this.start_time = start_time;
+        this.end_time = end_time;
+    }
+
     public int getShiftId() {
         return shift_id;
     }
