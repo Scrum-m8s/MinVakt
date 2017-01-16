@@ -6,6 +6,7 @@ import org.team8.webapp.Busy.BusyDAO;
 import org.team8.webapp.Database.DatabaseManagement;
 import org.team8.webapp.Employee.Employee;
 import org.team8.webapp.Employee.EmployeeDAO;
+import org.team8.webapp.Shift.Shift;
 import org.team8.webapp.Shift.ShiftDAO;
 import org.team8.webapp.TimeList.TimeListDAO;
 import org.team8.webapp.User.User;
@@ -204,6 +205,57 @@ public class TestJUnitDB extends DatabaseManagement{
 
 
     //
+    //shift-test
+    //
+    @Test
+    public void getShifts(){
+        assertNotNull(shiftDAO.getShifts());
+    }
+
+    @Test
+    public void getShiftById() {
+        assertNotNull(shiftDAO.getShiftById(3));
+    }
+
+    @Test
+    public void createShift(){
+        Shift dummy = new Shift(4, 1, 1, 1);
+
+        try {
+            assertTrue(shiftDAO.createShift(dummy));
+        }
+        catch (Exception ex){
+            System.err.println("Issue with database connection.");
+            ex.printStackTrace();
+        }
+        finally {
+            //removing test data after tests to avoid clutter in database
+            String sql = "DELETE FROM Shift WHERE shift_id = '" + dummy.getShiftId() + "';";
+            testExecuteSQL(sql);
+        }
+    }
+  
+  @Test
+  public void updateShift() {
+        Shift dummy = new Shift(4, 1, 1, 1);
+        shiftDAO.createShift(dummy);
+
+        Shift updated = new Shift(4, 2, 2, 2);
+        assertTrue(shiftDAO.updateShift(updated));
+
+        shiftDAO.removeShift(updated.getShiftId());
+    }
+
+    @Test
+    public void removeShift(){
+        Shift dummy = new Shift(4, 1, 1, 1);
+        shiftDAO.createShift(dummy);
+
+        assertTrue(shiftDAO.removeShift(dummy.getShiftId()));
+    }
+  
+  
+    //
     //Busy-tests
     //
     @Test
@@ -213,8 +265,6 @@ public class TestJUnitDB extends DatabaseManagement{
 
     @Test
     public void getBusyByUserIdAndShiftId() {
-
-
         assertNotNull(busyDAO.getBusyByUserIdAndShiftId("haakonrp", 1));
     }
 
@@ -239,10 +289,9 @@ public class TestJUnitDB extends DatabaseManagement{
         finally {
             //removing test data after tests to avoid clutter in database
             String sql = "DELETE FROM Busy WHERE user_id = '" + user + "';";
-            testExecuteSQL(sql);
         }
     }
-
+  
     @Test
     public void updateBusy() {
         String username = "dummy";
@@ -274,5 +323,4 @@ public class TestJUnitDB extends DatabaseManagement{
 
         assertTrue(busyDAO.removeBusy(dummy.getUserId(), dummy.getShiftId()));
     }
-
 }

@@ -22,7 +22,7 @@ public class ShiftResource {
     @Path("{id}")
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Shift getEmployee(@PathParam("id") String id) {
+    public Shift getEmployee(@PathParam("id") int id) {
         System.out.println("getShiftById: " + id);
         return dao.getShiftById(id);
     }
@@ -47,7 +47,7 @@ public class ShiftResource {
     @Path("{id}")
     @DELETE
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public void removeShift(@PathParam("id") String id) {
+    public void removeShift(@PathParam("id") int id) {
         dao.removeShift(id);
     }
 }
