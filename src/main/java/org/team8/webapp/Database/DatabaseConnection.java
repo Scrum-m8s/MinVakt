@@ -13,7 +13,7 @@ public class DatabaseConnection {
     private final String databasedriver = "com.mysql.cj.jdbc.Driver";
     private final String username = TravisUtil.isTravis() ? "root" : "g_scrum08";
     private final String password = TravisUtil.isTravis() ? "" : "zAh9W2AO";
-    private final String databasename = TravisUtil.isTravis() ? "jbdc:mysql://localhost/g8_scrum_testdb" : "jdbc:mysql://mysql.stud.iie.ntnu.no:3306/";
+    private final String databasename = TravisUtil.isTravis() ? "jbdc:mysql://127.0.0.1/test" : "jdbc:mysql://mysql.stud.iie.ntnu.no:3306/";
 
     private Connection connection = null;
 
