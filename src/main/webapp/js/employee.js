@@ -5,7 +5,6 @@
 $(document).ready(function() {
 
     $('#EmployeeTable').DataTable({
-        //"order": [[ 1, "asc" ]],
         searching: false,
         paging: false,
         info: false,
@@ -24,36 +23,39 @@ $(document).ready(function() {
 
         ]
     });
-//registrer en ny ansatt
-    $("#registerEmployee").click(function () {
+    //rediger ansatt fungerer ikke
+    function editEmployee(user_id, fornavn, etternavn,telefon, epost, kategori) {
         $.ajax({
-            url: 'api/employees',
-            type: 'POST',
-            data: JSON.stringify({
-                user_id:$("#user_id").val(),
-                fornavn: $("#fornavn").val(),
-                etternavn: $("#etternavn").val(),
-                telefon: $("#telefon").val(),
-                epost: $("#epost").val(),
-                kategori: $("#kategori").val()
-            }),
+            url: 'api/employees' + $("#user_id").val(),
+            type: 'PUT',
+            data: '{"userId": "' + user_id + '", "fornavn" : "' + fornavn + '", "etternavn" : "' + etternavn + '", "telefon" : "' + telefon + '", "epost" : "' + epost + '", "kategori" : "' + kategori + '"}',
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
-            success: function(result) {
+            success: function (result) {
                 $('#EmployeeTable').DataTable().ajax.reload();
-                alert("Employee was registered");
-
             },
             error: function () {
                 alert("Something went wrong");
             }
         });
+    }
+    $("#editButton").click(function () {
+        var user_id = $("#user_id").val();
+        var fornavn = $("#fornavn").val();
+        var etternavn = $("#etternavn").val();
+        var telefon = $("#telefon").val();
+        var epost = $("#epost").val();
+        var kategori = $("#kategori").val();
+        v
+
+        editEmployee(user_id, fornavn, etternavn, telefon, epost, kategori);
+
     });
 
     // Slett
     $("#deleteEmployee").click(function () {
         $.ajax({
-            url: 'api/employees/' + $("#deleteEmployeeId").val(),
+            url: 'api/employees/' + $("#user_id").val(),
             type: 'DELETE',
             success: function(result) {
                 $('#EmployeeTable').DataTable().ajax.reload();
@@ -64,29 +66,5 @@ $(document).ready(function() {
         });
     });
 
-    // Rediger
-    $("#editEmployee").click(function () {
-        $.ajax({
-            url: 'api/employees' + $("#editEmployeeId").val(),
-            type: 'PUT',
-            data: JSON.stringify({
-                user_id:$("#edit_user_id").val(),
-                fornavn: $("#edit_fornavn").val(),
-                etternavn: $("#edit_etternavn").val(),
-                telefon: $("#edit_telefon").val(),
-                epost: $("#edit_epost").val(),
-                kategori: $("#edit_kategori").val()
-
-            }),
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            success: function(result) {
-                $('#EmployeeTable').DataTable().ajax.reload();
-            },
-            error: function () {
-                alert("Something went wrong");
-            }
-        });
-    });
 
 })

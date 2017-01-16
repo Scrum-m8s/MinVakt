@@ -15,10 +15,30 @@ $(document).ready(function() {
                 { data: 'role' }
             ]
         });
+    $('#EmployeeTable').DataTable({
+        //"order": [[ 1, "asc" ]],
+        searching: false,
+        paging: false,
+        info: false,
+        ajax: {
+            url: 'api/employees',
+            dataSrc: ''
+
+        },
+        columns: [
+            {data: 'user_id'},
+            {data: 'fornavn'},
+            {data: 'etternavn'},
+            {data: 'telefon'},
+            {data: 'epost'},
+            {data: 'kategori'}
+
+        ]
+    });
 
 
-        function registerUser(user_id, password, role) {
-        var ok = false;
+        function registerUser(user_id, password, role, fornavn, etternavn, telefon, epost, kategori) {
+
         $.ajax({
             type: "POST",
             url: "api/users",
@@ -28,21 +48,37 @@ $(document).ready(function() {
             success: function (result) {
                 $('#UserTable').DataTable().ajax.reload();
                 alert("New user was registered");
-
             }
+            });
+            $.ajax({
+                url: 'api/employees',
+                type: 'POST',
+                data: '{"userId": "' + user_id + '", "fornavn" : "' + fornavn + '", "etternavn" : "' + etternavn + '", "telefon" : "' + telefon + '", "epost" : "' + epost + '", "kategori" : "' + kategori + '"}',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (result) {
+                    $('#EmployeeTable').DataTable().ajax.reload();
+                    alert("Employee was registered");
 
-        });
-    }
-
+                }
+            });
+        }
 
     $("#regButton").click(function () {
         var user_id = $("#user_id").val();
         var password = $("#password").val();
         var role = $("#role").val();
+        var fornavn = $("");
+        var etternavn = $("");
+        var telefon = $("");
+        var epost = $("");
+        var kategori = $("");
 
-        registerUser(user_id, password, role);
+        registerUser(user_id, password, role, fornavn, etternavn, telefon, epost, kategori);
 
     });
+
+
     // Slett
     $("#deleteUser").click(function () {
         $.ajax({
