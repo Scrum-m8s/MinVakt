@@ -42,10 +42,6 @@ public class LoginCheck {
     }
 
     public static void main(String[] args){
-        User u = new User();
-        u.setUserId("admin");
-        u.setPassword("123");
-        int i = validateCredentials(u);
-        System.out.println(i);
+
     }
 }
