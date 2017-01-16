@@ -22,16 +22,13 @@ $(document).ready(function() {
         $.ajax({
             type: "POST",
             url: "api/users",
-            data: '{"userId": "' + user_id + '", "password" : "' + password + '", "rolle" : "' + role + '"}',
+            data: '{"userId": "' + user_id + '", "password" : "' + password + '", "role" : "' + role + '"}',
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (result) {
                 $('#UserTable').DataTable().ajax.reload();
                 alert("New user was registered");
 
-            },
-            error: function () {
-                alert("Something went wrong");
             }
 
         });
