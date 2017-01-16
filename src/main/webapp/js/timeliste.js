@@ -26,11 +26,11 @@ $(document).ready(function initialize() {
 
 //creates an empty 6x8 grid with IDs
     var currRow = document.getElementById("row1id");
-    for(var l = 0; l < 6; ++l){
+    for(var l = 1; l < 7; ++l){ //weeks
         var newRow = document.createElement("div");
         newRow.className = "row";
         newRow.setAttribute("id", "r" + l);
-        for(var m = 0; m < 8; ++m){
+        for(var m = 1; m < 9; ++m){ //days
             var newDateDiv = document.createElement("div");
             newDateDiv.className = "col-sm-1";
             newDateDiv.setAttribute("id", "r" + l + "c" + m)
@@ -41,25 +41,26 @@ $(document).ready(function initialize() {
         currRow = newRow;
     }
 
-    var days = new Array(last.getDate()); // array containing the days of this month
-    var currentDay = new Date(); //variable for counting days when looping through days of the month
+    var currentDay = first; //variable for counting days when looping through days of the month
+    var currentWOM = 1; //variable for counting weeks when looping through days of the month
 
-    //generate a div for each day of the month. last.getDate is the amount of days current month
+//populate a div for each day of the month. last.getDate is the amount of days current month
     for(var k = 0; k < last.getDate(); ++k){
         var newDay = document.createElement("div");
-        var newDateContent = document.createTextNode(first.toDateString());
+        var newDayContent = document.createTextNode((first + k).toDateString);
+        newDay.appendChild(newDayContent);
 
-        newDateDiv.appendChild(newDateContent);
-        days[k] = newDateDiv;
+        var currentDiv = document.getElementById("r" + (currentWOM) + "c" + (currentDay.getDay() + 1));
+        currentDiv.insertBefore(newDay, null);
+        //update week of month
+        if(currentDay.getDay() == 6){
+            ++currentWOM;
+        }
         currentDay.setDate(currentDay.getDate() + 1); //increment currentDay -> tomorrow
     }
+});
 
     /*
-     this inserts into existing div:
-     var currentShift = document.getElementById(); //[week][day]
-     currentShift.insertBefore(newShiftDiv, null);
-     */
-
 
 //generate the week numbers and insert them in the grid
 //TODO: make sure week 1 is whole (1/1 could be part of week 52)
@@ -69,8 +70,8 @@ $(document).ready(function initialize() {
         newDiv.appendChild(newContent); //add the text node to newly created div
 
         // add the newly created element and its content into the DOM
-        var currentDiv = document.getElementById(grID[j][0]);
-        currentDiv.insertBefore(newDiv, null);
+        var currentDiv2 = document.getElementById(grID[j][0]);
+        currentDiv2.insertBefore(newDiv, null);
     }
 
 //fetch the shifts for this user and insert into correct dates in the calendar
