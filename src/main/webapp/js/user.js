@@ -1,32 +1,32 @@
 /**
  * Created by mariyashchekanenko on 13/01/2017.
  */
-/*
+
 $(document).ready(function() {
 
-        $('#myTable').DataTable( {
+        $('#UserTable').DataTable( {
             ajax: {
                 url: 'api/users',
                 dataSrc: ''
             },
             columns: [
                 { data: 'user_id' },
-                { data: 'password1' },
+                { data: 'password' },
                 { data: 'role' }
             ]
         });
 
 
-        function registerUser(user_id, password1, role) {
+        function registerUser(user_id, password, role) {
         var ok = false;
         $.ajax({
             type: "POST",
             url: "api/users",
-            data: '{"userId": "' + user_id + '", "password" : "' + password1 + '", "rolle" : "' + role + '"}',
+            data: '{"userId": "' + user_id + '", "password" : "' + password + '", "rolle" : "' + role + '"}',
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (result) {
-                ok = true;
+                $('#UserTable').DataTable().ajax.reload();
                 alert("New user was registered");
 
             },
@@ -40,57 +40,12 @@ $(document).ready(function() {
 
     $("#regButton").click(function () {
         var user_id = $("#user_id").val();
-        var password1 = $("#password1").val();
+        var password = $("#password").val();
         var role = $("#role").val();
 
-        registerUser(user_id, password1, role);
+        registerUser(user_id, password, role);
 
     });
-});
-
-*/
-
-$(document).ready(function() {
-
-    $('#UserTable').DataTable({
-        //"order": [[ 1, "asc" ]],
-        searching: false,
-        paging: false,
-        info: false,
-        ajax: {
-            url: 'api/users',
-            dataSrc: ''
-
-        },
-        columns: [
-            {data: 'user_id'},
-            {data: 'password'},
-            {data: 'role'}
-
-        ]
-    });
-
-    $("#registerUser").click(function () {
-        $.ajax({
-            url: 'api/users',
-            type: 'POST',
-            data: JSON.stringify({
-                user_id: $("#user_id").val(),
-                password: $("#password").val(),
-                role: $("#role").val()
-            }),
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            success: function(result) {
-                $('#UserTable').DataTable().ajax.reload();
-                alert("New user was registered");
-
-            },
-            error: function () {
-                alert("Something went wrong");
-            }
-        });
-   });
     // Slett
     $("#deleteUser").click(function () {
         $.ajax({
@@ -104,7 +59,6 @@ $(document).ready(function() {
             }
         });
     });
-
     // Rediger
     $("#editUser").click(function () {
         $.ajax({
@@ -126,10 +80,8 @@ $(document).ready(function() {
             }
         });
     });
-})
 
-
-
+});
 
 
 
