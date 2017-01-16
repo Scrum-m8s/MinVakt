@@ -3,8 +3,8 @@ language: java
 sudo: required
 
 before_install:
-  - mysql -e 'CREATE DATABASE IF NOT EXISTS testdb;'
-  - mysql -u root testdb < sql/dummy.sql
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS g8_scrum_testdb;'
+  - mysql -u root g8_scrum_testdb < sql/dummy.sql
 
 script:
   - mvn test
