@@ -5,6 +5,27 @@
 // The root URL for the RESTful services
 var rootURL = "http://localhost:8080/api/employees/";
 
+function ChangeColor(tableRow, highLight)
+{
+    if (highLight)
+    {
+        tableRow.style.backgroundColor = '#89ae37';
+    }
+    else if (this.class == alt)
+    {
+        tableRow.style.backgroundColor = '#EAF2D3';
+    }
+    else
+    {
+        tableRow.style.backgroundColor = '#A7C942';
+    }
+}
+
+function DoNav(theUrl)
+{
+    document.location.href = theUrl;
+}
+
 $(document).ready(function(){
 
     $.get(rootURL,function(data){
@@ -13,24 +34,22 @@ $(document).ready(function(){
 
         for(var i=0;i<data.length;i++) {
             container.append(
-                '<tr id="rowId' + (i+1) + '"><td><input type="checkbox" id="checkboxId' + (i+1) + '"></td><td>' + (i+1) + '</td>' + '<td>' + data[i].firstname + '</td>' + '<td>' + data[i].surname + '</td>' + '<td>' + data[i].userId + '</td></tr>'
+
+                '<tr id="rowId' + (i+1) + '" class="clickable-row"><td><input type="checkbox" id="checkboxId' + (i+1) + '"></td><td>' + (i+1) + '</td>' + '<td>' + data[i].firstname + '</td>' + '<td>' + data[i].surname + '</td>' + '<td>' + data[i].userId + '</td></tr>'
             );
         console.log(data[i].userId);
+
         }
+        $(".clickable-row").click(function() {
+            if($(this).hasClass('info')){
+                $(this).removeClass('info');
+            }else {
+                $(this).addClass('info').siblings().removeClass('info');
+                console.log(this.getElementsByTagName("td")[4].textContent);
+            }
+        });
     });
 
-    $('#testTable').DataTable( {
-        columnDefs: [ {
-            orderable: false,
-            className: 'select-checkbox',
-            targets:   0
-        } ],
-        select: {
-            style:    'os',
-            selector: 'td:first-child'
-        },
-        order: [[ 1, 'asc' ]]
-    } );
 
     /*
     $("#addKunde").click(function () {
