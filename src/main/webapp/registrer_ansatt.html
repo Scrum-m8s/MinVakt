@@ -8,7 +8,7 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css">
-    <script src="employees.js" type="text/javascript"></script>
+    <script src="js/employee.js" type="text/javascript"></script>
     <title>Ny bruker</title>
 </head>
 <body>
@@ -41,12 +41,12 @@
 <div class="content">
     <h1>Opprett ny bruker</h1>
     <form action="" id="my_form"> <!-- knappen må skrive informasjon fra feltene til DB -->
-        Fornavn: <input type="text" id="new_firstname" name="fornavn"><br>
-        Etternavn: <input type="text"id="new_surname" name="etternavn"><br>
-        Telefon: <input type="text" id="new_phone_number" name="tlf"><br>
-        Epost: <input type="text" id="new_email" name="epost"><br>
-        Stilling: <input type="text" id="new_category" name="stilling"><br>
-        <input type="submit" value="Registrer" id="createEmployee">
+        Fornavn: <input type="text" id="fornavn" name="fornavn"><br>
+        Etternavn: <input type="text"id="etternavn" name="etternavn"><br>
+        Telefon: <input type="text" id="telefon" name="tlf"><br>
+        Epost: <input type="text" id="epost" name="epost"><br>
+        Stilling: <input type="text" id="kategori" name="stilling"><br>
+        <input type="submit" value="Registrer" id="registerEmployee">
     </form>
 </div>
 

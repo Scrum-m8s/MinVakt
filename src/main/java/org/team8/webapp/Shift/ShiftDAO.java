@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 /**
  * Created by asdfLaptop on 11.01.2017.
+ * Edited by Mr_Easter on 12.01.2017.
  */
 public class ShiftDAO extends DatabaseManagement {
 
@@ -23,7 +24,7 @@ public class ShiftDAO extends DatabaseManagement {
         if(setUp()){
             try {
                 conn = getConnection();
-                prep = conn.prepareStatement("SELECT * FROM Shift, Shift_list WHERE Shift.Shift_id = Shift_list.Shift_id;");
+                prep = conn.prepareStatement("SELECT * FROM Shift;");
                 res = prep.executeQuery();
                 while (res.next()){
                     out.add(processRow(res));
@@ -45,7 +46,7 @@ public class ShiftDAO extends DatabaseManagement {
         if(setUp()){
             try {
                 conn = getConnection();
-                prep = conn.prepareStatement("SELECT * FROM Shift, Shift_list WHERE Shift.Shift_id = Shift_list.Shift_id AND user_id=?;");
+                prep = conn.prepareStatement("SELECT * FROM Shift WHERE Shift_id =?;");
                 prep.setString(1, id);
                 res = prep.executeQuery();
                 if (res.next()){
@@ -63,7 +64,76 @@ public class ShiftDAO extends DatabaseManagement {
         return out;
     }
 
-    //TODO: Add create, update, remove. Look at EmployeeDAO for guidelines.
+    public boolean createShift(Shift e) {
+        int numb = 0;
+        if(setUp()){
+            try {
+                conn = getConnection();
+                prep = conn.prepareStatement("INSERT INTO Shift (shift_id, hours, start_time, end_time) VALUES (?, ?, ?, ?);");
+                prep.setInt(1, e.getShiftId());
+                prep.setInt(2, e.getHours());
+                prep.setInt(3, e.getStartTime());
+                prep.setInt(4, e.getEndTime());
+                numb = prep.executeUpdate();
+            }
+            catch (SQLException sqle) {
+                System.err.println("Issue with creating shift.");
+                rollbackStatement();
+                return false;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return numb > 0;
+    }
+
+    public boolean updateShift(Shift e) {
+        int numb = 0;
+        if(setUp()) {
+            try {
+                conn = getConnection();
+                conn.setAutoCommit(false);
+                prep = conn.prepareStatement("UPDATE Shift SET hours=?, start_time=?, end_time=? WHERE shift_id=?;");
+                prep.setInt(1, e.getHours());
+                prep.setInt(2, e.getStartTime());
+                prep.setInt(3, e.getEndTime());
+                prep.setInt(4, e.getShiftId());
+                numb = prep.executeUpdate();
+            }
+            catch (SQLException sqle) {
+                System.err.println("Issue with updating shift.");
+                rollbackStatement();
+                return false;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return numb > 0;
+    }
+
+    public boolean removeShift(String id) {
+        int numb = 0;
+        if(setUp()) {
+            try {
+                conn = getConnection();
+                conn.setAutoCommit(false);
+                prep = conn.prepareStatement("DELETE FROM Shift WHERE shift_id=?;");
+                prep.setString(1, id);
+                numb = prep.executeUpdate();
+            }
+            catch (SQLException sqle) {
+                System.err.println("Issue with removing shift.");
+                rollbackStatement();
+                return false;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return numb > 0;
+    }
 
     protected Shift processRow(ResultSet res) throws SQLException {
         Shift s = new Shift();
@@ -71,10 +141,6 @@ public class ShiftDAO extends DatabaseManagement {
         s.setHours(res.getInt("hours"));
         s.setStartTime(res.getInt("start_time"));
         s.setEndTime(res.getInt("end_time"));
-        s.setUserId(res.getString("user_id"));
-        s.setOnDuty(res.getBoolean("on_duty"));
-        s.setMyDate(res.getDate("my_date"));
-        s.setDeviance(res.getInt("deviance"));
         return s;
     }
 }

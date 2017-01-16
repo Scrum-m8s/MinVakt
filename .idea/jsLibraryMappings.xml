@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="PROJECT" libraries="{bootstrap, html5shiv, jquery, respond}" />
+    <file url="PROJECT" libraries="{Node.js, bootstrap, datatables, jQuery-2.0.0, jquery, jquery.dataTables, node-DefinitelyTyped, react-DefinitelyTyped, require.js }" />
+    <includedPredefinedLibrary name="ECMAScript 6" />
+    <includedPredefinedLibrary name="Nashorn" />
+    <includedPredefinedLibrary name="WebGL" />
   </component>
 </project>

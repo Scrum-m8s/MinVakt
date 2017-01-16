@@ -8,6 +8,7 @@ package org.team8.webapp.User;
 public class User {
     private String user_id;
     private String password;
+    private int role;
 
     public String getUserId() {
         return user_id;
@@ -23,5 +24,13 @@ public class User {
     
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
     }
 }
