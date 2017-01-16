@@ -25,8 +25,27 @@
     </security-role>
     <security-constraint>
         <web-resource-collection>
-            <web-resource-name>Dummy</web-resource-name>
-            <url-pattern>/api/dummy/*</url-pattern>
+            <web-resource-name>UserAccess</web-resource-name>
+            <url-pattern>/api/dummy</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+            <role-name>employee</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>AdminAccess</web-resource-name>
+            <url-pattern>/api/dummy/admin</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>EmployeeAccess</web-resource-name>
+            <url-pattern>/api/dummy/employee</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>employee</role-name>
@@ -35,8 +54,8 @@
     <login-config>
         <auth-method>FORM</auth-method>
         <form-login-config>
-            <form-login-page>/login.html</form-login-page>
-            <form-error-page>/index.html</form-error-page>
+            <form-login-page>/loginform.html</form-login-page>
+            <form-error-page>/loginerror.html</form-error-page>
         </form-login-config>
     </login-config>
 </web-app>
