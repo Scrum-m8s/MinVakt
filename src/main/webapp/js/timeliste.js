@@ -6,9 +6,12 @@ fargekode vaktene etter type vakt. feks gul = dag, mørkeblå = natt og grønn =
  */
 
 $(document).ready(function initialize() {
+//current date
+    var today = new Date();
+    var mnd = today.getMonth();
 
-    var currd = new Date();
-    var mnd = currd.getMonth();
+// find last day of month
+    var last = new Date(today.getYear(), mnd + 1, 0);
 
 //get week of the year by date
     Date.prototype.getWeek = function() {
@@ -18,74 +21,82 @@ $(document).ready(function initialize() {
     };
 
 //get first day of current month to know when to initialize calendar
-    var first = new Date(currd.getFullYear(), mnd,1);
+    var first = new Date(today.getFullYear(), mnd, 1);
     var firstWeek = first.getWeek();
 
+//creates an empty 6x8 grid with IDs
+    var currRow = document.getElementById("row1id");
+    for(var l = 0; l < 6; ++l){
+        var newRow = document.createElement("div");
+        newRow.className = "row";
+        newRow.setAttribute("id", "r" + l);
+        for(var m = 0; m < 8; ++m){
+            var newDateDiv = document.createElement("div");
+            newDateDiv.className = "col-sm-1";
+            newDateDiv.setAttribute("id", "r" + l + "c" + m)
+        }
+        var newEndRow = document.createElement("div");
+        newEndRow.className = "col-sm-4";
+        currRow.insertBefore(newRow, null);
+        currRow = newRow;
+    }
 
-//id of first element on each row in timeliste grid
-    var calid = ["r2c1", "r3c1", "r4c1", "r5c1", "r6c1", "r7c1", "r8c1"];
+    var days = new Array(last.getDate()); // array containing the days of this month
+    var currentDay = new Date(); //variable for counting days when looping through days of the month
 
-    for (var j = 0; j < calid.length; ++j) {
+    //generate a div for each day of the month. last.getDate is the amount of days current month
+    for(var k = 0; k < last.getDate(); ++k){
+        var newDay = document.createElement("div");
+        var newDateContent = document.createTextNode(first.toDateString());
+
+        newDateDiv.appendChild(newDateContent);
+        days[k] = newDateDiv;
+        currentDay.setDate(currentDay.getDate() + 1); //increment currentDay -> tomorrow
+    }
+
+    /*
+     this inserts into existing div:
+     var currentShift = document.getElementById(); //[week][day]
+     currentShift.insertBefore(newShiftDiv, null);
+     */
+
+
+//generate the week numbers and insert them in the grid
+//TODO: make sure week 1 is whole (1/1 could be part of week 52)
+    for (var j = 0; j < c1id.length; ++j) {
         var newDiv = document.createElement("div");
         var newContent = document.createTextNode(firstWeek + j);
         newDiv.appendChild(newContent); //add the text node to newly created div
 
         // add the newly created element and its content into the DOM
-        var currentDiv = document.getElementById(calid[j]);
+        var currentDiv = document.getElementById(grID[j][0]);
         currentDiv.insertBefore(newDiv, null);
     }
 
+//fetch the shifts for this user and insert into correct dates in the calendar
+    $.get('/users/shifts/', function (data) {
+        data.forEach(function (elem){
+            //fill array with [week][day]. if shiftWDiff = 0, insert into first week, 1 = second week etc.
+            //check that diff !> c1id.length
+           var shiftDate = new Date(elem.getMyDate());
+            var shiftDOW = shiftDate.getDay();
+            var shiftWDiff = firstWeek - shiftDate.getWeek();
+           if(shiftDate.getMonth() == mnd){
+
+           } else{
+               //feil måned
+           }
+
+        });
+    });
 });
 
 
 
 /*
 /*
-function listVakter() {
-    // uke = rad og kolonne = dag
-    $.get('/shifts'), function(data){
-        data.forEach(function(elem){
-            var elemD = new Date(elem.my_date); //for every shift, get date
-            if(elemD.getMonth == mnd) { //make sure it's this month's shifts
-                var diff = elemD.getDate() - currd.getDate();
-
-                if(diff == 0) {
-                    //legg inn skift i dag
-                } else if(diff < 0){
-                    //legg inn skift før i dag
-                } else{
-                    //legg inn skift etter i dag
-                }
-            }
-            /*
-            for every shift elem:
-            - check date
-            - compare date to current date
-            - find correct place in array
-            - create event listener
-             */
-/*
-function initialize() {
-    $.get('/rest/plass', function (data) {
-        data.forEach(function (elem) {
-            var marker = new google.maps.Marker({
-                position: {lat: elem.latitude, lng: elem.longitude},
-                title: elem.lokasjon,
-                map: map
-            });
-            marker.plassId = elem.id;
-
-            google.maps.event.addListener(marker, 'click', function (event) {
-                selectPlass(this.plassId)
-            });
-        });
-    });
-}
-*/
     /*
-    sjekk denne måneden
-    for hver uke:
-        lag rad
+
     for hver vakt:
         sjekk mnd, uke, dag
         lag kolonne med modal
