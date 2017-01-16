@@ -39,14 +39,7 @@ public class CreateLogin {
     }
 
     public static void main(String[] args){
-        CreateLogin c = new CreateLogin();
-        User u = new User();
-        u.setUserId("canders");
-        u.setPassword("Anders123");
-        u.setRole(0);
-        boolean s = c.signUp(u);
 
-        System.out.println(s);
     }
 
 }
