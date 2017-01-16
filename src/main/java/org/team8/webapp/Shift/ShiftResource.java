@@ -27,34 +27,27 @@ public class ShiftResource {
         return dao.getShiftById(id);
     }
 
-    //TODO: Test create, update, remove. Litt usikker på remove funksjonen, må finne en lur løsning.
-
     @POST
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public boolean createShift(Shift s) {
+    public boolean createShift(Shift e) {
         System.out.println("createShift");
-        return dao.createShift(s);
+        return dao.createShift(e);
     }
 
     @Path("{id}")
     @PUT
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public boolean updateShift(Shift s) {
+    public boolean updateShift(Shift e) {
         System.out.println("updateShift");
-        return dao.updateShift(s);
+        return dao.updateShift(e);
     }
 
-    //FIXME
-    /*
     @Path("{id}")
     @DELETE
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public void removeShift(@PathParam("id") String userId) {
-        System.out.println("removeShift");
-        dao.removeShift(userId, shiftId, date);
+    public void removeShift(@PathParam("id") String id) {
+        dao.removeShift(id);
     }
-    */
-
 }

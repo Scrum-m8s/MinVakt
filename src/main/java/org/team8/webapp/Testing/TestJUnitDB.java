@@ -1,10 +1,12 @@
 package org.team8.webapp.Testing;
 
 import org.junit.*;
+import org.team8.webapp.Busy.BusyDAO;
 import org.team8.webapp.Database.DatabaseManagement;
 import org.team8.webapp.Employee.Employee;
 import org.team8.webapp.Employee.EmployeeDAO;
 import org.team8.webapp.Shift.ShiftDAO;
+import org.team8.webapp.TimeList.TimeListDAO;
 import org.team8.webapp.User.User;
 import org.team8.webapp.User.UserDAO;
 
@@ -17,6 +19,8 @@ public class TestJUnitDB extends DatabaseManagement{
     private static EmployeeDAO employeeDAO;
     private static ShiftDAO shiftDAO;
     private static UserDAO userDAO;
+    private static BusyDAO busyDAO;
+    private static TimeListDAO timeListDAO;
 
 
     private String[] validUser = new String[2];
@@ -80,7 +84,7 @@ public class TestJUnitDB extends DatabaseManagement{
         String user = "dummy";
         String pass = "dummy";
 
-        User u = new User(user, pass);
+        User u = new User(user, pass, 1);
 
         try {
             assertTrue(userDAO.createUser(u));
@@ -98,19 +102,19 @@ public class TestJUnitDB extends DatabaseManagement{
 
     @Test
     public void updateUser() {
-        User updated = new User("haakonrp", "updateTest");
+        User updated = new User("haakonrp", "updateTest", 1);
 
         assertTrue(userDAO.updateUser(updated));
 
         //Changes back to old values
-        User old = new User("haakonrp", "Haakonrp123");
+        User old = new User("haakonrp", "Haakonrp123", 1);
         userDAO.updateUser(old);
     }
 
     @Test
     public void removeUser() {
         //Create dummy user to delete
-        User dummy = new User("dummy", "dummy");
+        User dummy = new User("dummy", "dummy", 1);
         userDAO.createUser(dummy);
 
         assertTrue(userDAO.removeUser(dummy.getUserId()));
@@ -133,7 +137,7 @@ public class TestJUnitDB extends DatabaseManagement{
     @Test
     public void createEmployee() {
         //creating dummy user first
-        User dummy = new User("dummy", "dummy");
+        User dummy = new User("dummy", "dummy", 1);
 
         String firstname = "Ola";
         String surname = "Nordmann";
@@ -182,7 +186,7 @@ public class TestJUnitDB extends DatabaseManagement{
     @Test
     public void removeEmployee() {
         //create dummy user to delete first
-        User dummyUser = new User("dummy", "dummy");
+        User dummyUser = new User("dummy", "dummy", 1);
         userDAO.createUser(dummyUser);
 
         //Create dummy employee to delete

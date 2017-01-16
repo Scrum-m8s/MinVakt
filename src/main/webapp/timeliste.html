@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="Bootstrap-3.3.6/css/bootstrap.min.css">
+
+    <script src="Bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script src="js/jquery-3.1.0.min.js"></script>
+
+    <title>Hjem</title>
+</head>
+<body>
+<ul class="sidenav">
+    <li><a href="index.html">Hjem</a></li>
+    <li><a class="active" href="timeliste.html">Timelister</a></li>
+    <li><a href="endre_passord.html">Endre passord</a></li>
+    <li><a href="vaktbytte.html">Vaktbytte</a></li>
+    <li><a href = "ny_bruker.html">Ny bruker</a></li>
+    <li><a href = "shift_book.html">Skiftbok</a></li>
+    <li><a href = "employees.html">Ansatte</a></li>
+    <li><a href = "kvalifisert_for_vakt.html">Ledige ansatte</a></li>
+    <li><a href = "godkjenne_vaktbytte.html">Ønsker om vaktbytte</a></li>
+</ul>
+
+<div class="content">
+    <h1>Velkommen, </h1> <!-- insert fornavn -->
+    <p>Under ser du når du jobber denne måneden. Trykk på en uke for å se flere detaljer om den.</p>
+    <h4>Januar</h4> <!-- denne måneden. feks Januar -->
+
+    <!-- bootstrap -->
+    <div class="container-fluid">
+        <div class="row" style = "background-color: lightgreen"> <!-- trenger alltid 12 kolonner -->
+            <div class="col-sm-1">Uke</div>
+            <div class="col-sm-1">Mandag</div>
+            <div class="col-sm-1">Tirsdag</div>
+            <div class="col-sm-1">Onsdag</div>
+            <div class="col-sm-1">Torsdag</div>
+            <div class="col-sm-1">Fredag</div>
+            <div class="col-sm-1">Lørdag</div>
+            <div class="col-sm-1">Søndag</div>
+            <div class="col-sm-4"></div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-1"><a href="../../../web/index.html">1</a></div> <!-- testdata. ønsker å linke til uke -->
+            <div class="col-sm-1">Vakt</div> <!-- lag modal i js for å vise detaljer om vakt -->
+            <div class="col-sm-1" style = "background-color: lightblue">kveld</div>
+            <div class="col-sm-1" style = "background-color: yellowgreen">dag</div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-1" style = "background-color: darkmagenta;">natt</div>
+            <div class="col-sm-1">vakt</div>
+            <div class="col-sm-4"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-1"><a href="../../../web/index.html">2</a></div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-1">vakt</div>
+            <div class="col-sm-1">vakt</div>
+            <div class="col-sm-1">vakt</div>
+            <div class="col-sm-1">vakt</div>
+            <div class="col-sm-1">vakt</div>
+            <div class="col-sm-4"></div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
