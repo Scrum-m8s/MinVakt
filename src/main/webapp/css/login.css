@@ -11,6 +11,7 @@
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     overflow: hidden;
     font-family: roboto;
+    text-align: center;
 }
 
 .loginmodal-container h1 {
@@ -98,4 +99,5 @@
 
 .modal-dialog{
     text-align: center;
+
 }
