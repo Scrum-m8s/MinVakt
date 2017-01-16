@@ -10,6 +10,13 @@ public class User {
     private String password;
     private int role;
 
+    User(){}
+
+    public User(String user_id, String password) {
+        this.user_id = user_id;
+        this.password = password;
+    }
+
     public String getUserId() {
         return user_id;
     }
