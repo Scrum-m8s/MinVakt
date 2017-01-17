@@ -12,9 +12,9 @@ $(document).ready(function(){
 
         for(var i=0;i<data.length;i++) {
             container.append(
-                '<tr class="clickable-row"><td><input type="checkbox"></td><td>' + (i+1) + '</td><td>' + data[i].firstname + '</td><td>' + data[i].surname + '</td><td>' + data[i].userId + '</td></tr>'
+                '<tr class="clickable-row"><td><input type="checkbox"></td><td>' + (i+1) + '</td><td>' + data[i].firstname + '</td><td>' + data[i].surname + '</td><td>' + data[i].user_id + '</td></tr>'
             );
-        console.log(data[i].userId);
+        console.log(data[i].user_id);
 
         }
         $(".clickable-row").click(function() {
