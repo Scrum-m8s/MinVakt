@@ -49,18 +49,6 @@
     box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
 }
 
-.loginmodal {
-    text-align: center;
-    font-size: 14px;
-    font-family: 'Arial', sans-serif;
-    font-weight: 700;
-    height: 36px;
-    padding: 0 8px;
-    /* border-radius: 3px; */
-    /* -webkit-user-select: none;
-      user-select: none; */
-}
-
 .loginmodal-submit {
     /* border: 1px solid #3079ed; */
     border: 0px;
@@ -98,4 +86,8 @@
 
 .modal-dialog{
     text-align: center;
+}
+
+nav{
+    background-color: #4d90fe;
 }
