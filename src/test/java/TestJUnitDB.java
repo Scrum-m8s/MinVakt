@@ -1,6 +1,5 @@
-package org.team8.webapp.Testing;
-
-import org.junit.*;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.team8.webapp.Busy.Busy;
 import org.team8.webapp.Busy.BusyDAO;
 import org.team8.webapp.Database.DatabaseManagement;
@@ -19,7 +18,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class TestJUnitDB extends DatabaseManagement{
     private static EmployeeDAO employeeDAO;
@@ -406,7 +406,7 @@ public class TestJUnitDB extends DatabaseManagement{
         userDAO.createUser(new User("dummy3", "dummy3", 1));
         shiftListDAO.createShiftlist(new ShiftList("dummy3", 1, false, new Date(2017-01-01), 0, true));
 
-        assertNotNull(shiftListDAO.getShiftListById("dummy3", 1));
+        assertNotNull(shiftListDAO.getShiftListById("dummy3"));
 
         //clean up
         shiftListDAO.removeShiftlist("dummy3", 1);
