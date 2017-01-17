@@ -98,18 +98,18 @@ public class EmployeeDAO extends DatabaseManagement {
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
-                prep = conn.prepareStatement("UPDATE Employee SET user_id=?, firstname=?, surname=?, email=?, phone_number=?, category=? WHERE user_id=?;");
-                prep.setString(1, e.getUserId());
-                prep.setString(2, e.getFirstname());
-                prep.setString(3, e.getSurname());
-                prep.setString(4, e.getEmail());
-                prep.setString(5, e.getPhoneNumber());
-                prep.setInt(6, e.getCategory());
-                prep.setString(7, e.getUserId());
+                prep = conn.prepareStatement("UPDATE Employee SET firstname=?, surname=?, email=?, phone_number=?, category=? WHERE user_id=?;");
+                prep.setString(1, e.getFirstname());
+                prep.setString(2, e.getSurname());
+                prep.setString(3, e.getEmail());
+                prep.setString(4, e.getPhoneNumber());
+                prep.setInt(5, e.getCategory());
+                prep.setString(6, e.getUserId());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
                 System.err.println("Issue with updating employee.");
+                sqle.printStackTrace();
                 rollbackStatement();
                 return false;
             }
