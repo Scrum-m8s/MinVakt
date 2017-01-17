@@ -28,8 +28,7 @@ public class UserResource {
     }
 
     @POST
-    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Consumes(MediaType.APPLICATION_JSON)
     public boolean createUser(User e) {
         System.out.println("createUser");
         return dao.createUser(e);

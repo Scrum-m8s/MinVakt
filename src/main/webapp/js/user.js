@@ -2,50 +2,60 @@
  * Created by mariyashchekanenko on 13/01/2017.
  */
 
+// The root URL for the RESTful services
+var rootURL = "http://localhost:8080/api/";
+
 $(document).ready(function() {
 
-
-    function registerUser(user_id, password, role, firstname, surname, phone_number, email, category) {
-
-        $.ajax({
-            type: "POST",
-            url: "api/users",
-            data: '{"userId": "' + user_id + '", "password" : "' + password + '", "role" : "' + role + '"}',
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            success: function (data) {
-                $('#UserTable').DataTable().ajax.reload();
-                alert("New user was registered");
-            }
-        });
-        $.ajax({
-            type: 'POST',
-            url: 'api/employees',
-            data: '{"userId": "' + user_id + '", "firstname" : "' + firstname + '", "surname" : "' + surname + '", "phone_number" : "' + phone_number + '", "email" : "' + email + '", "category" : "' + category + '"}',
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            success: function (data) {
-                alert("Employee was registered");
-
-            },
-            error: function() {
-            alert("Something went wrong");
-        }
-        });
-    }
-
-    $("#regButton").click(function () {
+    function addUser() {
         var user_id = $("#user_id").val();
         var password = $("#password").val();
         var role = $("#role").val();
-        var firstname = $("").val();
-        var surname = $("").val();
-        var phone_number = $("").val();
-        var email = $("").val();
-        var category = $("").val();
 
-        registerUser(user_id, password, role, firstname, surname, phone_number, email, category);
 
+        console.log('addUser and empty employee: ' + user_id);
+        $.ajax({
+            type: 'POST',
+            contentType: 'application/json',
+            url: rootURL + "users",
+            dataType: "json",
+            data: JSON.stringify({
+                user_id: user_id,
+                password: password,
+                role: role,
+            }),
+            success: function(data, textStatus, jqXHR){
+                console.log("User added.")
+            },
+            error: function(data){
+                console.log(data + " : failed with user_id " + user_id);
+            }
+        });
+
+        console.log(user_id);
+        $.ajax({
+            type: 'POST',
+            contentType: 'application/json',
+            url: rootURL + "employees",
+            dataType: "json",
+            data: JSON.stringify({
+                user_id: user_id,
+                firstname: null,
+                surname: null,
+                email: null,
+                phone_number: null,
+                category: 0
+            }),
+            success: function(data, textStatus, jqXHR){
+                console.log("Empty employee added.")
+            }
+        });
+    }
+
+
+    $("#regButton").click(function () {
+        addUser();
+        return false;
     });
 
 
