@@ -11,6 +11,19 @@ public class ShiftList {
     private boolean on_duty;
     private Date my_date;
     private int deviance;
+    private boolean want_swap;
+
+    public ShiftList() {}
+
+    public ShiftList(String user_id, int shift_id, boolean on_duty, Date my_date, int deviance, boolean want_swap) {
+        this.user_id = user_id;
+        this.shift_id = shift_id;
+        this.on_duty = on_duty;
+        this.my_date = my_date;
+        this.deviance = deviance;
+        this.want_swap = want_swap;
+
+    }
 
     public String getUser_id() {
         return user_id;
@@ -50,5 +63,13 @@ public class ShiftList {
 
     public void setDeviance(int deviance) {
         this.deviance = deviance;
+    }
+
+    public boolean isWant_swap() {
+        return want_swap;
+    }
+
+    public void setWant_swap(boolean want_swap) {
+        this.want_swap = want_swap;
     }
 }
