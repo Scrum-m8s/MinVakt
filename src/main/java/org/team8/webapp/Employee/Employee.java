@@ -22,11 +22,11 @@ public class Employee {
         this.category = category;
     }
 
-    public String getUserId() {
+    public String getUser_id() {
         return user_id;
     }
 
-    public void setUserId(String user_id) {
+    public void setUser_id(String user_id) {
         this.user_id = user_id;
     }
 
@@ -54,11 +54,11 @@ public class Employee {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
+    public String getPhone_number() {
         return phone_number;
     }
 
-    public void setPhoneNumber(String phone_number) {
+    public void setPhone_number(String phone_number) {
         this.phone_number = phone_number;
     }
 

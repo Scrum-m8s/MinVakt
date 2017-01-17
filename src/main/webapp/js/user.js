@@ -12,7 +12,6 @@ $(document).ready(function() {
         var password = $("#password").val();
         var role = $("#role").val();
 
-
         console.log('addUser and empty employee: ' + user_id);
         $.ajax({
             type: 'POST',
@@ -20,34 +19,37 @@ $(document).ready(function() {
             url: rootURL + "users",
             dataType: "json",
             data: JSON.stringify({
-                user_id: user_id,
-                password: password,
-                role: role,
+                "user_id": user_id == "" ? null : user_id,
+                "password": password,
+                "role": role,
             }),
             success: function(data, textStatus, jqXHR){
                 console.log("User added.")
+                $.ajax({
+                    type: 'POST',
+                    contentType: 'application/json',
+                    url: rootURL + "employees",
+                    dataType: "json",
+                    data: JSON.stringify({
+                        "user_id": user_id == "" ? null : user_id,
+                        "firstname": null,
+                        "surname": null,
+                        "email": null,
+                        "phone_number": null,
+                        "category": 0
+                    }),
+                    success: function(data, textStatus, jqXHR){
+                        console.log("Empty employee added.")
+                        return true;
+                    },
+                    error: function(data, textStatus, jqXHR){
+                        console.log("Error: " + textStatus);
+                    }
+                });
+                return true;
             },
-            error: function(data){
-                console.log(data + " : failed with user_id " + user_id);
-            }
-        });
-
-        console.log(user_id);
-        $.ajax({
-            type: 'POST',
-            contentType: 'application/json',
-            url: rootURL + "employees",
-            dataType: "json",
-            data: JSON.stringify({
-                user_id: user_id,
-                firstname: null,
-                surname: null,
-                email: null,
-                phone_number: null,
-                category: 0
-            }),
-            success: function(data, textStatus, jqXHR){
-                console.log("Empty employee added.")
+            error: function(data, textStatus, jqXHR){
+                console.log("Error: " + textStatus);
             }
         });
     }
