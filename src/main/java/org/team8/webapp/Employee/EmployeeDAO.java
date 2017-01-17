@@ -82,6 +82,7 @@ public class EmployeeDAO extends DatabaseManagement {
             }
             catch (SQLException sqle) {
                 System.err.println("Issue with creating employee.");
+                sqle.printStackTrace();
                 rollbackStatement();
                 return false;
             }

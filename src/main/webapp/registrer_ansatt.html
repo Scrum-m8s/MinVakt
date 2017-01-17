@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/layout.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css">
+  <!--  <script src="js/employee.js" type="text/javascript"></script>-->
+    <script src="js/employee.js" type="text/javascript"></script>
+    <title>Ny bruker</title>
+</head>
+<body>
+<ul class="sidenav">
+    <li><a href="index.html">Hjem</a></li>
+    <li><a href="timeliste.html">Timelister</a></li>
+    <li><a href="endre_passord.html">Endre passord</a></li>
+    <li><a href="vaktbytte.html">Vaktbytte</a></li>
+    <li><a class="active" href = "registrer_ansatt.html">Ny bruker</a></li>
+    <li><a href = "shift_book.html">Skiftbok</a></li>
+    <li><a href = "employees.html">Ansatte</a></li>
+    <li><a href = "kvalifisert_for_vakt.html">Ledige ansatte</a></li>
+    <li><a href = "godkjenne_vaktbytte.html">Ønsker om vaktbytte</a></li>
+</ul>
+
+<div class="tab-pane" id="EmployeeTab">
+    <table id="employeeTable">
+        <thead>
+        <tr>
+            <th>Fornavn</th>
+            <th>Etternavn</th>
+            <th>Telefon</th>
+            <th>Epost</th>
+            <th>Kategori</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+
+<div class="content">
+    <h1>Opprett ny bruker</h1>
+        User_id: <input type="text" id="user_id" name="user_id"><br>
+        Fornavn: <input type="text" id="firstname" name="fornavn"><br>
+        Etternavn: <input type="text"id="surname" name="etternavn"><br>
+        Telefon: <input type="text" id="phone_number" name="telefon"><br>
+        Epost: <input type="text" id="email" name="epost"><br>
+        Stilling: <input type="number" id="category" name="stilling"><br>
+        <button id="editButton">Registrer</button>
+</div>
+
+
+
+</body>
+</html>

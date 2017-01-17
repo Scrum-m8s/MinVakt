@@ -28,8 +28,7 @@ public class EmployeeResource {
     }
 
     @POST
-    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Consumes(MediaType.APPLICATION_JSON)
     public boolean createEmployee(Employee e) {
         System.out.println("createEmployee");
         return dao.createEmployee(e);
