@@ -28,15 +28,15 @@ $(document).ready(function() {
                 $.ajax({
                     type: 'POST',
                     contentType: 'application/json',
-                    url: rootURL + "employees",
+                    url: "api/employees",
                     dataType: "json",
                     data: JSON.stringify({
                         "user_id": $("#user_id").val(),
-                        "firstname": null,
-                        "surname": null,
-                        "email": null,
-                        "phone_number": null,
-                        "category": 0
+                        "firstname": " ",
+                        "surname": " ",
+                        "email": " ",
+                        "phone_number": " ",
+                        "category": -1
                     }),
                     success: function(data, textStatus, jqXHR){
                         console.log("Empty employee added.");

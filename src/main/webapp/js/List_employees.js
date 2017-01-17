@@ -3,10 +3,11 @@
  */
 $(document).ready(function() {
     // Bind opp tabellen mot rest-ressursen
-    $('#table_employees').DataTable( {
+
+    var table = $('#table_employees').DataTable( {
         "paging": false,
         "info" : false,
-        //"ordering": false,
+        "select" : true,
         ajax: {
             url: 'api/employees',
             "dataSrc": function (json) {
@@ -22,23 +23,26 @@ $(document).ready(function() {
                     return_data.push({
                         'surname': json[i].surname,
                         'firstname': json[i].firstname,
-                        'phoneNumber': json[i].phoneNumber,
+                        'phone_number': json[i].phone_number,
                         'email': json[i].email,
                         'category': json[i].category,
+                        'user_id': json[i].user_id
                     })
                 }
                 return return_data;
             }
         },
+
         "columns" : [
             { data: 'surname'},
             { data: 'firstname', orderable: false},
-            { data: 'phoneNumber', orderable: false},
+            { data: 'phone_number', orderable: false},
             { data: 'email', orderable: false},
-            { data: 'category', orderable: false}
-        ],
+            { data: 'category'},
+            { data: 'user_id', orderable: false}
+        ]
     });
 
-    var table = $('#table_employees').DataTable();
+    //write table
     table.draw();
 });

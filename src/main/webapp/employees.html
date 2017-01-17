@@ -1,75 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Oversikt over ansatte</title>
-
-        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
-
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
-        <!-- user-defined styles and scripts -->
-        <script src="js/testTable.js?version=1.2"></script>
-        <link rel="stylesheet" href="css/employees.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/layout.css">
+        <!--<link rel="stylesheet" href="Bootstrap-3.3.6/css/bootstrap.min.css">-->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+        <script src="js/jquery-3.1.0.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/dt-1.10.13/b-1.2.4/b-colvis-1.2.4/b-print-1.2.4/r-2.1.0/se-1.2.0/datatables.min.js"></script>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <!--<script src="Bootstrap-3.3.6/js/bootstrap.min.js"></script>-->
+        <script src="js/List_employees.js?version=1.1"></script>
+        <script src="js/employee.js?version=1.1"></script>
 
 
+        <title>Oversikt over ansatte</title>
     </head>
-    <body>
-        <div class="container">
-            <div class="">
-                <ul class="sidenav">
-                    <li><a href="index.html">Hjem</a></li>
-                    <li><a href="timeliste.html">Timelister</a></li>
-                    <li><a href="endre_passord.html">Endre passord</a></li>
-                    <li><a href="vaktbytte.html">Vaktbytte</a></li>
-                    <li><a href = "registrer_ansatt.html">Ny bruker</a></li>
-                    <li><a href = "shift_book.html">Skiftbok</a></li>
-                    <li><a class="active" href = "employees.html">Ansatte</a></li>
-                    <li><a href = "godkjenne_vaktbytte.html">Ønsker om vaktbytte</a></li>
-                    <li><a href = "kvalifisert_for_vakt.html">Ledige ansatte</a></li>
-                    <li><a href = "registrer_ansatt.html">Registrer ansatt</a></li>
-                    <li><a href = "ny_bruker.html">Ny bruker</a></li>
-                </ul>
-            </div>
 
-            <div class="row">
-                <div class="panel panel-primary filterable">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Employees</h3>
-                        <div class="pull-right">
-                            <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
-                            <button class="btn btn-default btn-xs" id="createUser"><span class="glyphicon"></span> Create</button>
-                            <button class="btn btn-default btn-xs" id="updateUser"><span class="glyphicon"></span> Update</button>
-                            <button class="btn btn-default btn-xs" id="removeUser"><span class="glyphicon"></span> Remove</button>
-                        </div>
-                    </div>
-                    <table class="table" id="employeeTable">
-                        <thead>
-                        <tr class="filters">
-                            <th></th>
-                            <th><input type="text" class="form-control" placeholder="#" disabled></th>
-                            <th><input type="text" class="form-control" placeholder="First Name" disabled></th>
-                            <th><input type="text" class="form-control" placeholder="Last Name" disabled></th>
-                            <th><input type="text" class="form-control" placeholder="Username" disabled></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <!-- data from db will be filled in here -->
-                        </tbody>
-                    </table>
-                </div>
+    <body>
+        <ul class="sidenav">
+            <li><a href="index.html">Hjem</a></li>
+            <li><a href="timeliste.html">Timelister</a></li>
+            <li><a href="endre_passord.html">Endre passord</a></li>
+            <li><a href="vaktbytte.html">Vaktbytte</a></li>
+            <li><a href="kvalifisert_for_vakt.html">Kvalifisert for vakt/Ledige vakter(?)</a></li>
+            <li><a href = "ny_bruker.html">Ny bruker</a></li>
+            <li><a href = "shift_book.html">Skiftbok</a></li>
+            <li><a class="active" href = "employees.html">Ansatte</a></li>
+            <li><a href = "registrer_ansatt.html">Registrer ansatte</a></li>
+            <li><a href = "godkjenne_vaktbytte.html">Ønsker om vaktbytte</a></li>
+        </ul>
+
+        <div class="content">
+            <h2>Employees</h2>
+            <table id="table_employees" class="table stripe hover" width="100%">
+                <thead>
+                    <tr>
+                        <th>Etternavn</th>
+                        <th>Fornavn</th>
+                        <th>Telefon</th>
+                        <th>Epost</th>
+                        <th>Stilling</th>
+                        <th>Brukernavn</th>
+                    </tr>
+                </thead>
+            </table>
+            <br>
+            <div class="pull-right">
+                <!-- TODO: fiks create og edit employee knapper slik at det kommer opp en modal med skjema man kan fylle ut og ikke bare blir linka til de andre sidene. -->
+                <button id="createEmployee" onclick="location.href='ny_bruker.html';"><span class="glyphicon"></span>Opprett bruker</button>
+                <button id="editEmployee" onclick="location.href='registrer_ansatt.html';"><span class="glyphicon"></span>Oppdater bruker</button>
+                <button id="deleteEmployee"><span class="glyphicon"></span>Fjern bruker</button>
             </div>
         </div>
     </body>

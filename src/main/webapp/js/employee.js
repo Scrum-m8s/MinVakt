@@ -32,18 +32,21 @@ $(document).ready(function() {
     }
 
 
-    $("#editButton").click(function () {
+    $("#editEmployee").click(function () {
         editEmployee();
         return false;
     });
 
     //delete employee
     $("#deleteEmployee").click(function () {
+        var user_id = $('tr.selected td:eq(5)').text();
+        console.log(user_id);
         $.ajax({
-            url: rootURL + $("#user_id").val(),
+            url: rootURL + user_id,
             type: 'DELETE',
             success: function(result) {
-                console.log("Employee was deleted with user_id: " + $("#user_id").val());
+                console.log("Employee was deleted with user_id: " + user_id);
+                window.location.reload();
             },
             error: function(data, textStatus, jqXHR){
                 console.log("Error: " + textStatus);
