@@ -80,6 +80,7 @@ public class UserDAO extends DatabaseManagement {
             }
             catch (SQLException sqle) {
                 System.err.println("Issue with creating user.");
+                sqle.printStackTrace();
                 rollbackStatement();
                 return false;
             }
@@ -126,6 +127,7 @@ public class UserDAO extends DatabaseManagement {
             }
             catch (SQLException sqle) {
                 System.err.println("Issue with removing user.");
+                sqle.printStackTrace();
                 rollbackStatement();
                 return false;
             }

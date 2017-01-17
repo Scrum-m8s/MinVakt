@@ -45,7 +45,30 @@ public class ShiftListDAO extends DatabaseManagement{
         return out;
     }
 
-    public ShiftList getShiftListById(String user_id, int shift_id){
+    public ArrayList<ShiftList> getShiftListById(String user_id){
+        ArrayList<ShiftList> out = new ArrayList<ShiftList>();
+        if(setUp()){
+            try {
+                conn = getConnection();
+                prep = conn.prepareStatement("SELECT * FROM Shift_list WHERE user_id=?;");
+                prep.setString(1, user_id);
+                res = prep.executeQuery();
+                while(res.next()){
+                    out.add(processRow(res));
+                }
+            }
+            catch (SQLException sqle){
+                System.err.println("Issue with getting Shift_list by user id.");
+                return null;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return out;
+    }
+
+    public ShiftList getSingleShift(String user_id, int shift_id){
         ShiftList out = null;
         if(setUp()){
             try {
@@ -59,7 +82,7 @@ public class ShiftListDAO extends DatabaseManagement{
                 }
             }
             catch (SQLException sqle){
-                System.err.println("Issue with getting Shift_list by user and shift id.");
+                System.err.println("Issue with getting single shift_list by user id and shift_id.");
                 return null;
             }
             finally {

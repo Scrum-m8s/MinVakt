@@ -1,6 +1,7 @@
 package org.team8.webapp.Testing;
 
 import org.junit.*;
+import org.team8.webapp.Busy.Busy;
 import org.team8.webapp.Busy.BusyDAO;
 import org.team8.webapp.Database.DatabaseManagement;
 import org.team8.webapp.Employee.Employee;
@@ -84,49 +85,47 @@ public class TestJUnitDB extends DatabaseManagement{
 
     @Test
     public void getUserById() {
-        assertNotNull(userDAO.getUserById("haakonrp"));
+        //creating dummy user to fetch
+        userDAO.createUser(new User("dummy", "dummy", 1));
+
+        //test fetching of data
+        assertNotNull(userDAO.getUserById("dummy"));
+
+        //clean up
+        userDAO.removeUser("dummy");
     }
 
     @Test
     public void createUser() {
-
-        String user = "dummy";
-        String pass = "dummy";
-
-        User u = new User(user, pass, 1);
-
         try {
-            assertTrue(userDAO.createUser(u));
+            assertTrue(userDAO.createUser(new User("dummy", "dummy", 1)));
         }
         catch (Exception e){
             System.err.println("Issue with database connection.");
             e.printStackTrace();
         }
         finally {
-            //removing test data after tests to avoid clutter in database
-            String sql = "DELETE FROM User WHERE user_id = '" + user + "';";
-            testExecuteSQL(sql);
+            userDAO.removeUser("dummy");
         }
     }
 
     @Test
     public void updateUser() {
-        User updated = new User("haakonrp", "updateTest", 1);
+        //creating dummy user to update
+        userDAO.createUser(new User("dummy", "dummy", 1));
 
-        assertTrue(userDAO.updateUser(updated));
+        assertTrue(userDAO.updateUser(new User("dummy", "dummyUPDATED", 2)));
 
-        //Changes back to old values
-        User old = new User("haakonrp", "Haakonrp123", 1);
-        userDAO.updateUser(old);
+        //clean up
+        userDAO.removeUser("dummy");
     }
 
     @Test
     public void removeUser() {
         //Create dummy user to delete
-        User dummy = new User("dummy", "dummy", 1);
-        userDAO.createUser(dummy);
+        userDAO.createUser(new User("dummy", "dummy", 1));
 
-        assertTrue(userDAO.removeUser(dummy.getUserId()));
+        assertTrue(userDAO.removeUser("dummy"));
     }
 
 
@@ -140,26 +139,25 @@ public class TestJUnitDB extends DatabaseManagement{
 
     @Test
     public void getEmployeeById() {
-        assertNotNull(employeeDAO.getEmployeeById("haakonrp"));
+        //creating dummy user to fetch
+        userDAO.createUser(new User("dummy", "dummy", 1));
+
+        //creating dummy employee
+        employeeDAO.createEmployee(new Employee("dummy", "dummy", "dummy", "dummy", "dummy", 1));
+
+        assertNotNull(employeeDAO.getEmployeeById("dummy"));
+
+        //clean up
+        employeeDAO.removeEmployee("dummy");
+        userDAO.removeUser("dummy");
     }
 
     @Test
     public void createEmployee() {
-        //creating dummy user first
-        User dummy = new User("dummy", "dummy", 1);
-
-        String firstname = "Ola";
-        String surname = "Nordmann";
-        String email = "email@test.com";
-        String phone = "12345678";
-        int category = 1;
-
-        Employee e = new Employee(dummy.getUserId(), firstname, surname, email, phone, category);
-
-
         try {
-            userDAO.createUser(dummy);
-            assertTrue(employeeDAO.createEmployee(e));
+            //creating dummy user to fetch
+            userDAO.createUser(new User("dummy", "dummy", 1));
+            assertTrue(employeeDAO.createEmployee(new Employee("dummy", "dummy", "dummy", "dummy", "dummy", 1)));
         }
         catch (Exception ex){
             System.err.println("Issue with database connection.");
@@ -167,49 +165,50 @@ public class TestJUnitDB extends DatabaseManagement{
         }
         finally {
             //removing test data after tests to avoid clutter in database
-            String sql1 = "DELETE FROM Employee WHERE user_id = '" + dummy.getUserId() + "';";
-            String sql2 = "DELETE FROM User WHERE user_id = '" + dummy.getUserId() + "';";
-            testExecuteSQL(sql1);
-            testExecuteSQL(sql2);
+            employeeDAO.removeEmployee("dummy");
+            userDAO.removeUser("dummy");
         }
     }
 
     @Test
     public void updateEmployee() {
-        String username = "haakonrp";
-        String firstname = "Haakon";
-        String surname = "Paulsen";
-        String email = "email@email.com";
-        String phone = "12345678";
-        int category = 2;
+        try {
+            //creating dummy user to fetch
+            userDAO.createUser(new User("dummy", "dummy", 1));
 
-        Employee updated = new Employee(username, "Ola", "Nordmann", "test@test.com", "87654321", 1);
+            //creating dummy employee
+            employeeDAO.createEmployee(new Employee("dummy", "dummy", "dummy", "dummy", "dummy", 1));
 
-        assertTrue(employeeDAO.updateEmployee(updated));
+            assertTrue(employeeDAO.updateEmployee(new Employee("dummy", "dummyUpdated", "dummyUpdated", "dummyUpdated", "dummyUpdated", 1)));
+        }
+        catch (Exception ex){
+            System.err.println("Issue with database connection.");
+            ex.printStackTrace();
+        }
+        finally {
+            //clean up
+            employeeDAO.removeEmployee("dummy");
+            userDAO.removeUser("dummy");
+        }
 
-        //Changes back to old values
-        Employee old = new Employee(username, firstname, surname, email, phone, category);
-        employeeDAO.updateEmployee(old);
     }
 
     @Test
     public void removeEmployee() {
         //create dummy user to delete first
-        User dummyUser = new User("dummy", "dummy", 1);
-        userDAO.createUser(dummyUser);
+        userDAO.createUser(new User("dummy", "dummy", 1));
 
         //Create dummy employee to delete
-        Employee dummyEmployee = new Employee(dummyUser.getUserId(), "dummy", "dummy", "dummy", "dummy", 3);
-        employeeDAO.createEmployee(dummyEmployee);
+        employeeDAO.createEmployee(new Employee("dummy", "dummy", "dummy", "dummy", "dummy", 3));
 
         //removing dummy data to avoid clutter in database
-        assertTrue(employeeDAO.removeEmployee(dummyUser.getUserId()));
-        userDAO.removeUser(dummyUser.getUserId());
+        assertTrue(employeeDAO.removeEmployee("dummy"));
+        userDAO.removeUser("dummy");
     }
 
 
     //
-    //shift-test
+    //Shift-tests
     //
     @Test
     public void getShifts(){
@@ -237,12 +236,10 @@ public class TestJUnitDB extends DatabaseManagement{
             ex.printStackTrace();
         }
         finally {
-            //removing test data after tests to avoid clutter in database
-            String sql = "DELETE FROM Shift WHERE shift_id = '" + dummy.getShiftId() + "';";
-            testExecuteSQL(sql);
+            shiftDAO.removeShift(4);
         }
     }
-
+  
     @Test
     public void updateShift() {
         //creating dummy data to fetch
@@ -265,6 +262,76 @@ public class TestJUnitDB extends DatabaseManagement{
         //clean up and test
         assertTrue(shiftDAO.removeShift(dummy.getShiftId()));
     }
+  
+  
+    //
+    //Busy-tests
+    //
+    @Test
+    public void getBusy(){
+        assertNotNull(busyDAO.getBusy());
+    }
+  
+    @Test
+    public void getBusyByUserIdAndShiftId() {
+        //dummy data
+        userDAO.createUser(new User("dummy", "dummy", 1));
+        busyDAO.createBusy(new Busy("dummy", 1, new Date(1970-05-07)));
+
+        assertNotNull(busyDAO.getBusyByUserIdAndShiftId("dummy", 1));
+
+        //clean up
+        busyDAO.removeBusy("dummy", 1);
+        userDAO.removeUser("dummy");
+    }
+  
+    @Test
+    public void createBusy() {
+      try {
+          //dummy data
+          userDAO.createUser(new User("dummy", "dummy", 1));
+          assertTrue(busyDAO.createBusy(new Busy("dummy", 1, new Date(1970-05-07))));
+      }
+      catch (Exception e){
+          System.err.println("Issue with database connection.");
+          e.printStackTrace();
+      }
+      finally {
+          //removing test data after tests to avoid clutter in database
+          busyDAO.removeBusy("dummy", 1);
+          userDAO.removeUser("dummy");
+      }
+  }
+
+  @Test
+  public void updateBusy() {
+      //dummy data and dates
+      Date date = new Date(2017-11-12);
+      Date dateUpdated = new Date(2016-01-06);
+
+      userDAO.createUser(new User("dummy", "dummy", 1));
+      busyDAO.createBusy(new Busy("dummy", 1, date));
+
+      assertTrue(busyDAO.updateBusy(new Busy("dummy", 1, dateUpdated)));
+
+      //clean up
+      busyDAO.removeBusy("dummy", 1);
+      userDAO.removeUser("dummy");
+  }
+
+  @Test
+  public void removeBusy() {
+      //dummy data and dates
+      Date date = new Date(2017-11-12);
+
+      userDAO.createUser(new User("dummy", "dummy", 1));
+      busyDAO.createBusy(new Busy("dummy", 1, date));
+
+      assertTrue(busyDAO.removeBusy("dummy", 1));
+
+      //clean up
+      userDAO.removeUser("dummy");
+  }
 
 
     //
@@ -296,7 +363,7 @@ public class TestJUnitDB extends DatabaseManagement{
 
         //clean up
         timeListDAO.removeTimeList("dummy", "dummy");
-        userDAO.removeUser("dummy");
+        userDAO.removeUser(("dummy"));
     }
 
     @Test
@@ -385,7 +452,5 @@ public class TestJUnitDB extends DatabaseManagement{
 
         userDAO.removeUser(("dummy3"));
     }
-
-
 
 }
