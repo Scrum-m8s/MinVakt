@@ -1,7 +1,9 @@
 package org.team8.webapp.User;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.SecurityContext;
 import java.util.ArrayList;
 
 import static org.team8.webapp.LoginManagment.Hash.createHashedPassword;
@@ -18,6 +20,14 @@ public class UserResource {
     public ArrayList<User> getUsers() {
         System.out.println("getUsers");
         return dao.getUsers();
+    }
+
+    @Path("/current")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public User getCurrentUser(@Context SecurityContext sc){
+        System.out.println("getCurrentUser");
+        return dao.getUserById(sc.getUserPrincipal().getName());
     }
 
     @Path("{id}")
@@ -37,7 +47,6 @@ public class UserResource {
         return dao.createUser(e);
     }
 
-    @Path("{id}")
     @PUT
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean updateUser(User e) {
