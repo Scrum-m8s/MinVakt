@@ -119,7 +119,87 @@ public class ShiftListDAO extends DatabaseManagement{
         }
         return numb > 0;
     }
+    
+    public boolean updateDeviance(ShiftList s_l, String month){
+        int numb = 0;
+        
+        if(setUp()) {
+            //Oppdaterer time_list.
+            try {
+                conn = getConnection();
+                conn.setAutoCommit(false);
+                //Sjekker om en unik rad eksisterer.
+                prep = conn.prepareStatement("SELECT EXISTS(SELECT 1 FROM Time_list WHERE user_id=? AND month=?)");
+                prep.setString(1, s_l.getUser_id());
+                prep.setString(2, month);
+                numb = prep.executeUpdate();
+                //Hvis en unik rad eksisterer og deviance<0, oppdater fravær.
+                if (numb==1 && s_l.getDeviance()<0){
+                    prep = conn.prepareStatement("UPDATE Time_list SET absence=? WHERE user_id=? AND month=?");
+                    prep.setInt(1,s_l.getDeviance());
+                    prep.setString(2,s_l.getUser_id());
+                    prep.setString(3,month);
+                }
+                //Hvis en unik rad eksisterer og deviance>0, oppdater overtid.
+                else if (numb==1 && s_l.getDeviance()>0){
+                    prep = conn.prepareStatement("UPDATE Time_list SET overtime=? WHERE user_id=? AND month=?");
+                    prep.setInt(1,s_l.getDeviance());
+                    prep.setString(2,s_l.getUser_id());
+                    prep.setString(3,month);
+                }
+                //Hvis en unik rad ikke eksisterer, opprett og fyll inn.
+                else {
+                    prep = conn.prepareStatement("INSERT INTO Time_list (user_id, month, ordinary, overtime, absence) VALUES (?, ?, ?, ?, ?);");
+                    prep.setString(1, s_l.getUser_id());
+                    prep.setString(2, month);
+                    prep.setInt(3, 0);
+                    if (s_l.getDeviance()>0){
+                        prep.setInt(4,s_l.getDeviance());
+                        prep.setInt(5,0);
+                    }
+                    else{
+                        prep.setInt(4,0);
+                        prep.setInt(5,s_l.getDeviance());
+                    }
+                }
+                numb = prep.executeUpdate();
+            }
+            catch (SQLException sqle) {
+                System.err.println("Issue with updating deviance.");
+                rollbackStatement();
+                return false;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return numb > 0;
+    }
 
+    public boolean removeDeviance(String user_id, int shift_id){
+        int numb = 0;
+        if(setUp()) {
+            try {
+                conn = getConnection();
+                conn.setAutoCommit(false);
+                prep = conn.prepareStatement("UPDATE Shift_list SET deviance=? WHERE user_id = ? AND shift_id = ?;");
+                prep.setInt(1,0);
+                prep.setString(2, user_id);
+                prep.setInt(3, shift_id);
+                numb = prep.executeUpdate();
+            }
+            catch (SQLException sqle) {
+                System.err.println("Issue with removing shiftlist.");
+                rollbackStatement();
+                return false;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return numb > 0;
+    }
+    
     public boolean removeShiftlist(String user_id, int shift_id){
         int numb = 0;
         if(setUp()) {

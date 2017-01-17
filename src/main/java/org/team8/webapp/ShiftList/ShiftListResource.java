@@ -44,6 +44,24 @@ public class ShiftListResource {
         System.out.println("update Shift_list");
         return dao.updateShiftlist(s_l);
     }
+    
+    @Path("{update-deviances}")
+    @PUT
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public boolean updateDeviance(ShiftList s_l) {
+        System.out.println("update Deviance in Shift_list");
+        ArrayList<ShiftList> listen = getShiftLists();
+        String month = "Januar";                        //TODO: Gjør denne verdien redigerbar.
+        boolean result=false;
+        for (int i=0;i<listen.size();i++){
+            if (listen.get(i).getDeviance()!=0){
+                result = dao.updateDeviance(listen.get(i),month);
+                dao.removeDeviance(listen.get(i).getUser_id(),listen.get(i).getShift_id());
+            }
+        }
+        return result;
+    }
 
     @Path("/{shift_id}/{user_id}")
     @DELETE
