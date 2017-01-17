@@ -109,6 +109,7 @@ public class EmployeeDAO extends DatabaseManagement {
             }
             catch (SQLException sqle) {
                 System.err.println("Issue with updating employee.");
+                sqle.printStackTrace();
                 rollbackStatement();
                 return false;
             }
@@ -119,6 +120,7 @@ public class EmployeeDAO extends DatabaseManagement {
         return numb > 0;
     }
 
+    //FIXME: vetke om dette blir helt rett. Må ha en dummy database å teste opp mot.
     public boolean removeEmployee(String id) {
         int numb = 0;
         if(setUp()) {
@@ -142,13 +144,16 @@ public class EmployeeDAO extends DatabaseManagement {
     }
 
     protected Employee processRow(ResultSet res) throws SQLException {
+        //res.getString("user_id"), res.getString("firstname"), res.getString("surname"), res.getString("email"), res.getString("phone_number"), res.getInt("category")
         Employee e = new Employee();
+
         e.setUserId(res.getString("user_id"));
         e.setFirstname(res.getString("firstname"));
         e.setSurname(res.getString("surname"));
         e.setEmail(res.getString("email"));
         e.setPhoneNumber(res.getString("phone_number"));
         e.setCategory(res.getInt("category"));
+
         return e;
     }
 }

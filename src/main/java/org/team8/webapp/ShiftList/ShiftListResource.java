@@ -19,12 +19,20 @@ public class ShiftListResource {
         return dao.getShiftLists();
     }
 
+    @Path("{user_id}")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public ArrayList<ShiftList> getShiftListById(@PathParam("user_id") String user_id){
+        System.out.println("getShiftListById");
+        return dao.getShiftListById(user_id);
+    }
+
     @Path("{user_id}/{shift_id}")
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public ShiftList getShiftListById(@PathParam("user_id") String user_id, @PathParam("shift_id") int shift_id){
         System.out.println("getShiftListById");
-        return dao.getShiftListById(user_id, shift_id);
+        return dao.getSingleShift(user_id, shift_id);
     }
 
 

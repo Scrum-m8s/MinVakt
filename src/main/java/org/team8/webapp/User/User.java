@@ -10,11 +10,12 @@ public class User {
     private String password;
     private int role;
 
-    User(){}
+    public User(){}
 
-    public User(String user_id, String password) {
+    public User(String user_id, String password, int role) {
         this.user_id = user_id;
         this.password = password;
+        this.role = role;
     }
 
     public String getUserId() {
