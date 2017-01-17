@@ -4,54 +4,34 @@
 
 $(document).ready(function() {
 
-    $('#EmployeeTable').DataTable({
-        searching: false,
-        paging: false,
-        info: false,
-        ajax: {
-            url: 'api/employees',
-            dataSrc: ''
-
-        },
-        columns: [
-            {data: 'user_id'},
-            {data: 'fornavn'},
-            {data: 'etternavn'},
-            {data: 'telefon'},
-            {data: 'epost'},
-            {data: 'kategori'}
-
-        ]
-    });
-    //rediger ansatt fungerer ikke
-    function editEmployee(user_id, fornavn, etternavn,telefon, epost, kategori) {
+    function editEmployee(user_id, firstname, surname, phone_number, email, category) {
         $.ajax({
-            url: 'api/employees' + $("#user_id").val(),
+            url: 'api/employees/' + $("#user_id").val(),
             type: 'PUT',
-            data: '{"userId": "' + user_id + '", "fornavn" : "' + fornavn + '", "etternavn" : "' + etternavn + '", "telefon" : "' + telefon + '", "epost" : "' + epost + '", "kategori" : "' + kategori + '"}',
+            data: '{"userId": "' + user_id + '", "firstname" : "' + firstname + '", "surname" : "' + surname +  '", "email" : "' + email + '", "phoneNumber" : "' + phone_number + '", "category" : "' + category + '"}',
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
-            success: function (result) {
-                $('#EmployeeTable').DataTable().ajax.reload();
+            success: function (data) {
+                alert("Suksess!");
+//                $('#EmployeeTable').DataTable().ajax.reload();
             },
-            error: function () {
-                alert("Something went wrong");
+            error: function() {
+                console.log('Feil!');
             }
         });
     }
     $("#editButton").click(function () {
         var user_id = $("#user_id").val();
-        var fornavn = $("#fornavn").val();
-        var etternavn = $("#etternavn").val();
-        var telefon = $("#telefon").val();
-        var epost = $("#epost").val();
-        var kategori = $("#kategori").val();
-        v
+        var firstname = $("#firstname").val();
+        var surname = $("#surname").val();
+        var phone_number = $("#phone_number").val();
+        var email = $("#email").val();
+        var category = $("#category").val();
 
-        editEmployee(user_id, fornavn, etternavn, telefon, epost, kategori);
+
+        editEmployee(user_id, firstname, surname, phone_number, email, category);
 
     });
-
     // Slett
     $("#deleteEmployee").click(function () {
         $.ajax({

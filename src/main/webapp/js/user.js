@@ -4,40 +4,8 @@
 
 $(document).ready(function() {
 
-        $('#UserTable').DataTable( {
-            ajax: {
-                url: 'api/users',
-                dataSrc: ''
-            },
-            columns: [
-                { data: 'user_id' },
-                { data: 'password' },
-                { data: 'role' }
-            ]
-        });
-    $('#EmployeeTable').DataTable({
-        //"order": [[ 1, "asc" ]],
-        searching: false,
-        paging: false,
-        info: false,
-        ajax: {
-            url: 'api/employees',
-            dataSrc: ''
 
-        },
-        columns: [
-            {data: 'user_id'},
-            {data: 'fornavn'},
-            {data: 'etternavn'},
-            {data: 'telefon'},
-            {data: 'epost'},
-            {data: 'kategori'}
-
-        ]
-    });
-
-
-        function registerUser(user_id, password, role, fornavn, etternavn, telefon, epost, kategori) {
+    function registerUser(user_id, password, role, firstname, surname, phone_number, email, category) {
 
         $.ajax({
             type: "POST",
@@ -45,36 +13,64 @@ $(document).ready(function() {
             data: '{"userId": "' + user_id + '", "password" : "' + password + '", "role" : "' + role + '"}',
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
-            success: function (result) {
+            success: function (data) {
                 $('#UserTable').DataTable().ajax.reload();
                 alert("New user was registered");
             }
-            });
-            $.ajax({
-                url: 'api/employees',
-                type: 'POST',
-                data: '{"userId": "' + user_id + '", "fornavn" : "' + fornavn + '", "etternavn" : "' + etternavn + '", "telefon" : "' + telefon + '", "epost" : "' + epost + '", "kategori" : "' + kategori + '"}',
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                success: function (result) {
-                    $('#EmployeeTable').DataTable().ajax.reload();
-                    alert("Employee was registered");
+        });
+        $.ajax({
+            type: 'POST',
+            url: 'api/employees',
+            data: '{"userId": "' + user_id + '", "firstname" : "' + firstname + '", "surname" : "' + surname + '", "phone_number" : "' + phone_number + '", "email" : "' + email + '", "category" : "' + category + '"}',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                $('#EmployeeTable').DataTable().ajax.reload();
+                alert("Employee was registered");
 
-                }
-            });
-        }
+            }
+        });
+    }
 
     $("#regButton").click(function () {
         var user_id = $("#user_id").val();
         var password = $("#password").val();
         var role = $("#role").val();
-        var fornavn = $("");
-        var etternavn = $("");
-        var telefon = $("");
-        var epost = $("");
-        var kategori = $("");
+        var firstname = $("").val();
+        var surname = $("").val();
+        var phone_number = $("").val();
+        var email = $("").val();
+        var category = $("").val();
 
-        registerUser(user_id, password, role, fornavn, etternavn, telefon, epost, kategori);
+        registerUser(user_id, password, role, firstname, surname, phone_number, email, category);
+
+    });
+    function editEmployee(user_id, firstname, surname, phone_number, email, category) {
+        $.ajax({
+            url: 'api/employees/' + $("#user_id").val(),
+            type: 'PUT',
+            data: '{"userId": "' + user_id + '", "firstname" : "' + firstname + '", "surname" : "' + surname +  '", "email" : "' + email + '", "phoneNumber" : "' + phone_number + '", "category" : "' + category + '"}',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                alert("Suksess!");
+//                $('#EmployeeTable').DataTable().ajax.reload();
+            },
+            error: function() {
+                console.log('Feil!');
+            }
+        });
+    }
+    $("#editButton").click(function () {
+        var user_id = $("#user_id").val();
+        var firstname = $("#firstname").val();
+        var surname = $("#surname").val();
+        var phone_number = $("#phone_number").val();
+        var email = $("#email").val();
+        var category = $("#category").val();
+
+
+        editEmployee(user_id, firstname, surname, phone_number, email, category);
 
     });
 
@@ -92,41 +88,9 @@ $(document).ready(function() {
             }
         });
     });
-    // Rediger
-    $("#editUser").click(function () {
-        $.ajax({
-            url: 'api/users' + $("#editUserId").val(),
-            type: 'PUT',
-            data: JSON.stringify({
-                user_id: $("#edit_user_id").val(),
-                password: $("#edit_password").val(),
-                role: $("#edit_role").val()
 
-            }),
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            success: function(result) {
-                $('#EmployeeTable').DataTable().ajax.reload();
-            },
-            error: function () {
-                alert("Something went wrong");
-            }
-        });
-    });
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
