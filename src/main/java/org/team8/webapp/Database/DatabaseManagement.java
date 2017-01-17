@@ -33,7 +33,7 @@ public abstract class DatabaseManagement {
     protected void closeConnection(){
         try {
             if(!scentence.isClosed() && scentence != null) DbUtils.closeQuietly(scentence);
-            if(!connection.isClosed() && connection != null)DbUtils.closeQuietly(connection);
+            if(!connection.isClosed() && connection != null) DbUtils.closeQuietly(connection);
         }
         catch (Exception e){
             System.err.println("Problem with closing connection.");

@@ -1,10 +1,22 @@
 language: java
 
-sudo: false
+sudo: required
+
+before_install:
+  - mysql -e 'CREATE DATABASE test;'
+  - mysql -u root test < sql/dummy.sql
 
 script:
-  - mvn clean verify
+  - mvn test
+
+notification:
+  email: false
+
+services:
+  - mysql
+
 jdk:
   - oraclejdk8
+
 after_success:
   - bash <(curl -s https://codecov.io/bash)

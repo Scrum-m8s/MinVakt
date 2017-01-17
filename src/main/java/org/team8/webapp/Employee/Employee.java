@@ -11,6 +11,17 @@ public class Employee {
     private String phone_number;
     private int category;
 
+    public Employee() {}
+
+    public Employee(String user_id, String firstname, String surname, String email, String phone_number, int category) {
+        this.user_id = user_id;
+        this.firstname = firstname;
+        this.surname = surname;
+        this.email = email;
+        this.phone_number = phone_number;
+        this.category = category;
+    }
+
     public String getUserId() {
         return user_id;
     }

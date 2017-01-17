@@ -1,20 +1,16 @@
-package org.team8.webapp.User;
-
+package org.team8.webapp.TimeList;
 /**
  *
  * @author Mr.Easter
  */
 import org.team8.webapp.Database.DatabaseManagement;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
-public class UserDAO extends DatabaseManagement {
+public class TimeListDAO extends DatabaseManagement{
 
-    public UserDAO() {
+    public TimeListDAO() {
         super();
     }
 
@@ -22,19 +18,19 @@ public class UserDAO extends DatabaseManagement {
     PreparedStatement prep = null;
     ResultSet res = null;
 
-    public ArrayList<User> getUsers(){
-        ArrayList<User> out = new ArrayList<User>();
+    public ArrayList<TimeList> getTimeLists(){
+        ArrayList<TimeList> out = new ArrayList<TimeList>();
         if(setUp()){
             try {
                 conn = getConnection();
-                prep = conn.prepareStatement("SELECT * FROM User;");
+                prep = conn.prepareStatement("SELECT * FROM Time_list;");
                 res = prep.executeQuery();
                 while (res.next()){
                     out.add(processRow(res));
                 }
             }
             catch (SQLException sqle){
-                System.err.println("Issue with getting users.");
+                System.err.println("Issue with getting timelists.");
                 return null;
             }
             finally {
@@ -43,21 +39,22 @@ public class UserDAO extends DatabaseManagement {
         }
         return out;
     }
-
-    public User getUserById(String id){
-        User out = null;
+    
+    public TimeList getTimeListByIdAndMonth(String id, String month){
+        TimeList out = null;
         if(setUp()){
             try {
                 conn = getConnection();
-                prep = conn.prepareStatement("SELECT * FROM User WHERE user_id = ?;");
+                prep = conn.prepareStatement("SELECT * FROM Time_list WHERE user_id=? AND month=?;");
                 prep.setString(1, id);
+                prep.setString(2, month);
                 res = prep.executeQuery();
                 if (res.next()){
                     out = processRow(res);
                 }
             }
             catch (SQLException sqle){
-                System.err.println("Issue with getting user by id.");
+                System.err.println("Issue with getting timelist by id and month.");
                 return null;
             }
             finally {
@@ -66,21 +63,22 @@ public class UserDAO extends DatabaseManagement {
         }
         return out;
     }
-
-    public boolean createUser(User e) {
+    
+    public boolean createTimeList(TimeList e) {
         int numb = 0;
         if(setUp()){
             try {
                 conn = getConnection();
-                prep = conn.prepareStatement("INSERT INTO User (user_id, password, role) VALUES (?, ?, ?);");
+                prep = conn.prepareStatement("INSERT INTO Time_list (user_id, month, ordinary, overtime, absence) VALUES (?, ?, ?, ?, ?);");
                 prep.setString(1, e.getUserId());
-                prep.setString(2, e.getPassword());
-                prep.setInt(3, e.getRole());
+                prep.setString(2, e.getMonth());
+                prep.setInt(3, e.getOrdinary());
+                prep.setInt(4, e.getOvertime());
+                prep.setInt(5, e.getAbsence());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with creating user.");
-                sqle.printStackTrace();
+                System.err.println("Issue with creating timelist.");
                 rollbackStatement();
                 return false;
             }
@@ -91,20 +89,22 @@ public class UserDAO extends DatabaseManagement {
         return numb > 0;
     }
 
-    public boolean updateUser(User e) {
+    public boolean updateTimeList(TimeList e) {
         int numb = 0;
         if(setUp()) {
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
-                prep = conn.prepareStatement("UPDATE User SET password=?, role = ? WHERE user_id=?;");
-                prep.setString(1, e.getPassword());
-                prep.setInt(2, e.getRole());
-                prep.setString(3, e.getUserId());
+                prep = conn.prepareStatement("UPDATE Time_list SET ordinary=?, overtime=?, absence=? WHERE user_id=? AND month=?;");
+                prep.setInt(1, e.getOrdinary());
+                prep.setInt(2, e.getOvertime());
+                prep.setInt(3, e.getAbsence());
+                prep.setString(4, e.getUserId());
+                prep.setString(5, e.getMonth());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with updating user.");
+                System.err.println("Issue with updating timelist.");
                 rollbackStatement();
                 return false;
             }
@@ -115,19 +115,19 @@ public class UserDAO extends DatabaseManagement {
         return numb > 0;
     }
 
-    public boolean removeUser(String id) {
+    public boolean removeTimeList(String id, String month) {
         int numb = 0;
         if(setUp()) {
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
-                prep = conn.prepareStatement("DELETE FROM User WHERE user_id=?;");
+                prep = conn.prepareStatement("DELETE FROM Time_list WHERE user_id=? AND month=?;");
                 prep.setString(1, id);
+                prep.setString(2, month);
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with removing user.");
-                sqle.printStackTrace();
+                System.err.println("Issue with removing timelist.");
                 rollbackStatement();
                 return false;
             }
@@ -138,11 +138,13 @@ public class UserDAO extends DatabaseManagement {
         return numb > 0;
     }
 
-    protected User processRow(ResultSet res) throws SQLException {
-        User e = new User();
-        e.setUserId(res.getString("user_id"));
-        e.setPassword(res.getString("password"));
-        e.setRole(res.getInt("role"));
-        return e;
+    protected TimeList processRow(ResultSet res) throws SQLException {
+        TimeList s = new TimeList();
+        s.setUserId(res.getString("user_id"));
+        s.setMonth(res.getString("month"));
+        s.setOrdinary(res.getInt("ordinary"));
+        s.setOvertime(res.getInt("overtime"));
+        s.setAbsence(res.getInt("absence"));
+        return s;
     }
 }
