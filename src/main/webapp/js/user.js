@@ -25,10 +25,12 @@ $(document).ready(function() {
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (data) {
-                $('#EmployeeTable').DataTable().ajax.reload();
                 alert("Employee was registered");
 
-            }
+            },
+            error: function() {
+            alert("Something went wrong");
+        }
         });
     }
 
@@ -45,34 +47,6 @@ $(document).ready(function() {
         registerUser(user_id, password, role, firstname, surname, phone_number, email, category);
 
     });
-    function editEmployee(user_id, firstname, surname, phone_number, email, category) {
-        $.ajax({
-            url: 'api/employees/' + $("#user_id").val(),
-            type: 'PUT',
-            data: '{"userId": "' + user_id + '", "firstname" : "' + firstname + '", "surname" : "' + surname +  '", "email" : "' + email + '", "phoneNumber" : "' + phone_number + '", "category" : "' + category + '"}',
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            success: function (data) {
-                alert("Suksess!");
-//                $('#EmployeeTable').DataTable().ajax.reload();
-            },
-            error: function() {
-                console.log('Feil!');
-            }
-        });
-    }
-    $("#editButton").click(function () {
-        var user_id = $("#user_id").val();
-        var firstname = $("#firstname").val();
-        var surname = $("#surname").val();
-        var phone_number = $("#phone_number").val();
-        var email = $("#email").val();
-        var category = $("#category").val();
-
-
-        editEmployee(user_id, firstname, surname, phone_number, email, category);
-
-    });
 
 
     // Slett
@@ -81,6 +55,7 @@ $(document).ready(function() {
             url: 'api/users/' + $("#deleteUserId").val(),
             type: 'DELETE',
             success: function(result) {
+                alert("User was deleted");
                 $('#UserTable').DataTable().ajax.reload();
             },
             error: function () {

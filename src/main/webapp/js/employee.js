@@ -16,7 +16,7 @@ $(document).ready(function() {
 //                $('#EmployeeTable').DataTable().ajax.reload();
             },
             error: function() {
-                console.log('Feil!');
+                alert("Something went wrong");
             }
         });
     }
@@ -38,7 +38,7 @@ $(document).ready(function() {
             url: 'api/employees/' + $("#user_id").val(),
             type: 'DELETE',
             success: function(result) {
-                $('#EmployeeTable').DataTable().ajax.reload();
+                alert("Employee was deleted");
             },
             error: function () {
                 alert("Something went wrong");
