@@ -28,7 +28,7 @@ public class EmployeeResource {
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean createEmployee(Employee e) {
         System.out.println("createEmployee");
         return dao.createEmployee(e);
@@ -37,7 +37,6 @@ public class EmployeeResource {
     @Path("{id}")
     @PUT
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean updateEmplyee(Employee e) {
         System.out.println("updateEmployee");
         return dao.updateEmployee(e);
@@ -45,7 +44,7 @@ public class EmployeeResource {
 
     @Path("{id}")
     @DELETE
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public void removeEmployee(@PathParam("id") String id) {
         dao.removeEmployee(id);
     }

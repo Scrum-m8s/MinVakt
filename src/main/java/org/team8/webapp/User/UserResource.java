@@ -28,7 +28,7 @@ public class UserResource {
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean createUser(User e) {
         System.out.println("createUser");
         return dao.createUser(e);
@@ -37,7 +37,6 @@ public class UserResource {
     @Path("{id}")
     @PUT
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean updateUser(User e) {
         System.out.println("updateUser");
         return dao.updateUser(e);
@@ -45,7 +44,7 @@ public class UserResource {
 
     @Path("{id}")
     @DELETE
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public void removeUser(@PathParam("id") String id) {
         dao.removeUser(id);
     }
