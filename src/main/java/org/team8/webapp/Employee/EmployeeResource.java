@@ -1,7 +1,9 @@
 package org.team8.webapp.Employee;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.SecurityContext;
 import java.util.ArrayList;
 
 /**
@@ -27,6 +29,14 @@ public class EmployeeResource {
         return dao.getEmployeeById(id);
     }
 
+    @Path("/current")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public Employee getCurrentEmployee(@Context SecurityContext sc){
+        System.out.println("getCurrentEmployee");
+        return dao.getEmployeeById(sc.getUserPrincipal().getName());
+    }
+
     @POST
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
@@ -35,11 +45,10 @@ public class EmployeeResource {
         return dao.createEmployee(e);
     }
 
-    @Path("{id}")
     @PUT
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public boolean updateEmplyee(Employee e) {
+    public boolean updateEmployee(Employee e) {
         System.out.println("updateEmployee");
         return dao.updateEmployee(e);
     }
