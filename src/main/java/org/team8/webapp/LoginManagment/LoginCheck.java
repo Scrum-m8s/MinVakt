@@ -42,6 +42,7 @@ public class LoginCheck {
     }
 
     public static void main(String[] args){
-
+        User u = new User("employee", "123");
+        System.out.println(validateCredentials(u));
     }
 }
