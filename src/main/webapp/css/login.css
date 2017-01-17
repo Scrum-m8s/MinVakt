@@ -11,7 +11,6 @@
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     overflow: hidden;
     font-family: roboto;
-    text-align: center;
 }
 
 .loginmodal-container h1 {
@@ -48,18 +47,6 @@
     -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
     -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
     box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-}
-
-.loginmodal {
-    text-align: center;
-    font-size: 14px;
-    font-family: 'Arial', sans-serif;
-    font-weight: 700;
-    height: 36px;
-    padding: 0 8px;
-    /* border-radius: 3px; */
-    /* -webkit-user-select: none;
-      user-select: none; */
 }
 
 .loginmodal-submit {
@@ -99,5 +86,8 @@
 
 .modal-dialog{
     text-align: center;
+}
 
+nav{
+    background-color: #4d90fe;
 }
