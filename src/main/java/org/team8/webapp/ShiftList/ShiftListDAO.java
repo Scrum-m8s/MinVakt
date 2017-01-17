@@ -123,12 +123,12 @@ public class ShiftListDAO extends DatabaseManagement{
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
-                prep = conn.prepareStatement("UPDATE Shift_list SET on_duty=?, my_date=?, deviance=? WHERE user_id=? AND shift_id=?;");
-                prep.setBoolean(1, s_l.isOn_duty());
-                prep.setDate(2, s_l.getMy_date());
-                prep.setInt(3, s_l.getDeviance());
-                prep.setString(4, s_l.getUser_id());
-                prep.setInt(5, s_l.getShift_id());
+                prep = conn.prepareStatement("UPDATE Shift_list SET shift_id=?, on_duty=?, my_date=?, deviance=? WHERE user_id=?;");
+                prep.setInt(1, s_l.getShift_id());
+                prep.setBoolean(2, s_l.isOn_duty());
+                prep.setDate(3, s_l.getMy_date());
+                prep.setInt(4, s_l.getDeviance());
+                prep.setString(5, s_l.getUser_id());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
