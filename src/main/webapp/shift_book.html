@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="Bootstrap-3.3.6/css/bootstrap.min.css">
 
-    <script src="Bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script src="js/jquery-3.1.0.min.js"></script>
+    <script src="Bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script src="js/kalender.js"></script>
+    <script src="js/shift_book_script.js"></script>
     <title>Vaktoversikt</title>
 </head>
 <body>
@@ -34,8 +36,9 @@
             <input type="date"/></div>
         </div>
 
-        <div class="container-fluid">
-            <div class="row" style = "background-color: lightgreen">
+        <!-- bootstrap-->
+        <div class="container-fluid" id ="bscal">
+            <div class="row" id ="row1id" style = "background-color: lightgreen"> <!-- trenger alltid 12 kolonner-->
                 <div class="col-sm-1">Uke</div>
                 <div class="col-sm-1">Mandag</div>
                 <div class="col-sm-1">Tirsdag</div>
@@ -45,6 +48,7 @@
                 <div class="col-sm-1">Lørdag</div>
                 <div class="col-sm-1">Søndag</div>
                 <div class="col-sm-4"></div>
+
             </div>
         </div>
     </div>

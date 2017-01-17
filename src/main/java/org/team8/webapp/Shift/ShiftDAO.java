@@ -45,7 +45,7 @@ public class ShiftDAO extends DatabaseManagement {
         if(setUp()){
             try {
                 conn = getConnection();
-                prep = conn.prepareStatement("SELECT * FROM Shift, Shift_list WHERE Shift.Shift_id = Shift_list.Shift_id AND user_id=?;");
+                prep = conn.prepareStatement("SELECT * FROM Shift WHERE shift_id = ? ");
                 prep.setString(1, id);
                 res = prep.executeQuery();
                 if (res.next()){
