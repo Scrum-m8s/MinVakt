@@ -15,7 +15,7 @@ public class LoginCheckTest {
     public void testValidateCredentials() throws Exception {
 
         // Finnes i databasen
-        User u = new User("canders", "Anders123");
+        User u = new User("canders", "Anders123", -1);
 
         assertTrue(validateCredentials(u) > -1);
 
