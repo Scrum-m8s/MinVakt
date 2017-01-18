@@ -9,12 +9,6 @@ $(document).ready(function initialize() {
 
             var first = new Date(newDate.getFullYear(), newDate.getMonth(), 1);
             var currentWOM = newDate.getWeek() - first.getWeek() + 2;
-            var calDate = new Date();
-            if(newDate.getDay() != 0) {
-                calDate = new Date(document.getElementById("r" + currentWOM + "c" + newDate.getDay() + 1));
-            } else{
-                calDate = new Date(document.getElementById("r" + currentWOM + "c8"));
-            }
 
             var shiftType = data[i].shift_id;
             var color;
@@ -28,7 +22,7 @@ $(document).ready(function initialize() {
             var currentDiv;
 
             //TODO: modal when clicked
-            if(calDate.getDay() != 0){
+            if(newDate.getDay() != 0){
                 currentDiv = document.getElementById("r" + currentWOM + "c" + (newDate.getDay() + 1));
                 currentDiv.innerHTML = newDate.toDateString(); // can add data[i].want_swap
                 currentDiv.style.backgroundColor = color;

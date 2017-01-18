@@ -2,7 +2,6 @@
 $(document).ready(function initialize() {
 //current date
     var today = new Date();
-    //var today = new Date(2017, 2, 5); test
     var mnd = today.getMonth();
 
 // find last day of month
