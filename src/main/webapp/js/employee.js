@@ -89,4 +89,63 @@ $(document).ready(function() {
             }
         });
     });
+
+
+// table with employees qualified for a shift
+    $('#availableEmployeesTable').DataTable( {
+     "order": [[ 1, "asc" ]],
+     searching: false,
+     paging: false,
+     info:  false,
+     ajax: {
+     url: 'api/employees/availableEmployeesTable',
+     dataSrc: '',
+
+     },
+     columns: [
+     { data: 'user_id'},
+     { data: 'firstname' },
+     { data: 'surname' },
+     { data: 'email' },
+     { data: 'phone_number' },
+     { data: 'category' }
+     ]
+     });
+
+    //function to get employees qualified for a shift
+    //is used in kvalifisert_for_vakt.html
+    function getAvailableEmployees(shift_id, my_date, category){
+        $.ajax({
+            type: 'GET',
+            contentType: 'application/json',
+            url: rootURL + "/"+ $("#shift_id").val()+"/"+$("#my_date").val()+"/"+$("#category").val(),
+            dataType: "json",
+            success: function(data, textStatus, jqXHR){
+                console.log("Available employees.");
+            },
+            error: function(data, textStatus, jqXHR){
+                console.log("Error: " + textStatus);
+            }
+        });
+
+    }
+    $("#availableEmployees").click(function () {
+        var category = $("#category").val();
+        var my_date = $("#my_date").val();
+        var shift_id = $("#shift_id").val();
+        getAvailableEmployees(shift_id, my_date, category);
+        return false;
+    });
+
+
+
+
+
+
+
+
+
+
+
+
 });
