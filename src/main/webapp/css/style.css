@@ -1,0 +1,85 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+.master-header {
+    min-height: 50px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #F7F7F7;
+    font-family: roboto;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    border-radius: 2px;
+}
+
+.sidebar-wrapper {
+    width: 0px;
+    height: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden; /* Scroll disabled */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.2s;
+    background-color: #F7F7F7;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    border-radius: 2px;
+}
+
+#menu-id {
+    top: 0;
+    left: 0;
+}
+
+#menu-button-id {
+    float: left;
+    width: 50px;
+    height: 50px;
+    color: #444444;
+    font-size: 32px;
+    background-color: transparent;
+    border: 0px;
+}
+
+.material-icons {
+    font-size: 24px;
+}
+
+#menu-title-id {
+    position: relative;
+    top: 7px;
+    left: 10px;
+    float: left;
+}
+
+#menu-title-id a{
+    text-decoration: none;
+    color: #444444;
+    font-size: 24px;
+}
+
+.sidebar-button {
+    background: transparent;
+    border: none;
+}
+
+
+
+.sidebar .glyphicon-remove {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 32px;
+}
+
+.sidebar a {
+    padding: 4px 4px 4px 32px;
+    color: #444444;
+    text-decoration: none;
+    font-size: 24px;
+    display: block;
+    transition: 0.1s;
+
+}
+
+.sidebar a:hover, .offcanvas a:focus {
+}
