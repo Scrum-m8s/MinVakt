@@ -47,6 +47,7 @@ public class UserResource {
         return dao.createUser(e);
     }
 
+    @Path("{id}")
     @PUT
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean updateUser(User e) {
