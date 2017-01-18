@@ -44,6 +44,7 @@ public class EmployeeResource {
         return dao.createEmployee(e);
     }
 
+    @Path("{id}")
     @PUT
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean updateEmployee(Employee e) {

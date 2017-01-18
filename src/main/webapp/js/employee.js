@@ -7,20 +7,54 @@
 var rootURL = "http://localhost:8080/api/employees/";
 
 $(document).ready(function() {
+
+    // Get the modal
+    var modal = document.getElementById('updateModal');
+
+// Get the button that opens the modal
+    var btn = document.getElementById("updateEmployee");
+
+// Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+    btn.onclick = function() {
+        modal.style.display = "block";
+        $("#username_filler").html('<b>Edit user: ' + $('tr.selected td:eq(5)').text() + '</b>');
+        $("#inputFirstname").attr('value', $('tr.selected td:eq(1)').text());
+        $("#inputLastname").attr('value', $('tr.selected td:eq(0)').text());
+        $("#inputPhone").attr('value', $('tr.selected td:eq(2)').text());
+        $("#inputEmail").attr('value', $('tr.selected td:eq(3)').text());
+        $("#inputRole").val($('tr.selected td:eq(4)').text());
+    }
+
+// When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+// When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    
     function editEmployee() {
-        console.log('editEmployee with user_id: ' + user_id);
+        console.log('editEmployee with user_id: ' + $('tr.selected td:eq(5)').text());
+        console.log($("#inputRole").prop('selectedIndex'));
         $.ajax({
             type: 'PUT',
             contentType: 'application/json',
-            url: rootURL + $("#user_id").val(),
+            url: rootURL + $('tr.selected td:eq(5)').text(),
             dataType: "json",
             data: JSON.stringify({
-                "user_id": $("#user_id").val(),
-                "firstname": $("#firstname").val(),
-                "surname": $("#surname").val(),
-                "email": $("#email").val(),
-                "phone_number": $("#phone_number").val(),
-                "category": $("#category").val()
+                "user_id": $('tr.selected td:eq(5)').text(),
+                "firstname": $("#inputFirstname").val(),
+                "surname": $("#inputLastname").val(),
+                "email": $("#inputEmail").val(),
+                "phone_number": $("#inputPhone").val(),
+                "category": ($("#inputRole").prop('selectedIndex')+1)
             }),
             success: function(data, textStatus, jqXHR){
                 console.log("Employee updated.");
@@ -32,8 +66,10 @@ $(document).ready(function() {
     }
 
 
-    $("#editEmployee").click(function () {
+    $("#submitUpdate").click(function () {
         editEmployee();
+        modal.style.display = "none";
+        //window.location.reload();
         return false;
     });
 
