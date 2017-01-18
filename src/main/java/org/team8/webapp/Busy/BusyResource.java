@@ -29,7 +29,6 @@ public class BusyResource{
 
         @POST
         @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-        @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
         public boolean createBusy(Busy b) {
         System.out.println("createBusy");
         return dao.createBusy(b);
@@ -37,8 +36,8 @@ public class BusyResource{
         
         @Path("{user_id}/{shift_id}")
         @DELETE
-        @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+        @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
         public void removeBusy(@PathParam("user_id") String user_id, @PathParam("shift_id") int shift_id) {
             dao.removeBusy(user_id, shift_id);
-    }
+        }
 }
