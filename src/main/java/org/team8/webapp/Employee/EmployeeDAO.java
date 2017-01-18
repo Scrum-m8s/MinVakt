@@ -144,6 +144,8 @@ public class EmployeeDAO extends DatabaseManagement {
         return numb > 0;
     }
 
+    //unwanted comment
+
     protected Employee processRow(ResultSet res) throws SQLException {
         Employee e = new Employee();
 
