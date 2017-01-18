@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="js/sidebar.js"></script>
+        <script src="js/taskbar.js"></script>
 
         <!-- user-defined styles -->
         <link rel="stylesheet" href="css/style.css">
@@ -33,29 +33,57 @@
                     <div id="menu-title-id">
                         <a href="#">Trondheim Kommune</a>
                     </div>
+
+                    <div id="user-menu-id">
+                        <span class="material-icons">account_circle</span>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="sidebar-wrapper" id="sidebar-wrapper-id">
             <div class="sidebar">
-                <a href="javascript:void(0)" onclick="closeNav()">
+
+                <a href="javascript:void(0)" onclick="closeNav()" id="sidebar-close-id">
                     <span class="material-icons">close</span>
                 </a>
-                <a href="index.html">
+
+                <a href="index.html" class="sidebar-link">
                     <span class="material-icons">home</span>
-                    <span id="display-name">
-                        <span>Hjem</span>
-                    </span>
+                    <span class="display-name">Hjem</span>
+                </a>
+
+                <a href="timeliste.html" class="sidebar-link">
+                    <span class="material-icons">today</span>
+                    <span class="display-name">Timelister</span>
+                </a>
+
+                <a href="endre_passord.html" class="sidebar-link">
+                    <span class="material-icons">create</span>
+                    <span class="display-name">Endre passord</span>
                 </a>
 
 
-                <a class="glyphicon glyphicon-list-alt" href="timeliste.html"> Timelister</a>
-                <a href="endre_passord.html">Endre passord</a>
-                <a href="vaktbytte.html">Vaktbytte</a>
-                <a href="ny_bruker.html">Ny bruker</a>
-                <a href="shift_book.html">Skiftbok</a>
-                <a href="employees.html">Ansatte</a>
+                <a href="vaktbytte.html" class="sidebar-link">
+                    <span class="material-icons">swap_horiz</span>
+                    <span class="display-name">Vaktbytte</span>
+                </a>
+
+                <a href="ny_bruker.html" class="sidebar-link">
+                    <span class="material-icons">person_add</span>
+                    <span class="display-name">Ny Bruker</span>
+                </a>
+
+                <a href="shift_book.html" class="sidebar-link">
+                    <span class="material-icons">book</span>
+                    <span class="display-name">Skiftbok</span>
+                </a>
+
+                <a href="employees.html" class="sidebar-link">
+                    <span class="material-icons">people</span>
+                    <span class="display-name">Ansatte</span>
+                </a>
+
                 <a href="kvalifisert_for_vakt.html">Ledige ansatte</a>
 
             </div>
