@@ -97,12 +97,13 @@ public class ShiftListDAO extends DatabaseManagement{
         if(setUp()){
             try {
                 conn = getConnection();
-                prep = conn.prepareStatement("INSERT INTO Shift_list (user_id, shift_id, on_duty, my_date, deviance) VALUES (?, ?, ?, ?, ?);");
+                prep = conn.prepareStatement("INSERT INTO Shift_list (user_id, shift_id, on_duty, my_date, deviance, want_swap) VALUES (?, ?, ?, ?, ?, ?);");
                 prep.setString(1, s_l.getUser_id());
                 prep.setInt(2, s_l.getShift_id());
                 prep.setBoolean(3, s_l.isOn_duty());
                 prep.setDate(4, s_l.getMy_date());
                 prep.setInt(5, s_l.getDeviance());
+                prep.setBoolean(6, s_l.isWant_swap());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
@@ -123,12 +124,13 @@ public class ShiftListDAO extends DatabaseManagement{
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
-                prep = conn.prepareStatement("UPDATE Shift_list SET shift_id=?, on_duty=?, my_date=?, deviance=? WHERE user_id=?;");
+                prep = conn.prepareStatement("UPDATE Shift_list SET shift_id=?, on_duty=?, my_date=?, deviance=?, want_swap=? WHERE user_id=?;");
                 prep.setInt(1, s_l.getShift_id());
                 prep.setBoolean(2, s_l.isOn_duty());
                 prep.setDate(3, s_l.getMy_date());
                 prep.setInt(4, s_l.getDeviance());
-                prep.setString(5, s_l.getUser_id());
+                prep.setBoolean(5, s_l.isWant_swap());
+                prep.setString(6, s_l.getUser_id());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
@@ -219,6 +221,7 @@ public class ShiftListDAO extends DatabaseManagement{
         s_l.setOn_duty(res.getBoolean("on_duty"));
         s_l.setMy_date(res.getDate("my_date"));
         s_l.setDeviance(res.getInt("deviance"));
+        s_l.setWant_swap(res.getBoolean("want_swap"));
         return s_l;
     }
 }
