@@ -27,6 +27,14 @@ public class TimeListResource {
         return dao.getTimeListByIdAndMonth(id, month);
     }
 
+    @Path("{month}/{id}/exists")
+    @GET
+    //@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public boolean rowExists(@PathParam("id") String id, @PathParam("month") String month) {
+        System.out.println("rowExists: " + month + id);
+        return dao.rowExists(id, month);
+    }
+
     @POST
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean createTimeList(TimeList e) {

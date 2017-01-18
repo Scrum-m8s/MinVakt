@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 /**
  * Created by Nina on 12.01.2017.
- * Edited by Mr_Easter on 12.01.2017
+ * Edited by Mr_Easter on 12.01.2017 and 18.01.2017.
  */
 public class BusyDAO extends DatabaseManagement {
 
@@ -33,7 +33,7 @@ public class BusyDAO extends DatabaseManagement {
                 }
             }
             catch (SQLException sqle){
-                System.err.println("Issue with getting busy.");
+                System.err.println("Issue with getting busy. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 return null;
             }
             finally {
@@ -57,7 +57,7 @@ public class BusyDAO extends DatabaseManagement {
                 }
             }
             catch (SQLException sqle){
-                System.err.println("Issue with getting busy by id.");
+                System.err.println("Issue with getting busy by id. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 return null;
             }
             finally {
@@ -79,7 +79,7 @@ public class BusyDAO extends DatabaseManagement {
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with creating busy.");
+                System.err.println("Issue with creating busy. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 rollbackStatement();
                 return false;
             }
@@ -96,14 +96,14 @@ public class BusyDAO extends DatabaseManagement {
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
-                prep = conn.prepareStatement("UPDATE Busy SET my_date=? WHERE user_id=? AND shift_id=?;");
+                prep = conn.prepareStatement("UPDATE Busy SET my_date=?,  WHERE user_id=? AND shift_id=?;");
                 prep.setDate(1, e.getMyDate());
                 prep.setString(2, e.getUserId());
                 prep.setInt(3, e.getShiftId());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with updating busy.");
+                System.err.println("Issue with updating user. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 rollbackStatement();
                 return false;
             }
@@ -126,7 +126,7 @@ public class BusyDAO extends DatabaseManagement {
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with removing busy.");
+                System.err.println("Issue with removing busy. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 rollbackStatement();
                 return false;
             }

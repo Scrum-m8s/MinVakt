@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 /**
  * Created by asdfLaptop on 11.01.2017.
- * Edited by Mr_Easter on 12.01.2017.
+ * Edited by Mr_Easter on 12.01.2017 and 18.01.2017.
  */
 public class ShiftDAO extends DatabaseManagement {
 
@@ -31,7 +31,7 @@ public class ShiftDAO extends DatabaseManagement {
                 }
             }
             catch (SQLException sqle){
-                System.err.println("Issue with getting shifts.");
+                System.err.println("Issue with getting shifts. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 return null;
             }
             finally {
@@ -54,7 +54,7 @@ public class ShiftDAO extends DatabaseManagement {
                 }
             }
             catch (SQLException sqle){
-                System.err.println("Issue with getting shift by id.");
+                System.err.println("Issue with getting shift by id. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 return null;
             }
             finally {
@@ -77,7 +77,7 @@ public class ShiftDAO extends DatabaseManagement {
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with creating shift.");
+                System.err.println("Issue with creating shift. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 rollbackStatement();
                 return false;
             }
@@ -102,7 +102,7 @@ public class ShiftDAO extends DatabaseManagement {
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with updating shift.");
+                System.err.println("Issue with updating shift. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 rollbackStatement();
                 return false;
             }
@@ -124,7 +124,7 @@ public class ShiftDAO extends DatabaseManagement {
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with removing shift.");
+                System.err.println("Issue with removing shift. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 rollbackStatement();
                 return false;
             }
