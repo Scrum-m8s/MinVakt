@@ -3,7 +3,6 @@
  */
 $(document).ready(function() {
     // Bind opp tabellen mot rest-ressursen
-
     var table = $('#table_employees').DataTable( {
         "paging": false,
         "info" : false,
