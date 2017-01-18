@@ -65,7 +65,7 @@ public class ShiftList {
         this.deviance = deviance;
     }
 
-    public boolean getWant_swap() {
+    public boolean isWant_swap() {
         return want_swap;
     }
 

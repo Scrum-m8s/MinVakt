@@ -96,7 +96,7 @@ public class BusyDAO extends DatabaseManagement {
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
-                prep = conn.prepareStatement("UPDATE Busy SET my_date=?,  WHERE user_id=? AND shift_id=?;");
+                prep = conn.prepareStatement("UPDATE Busy SET my_date=? WHERE user_id=? AND shift_id=?;");
                 prep.setDate(1, e.getMyDate());
                 prep.setString(2, e.getUserId());
                 prep.setInt(3, e.getShiftId());
