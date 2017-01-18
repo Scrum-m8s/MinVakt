@@ -2,6 +2,7 @@ package org.team8.webapp.Employee;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.sql.Date;
 import java.util.ArrayList;
 
 /**
@@ -17,6 +18,15 @@ public class EmployeeResource {
     public ArrayList<Employee> getEmployees() {
         System.out.println("getEmployees");
         return dao.getEmployees();
+    }
+
+    @Path("get_available_employees")
+    @GET
+    //@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public ArrayList<Employee> getAvailableEmployees(int shift_id, Date my_date, int category){
+        System.out.println("getAvailableEmployees");
+        return dao.getAvailableEmployees(shift_id,my_date,category);
     }
 
     @Path("{id}")

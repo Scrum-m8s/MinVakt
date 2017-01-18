@@ -180,6 +180,7 @@ public class ShiftListDAO extends DatabaseManagement{
         return numb > 0;
     }
 
+
     public boolean removeDeviance(String user_id, int shift_id){
         int numb = 0;
         if(setUp()) {
