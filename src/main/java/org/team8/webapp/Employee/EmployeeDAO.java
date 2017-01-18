@@ -33,6 +33,7 @@ public class EmployeeDAO extends DatabaseManagement {
                 }
             }
             catch (SQLException sqle){
+                sqle.printStackTrace();
                 System.err.println("Issue with getting employees.");
                 return null;
             }
@@ -72,16 +73,17 @@ public class EmployeeDAO extends DatabaseManagement {
             try {
                 conn = getConnection();
                 prep = conn.prepareStatement("INSERT INTO Employee (user_id, firstname, surname, email, phone_number, category) VALUES (?, ?, ?, ?, ?, ?);");
-                prep.setString(1, e.getUserId());
+                prep.setString(1, e.getUser_id());
                 prep.setString(2, e.getFirstname());
                 prep.setString(3, e.getSurname());
                 prep.setString(4, e.getEmail());
-                prep.setString(5, e.getPhoneNumber());
+                prep.setString(5, e.getPhone_number());
                 prep.setInt(6, e.getCategory());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
                 System.err.println("Issue with creating employee.");
+                sqle.printStackTrace();
                 rollbackStatement();
                 return false;
             }
@@ -102,9 +104,9 @@ public class EmployeeDAO extends DatabaseManagement {
                 prep.setString(1, e.getFirstname());
                 prep.setString(2, e.getSurname());
                 prep.setString(3, e.getEmail());
-                prep.setString(4, e.getPhoneNumber());
+                prep.setString(4, e.getPhone_number());
                 prep.setInt(5, e.getCategory());
-                prep.setString(6, e.getUserId());
+                prep.setString(6, e.getUser_id());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
@@ -144,14 +146,13 @@ public class EmployeeDAO extends DatabaseManagement {
     }
 
     protected Employee processRow(ResultSet res) throws SQLException {
-        //res.getString("user_id"), res.getString("firstname"), res.getString("surname"), res.getString("email"), res.getString("phone_number"), res.getInt("category")
         Employee e = new Employee();
 
-        e.setUserId(res.getString("user_id"));
+        e.setUser_id(res.getString("user_id"));
         e.setFirstname(res.getString("firstname"));
         e.setSurname(res.getString("surname"));
         e.setEmail(res.getString("email"));
-        e.setPhoneNumber(res.getString("phone_number"));
+        e.setPhone_number(res.getString("phone_number"));
         e.setCategory(res.getInt("category"));
 
         return e;
