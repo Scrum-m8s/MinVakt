@@ -31,7 +31,6 @@ public class TestJUnitDB extends DatabaseManagement{
     private static TimeListDAO timeListDAO;
     private static ShiftListDAO shiftListDAO;
 
-
     private String[] validUser = new String[2];
     private String[] invalidUser = new String[2];
 
@@ -273,9 +272,23 @@ public class TestJUnitDB extends DatabaseManagement{
     public void getBusy(){
         assertNotNull(busyDAO.getBusy());
     }
-  
+
     @Test
-    public void getBusyByUserIdAndShiftId() {
+    public void getBusyById(){
+        //dummy data
+        userDAO.createUser(new User("dummy", "dummy", 1));
+        busyDAO.createBusy(new Busy("dummy", 1, new Date(1970-05-07)));
+
+
+        assertNotNull(busyDAO.getBusyById("dummy"));
+
+        //clean up
+        busyDAO.removeBusy("dummy", 1);
+        userDAO.removeUser("dummy");
+    }
+
+    @Test
+    public void getSingleBusy() {
         //dummy data
         userDAO.createUser(new User("dummy", "dummy", 1));
         busyDAO.createBusy(new Busy("dummy", 1, new Date(1970-05-07)));
@@ -337,7 +350,7 @@ public class TestJUnitDB extends DatabaseManagement{
 
 
     //
-    //timelist-tests
+    //Timelist-tests
     //
     @Test
     public void getTimeLists(){
@@ -345,7 +358,20 @@ public class TestJUnitDB extends DatabaseManagement{
     }
 
     @Test
-    public void getTimeListByIdAndMonth() {
+    public void getTimeListsById(){
+        //creating dummy data to fetch
+        userDAO.createUser(new User("dummy", "dummy", 1));
+        timeListDAO.createTimeList(new TimeList("dummy", "dummy", 60, 0, 0));
+
+        assertNotNull(timeListDAO.getTimeListsById("dummy"));
+
+        //clean up
+        timeListDAO.removeTimeList("dummy", "dummy");
+        userDAO.removeUser("dummy");
+    }
+
+    @Test
+    public void getSingleTimeList() {
         //creating dummy data to fetch
         userDAO.createUser(new User("dummy", "dummy", 1));
         timeListDAO.createTimeList(new TimeList("dummy", "dummy", 60, 0, 0));
@@ -395,7 +421,7 @@ public class TestJUnitDB extends DatabaseManagement{
 
 
     //
-    //shiftlist-test
+    //Shiftlist-test
     //
     @Test
     public void getShiftLists(){
@@ -404,7 +430,7 @@ public class TestJUnitDB extends DatabaseManagement{
 
     @Test
     public void getShiftListById(){
-        // creating dummy data to fetch
+        //creating dummy data to fetch
         userDAO.createUser(new User("dummy3", "dummy3", 1));
         shiftListDAO.createShiftlist(new ShiftList("dummy3", 1, false, new Date(2017-01-01), 0, true));
 
@@ -413,6 +439,20 @@ public class TestJUnitDB extends DatabaseManagement{
         //clean up
         shiftListDAO.removeShiftlist("dummy3", 1);
         userDAO.removeUser(("dummy3"));
+
+    }
+
+    @Test
+    public void getSingleShift(){
+        // creating dummy data to fetch
+        userDAO.createUser(new User("dummy", "dummy", 1));
+        shiftListDAO.createShiftlist(new ShiftList("dummy", 2, false, new Date(2017-01-01), 0, true));
+
+        assertNotNull(shiftListDAO.getSingleShift("dummy", 2));
+
+        //clean up
+        shiftListDAO.removeShiftlist("dummy", 2);
+        userDAO.removeUser(("dummy"));
 
     }
 
