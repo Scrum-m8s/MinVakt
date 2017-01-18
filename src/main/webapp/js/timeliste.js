@@ -1,9 +1,4 @@
-/*
-legg til event listener på hver vakt som blir opprettet. når vakten klikkes skal modal vises med
-relevant informasjon om vakten
 
-fargekode vaktene etter type vakt. feks gul = dag, mørkeblå = natt og grønn = kveld
- */
 var user = "anders"; //test value
 
 $(document).ready(function initialize() {
@@ -33,10 +28,9 @@ $(document).ready(function initialize() {
             var currentDiv;
 
             //TODO: modal when clicked
-            //TODO: change color depending on shift type
             if(calDate.getDay() != 0){
                 currentDiv = document.getElementById("r" + currentWOM + "c" + (newDate.getDay() + 1));
-                currentDiv.innerHTML = newDate.toDateString(); // can add data[i].want_swap);
+                currentDiv.innerHTML = newDate.toDateString(); // can add data[i].want_swap
                 currentDiv.style.backgroundColor = color;
             } else {
                 currentDiv = document.getElementById("r" + currentWOM + "c8");
@@ -47,18 +41,3 @@ $(document).ready(function initialize() {
         }
     });
 });
-
-/*
-    /*
-
-    for hver vakt:
-        sjekk mnd, uke, dag
-        lag kolonne med modal
-        legg inn tid (fargekod kolonne)
-     */
-/*
-
-function selectVakt(vaktID){
-
-}
-*/
