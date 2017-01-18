@@ -13,11 +13,9 @@ import static org.team8.webapp.LoginManagment.LoginCheck.*;
 public class LoginCheckTest {
     @Test
     public void testValidateCredentials() throws Exception {
-        User u = new User();
 
         // Finnes i databasen
-        u.setUserId("canders");
-        u.setPassword("Anders123");
+        User u = new User("canders", "Anders123", -1);
 
         assertTrue(validateCredentials(u) > -1);
 
@@ -27,7 +25,7 @@ public class LoginCheckTest {
         assertFalse(validateCredentials(u) > -1);
 
         // Finnes ikke i databasen
-        u.setUserId("aslflbaglb");
+        u.setUser_id("aslflbaglb");
         u.setPassword("Anders123");
 
         assertFalse(validateCredentials(u) > -1);

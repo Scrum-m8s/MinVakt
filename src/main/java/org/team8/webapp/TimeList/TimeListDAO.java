@@ -121,7 +121,7 @@ public class TimeListDAO extends DatabaseManagement{
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
-                prep = conn.prepareStatement("UPDATE Time_list SET ordinary=?, overtime=?, absence=? WHERE shift_id=? AND month=?;");
+                prep = conn.prepareStatement("UPDATE Time_list SET ordinary=?, overtime=?, absence=? WHERE user_id=? AND month=?;");
                 prep.setInt(1, e.getOrdinary());
                 prep.setInt(2, e.getOvertime());
                 prep.setInt(3, e.getAbsence());
@@ -147,7 +147,7 @@ public class TimeListDAO extends DatabaseManagement{
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
-                prep = conn.prepareStatement("DELETE FROM Shift WHERE shift_id=? AND month=?;");
+                prep = conn.prepareStatement("DELETE FROM Time_list WHERE user_id=? AND month=?;");
                 prep.setString(1, id);
                 prep.setString(2, month);
                 numb = prep.executeUpdate();

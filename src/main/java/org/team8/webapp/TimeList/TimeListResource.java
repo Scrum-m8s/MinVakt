@@ -37,7 +37,6 @@ public class TimeListResource {
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean createTimeList(TimeList e) {
         System.out.println("createTimeList");
         return dao.createTimeList(e);
@@ -46,7 +45,6 @@ public class TimeListResource {
     @Path("{month}/{id}")
     @PUT
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean updateTimeList(TimeList e) {
         System.out.println("updateTimeList");
         return dao.updateTimeList(e);
@@ -54,7 +52,7 @@ public class TimeListResource {
 
     @Path("{month}/{id}")
     @DELETE
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public void removeTimeList(@PathParam("id") String id,@PathParam("month") String month) {
         dao.removeTimeList(id, month);
     }

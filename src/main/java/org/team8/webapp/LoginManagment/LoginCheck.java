@@ -21,7 +21,7 @@ public class LoginCheck {
     // Tar brukernavn og passord, skal returnere brukerrolle hvis lykkes, ellers -1
     public static int validateCredentials(User user) {
 
-        User databaseUser = dbUser.getUserById(user.getUserId());
+        User databaseUser = dbUser.getUserById(user.getUser_id());
 
         if (databaseUser == null) {
             return -1;
@@ -42,10 +42,7 @@ public class LoginCheck {
     }
 
     public static void main(String[] args){
-        User u = new User();
-        u.setUserId("admin");
-        u.setPassword("123");
-        int i = validateCredentials(u);
-        System.out.println(i);
+        User u = new User("employee", "123", 0);
+        System.out.println(validateCredentials(u));
     }
 }

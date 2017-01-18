@@ -41,13 +41,13 @@ public class ShiftDAO extends DatabaseManagement {
         return out;
     }
 
-    public Shift getShiftById(String id){
+    public Shift getShiftById(int id){
         Shift out = null;
         if(setUp()){
             try {
                 conn = getConnection();
                 prep = conn.prepareStatement("SELECT * FROM Shift WHERE Shift_id =?;");
-                prep.setString(1, id);
+                prep.setInt(1, id);
                 res = prep.executeQuery();
                 if (res.next()){
                     out = processRow(res);
@@ -113,14 +113,14 @@ public class ShiftDAO extends DatabaseManagement {
         return numb > 0;
     }
 
-    public boolean removeShift(String id) {
+    public boolean removeShift(int id) {
         int numb = 0;
         if(setUp()) {
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
                 prep = conn.prepareStatement("DELETE FROM Shift WHERE shift_id=?;");
-                prep.setString(1, id);
+                prep.setInt(1, id);
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {

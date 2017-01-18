@@ -1,65 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="Bootstrap-3.3.6/css/bootstrap.min.css">
-
-    <script src="Bootstrap-3.3.6/js/bootstrap.min.js"></script>
-    <script src="js/jquery-3.1.0.min.js"></script>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/layout.css">
+        <!--<link rel="stylesheet" href="Bootstrap-3.3.6/css/bootstrap.min.css">-->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+        <script src="js/jquery-3.1.0.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/dt-1.10.13/b-1.2.4/b-colvis-1.2.4/b-print-1.2.4/r-2.1.0/se-1.2.0/datatables.min.js"></script>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <!--<script src="Bootstrap-3.3.6/js/bootstrap.min.js"></script>-->
+        <script src="js/List_employees.js?version=1.1"></script>
+        <script src="js/employee.js?version=1.1"></script>
 
 
         <title>Oversikt over ansatte</title>
-        </head>
-<body>
-<ul class="sidenav">
-        <li><a href="index.html">Hjem</a></li>
-        <li><a href="timeliste.html">Timelister</a></li>
-        <li><a href="endre_passord.html">Endre passord</a></li>
-        <li><a href="vaktbytte.html">Vaktbytte</a></li>
-        <li><a href = "ny_bruker.html">Ny bruker</a></li>
-        <li><a href = "shift_book.html">Skiftbok</a></li>
-        <li><a class="active" href = "employees.html">Ansatte</a></li>
-        <li><a href = "godkjenne_vaktbytte.html">Ønsker om vaktbytte</a></li>
-        <li><a href = "kvalifisert_for_vakt.html">Ledige ansatte</a></li>
-    </ul>
-    <div class="content">
-        <h1>Oversikt over ansatte </h1>
-        <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>Fornavn</th>
-            <th>Etternavn</th>
-            <th>Telefon</th>
-            <th>Epost</th>
-            <th>Stilling</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>John</td>
-            <td>Pettersen</td>
-            <td>45739823</td>
-            <td>john@example.com</td>
-            <td>Sykepleier</td>
-        </tr>
-        <tr>
-            <td>Line</td>
-            <td>Hansen</td>
-            <td>93452309</td>
-            <td>line@example.com</td>
-            <td>Fagarbeider</td>
-        </tr>
-        <tr>
-            <td>Kjartan</td>
-            <td>Larsen</td>
-            <td>93409122</td>
-            <td>kjartan@example.com</td>
-            <td>Fagarbeider</td>
-        </tr>
-        </tbody>
-    </table>
-    </div>
-</body>
+    </head>
+
+    <body>
+        <ul class="sidenav">
+            <li><a href="index.html">Hjem</a></li>
+            <li><a href="timeliste.html">Timelister</a></li>
+            <li><a href="endre_passord.html">Endre passord</a></li>
+            <li><a href="vaktbytte.html">Vaktbytte</a></li>
+            <li><a href="kvalifisert_for_vakt.html">Kvalifisert for vakt/Ledige vakter(?)</a></li>
+            <li><a href = "ny_bruker.html">Ny bruker</a></li>
+            <li><a href = "shift_book.html">Skiftbok</a></li>
+            <li><a class="active" href = "employees.html">Ansatte</a></li>
+            <li><a href = "registrer_ansatt.html">Registrer ansatte</a></li>
+            <li><a href = "godkjenne_vaktbytte.html">Ønsker om vaktbytte</a></li>
+        </ul>
+
+        <div class="content">
+            <h2>Employees</h2>
+            <table id="table_employees" class="table stripe hover" width="100%">
+                <thead>
+                    <tr>
+                        <th>Etternavn</th>
+                        <th>Fornavn</th>
+                        <th>Telefon</th>
+                        <th>Epost</th>
+                        <th>Stilling</th>
+                        <th>Brukernavn</th>
+                    </tr>
+                </thead>
+            </table>
+            <br>
+            <div class="pull-right">
+                <!-- TODO: fiks create og edit employee knapper slik at det kommer opp en modal med skjema man kan fylle ut og ikke bare blir linka til de andre sidene. -->
+                <!--<button id="createEmployee" onclick="location.href='ny_bruker.html';"><span class="glyphicon"></span>Opprett bruker</button>
+                --><!-- Trigger/Open The Modal -->
+
+                <!-- The Modal -->
+                <div id="updateModal" class="modal">
+
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <form>
+                            <div class="form-group">
+                               <h4 id="username_filler"> </h4>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputFirstname">Fornavn</label>
+                                <input type="firstname" class="form-control" id="inputFirstname" placeholder="Skriv inn fornavn">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputLastname">Etternavn</label>
+                                <input type="lastname" class="form-control" id="inputLastname" placeholder="Skriv inn etternavn">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPhone">Telefon</label>
+                                <input type="phone" class="form-control" id="inputPhone" placeholder="Telefon">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail">Epost</label>
+                                <input type="email" class="form-control" id="inputEmail" placeholder="Skriv inn epost">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputRole">Velg en stilling</label>
+                                <select class="form-control" id="inputRole">
+                                    <option value="Sykepleier">Sykepleier</option>
+                                    <option value="Fagarbeider">Fagarbeider</option>
+                                    <option value="Assistent">Assistent</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="submitUpdate">Submit</button>
+                        </form>
+                    </div>
+
+                </div>
+                <button id="createEmployee">Opprett ansatt</button>
+                <button id="updateEmployee" >Oppdater bruker</button>
+                <button id="deleteEmployee"><span class="glyphicon"></span>Fjern bruker</button>
+            </div>
+        </div>
+    </body>
 </html>

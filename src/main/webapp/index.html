@@ -15,25 +15,55 @@
         <![endif]-->
 
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="js/sidebar.js"></script>
 
         <!-- user-defined styles -->
-        <link rel="stylesheet" href="css/layout.css">
+        <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
-    <ul class="sidenav">
-        <li><a class="active" href="index.html">Hjem</a></li>
-        <li><a href="timeliste.html">Timelister</a></li>
-        <li><a href="endre_passord.html">Endre passord</a></li>
-        <li><a href="vaktbytte.html">Vaktbytte</a></li>
-        <li><a href = "ny_bruker.html">Ny bruker</a></li>
-        <li><a href = "shift_book.html">Skiftbok</a></li>
-        <li><a href = "employees.html">Ansatte</a></li>
-        <li><a href = "kvalifisert_for_vakt.html">Ledige ansatte</a></li>
-    </ul>
+        <div class="master-header-wrapper">
+            <div class="master-header">
+                <div id="menu-id">
+                    <button id="menu-button-id"  href="javascript:void(0)" onclick="openNav()">
+                        <span class="material-icons">menu</span>
+                    </button>
+                    <div id="menu-title-id">
+                        <a href="#">Trondheim Kommune</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <div class="content">
+        <div class="sidebar-wrapper" id="sidebar-wrapper-id">
+            <div class="sidebar">
+                <a href="javascript:void(0)" onclick="closeNav()">
+                    <span class="material-icons">close</span>
+                </a>
+                <a href="index.html">
+                    <span class="material-icons">home</span>
+                    <span id="display-name">
+                        <span>Hjem</span>
+                    </span>
+                </a>
+
+
+                <a class="glyphicon glyphicon-list-alt" href="timeliste.html"> Timelister</a>
+                <a href="endre_passord.html">Endre passord</a>
+                <a href="vaktbytte.html">Vaktbytte</a>
+                <a href="ny_bruker.html">Ny bruker</a>
+                <a href="shift_book.html">Skiftbok</a>
+                <a href="employees.html">Ansatte</a>
+                <a href="kvalifisert_for_vakt.html">Ledige ansatte</a>
+
+            </div>
+        </div>
+
+
+
+        <div class="content-wrapper">
             <h1>Velkommen, </h1> <!-- insert fornavn -->
             <p>Under ser du når du jobber denne måneden.</p>
             <h4>Januar</h4> <!-- denne måneden. feks Januar -->
@@ -65,5 +95,6 @@
                 </div>
             </div>
         </div>
+    </div>
     </body>
 </html>
