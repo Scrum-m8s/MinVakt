@@ -88,6 +88,27 @@ function changePassword(user_id, new_password1, new_password2) {
 }
 
 function registerUser(user_id, password, role, firstname, surname, phone_number, email, category) {
+    if(user_id == "") {
+        alert("Error: Username cannot be blank!");
+        user_id.focus();
+        return false;
+    } if(password == "") {
+        alert("Error: Password cannot be blank!");
+        password.focus();
+        return false;
+    }
+    if(password.length < 8) {
+        alert("Error: Password must contain at least eight characters!");
+        $("#password").focus();
+        return false;
+    }
+    re = /[0-9]/;
+    if(!re.test(password)) {
+        alert("Error: password must contain at least one number (0-9)!");
+        $("#password").focus();
+        return false;
+    }
+
 
     $.ajax({
         type: "POST",
