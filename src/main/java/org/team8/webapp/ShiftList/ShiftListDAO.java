@@ -1,6 +1,8 @@
 package org.team8.webapp.ShiftList;
 
 import org.team8.webapp.Database.DatabaseManagement;
+import org.team8.webapp.TimeList.TimeList;
+import org.team8.webapp.TimeList.TimeListDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,7 +37,7 @@ public class ShiftListDAO extends DatabaseManagement{
                 }
             }
             catch (SQLException sqle){
-                System.err.println("Issue with getting shiftlists.");
+                System.err.println("Issue with getting shiftlists. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 return null;
             }
             finally {
@@ -59,7 +61,7 @@ public class ShiftListDAO extends DatabaseManagement{
                 }
             }
             catch (SQLException sqle){
-                System.err.println("Issue with getting Shift_list by user and shift id.");
+                System.err.println("Issue with getting Shift_list by user and shift id. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 return null;
             }
             finally {
@@ -83,7 +85,7 @@ public class ShiftListDAO extends DatabaseManagement{
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with creating shiftlist.");
+                System.err.println("Issue with creating shiftlist. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 rollbackStatement();
                 return false;
             }
@@ -109,7 +111,7 @@ public class ShiftListDAO extends DatabaseManagement{
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with updating shiftlist.");
+                System.err.println("Issue with updating shiftlist. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 rollbackStatement();
                 return false;
             }
@@ -119,9 +121,10 @@ public class ShiftListDAO extends DatabaseManagement{
         }
         return numb > 0;
     }
-    
+
     public boolean updateDeviance(ShiftList s_l, String month){
         int numb = 0;
+        TimeListDAO dao = new TimeListDAO();
         
         if(setUp()) {
             //Oppdaterer time_list.
@@ -129,23 +132,24 @@ public class ShiftListDAO extends DatabaseManagement{
                 conn = getConnection();
                 conn.setAutoCommit(false);
                 //Sjekker om en unik rad eksisterer.
-                prep = conn.prepareStatement("SELECT EXISTS(SELECT 1 FROM Time_list WHERE user_id=? AND month=?)");
-                prep.setString(1, s_l.getUser_id());
-                prep.setString(2, month);
-                numb = prep.executeUpdate();
-                //Hvis en unik rad eksisterer og deviance<0, oppdater fravær.
-                if (numb==1 && s_l.getDeviance()<0){
-                    prep = conn.prepareStatement("UPDATE Time_list SET absence=? WHERE user_id=? AND month=?");
-                    prep.setInt(1,s_l.getDeviance());
-                    prep.setString(2,s_l.getUser_id());
-                    prep.setString(3,month);
-                }
-                //Hvis en unik rad eksisterer og deviance>0, oppdater overtid.
-                else if (numb==1 && s_l.getDeviance()>0){
-                    prep = conn.prepareStatement("UPDATE Time_list SET overtime=? WHERE user_id=? AND month=?");
-                    prep.setInt(1,s_l.getDeviance());
-                    prep.setString(2,s_l.getUser_id());
-                    prep.setString(3,month);
+                boolean exists = dao.rowExists(s_l.getUser_id(),month);
+                if (exists){
+                    TimeList existingTimelist = dao.getTimeListByIdAndMonth(s_l.getUser_id(), month);
+                    //Hvis en unik rad eksisterer og deviance<0, oppdater fravï¿½r.
+                    if (s_l.getDeviance()<0) {
+                        prep = conn.prepareStatement("UPDATE Time_list SET absence=? WHERE user_id=? AND month=?");
+                        prep.setInt(1, existingTimelist.getAbsence() + s_l.getDeviance());
+                        prep.setString(2, s_l.getUser_id());
+                        prep.setString(3, month);
+                    }
+                    //Hvis en unik rad eksisterer og deviance>0, oppdater overtid.
+                    else{
+                        prep = conn.prepareStatement("UPDATE Time_list SET overtime=? WHERE user_id=? AND month=?");
+                        prep.setInt(1,existingTimelist.getOvertime()+s_l.getDeviance());
+                        prep.setString(2,s_l.getUser_id());
+                        prep.setString(3,month);
+
+                    }
                 }
                 //Hvis en unik rad ikke eksisterer, opprett og fyll inn.
                 else {
@@ -165,7 +169,7 @@ public class ShiftListDAO extends DatabaseManagement{
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with updating deviance.");
+                System.err.println("Issue with updating deviance. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 rollbackStatement();
                 return false;
             }
@@ -189,7 +193,7 @@ public class ShiftListDAO extends DatabaseManagement{
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with removing shiftlist.");
+                System.err.println("Issue with removing shiftlist. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 rollbackStatement();
                 return false;
             }
@@ -212,7 +216,7 @@ public class ShiftListDAO extends DatabaseManagement{
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with removing shiftlist.");
+                System.err.println("Issue with removing shiftlist. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 rollbackStatement();
                 return false;
             }

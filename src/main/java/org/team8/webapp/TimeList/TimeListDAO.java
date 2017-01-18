@@ -30,7 +30,7 @@ public class TimeListDAO extends DatabaseManagement{
                 }
             }
             catch (SQLException sqle){
-                System.err.println("Issue with getting timelists.");
+                System.err.println("Issue with getting timelists. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 return null;
             }
             finally {
@@ -54,8 +54,34 @@ public class TimeListDAO extends DatabaseManagement{
                 }
             }
             catch (SQLException sqle){
-                System.err.println("Issue with getting timelist by id and month.");
+                System.err.println("Issue with getting timelist by id and month. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 return null;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return out;
+    }
+
+    public boolean rowExists(String id, String month){
+        boolean out=false;
+        if(setUp()) {
+            try {
+                conn = getConnection();
+                conn.setAutoCommit(false);
+                prep = conn.prepareStatement("SELECT EXISTS(SELECT 1 FROM Time_list WHERE user_id=? AND month=?)");
+                prep.setString(1, id);
+                prep.setString(2, month);
+                res = prep.executeQuery();
+                if (res.next()){
+                    out = res.getBoolean(1);
+                }
+            }
+            catch (SQLException sqle) {
+                System.err.println("Issue with finding row existence. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
+                rollbackStatement();
+                return false;
             }
             finally {
                 finallyStatement(res, prep);
@@ -78,7 +104,7 @@ public class TimeListDAO extends DatabaseManagement{
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with creating timelist.");
+                System.err.println("Issue with creating timelist. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 rollbackStatement();
                 return false;
             }
@@ -104,7 +130,7 @@ public class TimeListDAO extends DatabaseManagement{
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with updating timelist.");
+                System.err.println("Issue with updating timelist. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 rollbackStatement();
                 return false;
             }
@@ -127,7 +153,7 @@ public class TimeListDAO extends DatabaseManagement{
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with removing timelist.");
+                System.err.println("Issue with removing timelist. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 rollbackStatement();
                 return false;
             }

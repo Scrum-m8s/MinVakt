@@ -34,7 +34,7 @@ public class UserDAO extends DatabaseManagement {
                 }
             }
             catch (SQLException sqle){
-                System.err.println("Issue with getting users.");
+                System.err.println("Issue with getting users. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 return null;
             }
             finally {
@@ -57,7 +57,7 @@ public class UserDAO extends DatabaseManagement {
                 }
             }
             catch (SQLException sqle){
-                System.err.println("Issue with getting user by id.");
+                System.err.println("Issue with getting user by id. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 return null;
             }
             finally {
@@ -79,7 +79,7 @@ public class UserDAO extends DatabaseManagement {
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with creating user.");
+                System.err.println("Issue with creating user. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 rollbackStatement();
                 return false;
             }
@@ -103,7 +103,7 @@ public class UserDAO extends DatabaseManagement {
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with updating user.");
+                System.err.println("Issue with updating user. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 rollbackStatement();
                 return false;
             }
@@ -125,7 +125,7 @@ public class UserDAO extends DatabaseManagement {
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with removing user.");
+                System.err.println("Issue with removing user. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 rollbackStatement();
                 return false;
             }
