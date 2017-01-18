@@ -73,7 +73,7 @@ public class UserDAO extends DatabaseManagement {
             try {
                 conn = getConnection();
                 prep = conn.prepareStatement("INSERT INTO User (user_id, password, role) VALUES (?, ?, ?);");
-                prep.setString(1, e.getUserId());
+                prep.setString(1, e.getUser_id());
                 prep.setString(2, e.getPassword());
                 prep.setInt(3, e.getRole());
                 numb = prep.executeUpdate();
@@ -100,7 +100,7 @@ public class UserDAO extends DatabaseManagement {
                 prep = conn.prepareStatement("UPDATE User SET password=?, role = ? WHERE user_id=?;");
                 prep.setString(1, e.getPassword());
                 prep.setInt(2, e.getRole());
-                prep.setString(3, e.getUserId());
+                prep.setString(3, e.getUser_id());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
@@ -140,7 +140,7 @@ public class UserDAO extends DatabaseManagement {
 
     protected User processRow(ResultSet res) throws SQLException {
         User e = new User();
-        e.setUserId(res.getString("user_id"));
+        e.setUser_id(res.getString("user_id"));
         e.setPassword(res.getString("password"));
         e.setRole(res.getInt("role"));
         return e;
