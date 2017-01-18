@@ -18,7 +18,7 @@ public class CreateLogin {
 
     public boolean signUp(User user){
 
-        String userName = user.getUserId();
+        String userName = user.getUser_id();
         String password = user.getPassword();
 
         // Hvis brukernavn allerede eksisterer

@@ -21,7 +21,7 @@ public class LoginCheck {
     // Tar brukernavn og passord, skal returnere brukerrolle hvis lykkes, ellers -1
     public static int validateCredentials(User user) {
 
-        User databaseUser = dbUser.getUserById(user.getUserId());
+        User databaseUser = dbUser.getUserById(user.getUser_id());
 
         if (databaseUser == null) {
             return -1;

@@ -25,7 +25,7 @@ public class LoginCheckTest {
         assertFalse(validateCredentials(u) > -1);
 
         // Finnes ikke i databasen
-        u.setUserId("aslflbaglb");
+        u.setUser_id("aslflbaglb");
         u.setPassword("Anders123");
 
         assertFalse(validateCredentials(u) > -1);
