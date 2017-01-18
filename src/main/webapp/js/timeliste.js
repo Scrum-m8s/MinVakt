@@ -4,29 +4,39 @@ relevant informasjon om vakten
 
 fargekode vaktene etter type vakt. feks gul = dag, mørkeblå = natt og grønn = kveld
  */
-
+var user = "anders"; //test
 $(document).ready(function initialize() {
 //fetch the shifts for this user and insert into correct dates in the calendar
-    $.get('/users/shifts/', function (data) {
-        data.forEach(function (elem){
-            //fill array with [week][day]. if shiftWDiff = 0, insert into first week, 1 = second week etc.
-            //check that diff !> c1id.length
-            var shiftDate = new Date(elem.getMyDate());
-            var shiftDOW = shiftDate.getDay();
-            var shiftWDiff = firstWeek - shiftDate.getWeek();
-            if(shiftDate.getMonth() == mnd){
+    var childRows = document.getElementById("bscal").childNodes;
+    var shiftCounter = 1;
+    for(var i = 1; i < childRows.length - 2; ++i){
+        var childCols = document.getElementById("r" + i).childNodes;
+        for(var j = 1; j < childCols.length; ++j){
+            var calDate = new Date(document.getElementById("r" + i + "c" + (j + 1)));
+            $.get("/api/shift_lists/" + user, function(data){
+                var newDate = data.my_date.toDateString();
+                while(newDate.getTime() == calDate.getTime()){
+                    var newCalDiv = document.createElement("div");
+                    var newCalContent = document.createTextNode(calDate.toDateString());
+                    newCalDiv.appendChild(newCalContent);
+                    var currentDiv;
 
-            } else{
-                //feil måned
-            }
-
-        });
-    });
+                    currentDiv = document.getElementById("r" + i + "c" + (j + 1));
+                    currentDiv.style.backgroundColor = "Brown";
+                    currentDiv.insertBefore(newCalDiv, null);
+                    ++shiftCounter;
+                }
+            });
+        }
+    }
 });
 
-
-
 /*
+ $.get("/api/shift_lists/anders/" + 2, function(data){
+ console.log(data.my_date);
+ });
+ */
+
 /*
     /*
 
@@ -41,13 +51,3 @@ function selectVakt(vaktID){
 
 }
 */
-
-/*var cal = [
- [0, 1, 2, 3, 4, 5, 6, 7],
- [0, 1, 2, 3, 4, 5, 6, 7],
- [0, 1, 2, 3, 4, 5, 6, 7],
- [0, 1, 2, 3, 4, 5, 6, 7],
- [0, 1, 2, 3, 4, 5, 6, 7],
- [0, 1, 2, 3, 4, 5, 6, 7],
- [0, 1, 2, 3, 4, 5, 6, 7]
- ];*/

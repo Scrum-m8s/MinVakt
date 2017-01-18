@@ -7,8 +7,9 @@ $(document).ready(function initialize() {
         var childCols = document.getElementById("r" + i).childNodes;
         for(var j = 1; j < childCols.length; ++j){
             var calDate = new Date(document.getElementById("r" + i + "c" + (j + 1)));
-            $.get("/shifts/" + shiftCounter, function(data){
-                while(data.myDate.getDate() == calDate.getDate()){
+            $.get("/api/shift_lists/" + shiftCounter, function(data){
+                var myDate = new Date(data.my_date);
+                while(myDate.getTime() == calDate.getTime()){
                     var newCalDiv = document.createElement("div");
                     var newCalContent = document.createTextNode(calDate.toDateString());
                     newCalDiv.appendChild(newCalContent);
@@ -20,7 +21,7 @@ $(document).ready(function initialize() {
                     ++shiftCounter;
                 }
             });
-        }
+    }
     }
 });
 
