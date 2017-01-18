@@ -33,25 +33,29 @@
 
                     <a href="index.html" id="menu-title-id">Trondheim Kommune</a>
 
-                    <a id="user-menu-id">
-                        <span class="material-icons">account_circle</span>
-                    </a>
+                    <div class="dropdown-wrapper">
+                        <span class="material-icons" id="dropdown">account_circle</span>
+                        <div class="dropdown-content">
+                            <a href="#" class="dropdown-link">
+                                <span class="material-icons">settings</span>
+                                <span class="dropdown-name">Innstillinger</span>
+                            </a>
+                            <a href="logout.jsp" class="dropdown-link">
+                                <span class="material-icons">power_settings_new</span>
+                                <span class="dropdown-name">Logg av</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="dropdown-wrapper" id="dropdown-wrapper-id">
-            <div class="dropdown">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
-            </div>
-        </div>
-
-
             <!-- Sidebar innhold-->
         <div class="sidebar-wrapper" id="sidebar-wrapper-id">
             <div class="sidebar">
+
+                <img src="/img/login_kommune.png" alt="" id="login_image">
+
 
                 <a href="javascript:void(0)" onclick="closeNav()" id="sidebar-close-id">
                     <span class="material-icons">close</span>
