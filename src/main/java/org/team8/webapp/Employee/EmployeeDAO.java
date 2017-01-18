@@ -122,7 +122,6 @@ public class EmployeeDAO extends DatabaseManagement {
         return numb > 0;
     }
 
-    //FIXME: vetke om dette blir helt rett. Må ha en dummy database å teste opp mot.
     public boolean removeEmployee(String id) {
         int numb = 0;
         if(setUp()) {
@@ -144,6 +143,8 @@ public class EmployeeDAO extends DatabaseManagement {
         }
         return numb > 0;
     }
+
+    //unwanted comment
 
     protected Employee processRow(ResultSet res) throws SQLException {
         Employee e = new Employee();
