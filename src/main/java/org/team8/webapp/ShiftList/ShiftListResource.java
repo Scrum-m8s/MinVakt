@@ -34,7 +34,22 @@ public class ShiftListResource {
         System.out.println("getShiftListById");
         return dao.getSingleShift(user_id, shift_id);
     }
+    
+    @Path("/want_swap")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public ArrayList<ShiftList> getWantSwap(){
+        System.out.println("getWantSwap");
+        return dao.getWantSwap();
+    }
 
+    @Path("/{user_id}/{shift_id}/{want_swap}")
+    @PUT
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public boolean Want_swap(ShiftList s_l) {
+        System.out.println("createWantSwap");
+        return dao.wantSwap(s_l);
+    }
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
