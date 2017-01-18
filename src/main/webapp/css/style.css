@@ -98,7 +98,6 @@
 
 #menu-button-id:hover {
     color: #4d90fe;
-    text-replace: 0.2s;
 }
 
 #user-menu-id {
@@ -115,7 +114,6 @@
 
 #user-menu-id:hover {
     color: #4d90fe;
-    transition: 0.2s;
 }
 
 #menu-title-id {
@@ -135,7 +133,9 @@
 .sidebar a:hover, .offcanvas a:focus {
 }
 
+.dropdown-wrapper {
 
+}
 
 
 
