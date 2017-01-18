@@ -26,21 +26,32 @@
     <body>
     <div class="wrapper">
 
-        <div class="navbar-wrapper">
-            <nav class="navbar">
-                <button class="sidebar-button">
-                    <i href="javascript:void(0)" class="material-icons">menu</i>
-                    <a href="javascript:void(0)" onclick="openNav()"></a>
-                </button>
-                Trondheim Kommune
-            </nav>
+        <div class="master-header-wrapper">
+            <div class="master-header">
+                <div id="menu-id">
+                    <button id="menu-button-id"  href="javascript:void(0)" onclick="openNav()">
+                        <span class="material-icons">menu</span>
+                    </button>
+                    <div id="menu-title-id">
+                        <a href="#">Trondheim Kommune</a>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="sidebar-wrapper" id="sidebar-wrapper-id">
             <div class="sidebar">
-                <i class="material-icons">menu</i>
-                <a href="javascript:void(0)" class="glyphicon glyphicon-remove" onclick="closeNav()"></a>
-                <i class="material-icons">cloud</i><a href="index.html">Hjem</a>
+                <a href="javascript:void(0)" onclick="closeNav()">
+                    <span class="material-icons">close</span>
+                </a>
+                <a href="index.html">
+                    <span class="material-icons">home</span>
+                    <span id="display-name">
+                        <span>Hjem</span>
+                    </span>
+                </a>
+
+
                 <a class="glyphicon glyphicon-list-alt" href="timeliste.html"> Timelister</a>
                 <a href="endre_passord.html">Endre passord</a>
                 <a href="vaktbytte.html">Vaktbytte</a>
@@ -48,6 +59,7 @@
                 <a href="shift_book.html">Skiftbok</a>
                 <a href="employees.html">Ansatte</a>
                 <a href="kvalifisert_for_vakt.html">Ledige ansatte</a>
+
             </div>
         </div>
 
