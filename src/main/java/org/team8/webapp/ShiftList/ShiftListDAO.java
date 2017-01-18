@@ -47,7 +47,7 @@ public class ShiftListDAO extends DatabaseManagement{
         return out;
     }
 
-    public ShiftList getShiftListById(String user_id, int shift_id){
+    public ShiftList getSingleShift(String user_id, int shift_id){
         ShiftList out = null;
         if(setUp()){
             try {
@@ -70,6 +70,75 @@ public class ShiftListDAO extends DatabaseManagement{
         }
         return out;
     }
+
+    public ArrayList<ShiftList> getShiftListById(String user_id){
+        ArrayList<ShiftList> out = new ArrayList<ShiftList>();
+        if(setUp()) {
+            try {
+                conn = getConnection();
+                prep = conn.prepareStatement("SELECT * FROM Shift_list WHERE user_id=?;");
+                prep.setString(1, user_id);
+                res = prep.executeQuery();
+                while (res.next()) {
+                    out.add(processRow(res));
+                }
+            } catch (SQLException sqle) {
+                System.err.println("Issue with getting shiftlists. Error code:" + sqle.getErrorCode() + " Message: " + sqle.getMessage());
+                return null;
+            } finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return out;
+    }
+
+    public ArrayList<ShiftList> getWantSwap(){
+        ArrayList<ShiftList> out = new ArrayList<ShiftList>();
+        if(setUp()){
+            try {
+                conn = getConnection();
+                prep = conn.prepareStatement("SELECT * FROM Shift_list WHERE want_swap=true;");
+                res = prep.executeQuery();
+                while (res.next()){
+                    out.add(processRow(res));
+                }
+            }
+            catch (SQLException sqle){
+                System.err.println("Issue with getting swapList.");
+                return null;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return out;
+    }
+
+    public boolean wantSwap(ShiftList s_l) {
+        int numb = 0;
+        if(setUp()) {
+            try {
+                conn = getConnection();
+                conn.setAutoCommit(false);
+                prep = conn.prepareStatement("UPDATE ShiftList SET want_swap=? WHERE user_id=? AND shift_id=?;");
+                prep.setBoolean(1, s_l.getWant_swap());
+                prep.setString(2, s_l.getUser_id());
+                prep.setInt(3, s_l.getShift_id());
+                numb = prep.executeUpdate();
+            }
+            catch (SQLException sqle) {
+                System.err.println("Issue with updating employee.");
+                rollbackStatement();
+                return false;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return numb > 0;
+    }
+
+
 
     public boolean createShiftlist(ShiftList s_l){
         int numb = 0;
