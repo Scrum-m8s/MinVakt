@@ -16,8 +16,10 @@ $(document).ready(function() {
                         json[i].category = 'Sykepleier';
                     } else if (json[i].category === 2) {
                         json[i].category = 'Fagarbeider';
-                    } else {
+                    } else if (json[i].category === 3) {
                         json[i].category = 'Assistent';
+                    } else {
+                        json[i].category = 'Uregistrert';
                     }
                     return_data.push({
                         'surname': json[i].surname,
