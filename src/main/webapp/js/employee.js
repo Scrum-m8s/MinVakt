@@ -1,50 +1,56 @@
 /**
  * Created by mariyashchekanenko on 16/01/2017.
+ * Edited by asdfLaptop on 17/01/2017.
  */
 
-$(document).ready(function() {
+// The root URL for the RESTful services
+var rootURL = "http://localhost:8080/api/employees/";
 
-    function editEmployee(user_id, firstname, surname, phone_number, email, category) {
+$(document).ready(function() {
+    function editEmployee() {
+        console.log('editEmployee with user_id: ' + user_id);
         $.ajax({
-            url: 'api/employees/' + $("#user_id").val(),
             type: 'PUT',
-            data: '{"userId": "' + user_id + '", "firstname" : "' + firstname + '", "surname" : "' + surname +  '", "email" : "' + email + '", "phoneNumber" : "' + phone_number + '", "category" : "' + category + '"}',
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            success: function (data) {
-                alert("Suksess!");
-//                $('#EmployeeTable').DataTable().ajax.reload();
+            contentType: 'application/json',
+            url: rootURL + $("#user_id").val(),
+            dataType: "json",
+            data: JSON.stringify({
+                "user_id": $("#user_id").val(),
+                "firstname": $("#firstname").val(),
+                "surname": $("#surname").val(),
+                "email": $("#email").val(),
+                "phone_number": $("#phone_number").val(),
+                "category": $("#category").val()
+            }),
+            success: function(data, textStatus, jqXHR){
+                console.log("Employee updated.");
             },
-            error: function() {
-                alert("Something went wrong");
+            error: function(data, textStatus, jqXHR){
+                console.log("Error: " + textStatus);
             }
         });
     }
-    $("#editButton").click(function () {
-        var user_id = $("#user_id").val();
-        var firstname = $("#firstname").val();
-        var surname = $("#surname").val();
-        var phone_number = $("#phone_number").val();
-        var email = $("#email").val();
-        var category = $("#category").val();
 
 
-        editEmployee(user_id, firstname, surname, phone_number, email, category);
-
+    $("#editEmployee").click(function () {
+        editEmployee();
+        return false;
     });
-    // Slett
+
+    //delete employee
     $("#deleteEmployee").click(function () {
+        var user_id = $('tr.selected td:eq(5)').text();
+        console.log(user_id);
         $.ajax({
-            url: 'api/employees/' + $("#user_id").val(),
+            url: rootURL + user_id,
             type: 'DELETE',
             success: function(result) {
-                alert("Employee was deleted");
+                console.log("Employee was deleted with user_id: " + user_id);
+                window.location.reload();
             },
-            error: function () {
-                alert("Something went wrong");
+            error: function(data, textStatus, jqXHR){
+                console.log("Error: " + textStatus);
             }
         });
     });
-
-
-})
+});

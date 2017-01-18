@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="UTF-8">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/layout.css">
     <!--<link rel="stylesheet" href="Bootstrap-3.3.6/css/bootstrap.min.css">-->
@@ -14,7 +15,7 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!--<script src="Bootstrap-3.3.6/js/bootstrap.min.js"></script>-->
-    <script src="js/user.js"></script>
+    <script src="js/user.js?version=1.3"></script>
 
     <title>Ny bruker</title>
 </head>
@@ -24,18 +25,18 @@
     <li><a href="timeliste.html">Timelister</a></li>
     <li><a href="endre_passord.html">Endre passord</a></li>
     <li><a href="vaktbytte.html">Vaktbytte</a></li>
+    <li><a href="kvalifisert_for_vakt.html">Kvalifisert for vakt/Ledige vakter(?)</a></li>
+    <li><a class="active" href = "ny_bruker.html">Ny bruker</a></li>
     <li><a href = "shift_book.html">Skiftbok</a></li>
     <li><a href = "employees.html">Ansatte</a></li>
-    <li><a href = "registrer_ansatt.html">Ny ansatt</a></li>
-    <li><a href = "kvalifisert_for_vakt.html">Ledige ansatte</a></li>
+    <li><a href = "registrer_ansatt.html">Registrer ansatte</a></li>
     <li><a href = "godkjenne_vaktbytte.html">Ønsker om vaktbytte</a></li>
-    <li><a class="active" href = "ny_bruker.html">Ny bruker</a></li>
 </ul>
 
 <div class="content">
     <div id="regForm">
          <div class="form-group">
-            <label for="user_id" class="control-label">User_id</label>
+            <label for="user_id" class="control-label">Brukernavn</label>
             <input type="text" class="form-control" id="user_id" name="username" value="" required="" title="Skriv inn brukernavn" >
             <span class="help-block"></span>
         </div>

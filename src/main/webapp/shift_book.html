@@ -7,23 +7,25 @@
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="Bootstrap-3.3.6/css/bootstrap.min.css">
 
-    <script src="Bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script src="js/jquery-3.1.0.min.js"></script>
+    <script src="Bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script src="js/kalender.js"></script>
+    <script src="js/shift_book_script.js"></script>
     <title>Vaktoversikt</title>
 </head>
 <body>
-    <ul class="sidenav">
-        <li><a href="index.html">Hjem</a></li>
-        <li><a href="timeliste.html">Timelister</a></li>
-        <li><a href="endre_passord.html">Endre passord</a></li>
-        <li><a href="vaktbytte.html">Vaktbytte</a></li>
-        <li><a href = "registrer_ansatt.html">Registrer ansatt</a></li>
-        <li><a href = "ny_bruker.html">Ny bruker</a></li>
-        <li><a class="active" href = "shift_book.html">Skiftbok</a></li>
-        <li><a href = "employees.html">Ansatte</a></li>
-        <li><a href = "kvalifisert_for_vakt.html">Ledige ansatte</a></li>
-        <li><a href = "godkjenne_vaktbytte.html">Ønsker om vaktbytte</a></li>
-    </ul>
+<ul class="sidenav">
+    <li><a href="index.html">Hjem</a></li>
+    <li><a href="timeliste.html">Timelister</a></li>
+    <li><a href="endre_passord.html">Endre passord</a></li>
+    <li><a href="vaktbytte.html">Vaktbytte</a></li>
+    <li><a href="kvalifisert_for_vakt.html">Kvalifisert for vakt/Ledige vakter(?)</a></li>
+    <li><a href = "ny_bruker.html">Ny bruker</a></li>
+    <li><a class="active" href = "shift_book.html">Skiftbok</a></li>
+    <li><a href = "employees.html">Ansatte</a></li>
+    <li><a href = "registrer_ansatt.html">Registrer ansatte</a></li>
+    <li><a href = "godkjenne_vaktbytte.html">Ønsker om vaktbytte</a></li>
+</ul>
 
     <div class="content">
         <h1>Vaktbok </h1>
@@ -35,8 +37,9 @@
             <input type="date"/></div>
         </div>
 
-        <div class="container-fluid">
-            <div class="row" style = "background-color: lightgreen">
+        <!-- bootstrap -->
+        <div class="container-fluid" id ="bscal">
+            <div class="row" id ="row1id" style = "background-color: lightgreen"> <!-- trenger alltid 12 kolonner-->
                 <div class="col-sm-1">Uke</div>
                 <div class="col-sm-1">Mandag</div>
                 <div class="col-sm-1">Tirsdag</div>
@@ -46,6 +49,7 @@
                 <div class="col-sm-1">Lørdag</div>
                 <div class="col-sm-1">Søndag</div>
                 <div class="col-sm-4"></div>
+
             </div>
         </div>
     </div>

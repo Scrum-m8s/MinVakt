@@ -10,6 +10,16 @@ public class TimeList {
     private int overtime;
     private int absence;
 
+    public TimeList() {}
+
+    public TimeList(String user_id, String month, int ordinary, int overtime, int absence) {
+        this.user_id = user_id;
+        this.month = month;
+        this.ordinary = ordinary;
+        this.overtime = overtime;
+        this.absence = absence;
+    }
+
     public String getUserId() {
         return user_id;
     }

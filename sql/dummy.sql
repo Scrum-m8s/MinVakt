@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `Employee` (
   `user_id` varchar(30) NOT NULL DEFAULT '',
   `surname` varchar(30) DEFAULT NULL,
   `firstname` varchar(30) DEFAULT NULL,
-  `phone_number` char(8) DEFAULT NULL,
+  `phone_number` char(12) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
   `category` int(11) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
