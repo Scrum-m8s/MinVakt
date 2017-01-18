@@ -10,3 +10,7 @@ function openNav() {
 function closeNav() {
     document.getElementById("sidebar-wrapper-id").style.width = "0";
 }
+
+function openDrop(){
+    document.getElementById()
+}

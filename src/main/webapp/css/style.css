@@ -1,6 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto);
 .master-header {
-    min-height: 50px;
+    height: 50px;
     top: 0; /* = 0 */
     left: 0; /* = 0 */
     width: 100%; /* = 100% */
@@ -11,7 +11,7 @@
 }
 
 .sidebar-wrapper {
-    width: 350px;
+    width: 0px;
     height: 100%;
     position: fixed;
     z-index: 1;
@@ -65,7 +65,6 @@
 }
 
 .sidebar a:hover, .offcanvas a:focus {
-    background-color: #4d90fe;;
 }
 
 
@@ -89,9 +88,17 @@
     width: 50px;
     height: 50px;
     color: #757575;
-    font-size: 32px;
-    background-color: transparent;
+    padding: 9px 9px 9px 9px;
     border: 0px;
+}
+
+#menu-button-id span{
+    font-size: 32px;
+}
+
+#menu-button-id:hover {
+    color: #4d90fe;
+    text-replace: 0.2s;
 }
 
 #user-menu-id {
@@ -100,24 +107,24 @@
     float: right;
     padding: 9px 9px 9px 9px;
     color: #757575;
-
 }
 
 #user-menu-id span{
     font-size: 32px;
 }
 
-#menu-title-id {
-    position: relative;
-    top: 7px;
-    left: 10px;
-    float: left;
+#user-menu-id:hover {
+    color: #4d90fe;
+    transition: 0.2s;
 }
 
-#menu-title-id a{
+#menu-title-id {
+    padding: 9px 9px 9px 9px;
+    position: absolute;
     text-decoration: none;
     color: #757575;
-    font-size: 24px;
+    font-family: roboto;
+    font-size: 22px;
 }
 
 .sidebar-button {
@@ -127,6 +134,12 @@
 
 .sidebar a:hover, .offcanvas a:focus {
 }
+
+
+
+
+
+
 
 @media screen and (max-height: 650px) {
     .sidebar {padding-top: 15px;}
