@@ -4,38 +4,40 @@ relevant informasjon om vakten
 
 fargekode vaktene etter type vakt. feks gul = dag, mørkeblå = natt og grønn = kveld
  */
-var user = "anders"; //test
+var user = "haakonrp"; //test
+
 $(document).ready(function initialize() {
 //fetch the shifts for this user and insert into correct dates in the calendar
-    var childRows = document.getElementById("bscal").childNodes;
-    var shiftCounter = 1;
-    for(var i = 1; i < childRows.length - 2; ++i){
-        var childCols = document.getElementById("r" + i).childNodes;
-        for(var j = 1; j < childCols.length; ++j){
-            var calDate = new Date(document.getElementById("r" + i + "c" + (j + 1)));
-            $.get("/api/shift_lists/" + user, function(data){
-                var newDate = data.my_date.toDateString();
-                while(newDate.getTime() == calDate.getTime()){
-                    var newCalDiv = document.createElement("div");
-                    var newCalContent = document.createTextNode(calDate.toDateString());
-                    newCalDiv.appendChild(newCalContent);
-                    var currentDiv;
+    $.get("/api/shift_lists/" + user, function(data){
+        for(var i = 0; i < data.length; ++i){ //shift counter
+            var newDate = new Date(data[i].my_date); //the date of each shift
 
-                    currentDiv = document.getElementById("r" + i + "c" + (j + 1));
-                    currentDiv.style.backgroundColor = "Brown";
-                    currentDiv.insertBefore(newCalDiv, null);
-                    ++shiftCounter;
-                }
-            });
+            var first = new Date(newDate.getFullYear(), newDate.getMonth(), 1);
+            var currentWOM = newDate.getWeek() - first.getWeek() + 2;
+            var calDate = new Date();
+            if(newDate.getDay() != 0) {
+                calDate = new Date(document.getElementById("r" + currentWOM + "c" + newDate.getDay() + 1)); //toDateString?
+            } else{
+                calDate = new Date(document.getElementById("r" + currentWOM + "c8")); //toDateString?
+            }
+            var newCalDiv = document.createElement("div");
+            var newCalContent = document.createTextNode(newDate.toDateString() +" " + data[i].want_swap);
+            newCalDiv.appendChild(newCalContent);
+            var currentDiv;
+
+            if(calDate.getDay() != 0){
+                currentDiv = document.getElementById("r" + currentWOM + "c" + (newDate.getDay() + 1));
+                currentDiv.style.backgroundColor = "Brown";
+                currentDiv.insertBefore(newCalDiv, null);
+            } else {
+                currentDiv = document.getElementById("r" + currentWOM + "c8");
+                currentDiv.style.backgroundColor = "Brown";
+                currentDiv.insertBefore(newCalDiv, null);
+                ++currentWOM;
+            }
         }
-    }
+    });
 });
-
-/*
- $.get("/api/shift_lists/anders/" + 2, function(data){
- console.log(data.my_date);
- });
- */
 
 /*
     /*
