@@ -113,7 +113,7 @@ public class BusyDAO extends DatabaseManagement {
         return numb > 0;
     }
     
-  public boolean updateBusy(Busy e) {
+    public boolean updateBusy(Busy e) {
         int numb = 0;
         if(setUp()) {
             try {
@@ -159,7 +159,7 @@ public class BusyDAO extends DatabaseManagement {
         }
         return numb > 0;
     }
-    
+
     protected Busy processRow(ResultSet res) throws SQLException {
         Busy b = new Busy();
         b.setUser_id(res.getString("user_id"));
@@ -167,6 +167,4 @@ public class BusyDAO extends DatabaseManagement {
         b.setMy_date(res.getDate("my_date"));
         return b;
     }
-
-
 }
