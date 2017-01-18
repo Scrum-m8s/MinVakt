@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 /**
  * Created by Nina on 12.01.2017.
- * Edited by Mr_Easter on 12.01.2017
+ * Edited by Mr_Easter on 12.01.2017 and 18.01.2017.
  */
 public class BusyDAO extends DatabaseManagement {
 

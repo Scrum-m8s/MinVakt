@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 /**
  * Created by asdfLaptop on 11.01.2017.
- * Edited by Mr_Easter on 12.01.2017.
+ * Edited by Mr_Easter on 12.01.2017 and 18.01.2017.
  */
 public class ShiftDAO extends DatabaseManagement {
 

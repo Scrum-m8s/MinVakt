@@ -11,6 +11,7 @@ import java.sql.Date;
 
 /**
  * Created by asdfLaptop on 10.01.2017.
+ * Edited by MisterEaster on 19.01.2017.
  */
 public class EmployeeDAO extends DatabaseManagement {
 
