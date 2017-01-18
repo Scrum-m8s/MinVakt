@@ -34,6 +34,13 @@
         </dependency>
         
         <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+
+
+        <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-server</artifactId>
             <version>2.3.1</version>
@@ -118,19 +125,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-                 
-            <plugin>
-	         <groupId>org.codehaus.mojo</groupId>
-                  <artifactId>cobertura-maven-plugin</artifactId>
-                  <version>2.7</version>
-                  <configuration>
-                           <formats>
-                                    <format>html</format>
-                                    <format>xml</format>
-                           </formats>
-                           <check />
-                  </configuration>
             </plugin>
         </plugins>
     </build>

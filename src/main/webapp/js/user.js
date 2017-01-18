@@ -7,54 +7,88 @@
 var rootURL = "http://localhost:8080/api/users/";
 
 $(document).ready(function() {
-
+    
     //register user
     function registerUser() {
-        console.log('registerUser and empty employee with user_id: ' + $("#user_id").val());
-        $.ajax({
-            type: 'POST',
-            contentType: 'application/json',
-            url: rootURL,
-            dataType: "json",
-            data: JSON.stringify({
-                "user_id": $("#user_id").val(),
-                "password": $("#password").val(),
-                "role": $("#role").val(),
-            }),
-            success: function(data, textStatus, jqXHR){
-                console.log("User added.");
-
-                //creating empty employee with same user_id
-                $.ajax({
-                    type: 'POST',
-                    contentType: 'application/json',
-                    url: "api/employees",
-                    dataType: "json",
-                    data: JSON.stringify({
-                        "user_id": $("#user_id").val(),
-                        "firstname": " ",
-                        "surname": " ",
-                        "email": " ",
-                        "phone_number": " ",
-                        "category": -1
-                    }),
-                    success: function(data, textStatus, jqXHR){
-                        console.log("Empty employee added.");
-                    },
-                    error: function(data, textStatus, jqXHR){
-                        console.log("Error: " + textStatus);
-                    }
-                });
-            },
-            error: function(data, textStatus, jqXHR){
-                console.log("Error: " + textStatus);
-            }
-        });
+      if($("#inputUsername").val() == "") {
+        alert("Error: Username cannot be blank!");
+          $("#inputUsername").focus();
+        return false;
+    } 
+      if($("#inputPassword").val() == "") {
+        alert("Error: Password cannot be blank!");
+          $("#inputPassword").focus();
+        return false;
     }
+    if($("#inputPassword").val().length < 8) {
+        alert("Error: Password must contain at least eight characters!");
+        $("#inputPassword").focus();
+        return false;
+    }
+    re = /[0-9]/;
+    if(!re.test($("#inputPassword").val())) {
+        alert("Error: password must contain at least one number (0-9)!");
+        $("#inputPassword").focus();
+        return false;
+    }
+      
+      
+      console.log('registerUser and empty employee with user_id: ' + $("#inputUsername").val());
+      $.ajax({
+          type: 'POST',
+          contentType: 'application/json',
+          url: rootURL,
+          dataType: "json",
+          data: JSON.stringify({
+              "user_id": $("#inputUsername").val(),
+              "password": $("#inputPassword").val(),
+              "role": -1
+          }),
+          success: function(data, textStatus, jqXHR){
+              console.log("User added.");
+
+              //creating empty employee with same user_id
+              $.ajax({
+                  type: 'POST',
+                  contentType: 'application/json',
+                  url: "api/employees",
+                  dataType: "json",
+                  data: JSON.stringify({
+                      "user_id": $("#inputUsername").val(),
+                      "firstname": " ",
+                      "surname": " ",
+                      "email": " ",
+                      "phone_number": " ",
+                      "category": -1
+                  }),
+                  success: function(data, textStatus, jqXHR){
+                      console.log("Empty employee added.");
+                  },
+                  error: function(data, textStatus, jqXHR){
+                      console.log("Error: " + textStatus);
+                  }
+              });
+          },
+          error: function(data, textStatus, jqXHR){
+              console.log("Error: " + textStatus);
+          }
+      });
+    }
+    
+
 
     $("#regButton").click(function () {
         registerUser();
         return false;
+    });
+
+
+    $("#changePasswordButton").click(function () {
+        var user_id = $("#user_id").val();
+        var new_password1 = $("#new_password1").val();
+        var new_password2 = $("#new_password2").val();
+        changePassword(user_id, new_password1, new_password2);
+
     });
 
     //delete user
@@ -73,10 +107,43 @@ $(document).ready(function() {
     });
 });
 
+//endre passord
+function changePassword(user_id, new_password1, new_password2) {
+    if(user_id == "") {
+        alert("Error: Username cannot be blank!");
+        user_id.focus();
+        return false;
+    }
+    if(new_password1 != "" && new_password1 == new_password2) {
+        if(new_password1.length < 8) {
+            alert("Error: Password must contain at least eight characters!");
+            $("#new_password1").focus();
+            return false;
+        }
+        re = /[0-9]/;
+        if(!re.test(new_password1)) {
+            alert("Error: password must contain at least one number (0-9)!");
+            $("#new_password1").focus();
+            return false;
+        }
+    } else {
+        alert("Error: Please check that you've entered and confirmed your password!");
+        $("#new_password1").focus();
+        return false;
+    }
 
+    alert("You entered a valid password: " + new_password1);
 
+    $.ajax({
+        type: "PUT",
+        url: "api/users",
+        data: '{"userId": "' + user_id + '", "password" : "' + new_password1 + '", "role" : "' + 1 + '"}',
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
 
-
+    });
+    return true;
+}
 
 
 

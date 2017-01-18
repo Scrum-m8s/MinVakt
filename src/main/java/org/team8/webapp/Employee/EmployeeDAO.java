@@ -33,6 +33,7 @@ public class EmployeeDAO extends DatabaseManagement {
                 }
             }
             catch (SQLException sqle){
+                sqle.printStackTrace();
                 System.err.println("Issue with getting employees.");
                 return null;
             }

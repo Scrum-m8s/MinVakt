@@ -19,27 +19,18 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
         <!-- user-defined styles -->
-        <link rel="stylesheet" href="css/login.css">
+        <link rel="stylesheet" href="/css/login.css">
 
     </head>
 
     <body>
-        <!-- add top taskbar w/info(?) -->
         <div class="modal-dialog">
-            <div class="navbar-wrapper">
-                <nav class="navbar">
-
-                </nav>
-            </div>
-
-
-
             <div class="loginmodal-container">
-                <img src="img/login_kommune.png" alt="" id="login_image">
+                <img src="/img/login_kommune.png" alt="" id="login_image">
                 <h1>Login to Your Account</h1><br>
-                <form>
-                    <input type="text" name="user" placeholder="Username">
-                    <input type="password" name="pass" placeholder="Password">
+                <form method=post action="j_security_check">
+                    <input type="text" name="j_username" placeholder="Username">
+                    <input type="password" name="j_password" placeholder="Password">
                     <input type="submit" name="login" class="login loginmodal-submit" value="Login">
                 </form>
             </div>
