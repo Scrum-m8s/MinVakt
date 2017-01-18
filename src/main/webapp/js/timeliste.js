@@ -24,11 +24,17 @@ $(document).ready(function initialize() {
             //TODO: modal when clicked
             if(newDate.getDay() != 0){
                 currentDiv = document.getElementById("r" + currentWOM + "c" + (newDate.getDay() + 1));
+                currentDiv.onclick = function(){
+                    $("#timelisteModal").modal();
+                };
                 currentDiv.innerHTML = newDate.toDateString(); // can add data[i].want_swap
                 currentDiv.style.backgroundColor = color;
             } else {
                 currentDiv = document.getElementById("r" + currentWOM + "c8");
                 currentDiv.innerHTML = newDate.toDateString();
+                currentDiv.onclick = function(){
+                    $("#timelisteModal").modal();
+                };
                 currentDiv.style.backgroundColor = color;
                 ++currentWOM;
             }
