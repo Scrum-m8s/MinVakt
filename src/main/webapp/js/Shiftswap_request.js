@@ -62,6 +62,7 @@ $(document).ready(function() {
             data: JSON.stringify({
                 user_id: table.rows( { selected: true } ).data()[0].user_id,
                 shift_id: table.rows( { selected: true } ).data()[0].shift_id,
+                my_date: table.rows( { selected: true } ).data()[0].my_date,
                 want_swap: false
             }),
             success: function(result){
