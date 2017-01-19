@@ -15,16 +15,11 @@ import java.util.ArrayList;
 public class AvailableEmployeeResource{
     EmployeeDAO dao = new EmployeeDAO();
 
-    @GET
+    @POST
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public ArrayList<Employee> getAvailableEmployees(AvailableEmployee ae) {
         System.out.println("getAvailableEmployees");
-        System.out.println(ae.getShift_id());
-        System.out.println(ae.getMy_date());
-        System.out.println(ae.getCategory());
-
-        
 
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date my_date_util = null;

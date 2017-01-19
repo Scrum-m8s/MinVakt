@@ -91,7 +91,7 @@ $(document).ready(function() {
     });
 */
 
-// table with employees qualified for a shift
+// table with employees qualified for a shift. Constructed empty.
 
     $("#availableEmployeesTable").DataTable({
         data:[],
@@ -117,10 +117,8 @@ $(document).ready(function() {
     function getAvailableEmployees(shift_id, my_date, category){
         var table = $('#availableEmployeesTable').DataTable();
 
-        console.log("In function. Category: "+category+" My_date: "+my_date+" Shift_id: "+shift_id);
-
         $.ajax({
-            type: 'GET',
+            type: 'POST',
             contentType: 'application/json',
             url: 'api/availableemployees',
             data: JSON.stringify({
@@ -130,13 +128,15 @@ $(document).ready(function() {
             }),
             dataType: "json",
             success: function(data, textStatus, jqXHR){
-                console.log("Available employees.");
+                console.log("Available employees."+data);
+                table.clear();
+                table.rows.add(data);
+                table.draw();
             },
             error: function(data, textStatus, jqXHR){
                 console.log("Error: " + textStatus);
             }
         });
-        table.ajax.url( 'api/availableemployees' ).load();
     }
     $("#availableEmployees").click(function () {
         var category = $("#category").val();
@@ -148,52 +148,3 @@ $(document).ready(function() {
         getAvailableEmployees(shift_id, my_date, category);
     });
 });
-
-
-
-
-
- /*
- var table =$('#availableEmployeesTable').DataTable({
-     "order": [[1, "asc"]],
-     searching: false,
-     paging: false,
-     info: false,
-     ajax: {
-         url: 'api/employees/available_employees',
-         "dataSrc": function (json) {
-             var return_data = new Array();
-             for (var i = 0; i < json.length; i++) {
-                 if (json[i].category === 1) {
-                     json[i].category = 'Sykepleier';
-                 } else if (json[i].category === 2) {
-                     json[i].category = 'Fagarbeider';
-                 } else {
-                     json[i].category = 'Assistent';
-                 }
-                 return_data.push({
-                     'surname': json[i].surname,
-                     'firstname': json[i].firstname,
-                     'phone_number': json[i].phone_number,
-                     'email': json[i].email,
-                     'category': json[i].category,
-                     'user_id': json[i].user_id
-                 })
-             }
-             return return_data;
-         }
-     },
-     "columns" : [
-         { data: 'surname'},
-         { data: 'firstname', orderable: false},
-         { data: 'phone_number', orderable: false},
-         { data: 'email', orderable: false},
-         { data: 'category'},
-         { data: 'user_id', orderable: false}
-     ]
- });
-
-    //write table
-    table.draw();
-});*/
-
