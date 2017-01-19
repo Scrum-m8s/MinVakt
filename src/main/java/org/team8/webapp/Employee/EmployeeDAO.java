@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.sql.Date;
 
@@ -70,8 +72,18 @@ public class EmployeeDAO extends DatabaseManagement {
     }
 
 
-    public ArrayList<Employee> getAvailableEmployees(int shift_id, Date my_date, int category){
+    public ArrayList<Employee> getAvailableEmployees(int shift_id, String my_date_string, int category){
         ArrayList<Employee> out = new ArrayList<Employee>();
+
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date my_date_util = null;
+        try {
+            my_date_util = sdf1.parse(my_date_string);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        java.sql.Date my_date = new java.sql.Date(my_date_util.getTime());
+
         if(setUp()){
             try {
                 conn = getConnection();

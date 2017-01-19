@@ -4,15 +4,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-/**
- * Created by asdfLaptop on 10.01.2017.
- * Edited by MisterEaster on 18.01.2017.
- */
 
 @Path("/employees")
 public class EmployeeResource {
@@ -24,7 +17,7 @@ public class EmployeeResource {
         System.out.println("getEmployees");
         return dao.getEmployees();
     }
-
+/*
     @Path("{shift_id}/{my_date}/{category}")
     @GET
     //@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
@@ -36,7 +29,17 @@ public class EmployeeResource {
         java.sql.Date my_date_sql = new java.sql.Date(my_date_util.getTime());
         return dao.getAvailableEmployees(shift_id,my_date_sql,category);
     }
+*/
+    @Path("/employeetest/test")
+    @GET
+    @Produces ({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public ArrayList<Employee> getAvailableEmployees() {
+        System.out.println("getAvailableEmployees");
 
+        return dao.getAvailableEmployees(1,"2017-01-10",1);
+    }
+
+/*
     @Path("available_employees")
     @GET
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
@@ -48,7 +51,7 @@ public class EmployeeResource {
         int shift_id = e.getShift_id();
         return dao.getAvailableEmployees(shift_id,my_date,category);
     }
-
+*/
 
     @Path("{id}")
     @GET
@@ -88,3 +91,4 @@ public class EmployeeResource {
         dao.removeEmployee(id);
     }
 }
+
