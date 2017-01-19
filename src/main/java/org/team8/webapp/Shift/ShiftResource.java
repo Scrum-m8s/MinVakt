@@ -22,7 +22,7 @@ public class ShiftResource {
     @Path("{id}")
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Shift getEmployee(@PathParam("id") int id) {
+    public Shift getShiftById(@PathParam("id") int id) {
         System.out.println("getShiftById: " + id);
         return dao.getShiftById(id);
     }

@@ -19,12 +19,21 @@ public class BusyResource{
             System.out.println("getBusy");
             return dao.getBusy();
         }
+
+        @Path("{user_id}")
+        @GET
+        @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+        public ArrayList<Busy> getBusy(@PathParam("user_id") String user_id) {
+                System.out.println("getBusy");
+                return dao.getBusyById(user_id);
+        }
+
         @Path("{user_id}/{shift_id}")
         @GET
         @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
         public Busy getBusyByUserId(@PathParam("user_id") String user_id, @PathParam("shift_id") int shift_id) {
-            System.out.println("getBusyUserId: " + user_id + " " + shift_id);
-            return dao.getBusyByUserIdAndShiftId(user_id,shift_id);
+            System.out.println("getSingleBusy: " + user_id + " " + shift_id);
+            return dao.getSingleBusy(user_id, shift_id);
         }
 
         @POST
@@ -32,6 +41,13 @@ public class BusyResource{
         public boolean createBusy(Busy b) {
         System.out.println("createBusy");
         return dao.createBusy(b);
+        }
+
+        @Path("{user_id}/{shift_id}")
+        @PUT
+        @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+        public void updateBusy(Busy b) {
+                dao.updateBusy(b);
         }
         
         @Path("{user_id}/{shift_id}")
