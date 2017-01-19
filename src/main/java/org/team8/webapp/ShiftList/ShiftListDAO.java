@@ -68,6 +68,7 @@ public class ShiftListDAO extends DatabaseManagement{
         return out;
     }
 
+    //TODO: må finne en smartere løsning på å finne enkelt shift
     public ShiftList getSingleShift(String user_id, int shift_id){
         ShiftList out = null;
         if(setUp()){
@@ -124,17 +125,19 @@ public class ShiftListDAO extends DatabaseManagement{
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
-                prep = conn.prepareStatement("UPDATE Shift_list SET shift_id=?, on_duty=?, my_date=?, deviance=?, want_swap=? WHERE user_id=?;");
+                prep = conn.prepareStatement("UPDATE Shift_list SET shift_id=?, on_duty=?, my_date=?, deviance=?, want_swap=? WHERE user_id=? AND shift_id=?;");
                 prep.setInt(1, s_l.getShift_id());
                 prep.setBoolean(2, s_l.isOn_duty());
                 prep.setDate(3, s_l.getMy_date());
                 prep.setInt(4, s_l.getDeviance());
                 prep.setBoolean(5, s_l.isWant_swap());
                 prep.setString(6, s_l.getUser_id());
+                prep.setInt(7, s_l.getShift_id());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
                 System.err.println("Issue with updating shiftlist.");
+                sqle.printStackTrace();
                 rollbackStatement();
                 return false;
             }
@@ -167,13 +170,16 @@ public class ShiftListDAO extends DatabaseManagement{
         }
         return numb > 0;
     }
-    
-    public ArrayList<ShiftList> getWantSwap(){
+
+    //Kommentert ut i resourcefilen også. Dette skal være mulig å få ut fra get funksjonen.
+    /*
+    public ArrayList<ShiftList> getWantSwap(boolean swap){
         ArrayList<ShiftList> out = new ArrayList<ShiftList>();
         if(setUp()){
             try {
                 conn = getConnection();
-                prep = conn.prepareStatement("SELECT * FROM Shift_list WHERE want_swap=true;");
+                prep = conn.prepareStatement("SELECT * FROM Shift_list WHERE want_swap=?;");
+                prep.setBoolean(1, swap);
                 res = prep.executeQuery();
                 while (res.next()){
                     out.add(processRow(res));
@@ -213,6 +219,7 @@ public class ShiftListDAO extends DatabaseManagement{
         }
         return numb > 0;
     }
+    */
     
     protected ShiftList processRow(ResultSet res) throws SQLException {
         ShiftList s_l = new ShiftList();
