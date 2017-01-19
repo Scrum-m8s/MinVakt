@@ -66,7 +66,7 @@ public class ShiftListResource {
         return dao.updateShiftlist(s_l);
     }
 
-    @Path("{update_deviances}")
+    @Path("/function/update/deviances")
     @GET
     //@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     //@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})

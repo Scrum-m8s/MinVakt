@@ -17,41 +17,6 @@ public class EmployeeResource {
         System.out.println("getEmployees");
         return dao.getEmployees();
     }
-/*
-    @Path("{shift_id}/{my_date}/{category}")
-    @GET
-    //@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public ArrayList<Employee> getAvailableEmployees(@PathParam("shift_id") int shift_id, @PathParam("my_date") String my_date, @PathParam("category") int category) throws ParseException {
-        System.out.println("getAvailableEmployees");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        java.util.Date my_date_util = sdf.parse(my_date);
-        java.sql.Date my_date_sql = new java.sql.Date(my_date_util.getTime());
-        return dao.getAvailableEmployees(shift_id,my_date_sql,category);
-    }
-*/
-    @Path("/employeetest/test")
-    @GET
-    @Produces ({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public ArrayList<Employee> getAvailableEmployees() {
-        System.out.println("getAvailableEmployees");
-
-        return dao.getAvailableEmployees(1,"2017-01-10",1);
-    }
-
-/*
-    @Path("available_employees")
-    @GET
-    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public ArrayList<Employee> getAvailableEmployees(AvailableEmployees e) {
-        System.out.println("getAvailableEmployees");
-        int category = e.getCategory();
-        Date my_date = e.getMy_date();
-        int shift_id = e.getShift_id();
-        return dao.getAvailableEmployees(shift_id,my_date,category);
-    }
-*/
 
     @Path("{id}")
     @GET

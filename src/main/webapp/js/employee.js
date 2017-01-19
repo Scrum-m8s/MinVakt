@@ -7,7 +7,7 @@
 var rootURL = "http://localhost:8080/api/employees/";
 
 $(document).ready(function() {
-
+/*
     // Get the modal
     var modal = document.getElementById('updateModal');
 
@@ -39,7 +39,7 @@ $(document).ready(function() {
             modal.style.display = "none";
         }
     }
-    
+
     function editEmployee() {
         console.log('editEmployee with user_id: ' + $('tr.selected td:eq(5)').text());
         console.log($("#inputRole").prop('selectedIndex'));
@@ -89,61 +89,40 @@ $(document).ready(function() {
             }
         });
     });
-
+*/
 
 // table with employees qualified for a shift
-    $('#availableEmployeesTable').DataTable( {
-     "order": [[ 1, "asc" ]],
-     searching: false,
-     paging: false,
-     info:  false,
-     ajax: {
-     url: 'api/employees/availableEmployeesTable',
-     dataSrc: '',
 
-     },
-     columns: [
-     { data: 'user_id'},
-     { data: 'firstname' },
-     { data: 'surname' },
-     { data: 'email' },
-     { data: 'phone_number' },
-     { data: 'category' }
-     ]
-     });
+    $("#availableEmployeesTable").DataTable({
+        data:[],
+        columns: [
+            { data: 'firstname' },
+            { data: 'surname' },
+            { data: 'email' },
+            { data: 'phone_number' },
+            { data: 'category' }
+        ],
+        rowCallback: function (row, data) {},
+        filter: false,
+        info: false,
+        ordering: false,
+        processing: true,
+        searching: false,
+        paging: false,
+        retrieve: true
+    });
 
     //function to get employees qualified for a shift
     //is used in kvalifisert_for_vakt.html
-    /*
     function getAvailableEmployees(shift_id, my_date, category){
-        $.ajax({
-            type: 'GET',
-            contentType: 'application/json',
-            url: 'api/employees/available_employees',
-            data: JSON.stringify({
-                shift_id: $("#fetchId").val(),
-                my_date: $("#fetchCode").val(),
-                category: $("#something").val()
-            }),
-            dataType: "json",
-            success: function(data, textStatus, jqXHR){
-                console.log("Available employees.");
-            },
-            error: function(data, textStatus, jqXHR){
-                console.log("Error: " + textStatus);
-            }
-        });
+        var table = $('#availableEmployeesTable').DataTable();
 
-    }
-    */
-    $("#availableEmployees").click(function () {
-        var category = $("#category").val();
-        var my_date = $("#my_date").val();
-        var shift_id = $("#shift_id").val();
+        console.log("In function. Category: "+category+" My_date: "+my_date+" Shift_id: "+shift_id);
+
         $.ajax({
             type: 'GET',
             contentType: 'application/json',
-            url: 'api/employees/available_employees',
+            url: 'api/availableemployees',
             data: JSON.stringify({
                 shift_id: shift_id,
                 my_date: my_date,
@@ -157,18 +136,64 @@ $(document).ready(function() {
                 console.log("Error: " + textStatus);
             }
         });
-        return false;
+        table.ajax.url( 'api/availableemployees' ).load();
+    }
+    $("#availableEmployees").click(function () {
+        var category = $("#category").val();
+        var my_date = $("#my_date").val();
+        var shift_id = $("#shift_id").val();
+
+        console.log("Before function. Category: "+category+" My_date: "+my_date+" Shift_id: "+shift_id);
+
+        getAvailableEmployees(shift_id, my_date, category);
     });
-
-
-
-
-
-
-
-
-
-
-
-
 });
+
+
+
+
+
+ /*
+ var table =$('#availableEmployeesTable').DataTable({
+     "order": [[1, "asc"]],
+     searching: false,
+     paging: false,
+     info: false,
+     ajax: {
+         url: 'api/employees/available_employees',
+         "dataSrc": function (json) {
+             var return_data = new Array();
+             for (var i = 0; i < json.length; i++) {
+                 if (json[i].category === 1) {
+                     json[i].category = 'Sykepleier';
+                 } else if (json[i].category === 2) {
+                     json[i].category = 'Fagarbeider';
+                 } else {
+                     json[i].category = 'Assistent';
+                 }
+                 return_data.push({
+                     'surname': json[i].surname,
+                     'firstname': json[i].firstname,
+                     'phone_number': json[i].phone_number,
+                     'email': json[i].email,
+                     'category': json[i].category,
+                     'user_id': json[i].user_id
+                 })
+             }
+             return return_data;
+         }
+     },
+     "columns" : [
+         { data: 'surname'},
+         { data: 'firstname', orderable: false},
+         { data: 'phone_number', orderable: false},
+         { data: 'email', orderable: false},
+         { data: 'category'},
+         { data: 'user_id', orderable: false}
+     ]
+ });
+
+    //write table
+    table.draw();
+});*/
+
