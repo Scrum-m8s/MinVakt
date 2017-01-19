@@ -37,7 +37,7 @@ $(document).ready(function initialize() {
 
             currentDiv.onclick = function(){$("#timelisteModal").modal();};
 
-            document.getElementById("modalHead").innerHTML = "Skift den: " + currentDiv.innerHTML; //TODO: date format
+            document.getElementById("modalHead").innerHTML = "Skift den: " + currentDiv.innerHTML;
             document.getElementById("modalBody").innerHTML = "Type skift: " + shiftTypeString;
         }
     });

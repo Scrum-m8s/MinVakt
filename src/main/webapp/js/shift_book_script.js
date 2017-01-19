@@ -32,7 +32,7 @@ $(document).ready(function initialize() {
             var currentChildren;
 
 
-            document.getElementById("modalHead").innerHTML = "Skift den: " + newDate; //TODO: date format
+            document.getElementById("modalHead").innerHTML = "Skift den: " + newDate.toDateString();
 
             if(newDate.getDay() != 0) {
                 currentDiv = document.getElementById("r" + currentWOM + "c" + (newDate.getDay() + 1));
