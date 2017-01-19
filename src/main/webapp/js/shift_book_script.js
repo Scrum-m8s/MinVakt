@@ -9,12 +9,15 @@ $(document).ready(function initialize() {
             var rowChildren = calChildren[i].childNodes; //columns
             for(var k = 1; k < rowChildren.length - 1; ++k){ //count columns
                 var currDiv = rowChildren[k];
-                //currDiv.innerHTML = ""; //clears div
-                //currDiv.style.backgroundColor = "White"; //clears style
+                currDiv.innerHTML = ""; //clears div
+                currDiv.style.backgroundColor = "White"; //clears style
                 for(var l = 0; l < 3; ++l){
                     var newShiftDiv = document.createElement("div");
                     var newShiftContent = document.createTextNode(""); //test value
                     newShiftDiv.appendChild(newShiftContent);
+                    newShiftDiv.onclick = function(){
+                        $("#shiftModal").modal();
+                    };
                     currDiv.insertBefore(newShiftDiv, null);
                 }
             }
@@ -29,7 +32,8 @@ $(document).ready(function initialize() {
             var currentChildren;
 
 
-            //TODO: modal when clicked
+            document.getElementById("modalHead").innerHTML = "Skift den: " + newDate; //TODO: date format
+
             if(newDate.getDay() != 0) {
                 currentDiv = document.getElementById("r" + currentWOM + "c" + (newDate.getDay() + 1));
             } else {
@@ -46,7 +50,8 @@ $(document).ready(function initialize() {
                 currentChildren[2].style.backgroundColor = "LightSlateGrey";
             }
 
-            currentChildren[shiftType - 1].innerHTML += data[j].user_id + " ";
+            currentChildren[shiftType - 1].innerHTML = newDate.toDateString();
+            document.getElementById("modalHead").innerHTML =  currentChildren[shiftType - 1].innerHTML + "\n";
 
             if(data[j].want_swap){
                 currentChildren[shiftType - 1].style.backgroundColor = "Crimson"; //undermanned
@@ -54,9 +59,3 @@ $(document).ready(function initialize() {
         }
     });
 });
-
-/*
- "I suggest you use drop-downs or some similar constrained form of date entry rather than text boxes,
-  though, lest you find yourself in input validation hell."
-  - stackoverflow user moonshadow
- */
