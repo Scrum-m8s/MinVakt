@@ -49,4 +49,9 @@ $(document).ready(function initialize() {
         newWeekDiv.appendChild(newWeekContent);
         var currentWeekDiv = document.getElementById("r1c1");
         currentWeekDiv.insertBefore(newWeekDiv, null);
+
+    $.get("/api/shift_lists/" + user, function(data){
+
+        //TODO: add shifts
+    });
 });
