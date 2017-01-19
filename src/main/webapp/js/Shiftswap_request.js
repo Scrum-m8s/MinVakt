@@ -1,6 +1,8 @@
 /**
  * Created by Nina on 16.01.2017.
  */
+
+/*
 var editor;
 $(document).ready(function() {
     // Bind opp tabellen mot rest-ressursen
@@ -70,5 +72,7 @@ $(document).ready(function() {
             },
         });
     });
-
 });
+
+
+*/
