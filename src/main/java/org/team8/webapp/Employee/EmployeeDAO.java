@@ -2,10 +2,7 @@ package org.team8.webapp.Employee;
 
 import org.team8.webapp.Database.DatabaseManagement;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 /**
@@ -143,6 +140,58 @@ public class EmployeeDAO extends DatabaseManagement {
         }
         return numb > 0;
     }
+
+    public ArrayList<Employee> getEmployeesForDate(String date){
+        ArrayList<Employee> out = new ArrayList<>();
+        if(setUp()){
+            try{
+                conn = getConnection();
+                prep = conn.prepareStatement("SELECT DISTINCT b.* FROM Shift_list AS a NATURAL JOIN Employee AS b WHERE a.my_date = ?");
+                prep.setString(1, date);
+                res = prep.executeQuery();
+                while (res.next()){
+                    out.add(processRow(res));
+                }
+
+            }catch (SQLException sqle) {
+                System.err.println("Issue with getting employees for shift.");
+                rollbackStatement();
+                return null;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+
+        return out;
+    }
+
+    public ArrayList<Employee> getEmployeesForShift(int shift_id, String date){
+        ArrayList<Employee> out = new ArrayList<>();
+        if(setUp()){
+            try{
+                conn = getConnection();
+                prep = conn.prepareStatement("SELECT b.* FROM Shift_list AS a NATURAL JOIN Employee AS b   WHERE a.shift_id = ? AND a.my_date = ?");
+                prep.setInt(1, shift_id);
+                prep.setString(2, date);
+                res = prep.executeQuery();
+                while (res.next()){
+                    out.add(processRow(res));
+                }
+
+            }catch (SQLException sqle) {
+                System.err.println("Issue with getting employees for shift.");
+                rollbackStatement();
+                return null;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+
+        return out;
+    }
+
 
     protected Employee processRow(ResultSet res) throws SQLException {
         Employee e = new Employee();

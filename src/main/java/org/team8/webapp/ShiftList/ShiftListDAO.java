@@ -1,11 +1,9 @@
 package org.team8.webapp.ShiftList;
 
 import org.team8.webapp.Database.DatabaseManagement;
+import org.team8.webapp.Employee.Employee;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 /*
