@@ -30,7 +30,7 @@ $(document).ready(function initialize() {
     var firstOfWeek = today.getDate() - today.getDay();
     var tomorrow;
 
-//populate grid
+//populate grid with week
     for (var k = 1; k < 8; ++k) {
         tomorrow = new Date(today.getFullYear(), today.getMonth(), (firstOfWeek + k));
         var newDay = document.createElement("div");
