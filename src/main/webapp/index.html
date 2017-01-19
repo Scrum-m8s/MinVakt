@@ -23,7 +23,9 @@
         <!-- user-defined styles -->
         <link rel="stylesheet" href="css/style.css">
     </head>
+
     <body>
+            <!-- NAVBAR innhold -->
         <div class="master-header-wrapper">
             <div class="master-header">
                 <div id="menu-id">
@@ -33,26 +35,9 @@
 
                     <a href="index.html" id="menu-title-id">Trondheim Kommune</a>
 
-
-                    <div class="dropdown-wrapper">
-                        <span class="material-icons" id="dropdown">account_circle</span>
-                        <div class="dropdown-content">
-                            <a href="#" class="dropdown-link">
-                                <span class="material-icons">settings</span>
-                                <span class="dropdown-name">Innstillinger</span>
-                            </a>
-                            <a href="logout.jsp" class="dropdown-link">
-                                <span class="material-icons">power_settings_new</span>
-                                <span class="dropdown-name">Logg av</span>
-                            </a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
-
-
-
 
             <!-- Sidebar innhold-->
         <div class="sidebar-wrapper" id="sidebar-wrapper-id">
@@ -88,14 +73,31 @@
                     <span class="display-name">Ansatte</span>
                 </a>
 
+
+
+
+                    <!-- Disse to alltid nederst! -->
+                    <!------------------------------>
+                <a href="#" class="sidebar-link">
+                    <span class="selector"></span>
+                    <span class="material-icons">settings</span>
+                    <span class="display-name">Innstillinger</span>
+                </a>
+
+                <a href="logout.jsp" class="sidebar-link">
+                    <span class="selector"></span>
+                    <span class="material-icons">power_settings_new</span>
+                    <span class="display-name">Logg av</span>
+                </a>
+                    <!------------------------------>
+
             </div>
         </div>
 
 
 
-        <div class="content-wrapper">
+        <div class="content-wrapper" id="content-wrapper-id">
             <div class="content-card">
-
             </div>
         </div>
     </div>
