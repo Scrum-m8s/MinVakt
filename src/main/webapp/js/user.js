@@ -8,9 +8,6 @@ var rootURL = "http://localhost:8080/api/users/";
 
 $(document).ready(function() {
 
-    $.getJSON(function (data) {
-    })
-
     //register user
     function registerUser() {
       if($("#user_id").val() == "") {

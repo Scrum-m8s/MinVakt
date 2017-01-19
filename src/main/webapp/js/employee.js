@@ -98,7 +98,7 @@ $(document).ready(function() {
          paging: false,
          info:  false,
          ajax: {
-         url: 'api/employees/my/available_employees',
+         url: 'api/availableemployees',
          dataSrc: '',
 
      },
@@ -117,7 +117,7 @@ $(document).ready(function() {
         $.ajax({
             type: 'GET',
             contentType: 'application/json',
-            url: 'api/employees/my/available_employees',
+            url: 'api/availableemployees',
             data: JSON.stringify({
                 shift_id: shift_id,
                 my_date: my_date,
@@ -145,48 +145,4 @@ $(document).ready(function() {
 
 
 
-
- /*
- var table =$('#availableEmployeesTable').DataTable({
-     "order": [[1, "asc"]],
-     searching: false,
-     paging: false,
-     info: false,
-     ajax: {
-         url: 'api/employees/available_employees',
-         "dataSrc": function (json) {
-             var return_data = new Array();
-             for (var i = 0; i < json.length; i++) {
-                 if (json[i].category === 1) {
-                     json[i].category = 'Sykepleier';
-                 } else if (json[i].category === 2) {
-                     json[i].category = 'Fagarbeider';
-                 } else {
-                     json[i].category = 'Assistent';
-                 }
-                 return_data.push({
-                     'surname': json[i].surname,
-                     'firstname': json[i].firstname,
-                     'phone_number': json[i].phone_number,
-                     'email': json[i].email,
-                     'category': json[i].category,
-                     'user_id': json[i].user_id
-                 })
-             }
-             return return_data;
-         }
-     },
-     "columns" : [
-         { data: 'surname'},
-         { data: 'firstname', orderable: false},
-         { data: 'phone_number', orderable: false},
-         { data: 'email', orderable: false},
-         { data: 'category'},
-         { data: 'user_id', orderable: false}
-     ]
- });
-
-    //write table
-    table.draw();
-});*/
 
