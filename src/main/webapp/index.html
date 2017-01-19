@@ -27,11 +27,12 @@
         <div class="master-header-wrapper">
             <div class="master-header">
                 <div id="menu-id">
-                    <a href="javascript:void(0)" onclick="openNav()" id="menu-button-id">
-                        <span class="material-icons">menu</span>
+                    <a href="javascript:void(0)" onclick="openCloseNav()" id="menu-button-id">
+                        <span class="material-icons" id="menu-icon-id">menu</span>
                     </a>
 
                     <a href="index.html" id="menu-title-id">Trondheim Kommune</a>
+
 
                     <div class="dropdown-wrapper">
                         <span class="material-icons" id="dropdown">account_circle</span>
@@ -50,54 +51,42 @@
             </div>
         </div>
 
+
+
+
             <!-- Sidebar innhold-->
         <div class="sidebar-wrapper" id="sidebar-wrapper-id">
             <div class="sidebar">
 
-                <img src="/img/login_kommune.png" alt="" id="login_image">
-
-
-                <a href="javascript:void(0)" onclick="closeNav()" id="sidebar-close-id">
-                    <span class="material-icons">close</span>
-                </a>
-
                 <a href="index.html" class="sidebar-link">
+                    <span class="selector-current"></span>
                     <span class="material-icons">home</span>
                     <span class="display-name">Hjem</span>
                 </a>
 
                 <a href="timeliste.html" class="sidebar-link">
+                    <span class="selector"></span>
                     <span class="material-icons">today</span>
                     <span class="display-name">Timelister</span>
                 </a>
 
-                <a href="endre_passord.html" class="sidebar-link">
-                    <span class="material-icons">create</span>
-                    <span class="display-name">Endre passord</span>
-                </a>
-
-
                 <a href="vaktbytte.html" class="sidebar-link">
+                    <span class="selector"></span>
                     <span class="material-icons">swap_horiz</span>
                     <span class="display-name">Vaktbytte</span>
                 </a>
 
-                <a href="ny_bruker.html" class="sidebar-link">
-                    <span class="material-icons">person_add</span>
-                    <span class="display-name">Ny Bruker</span>
-                </a>
-
                 <a href="shift_book.html" class="sidebar-link">
+                    <span class="selector"></span>
                     <span class="material-icons">book</span>
                     <span class="display-name">Skiftbok</span>
                 </a>
 
                 <a href="employees.html" class="sidebar-link">
+                    <span class="selector"></span>
                     <span class="material-icons">people</span>
                     <span class="display-name">Ansatte</span>
                 </a>
-
-                <a href="kvalifisert_for_vakt.html">Ledige ansatte</a>
 
             </div>
         </div>
@@ -105,35 +94,8 @@
 
 
         <div class="content-wrapper">
-            <h1>Velkommen, </h1> <!-- insert fornavn -->
-            <p>Under ser du når du jobber denne måneden.</p>
-            <h4>Januar</h4> <!-- denne måneden. feks Januar -->
+            <div class="content-card">
 
-            <!-- bootstrap -->
-            <div class="container-fluid">
-                <div class="row" style = "background-color: lightgreen">
-                    <div class="col-sm-1">Uke</div>
-                    <div class="col-sm-1">Mandag</div>
-                    <div class="col-sm-1">Tirsdag</div>
-                    <div class="col-sm-1">Onsdag</div>
-                    <div class="col-sm-1">Torsdag</div>
-                    <div class="col-sm-1">Fredag</div>
-                    <div class="col-sm-1">Lørdag</div>
-                    <div class="col-sm-1">Søndag</div>
-                    <div class="col-sm-4"></div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-1"></div>
-                    <div class="col-sm-1"></div>
-                    <div class="col-sm-1"></div>
-                    <div class="col-sm-1"></div>
-                    <div class="col-sm-1"></div>
-                    <div class="col-sm-1"></div>
-                    <div class="col-sm-1"></div>
-                    <div class="col-sm-4"></div>
-                </div>
-                <div class="row">
-                </div>
             </div>
         </div>
     </div>

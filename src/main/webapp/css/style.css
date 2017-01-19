@@ -1,6 +1,16 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto);
+
+.content-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #DDDDDD;
+}
+
 .master-header {
     height: 50px;
+    z-index: 12;
+    position: fixed;
     top: 0; /* = 0 */
     left: 0; /* = 0 */
     width: 100%; /* = 100% */
@@ -14,68 +24,73 @@
     width: 0px;
     height: 100%;
     position: fixed;
-    z-index: 999;
+    z-index: 9;
     top: 0;
     left: 0;
     overflow-x: hidden; /* Scroll disabled */
     padding-top: 60px;
-    background-color: #F7F7F7;
+    background-color: #F0F0F0;
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-    border-radius: 2px;
     max-width: 70%;
 }
 
-#sidebar-close-id {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 32px;
-}
-
-.sidebar {
-    padding-left: 20px;
-    padding-right: 20px;
-    color: #F7F7F7;
-}
-
-.sidebar-link {
-    width: 100%;
-    height: 40px;
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-    border-radius: 2px;
-    color: #F7F7F7;
-    background-color: #757575;
-    margin: 8px 0px 8px 0px;
-}
-
-.sidebar-link .material-icons {
-    padding: 4px 8px 4px 8px;
-    font-size: 24px;
-    color: #F7F7F7;
-
-}
-
-.sidebar-link .display-name {
-    position: absolute;
-    font-family: roboto;
-    padding: 3px 8px 3px 8px;
-    font-size: 20px;
-    color: #F7F7F7;
-
-}
-
-.sidebar a:hover, .offcanvas a:focus {
-}
-
-
 .sidebar a {
-    padding: 4px 4px 4px 4px;
     color: #757575;
     text-decoration: none;
     font-size: 24px;
     display: block;
 
 }
+
+.sidebar-link {
+    width: 100%;
+    height: 40px;
+    padding: 0px 0px 0px 0px;
+    margin-bottom: 10px;
+}
+
+
+.sidebar-link .selector-current {
+    position: absolute;
+    width: 6px;
+    height: 40px;
+    background-color: #4d90fe;
+}
+
+.sidebar-link:hover .selector {
+    position: absolute;
+    width: 6px;
+    height: 40px;
+    background-color: #757575;
+}
+
+.sidebar-link .material-icons {
+    padding: 8px 8px 8px 16px;
+    font-size: 24px;
+    color: #757575;;
+
+}
+
+.sidebar-link .display-name {
+    position: absolute;
+    font-family: roboto;
+    padding: 6px 4px 4px 8px;
+    font-size: 20px;
+    color: #757575;;
+
+}
+
+.sidebar-link:hover {
+    background-color: #E3E3E3;
+}
+
+
+
+.sidebar a:hover, .offcanvas a:focus {
+}
+
+
+
 
 
 #menu-id {
@@ -97,27 +112,9 @@
     border: 0px;
 }
 
-#menu-button-id:hover {
+#menu-button-id:hover .material-icons{
     color: #4d90fe;
 }
-
-.user-menu-wrapper {
-    width: 50px;
-    height: 50px;
-    float: right;
-    padding: 9px 9px 9px 9px;
-
-    position: relative;
-    display: inline-block;
-}
-
-.user-menu {
-    color: #757575;
-
-    position: relative;
-    display: inline-block;
-}
-
 
 .dropdown-content a {
     color: black;
@@ -143,11 +140,6 @@
     font-size: 22px;
 }
 
-.sidebar-button {
-    background: transparent;
-    border: none;
-}
-
 /* The container <div> - needed to position the dropdown content */
 .dropdown-wrapper {
     width: 50px;
@@ -163,20 +155,21 @@
     position: fixed;
     top: 50px;
     right: 0;
-    z-index: 1;
+    padding-top: 10px;
     max-width: 60%;
     width: 250px;
-
-
     background-color: #F7F7F7;
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     border-radius: 2px;
     font-family: roboto;
 }
 
+
 .dropdown-content .material-icons {
-    font-size: 12px;
-    padding: 4px 4px 4px 4px;
+    z-index: 2;
+    font-size: 24px;
+    color: #757575;
+    padding: 8px 8px 8px 8px;
 }
 
 .dropdown-content .dropdown-name {
@@ -187,31 +180,31 @@
 }
 
 .dropdown-content .dropdown-link {
-    margin: 4px 4px 4px 4px;
+    height: 48px;
     padding: 0px 0px 0px 0px;
+    margin-bottom: 10px;
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #f1f1f1}
+.dropdown-content a:hover {
+    background-color: #F0F0F0
+}
 
-/* Show the dropdown menu on hover */
+/* Show the dropdown menu on hover*/
 .dropdown-wrapper:hover .dropdown-content {
     display: block;
 }
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
+
+
+
 .dropdown-wrapper:hover #dropdown {
     color: #4d90fe;
 }
 
 
-
-
-
 @media screen and (max-height: 650px) {
-    .sidebar {padding-top: 15px;}
-    .sidebar a {font-size: 18px;}
-    .sidebar .material-icons{font-size: 20px}
 }
 
 @media screen {
