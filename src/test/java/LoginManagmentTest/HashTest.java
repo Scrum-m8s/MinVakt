@@ -14,7 +14,7 @@ import static org.team8.webapp.LoginManagment.Hash.hashPassword;
 /**
  * Created by espen on 12.01.2017.
  */
-public class HashTest {
+public class Hashtest {
 
     @Test
     public void testCreateHashedPassword() throws Exception {
