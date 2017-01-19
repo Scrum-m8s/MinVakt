@@ -19,12 +19,20 @@ public class TimeListResource {
         return dao.getTimeLists();
     }
 
-    @Path("{month}/{id}")
+    @Path("{id}")
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public TimeList getTimeList(@PathParam("id") String id, @PathParam("month") String month) {
-        System.out.println("getTimeListById: " + month + id);
-        return dao.getTimeListByIdAndMonth(id, month);
+    public ArrayList<TimeList> getTimeListById(@PathParam("id") String id) {
+        System.out.println("getTimeListsById");
+        return dao.getTimeListsById(id);
+    }
+
+    @Path("{id}/{month}")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public TimeList getSingleTimeList(@PathParam("id") String id, @PathParam("month") String month) {
+        System.out.println("getSingleTimeList");
+        return dao.getSingleTimeList(id, month);
     }
 
     @POST
@@ -34,7 +42,7 @@ public class TimeListResource {
         return dao.createTimeList(e);
     }
 
-    @Path("{month}/{id}")
+    @Path("{id}/{month}")
     @PUT
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean updateTimeList(TimeList e) {
