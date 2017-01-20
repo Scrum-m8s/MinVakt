@@ -14,7 +14,8 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        <!--<script src="Bootstrap-3.3.6/js/bootstrap.min.js"></script>-->
+
+        <script src="js/employee.js"></script>
         <title>registrer fravær-overtid</title>
     </head>
     <body>
@@ -25,22 +26,31 @@
                 <li><a href="endre_passord.html">Endre passord</a></li>
                 <li><a href="vaktbytte.html">Vaktbytte</a></li>
                 <li><a href="kvalifisert_for_vakt.html">Kvalifisert for vakt/Ledige vakter(?)</a></li>
-                <li><a href = "ny_bruker.html">Ny bruker</a></li>
                 <li><a href = "shift_book.html">Skiftbok</a></li>
                 <li><a href = "employees.html">Ansatte</a></li>
-                <li><a href = "registrer_ansatt.html">Registrer ansatte</a></li>
                 <li><a href = "godkjenne_vaktbytte.html">Ønsker om vaktbytte</a></li>
-                <li><a class="active" href="overtime_absence.html">Registrer fravær/overtid</a></li>
             </ul>
         </ul>
         <div class="content">
-            <h1>Velg om du skal registrere fravær eller overtid</h1>
-            <select name="fravær eller overtid">
-                <option value="fravær">fravær</option>
-                <option value="overtid">overtid</option>
+            Bruker_id: <input type="text" id="user_id"><br>
+            Shift_id: <input type="number" id="shift_id"><br>
+            my_date: <input type="date" id="my_date" name="my_date"><br>
+            <select>
+                <option id="fravær">fravær</option>
+                <option id="overtid">overtid</option>
             </select>
-            Antall timer: <input type="number" name="antall_timer"><br>
-            <button> Registrer </button>
+            <script>
+                function deviance(id){
+                    if(id=="fravær"){
+                        deviance=-deviance;
+                    }
+                    if(id=="overtid"){
+                        deviance=deviance;
+                    }
+                }
+            </script>
+            Antall timer: <input type="number" id="deviance"><br>
+            <button id="submitAbsenceOvertime"> Registrer </button>
         </div>
     </body>
 </html>

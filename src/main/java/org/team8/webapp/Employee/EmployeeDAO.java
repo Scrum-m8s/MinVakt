@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 /**
  * Created by asdfLaptop on 10.01.2017.
+ * Edited by MisterEaster on 19.01.2017.
  */
 public class EmployeeDAO extends DatabaseManagement {
 
@@ -31,7 +32,7 @@ public class EmployeeDAO extends DatabaseManagement {
             }
             catch (SQLException sqle){
                 sqle.printStackTrace();
-                System.err.println("Issue with getting employees.");
+                System.err.println("Issue with getting employees. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 return null;
             }
             finally {
@@ -54,7 +55,7 @@ public class EmployeeDAO extends DatabaseManagement {
                 }
             }
             catch (SQLException sqle){
-                System.err.println("Issue with getting employee by id.");
+                System.err.println("Issue with getting employee by id. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 return null;
             }
             finally {
@@ -106,7 +107,7 @@ public class EmployeeDAO extends DatabaseManagement {
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with creating employee.");
+                System.err.println("Issue with creating employee. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 sqle.printStackTrace();
                 rollbackStatement();
                 return false;
@@ -134,7 +135,7 @@ public class EmployeeDAO extends DatabaseManagement {
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with updating employee.");
+                System.err.println("Issue with updating employee. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 sqle.printStackTrace();
                 rollbackStatement();
                 return false;
@@ -146,6 +147,7 @@ public class EmployeeDAO extends DatabaseManagement {
         return numb > 0;
     }
 
+    //FIXME: vetke om dette blir helt rett. Må ha en dummy database å teste opp mot.
     public boolean removeEmployee(String id) {
         int numb = 0;
         if(setUp()) {
@@ -157,7 +159,7 @@ public class EmployeeDAO extends DatabaseManagement {
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with removing employee.");
+                System.err.println("Issue with removing employee. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 rollbackStatement();
                 return false;
             }

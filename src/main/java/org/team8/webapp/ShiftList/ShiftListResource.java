@@ -50,6 +50,38 @@ public class ShiftListResource {
         return dao.updateShiftlist(s_l);
     }
 
+    @Path("deviance/{user_id}/{shift_id}")
+    @PUT
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public boolean updateShiftListDeviance(ShiftList s_l){
+        System.out.println("update deviance in Shift_list " +  s_l.getDeviance());
+        return dao.updateShiftListDeviance(s_l);
+    }
+
+
+
+
+    @Path("/function/update/deviances")
+    @GET
+    //@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    //@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public String updateDeviance() {
+        System.out.println("update Deviance in Shift_list");
+        ArrayList<ShiftList> listen = getShiftLists();
+        String month = "Januar";                        //TODO: Gj�r denne verdien redigerbar.
+        String message="";
+        boolean result = false;
+        for (int i=0;i<listen.size();i++){
+            if (listen.get(i).getDeviance()!=0){
+                result = dao.updateDeviance(listen.get(i),month);
+                message+="User "+listen.get(i).getUser_id()+" has deviance "+listen.get(i).getDeviance()+" added.\n";
+                if (result){dao.removeDeviance(listen.get(i).getUser_id(),listen.get(i).getShift_id());}
+            }
+        }
+        return "Deviances updated. \n" + message;
+    }
+
+
     @Path("{user_id}/{shift_id}")
     @DELETE
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})

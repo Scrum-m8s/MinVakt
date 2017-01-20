@@ -1,18 +1,16 @@
 package org.team8.webapp.Employee;
 
-import java.sql.Date;
-
 /**
  * Created by Mr.Easter on 18/01/2017.
  */
-public class AvailableEmployees {
+public class AvailableEmployee {
     private int shift_id;
-    private Date my_date;
+    private String my_date;
     private int category;
 
-    public AvailableEmployees() {}
+    public AvailableEmployee() {}
 
-    public AvailableEmployees(int shift_id, Date my_date, int category) {
+    public AvailableEmployee(int shift_id, String my_date, int category) {
         this.shift_id = shift_id;
         this.my_date = my_date;
         this.category = category;
@@ -26,9 +24,9 @@ public class AvailableEmployees {
         this.shift_id = shift_id;
     }
 
-    public Date getMy_date() {return my_date;}
+    public String getMy_date() {return my_date;}
 
-    public void setMy_date(Date my_date) {this.my_date = my_date;}
+    public void setMy_date(String my_date) {this.my_date = my_date;}
 
     public int getCategory() {
         return category;
