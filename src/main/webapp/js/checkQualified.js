@@ -3,9 +3,14 @@
  */
 var rootURL = "http://localhost:8081/api/employees/";
 
-function checkQualified(date, shift){
 
-    var employees;
+// sjekker hvor mage kvalifiserte ansatte som jobber enten en dag eller et skift
+// første parameter er funksjonen som kjøres når antall ansatte er hentet, se testScript.html for eksempel på hvordan den brukes
+// andre parameter er dato
+// tredje er shift_id, utelates hvis man vil ha for hele dag
+
+function checkQualified(callback, date, shift){
+
     var queryUrl = 'shift/' + date;
 
     if(shift != null){
@@ -39,9 +44,16 @@ function checkQualified(date, shift){
                 }
             }
 
+            var employees = {
+                "nurses": nurses,
+                "skilled": skilled,
+                "assistants": assistants};
+
             console.log("Sykepleiere: " + nurses);
             console.log("Fagarbeidere: " +skilled);
             console.log("Assistenter: " + assistants);
+
+            callback(employees);
 
         },
         error: function(data, textStatus, jqXHR){

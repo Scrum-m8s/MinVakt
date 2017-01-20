@@ -5,12 +5,32 @@
     <title>Set local storage</title>
     <script type="text/javascript" src="/js/jquery-3.1.0.min.js"></script>
     <script type="text/javascript" src="/js/checkQualified.js"></script>
+    <script>
+
+        $(document).ready(function(){
+            $("#output").html("Output");
+            $("#inputbutton").click(function(){
+                date = $("#inputdate").val();
+                shift = $("#inputnumber").val();
+
+                // Henter antall ansatte for dato
+                checkQualified(function callback(data){
+                    $("#output").html("Sykepleiere: " + data.nurses +
+                            "<br>Fagarbeidere: " + data.skilled +
+                            "<br>Assistenter: " + data.assistants);
+                }, date, shift);
+            });
+        });
+
+    </script>
 
 </head>
 <body>
 
-<input type="text" id="nametext"/>
-<button id="sub">Jepp</button>
+<input type="date" id="inputdate">
+<input type="number" id="inputnumber">
+<input type="text" id="inputtext"/>
+<button id="inputbutton">Jepp</button>
 <p id="output"></p>
 
 </body>
