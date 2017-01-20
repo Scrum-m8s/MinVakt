@@ -221,7 +221,6 @@ public class ShiftListDAO extends DatabaseManagement{
         return numb > 0;
     }
     */
-    
     protected ShiftList processRow(ResultSet res) throws SQLException {
         ShiftList s_l = new ShiftList();
         s_l.setUser_id(res.getString("user_id"));

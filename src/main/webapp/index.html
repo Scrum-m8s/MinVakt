@@ -1,108 +1,104 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Hjem</title>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>Hjem</title>
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
 
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="js/taskbar.js"></script>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="js/taskbar.js"></script>
 
-    <!-- user-defined styles -->
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-<div class="master-header-wrapper">
-    <div class="master-header">
-        <div id="menu-id">
-            <a href="javascript:void(0)" onclick="openCloseNav()" id="menu-button-id">
-                <span class="material-icons" id="menu-icon-id">menu</span>
-            </a>
-
-            <a href="index.html" id="menu-title-id">Trondheim Kommune</a>
-
-
-            <div class="dropdown-wrapper">
-                <span class="material-icons" id="dropdown">account_circle</span>
-                <div class="dropdown-content">
-                    <a href="#" class="dropdown-link">
-                        <span class="material-icons">settings</span>
-                        <span class="dropdown-name">Innstillinger</span>
+        <!-- user-defined styles -->
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <div class="master-header-wrapper">
+            <div class="master-header">
+                <div id="menu-id">
+                    <a href="javascript:void(0)" onclick="openCloseNav()" id="menu-button-id">
+                        <span class="material-icons" id="menu-icon-id">menu</span>
                     </a>
-                    <a href="logout.jsp" class="dropdown-link">
-                        <span class="material-icons">power_settings_new</span>
-                        <span class="dropdown-name">Logg av</span>
-                    </a>
+
+                    <a href="index.html" id="menu-title-id">Trondheim Kommune</a>
+
+
+                    <div class="dropdown-wrapper">
+                        <span class="material-icons" id="dropdown">account_circle</span>
+                        <div class="dropdown-content">
+                            <a href="#" class="dropdown-link">
+                                <span class="material-icons">settings</span>
+                                <span class="dropdown-name">Innstillinger</span>
+                            </a>
+                            <a href="logout.jsp" class="dropdown-link">
+                                <span class="material-icons">power_settings_new</span>
+                                <span class="dropdown-name">Logg av</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
+
+
+
+            <!-- Sidebar innhold-->
+        <div class="sidebar-wrapper" id="sidebar-wrapper-id">
+            <div class="sidebar">
+
+                <a href="index.html" class="sidebar-link">
+                    <span class="selector-current"></span>
+                    <span class="material-icons">home</span>
+                    <span class="display-name">Hjem</span>
+                </a>
+
+                <a href="timeliste.html" class="sidebar-link">
+                    <span class="selector"></span>
+                    <span class="material-icons">today</span>
+                    <span class="display-name">Timelister</span>
+                </a>
+
+                <a href="vaktbytte.html" class="sidebar-link">
+                    <span class="selector"></span>
+                    <span class="material-icons">swap_horiz</span>
+                    <span class="display-name">Vaktbytte</span>
+                </a>
+
+                <a href="shift_book.html" class="sidebar-link">
+                    <span class="selector"></span>
+                    <span class="material-icons">book</span>
+                    <span class="display-name">Skiftbok</span>
+                </a>
+
+                <a href="employees.html" class="sidebar-link">
+                    <span class="selector"></span>
+                    <span class="material-icons">people</span>
+                    <span class="display-name">Ansatte</span>
+                </a>
+
+
+            </div>
+        </div>
+
+
+
+        <div class="content-wrapper">
+            <div class="content-card">
+
+            </div>
+        </div>
     </div>
-</div>
-
-
-
-
-<!-- Sidebar innhold-->
-<div class="sidebar-wrapper" id="sidebar-wrapper-id">
-    <div class="sidebar">
-
-        <a href="index.html" class="sidebar-link">
-            <span class="selector-current"></span>
-            <span class="material-icons">home</span>
-            <span class="display-name">Hjem</span>
-        </a>
-
-        <a href="timeliste.html" class="sidebar-link">
-            <span class="selector"></span>
-            <span class="material-icons">today</span>
-            <span class="display-name">Timelister</span>
-        </a>
-
-        <a href="vaktbytte.html" class="sidebar-link">
-            <span class="selector"></span>
-            <span class="material-icons">swap_horiz</span>
-            <span class="display-name">Vaktbytte</span>
-        </a>
-
-        <a href="shift_book.html" class="sidebar-link">
-            <span class="selector"></span>
-            <span class="material-icons">book</span>
-            <span class="display-name">Skiftbok</span>
-        </a>
-
-        <a href="employees.html" class="sidebar-link">
-            <span class="selector"></span>
-            <span class="material-icons">people</span>
-            <span class="display-name">Ansatte</span>
-        </a>
-        <a href="overtime_absence.html" class="sidebar-link">
-            <span class="selector"></span>
-            <span class="material-icons">swap_horiz</span>
-            <span class="display-name">Vaktbytte</span>
-        </a>
-
-    </div>
-</div>
-
-
-
-<div class="content-wrapper">
-    <div class="content-card">
-
-    </div>
-</div>
-</div>
-</body>
+    </body>
 </html>
