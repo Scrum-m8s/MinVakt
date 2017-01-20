@@ -16,7 +16,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <!--<script src="Bootstrap-3.3.6/js/bootstrap.min.js"></script>-->
         <script src="js/List_employees.js?version=1.1"></script>
-        <script src="js/employee.js?version=1.1"></script>
+        <script src="js/employee.js?version=1.3"></script>
 
 
         <title>Oversikt over ansatte</title>
@@ -29,10 +29,8 @@
             <li><a href="endre_passord.html">Endre passord</a></li>
             <li><a href="vaktbytte.html">Vaktbytte</a></li>
             <li><a href="kvalifisert_for_vakt.html">Kvalifisert for vakt/Ledige vakter(?)</a></li>
-            <li><a href = "ny_bruker.html">Ny bruker</a></li>
             <li><a href = "shift_book.html">Skiftbok</a></li>
             <li><a class="active" href = "employees.html">Ansatte</a></li>
-            <li><a href = "registrer_ansatt.html">Registrer ansatte</a></li>
             <li><a href = "godkjenne_vaktbytte.html">Ønsker om vaktbytte</a></li>
         </ul>
 
@@ -53,13 +51,39 @@
             <br>
             <div class="pull-right">
                 <!-- TODO: fiks create og edit employee knapper slik at det kommer opp en modal med skjema man kan fylle ut og ikke bare blir linka til de andre sidene. -->
-                <!--<button id="createEmployee" onclick="location.href='ny_bruker.html';"><span class="glyphicon"></span>Opprett bruker</button>
-                --><!-- Trigger/Open The Modal -->
+                <!-- Trigger/Open The Modal -->
 
                 <!-- The Modal -->
-                <div id="updateModal" class="modal">
 
-                    <!-- Modal content -->
+                <!-- Create Modal content -->
+                <div id="createModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <form>
+
+                            <div class="form-group">
+                                <label for="inputUsername">Brukernavn</label>
+                                <input type="username" class="form-control" id="inputUsername" placeholder="Skriv inn brukernavn">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword">Passord</label>
+                                <input type="password" class="form-control" id="inputPassword" placeholder="Skriv inn passord">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputRole">Velg tilgangsrettigheter</label>
+                                <select class="form-control" id="inputRole">
+                                    <option value="Inaktiv">Inaktiv</option>
+                                    <option value="Ansatt">Ansatt</option>
+                                    <option value="Admin">Admin</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="submitCreate">Submit</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Update Modal content -->
+                <div id="updateModal" class="modal">
                     <div class="modal-content">
                         <span class="close">&times;</span>
                         <form>
@@ -83,8 +107,8 @@
                                 <input type="email" class="form-control" id="inputEmail" placeholder="Skriv inn epost">
                             </div>
                             <div class="form-group">
-                                <label for="inputRole">Velg en stilling</label>
-                                <select class="form-control" id="inputRole">
+                                <label for="inputCategory">Velg en stilling</label>
+                                <select class="form-control" id="inputCategory">
                                     <option value="Sykepleier">Sykepleier</option>
                                     <option value="Fagarbeider">Fagarbeider</option>
                                     <option value="Assistent">Assistent</option>
@@ -96,8 +120,8 @@
 
                 </div>
                 <button id="createEmployee">Opprett ansatt</button>
-                <button id="updateEmployee" >Oppdater bruker</button>
-                <button id="deleteEmployee"><span class="glyphicon"></span>Fjern bruker</button>
+                <button id="updateEmployee" >Oppdater ansatt</button>
+                <button id="deleteEmployee">Fjern ansatt</button>
             </div>
         </div>
     </body>

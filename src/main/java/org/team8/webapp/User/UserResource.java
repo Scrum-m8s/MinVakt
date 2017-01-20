@@ -52,6 +52,8 @@ public class UserResource {
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean updateUser(User e) {
         System.out.println("updateUser");
+        String hashedPassword = createHashedPassword(e.getPassword());
+        e.setPassword(hashedPassword);
         return dao.updateUser(e);
     }
 

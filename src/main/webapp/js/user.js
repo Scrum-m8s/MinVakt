@@ -10,39 +10,39 @@ $(document).ready(function() {
 
     //register user
     function registerUser() {
-      if($("#user_id").val() == "") {
+      if($("#inputUsername").val() == "") {
         alert("Error: Username cannot be blank!");
-        user_id.focus();
+          $("#inputUsername").focus();
         return false;
     } 
-      if($("#password").val() == "") {
+      if($("#inputPassword").val() == "") {
         alert("Error: Password cannot be blank!");
-        password.focus();
+          $("#inputPassword").focus();
         return false;
     }
-    if($("#password").val().length < 8) {
+    if($("#inputPassword").val().length < 8) {
         alert("Error: Password must contain at least eight characters!");
-        $("#password").focus();
+        $("#inputPassword").focus();
         return false;
     }
     re = /[0-9]/;
-    if(!re.test($("#password").val())) {
+    if(!re.test($("#inputPassword").val())) {
         alert("Error: password must contain at least one number (0-9)!");
-        $("#password").focus();
+        $("#inputPassword").focus();
         return false;
     }
       
       
-      console.log('registerUser and empty employee with user_id: ' + $("#user_id").val());
+      console.log('registerUser and empty employee with user_id: ' + $("#inputUsername").val());
       $.ajax({
           type: 'POST',
           contentType: 'application/json',
           url: rootURL,
           dataType: "json",
           data: JSON.stringify({
-              "user_id": $("#user_id").val(),
-              "password": $("#password").val(),
-              "role": $("#role").val(),
+              "user_id": $("#inputUsername").val(),
+              "password": $("#inputPassword").val(),
+              "role": -1
           }),
           success: function(data, textStatus, jqXHR){
               console.log("User added.");
@@ -54,7 +54,7 @@ $(document).ready(function() {
                   url: "api/employees",
                   dataType: "json",
                   data: JSON.stringify({
-                      "user_id": $("#user_id").val(),
+                      "user_id": $("#inputUsername").val(),
                       "firstname": " ",
                       "surname": " ",
                       "email": " ",
