@@ -174,7 +174,16 @@ $(document).ready(function() {
         var user_id = $("#user_id").val();
         var shift_id = $("#shift_id").val();
         var my_date = $("#my_date").val();
-        var deviance = $("#deviance").val();
+        var deviance;
+        var selector = document.getElementById("selector")
+        var value_selector = selector.options[selector.selectedIndex].value;
+
+        if (value_selector == "absence"){
+            deviance = -($("#deviance").val());
+        } else {
+            deviance = $("#deviance").val();
+        }
+
         registerOvertimeAbsence(user_id, shift_id, my_date, deviance);
 
 
