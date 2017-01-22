@@ -98,11 +98,13 @@ $(document).ready(function() {
             }),
             success: function(data, textStatus, jqXHR){
                 $('#regSuccess').show().delay(2000).fadeOut();
-                ;
+                $('#role_table').hide();
+                $("#datediv").hide();
+                $('#info1').hide();
             },
             error: function(data, textStatus, jqXHR){
                 $('#regFail').show().delay(2000).fadeOut();
-                ;
+
             }
         });
     });
