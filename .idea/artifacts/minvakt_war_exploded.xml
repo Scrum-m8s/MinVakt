@@ -5,6 +5,7 @@
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="minvakt" />
+          <element id="library" level="application" name="buttons.html5" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: org.mockito:mockito-all:1.10.19" />
