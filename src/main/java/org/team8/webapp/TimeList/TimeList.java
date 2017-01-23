@@ -31,7 +31,7 @@ public class TimeList {
     }
 
     public int getYear() {
-        return month;
+        return year;
     }
 
     public void setYear(int year) {
