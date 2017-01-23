@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS `Time_list` (
   `ordinary` int(11) DEFAULT NULL,
   `overtime` int(11) DEFAULT NULL,
   `absence` int(11) DEFAULT NULL,
-  PRIMARY KEY (`user_id`,`month`)
+  PRIMARY KEY (`user_id`,`year`,`month`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -154,9 +154,7 @@ INSERT INTO `Time_list` (`user_id`, `year`, `month`, `ordinary`, `overtime`, `ab
 ('forsøksperson3', 2017,0, 0, 288, -42),
 ('forsøksperson4', 2017,0, 0, 12, 0),
 ('maria', 2017,0, 64, 0, 0),
-('nina', 2017,0, 60, 2, 0)
-PRIMARY KEY (`user_id`,`year`,`month`)
-;
+('nina', 2017,0, 60, 2, 0);
 
 -- --------------------------------------------------------
 
