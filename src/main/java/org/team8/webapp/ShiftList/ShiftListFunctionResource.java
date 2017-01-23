@@ -10,8 +10,8 @@ import java.util.ArrayList;
  * Created by Mr.Easter on 20/01/2017.
  */
 
-//Collection of functions performed with data from shift_list and other tables from the database.
-@Path("/shiftlistfunction/")
+//Collection of functions performed with data from multiple tables from the database.
+@Path("/function/")
 public class ShiftListFunctionResource {
     ShiftListDAO sdao = new ShiftListDAO();
     EmployeeDAO edao = new EmployeeDAO();

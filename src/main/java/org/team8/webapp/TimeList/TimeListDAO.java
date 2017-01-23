@@ -186,10 +186,10 @@ public class TimeListDAO extends DatabaseManagement{
                 prep = conn.prepareStatement("INSERT INTO Time_list (user_id, year, month, ordinary, overtime, absence) VALUES (?, ?, ?, ?, ?, ?);");
                 prep.setString(1, e.getUser_id());
                 prep.setInt(2, e.getYear());
-                prep.setInt(2, e.getMonth());
-                prep.setInt(3, e.getOrdinary());
-                prep.setInt(4, e.getOvertime());
-                prep.setInt(5, e.getAbsence());
+                prep.setInt(3, e.getMonth());
+                prep.setInt(4, e.getOrdinary());
+                prep.setInt(5, e.getOvertime());
+                prep.setInt(6, e.getAbsence());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
