@@ -49,7 +49,7 @@ public class BusyResource{
         public void updateBusy(Busy b) {
                 dao.updateBusy(b);
         }
-        
+
         @Path("{user_id}/{shift_id}")
         @DELETE
         @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
