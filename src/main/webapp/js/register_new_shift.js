@@ -86,7 +86,7 @@ $(document).ready(function() {
         $.ajax({
             type: 'POST',
             contentType: 'application/json',
-            url: 'api//shift_lists',
+            url: 'api/shift_lists',
             dataType: "json",
             data: JSON.stringify({
                 "user_id": table.rows( { selected: true } ).data()[0].user_id,
