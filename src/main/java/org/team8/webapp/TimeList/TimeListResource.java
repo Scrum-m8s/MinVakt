@@ -27,20 +27,20 @@ public class TimeListResource {
         return dao.getTimeListsById(id);
     }
 
-    @Path("{id}/{month}")
+    @Path("{id}/{year}/{month}")
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public TimeList getSingleTimeList(@PathParam("id") String id, @PathParam("month") String month) {
+    public TimeList getSingleTimeList(@PathParam("id") String id, @PathParam("year") int year, @PathParam("month") int month) {
         System.out.println("getSingleTimeList");
-        return dao.getSingleTimeList(id, month);
+        return dao.getSingleTimeList(id, year, month);
     }
 
-    @Path("{id}/{month}/exists")
+    @Path("{id}/{year}/{month}/exists")
     @GET
     //@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public boolean rowExists(@PathParam("id") String id, @PathParam("month") String month) {
-        System.out.println("rowExists: " + month + id);
-        return dao.rowExists(id, month);
+    public boolean rowExists(@PathParam("id") String id, @PathParam("year") int year, @PathParam("month") int month) {
+        System.out.println("rowExists: " + year + month + id);
+        return dao.rowExists(id, year, month);
     }
 
     @POST
@@ -50,7 +50,7 @@ public class TimeListResource {
         return dao.createTimeList(e);
     }
 
-    @Path("{id}/{month}")
+    @Path("{id}/{year}/{month}")
     @PUT
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean updateTimeList(TimeList e) {
@@ -58,10 +58,10 @@ public class TimeListResource {
         return dao.updateTimeList(e);
     }
 
-    @Path("{month}/{id}")
+    @Path("{id}/{year}/{month}")
     @DELETE
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public void removeTimeList(@PathParam("id") String id,@PathParam("month") String month) {
-        dao.removeTimeList(id, month);
+    public void removeTimeList(@PathParam("id") String id, @PathParam("year") int year, @PathParam("month") int month) {
+        dao.removeTimeList(id, year, month);
     }
 }

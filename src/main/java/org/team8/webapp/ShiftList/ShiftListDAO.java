@@ -219,64 +219,6 @@ public class ShiftListDAO extends DatabaseManagement{
         return numb > 0;
     }
 
-    //Updates time_list deviances with input data. Creates a new entry if row does not exist in a given month.
-    public boolean updateDeviance(ShiftList s_l, String month){
-        int numb = 0;
-        TimeListDAO dao = new TimeListDAO();
-
-        if(setUp()) {
-            try {
-                conn = getConnection();
-                conn.setAutoCommit(false);
-                //Checks if a row exists given user_id and month.
-                boolean exists = dao.rowExists(s_l.getUser_id(),month);
-                if (exists){
-                    TimeList existingTimelist = dao.getSingleTimeList(s_l.getUser_id(), month);
-                    //If a unique row exists and deviance<0, update absence.
-                    if (s_l.getDeviance()<0) {
-                        prep = conn.prepareStatement("UPDATE Time_list SET absence=? WHERE user_id=? AND month=?");
-                        prep.setInt(1, existingTimelist.getAbsence() + s_l.getDeviance());
-                        prep.setString(2, s_l.getUser_id());
-                        prep.setString(3, month);
-                    }
-                    //If a unique row exists and deviance>0, update overtime.
-                    else{
-                        prep = conn.prepareStatement("UPDATE Time_list SET overtime=? WHERE user_id=? AND month=?");
-                        prep.setInt(1,existingTimelist.getOvertime()+s_l.getDeviance());
-                        prep.setString(2,s_l.getUser_id());
-                        prep.setString(3,month);
-
-                    }
-                }
-                //If a unique row does not exist, create and fill in.
-                else {
-                    prep = conn.prepareStatement("INSERT INTO Time_list (user_id, month, ordinary, overtime, absence) VALUES (?, ?, ?, ?, ?);");
-                    prep.setString(1, s_l.getUser_id());
-                    prep.setString(2, month);
-                    prep.setInt(3, 0);
-                    if (s_l.getDeviance()>0){
-                        prep.setInt(4,s_l.getDeviance());
-                        prep.setInt(5,0);
-                    }
-                    else{
-                        prep.setInt(4,0);
-                        prep.setInt(5,s_l.getDeviance());
-                    }
-                }
-                numb = prep.executeUpdate();
-            }
-            catch (SQLException sqle) {
-                System.err.println("Issue with updating deviance. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
-                rollbackStatement();
-                return false;
-            }
-            finally {
-                finallyStatement(res, prep);
-            }
-        }
-        return numb > 0;
-    }
-
     //Removes deviance from shift_list give user_id and shift_id.
     //TODO: Can this be replaced by previous update-function?
     public boolean removeDeviance(String user_id, int shift_id){

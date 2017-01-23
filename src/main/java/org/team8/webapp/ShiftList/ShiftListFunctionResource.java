@@ -1,15 +1,10 @@
 package org.team8.webapp.ShiftList;
 
-import com.mysql.cj.x.json.JsonArray;
 import org.team8.webapp.Employee.EmployeeDAO;
+import org.team8.webapp.TimeList.TimeListDAO;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 /**
  * Created by Mr.Easter on 20/01/2017.
@@ -18,26 +13,28 @@ import java.util.Calendar;
 //Collection of functions performed with data from shift_list and other tables from the database.
 @Path("/shiftlistfunction/")
 public class ShiftListFunctionResource {
-    ShiftListDAO dao = new ShiftListDAO();
+    ShiftListDAO sdao = new ShiftListDAO();
     EmployeeDAO edao = new EmployeeDAO();
+    TimeListDAO tdao = new TimeListDAO();
 
     //Updates time_list with deviances from shift_list, and if successful, removes deviances from shift_list.
     @Path("updatedeviances/{year}/{month}")
     @POST
     //@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     //@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public String updateDeviances(@PathParam("month") String month) {
+    public String updateDeviances(@PathParam("year") int year, @PathParam("month") int month) {
         System.out.println("Update Deviance in Time_list/Shift_list");
         //Fetches entire shift_list
-        ArrayList<ShiftList> listen = dao.getShiftLists();
+        ArrayList<ShiftList> listen = sdao.getShiftLists();
         String message="";
         boolean result = false;
         //Adds every deviance to time_list and removes deviance from shift_list. See ShiftListDAO.
         for (int i=0;i<listen.size();i++){
             if (listen.get(i).getDeviance()!=0){
-                result = dao.updateDeviance(listen.get(i),month);
+                result = tdao.updateDeviance(listen.get(i),year,month);
                 message+="User "+listen.get(i).getUser_id()+" has deviance "+listen.get(i).getDeviance()+" added.\n";
-                if (result){dao.removeDeviance(listen.get(i).getUser_id(),listen.get(i).getShift_id());}
+                if (result){
+                    sdao.removeDeviance(listen.get(i).getUser_id(),listen.get(i).getShift_id());}
             }
         }
         return "Deviances updated. \n" + message;
@@ -50,7 +47,7 @@ public class ShiftListFunctionResource {
         System.out.println(my_date_string);
 
         //Entire shiftlist fetched from database.
-        ArrayList<ShiftList> shift_list = dao.getShiftListsByDate(my_date_string);
+        ArrayList<ShiftList> shift_list = sdao.getShiftListsByDate(my_date_string);
 
         //Initiating resulting array after upcoming for-loop.
         ArrayList<ShiftDay> shiftsThisDay = new ArrayList<ShiftDay>();

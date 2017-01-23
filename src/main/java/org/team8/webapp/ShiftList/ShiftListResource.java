@@ -76,7 +76,7 @@ public class ShiftListResource {
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public ArrayList<ShiftList> getWantSwap(@PathParam("want_swap") boolean swap){
         System.out.println("getWantSwap");
-        return dao.getWantSwap(swap);
+        return sdao.getWantSwap(swap);
     }
 
     //Skal være mulig å bruke update shiftlist for tilsvarende funskjon uten konflikter
@@ -85,7 +85,7 @@ public class ShiftListResource {
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean Want_swap(ShiftList s_l) {
         System.out.println("createWantSwap");
-        return dao.wantSwap(s_l);
+        return sdao.wantSwap(s_l);
     }
      */
 }
