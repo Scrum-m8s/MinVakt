@@ -67,4 +67,25 @@ public class ShiftListResource {
         System.out.println("remove Shift_list");
         return dao.removeShiftlist(user_id, shift_id);
     }
+
+
+    //Trenger ikke disse, man kan hente ut infoen som dette gir ut fra listene. Gir 500 error siden de prøver å hente ut samme info.
+    /*
+    @Path("{want_swap}")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public ArrayList<ShiftList> getWantSwap(@PathParam("want_swap") boolean swap){
+        System.out.println("getWantSwap");
+        return dao.getWantSwap(swap);
+    }
+
+    //Skal være mulig å bruke update shiftlist for tilsvarende funskjon uten konflikter
+    @Path("{user_id}/{shift_id}/{want_swap}")
+    @PUT
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public boolean Want_swap(ShiftList s_l) {
+        System.out.println("createWantSwap");
+        return dao.wantSwap(s_l);
+    }
+     */
 }
