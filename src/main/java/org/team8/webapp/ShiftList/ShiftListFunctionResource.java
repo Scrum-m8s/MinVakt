@@ -22,12 +22,12 @@ public class ShiftListFunctionResource {
     EmployeeDAO edao = new EmployeeDAO();
 
     //Updates time_list with deviances from shift_list, and if successful, removes deviances from shift_list.
-    @Path("updatedeviances/{month}")
-    @GET
+    @Path("updatedeviances/{year}/{month}")
+    @POST
     //@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     //@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public String updateDeviances(@PathParam("month") String month) {
-        System.out.println("Update Deviance in Shift_list");
+        System.out.println("Update Deviance in Time_list/Shift_list");
         //Fetches entire shift_list
         ArrayList<ShiftList> listen = dao.getShiftLists();
         String message="";
