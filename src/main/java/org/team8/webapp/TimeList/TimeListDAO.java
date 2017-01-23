@@ -258,6 +258,7 @@ public class TimeListDAO extends DatabaseManagement{
     protected TimeList processRow(ResultSet res) throws SQLException {
         TimeList s = new TimeList();
         s.setUser_id(res.getString("user_id"));
+        s.setYear(res.getInt("year"));
         s.setMonth(res.getInt("month"));
         s.setOrdinary(res.getInt("ordinary"));
         s.setOvertime(res.getInt("overtime"));
