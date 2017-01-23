@@ -136,7 +136,8 @@ INSERT INTO `Shift_list` (`user_id`, `shift_id`, `on_duty`, `my_date`, `deviance
 
 CREATE TABLE IF NOT EXISTS `Time_list` (
   `user_id` varchar(30) NOT NULL DEFAULT '',
-  `month` varchar(10) NOT NULL DEFAULT '',
+  `month` int(4) NOT NULL DEFAULT 0,
+  `year` int(4) NOT NULL DEFAULT 0,
   `ordinary` int(11) DEFAULT NULL,
   `overtime` int(11) DEFAULT NULL,
   `absence` int(11) DEFAULT NULL,
@@ -147,13 +148,15 @@ CREATE TABLE IF NOT EXISTS `Time_list` (
 -- Dataark for tabell `Time_list`
 --
 
-INSERT INTO `Time_list` (`user_id`, `month`, `ordinary`, `overtime`, `absence`) VALUES
-('forsøksperson1', 'Januar', 0, 0, -10),
-('forsøksperson2', 'Januar', 0, 10, 0),
-('forsøksperson3', 'Januar', 0, 288, -42),
-('forsøksperson4', 'Januar', 0, 12, 0),
-('maria', 'Januar', 64, 0, 0),
-('nina', 'Januar', 60, 2, 0);
+INSERT INTO `Time_list` (`user_id`, `year`, `month`, `ordinary`, `overtime`, `absence`) VALUES
+('forsøksperson1', 2017,0, 0, 0, -10),
+('forsøksperson2', 2017,0, 0, 10, 0),
+('forsøksperson3', 2017,0, 0, 288, -42),
+('forsøksperson4', 2017,0, 0, 12, 0),
+('maria', 2017,0, 64, 0, 0),
+('nina', 2017,0, 60, 2, 0)
+PRIMARY KEY (`user_id`,`year`,`month`)
+;
 
 -- --------------------------------------------------------
 
