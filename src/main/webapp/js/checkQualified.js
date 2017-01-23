@@ -3,9 +3,12 @@
  */
 var rootURL = "http://localhost:8080/api/employees/";
 
+// TODO: eksempelkrav, byttes med ekte krav til vakt
+// antar minst ti på jobb, min 3 fagarbeidere (30%) og 2 sykepleiere (20%)
+
 const MIN_EMPLOYEES = 10;
-const MIN_NURSES = MIN_EMPLOYEES * 0.2;
-const MIN_SKILLED = MIN_EMPLOYEES * 0.3;
+const MIN_NURSES = Math.floor(MIN_EMPLOYEES * 0.2);
+const MIN_SKILLED = Math.floor(MIN_EMPLOYEES * 0.3);
 
 function countRoles(employees){
     var roles = {
@@ -90,9 +93,6 @@ function checkCollision(callback, date1, shift1, date2, shift2, role1, role2){
 
             var rolecount1 = countRoles(employees1);
             var rolecount2 = countRoles(employees2);
-
-            // TODO: eksempelkrav, byttes med ekte krav til vakt
-            // antar ti på jobb, min 3 fagarbeidere (30%) og 2 sykepleiere (20%)
 
             console.log(rolecount1);
             console.log(rolecount2);
