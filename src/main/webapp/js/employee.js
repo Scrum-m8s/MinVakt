@@ -234,6 +234,98 @@ $(document).ready(function() {
             }
         });
     });
+    $("#availableEmployeesTable").DataTable({
+        data:[],
+        columns: [
+            { data: 'firstname' },
+            { data: 'surname' },
+            { data: 'email' },
+            { data: 'phone_number' },
+            { data: 'category' }
+        ],
+        rowCallback: function (row, data) {},
+        filter: false,
+        info: false,
+        ordering: false,
+        processing: true,
+        searching: false,
+        paging: false,
+        retrieve: true
+    });
 
+    //function to get employees qualified for a shift
+    //is used in kvalifisert_for_vakt.html
+    function getAvailableEmployees(shift_id, my_date, category){
+        var table = $('#availableEmployeesTable').DataTable();
+
+        $.ajax({
+            type: 'POST',
+            contentType: 'application/json',
+            url: 'api/availableemployees',
+            data: JSON.stringify({
+                shift_id: shift_id,
+                my_date: my_date,
+                category: category
+            }),
+            dataType: "json",
+            success: function(data, textStatus, jqXHR){
+                console.log("Available employees."+data);
+                table.clear();
+                table.rows.add(data);
+                table.draw();
+            },
+            error: function(data, textStatus, jqXHR){
+                console.log("Error: " + textStatus);
+            }
+        });
+
+    }
+    $("#availableEmployees").click(function () {
+        var category = $("#category").val();
+        var my_date = $("#my_date").val();
+        var shift_id = $("#shift_id").val();
+
+        console.log("Before function. Category: "+category+" My_date: "+my_date+" Shift_id: "+shift_id);
+
+        getAvailableEmployees(shift_id, my_date, category);
+    });
+
+
+
+    function registerOvertimeAbsence(user_id, shift_id, my_date, deviance) {
+
+        $.ajax({
+            type: 'PUT',
+            contentType: 'application/json',
+            url: "/api/shift_lists/deviance/" + user_id+"/"+ shift_id,
+            data: '{"user_id": "' + user_id + '", "shift_id" : "' + shift_id + '", "my_date" : "' + my_date + '", "deviance" : "' + deviance + '"}',
+            dataType: "json",
+
+            success: function(data, textStatus, jqXHR){
+                console.log("deviance updated.");
+            },
+            error: function(data, textStatus, jqXHR){
+                console.log("Error: " + textStatus);
+            }
+        });
+        alert("Deviance ble registert");
+    }
+
+
+    $("#submitAbsenceOvertime").click(function () {
+        var user_id = $("#user_id").val();
+        var shift_id = $("#shift_id").val();
+        var my_date = $("#my_date").val();
+        var deviance;
+        var selector = document.getElementById("selector");
+        var value_selector = selector.options[selector.selectedIndex].value;
+
+        if (value_selector == "absence") {
+            deviance = -($("#deviance").val());
+        } else {
+            deviance = $("#deviance").val();
+        }
+
+    })
 
 });
