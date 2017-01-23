@@ -32,7 +32,7 @@ $(document).ready(function() {
         $("#inputLastname").attr('value', $('tr.selected td:eq(0)').text());
         $("#inputPhone").attr('value', $('tr.selected td:eq(2)').text());
         $("#inputEmail").attr('value', $('tr.selected td:eq(3)').text());
-        $("#inputRole").val($('tr.selected td:eq(4)').text());
+        $("#inputCategory").val($('tr.selected td:eq(4)').text());
     }
 
 // When the user clicks on <span> (x), close the modal
@@ -53,20 +53,21 @@ $(document).ready(function() {
     }
     
     function editEmployee() {
-        console.log('editEmployee with user_id: ' + $('tr.selected td:eq(5)').text());
-        console.log($("#inputRole").prop('selectedIndex'));
+        var user_id = $('tr.selected td:eq(5)').text();
+        console.log('editEmployee with user_id: ' + user_id);
+
         $.ajax({
             type: 'PUT',
             contentType: 'application/json',
-            url: rootURL + $('tr.selected td:eq(5)').text(),
+            url: rootURL + user_id,
             dataType: "json",
             data: JSON.stringify({
-                "user_id": $('tr.selected td:eq(5)').text(),
+                "user_id": user_id,
                 "firstname": $("#inputFirstname").val(),
                 "surname": $("#inputLastname").val(),
                 "email": $("#inputEmail").val(),
                 "phone_number": $("#inputPhone").val(),
-                "category": ($("#inputRole").prop('selectedIndex')+1)
+                "category": ($("#inputCategory").prop('selectedIndex')+1)
             }),
             success: function(data, textStatus, jqXHR){
                 console.log("Employee updated.");
@@ -76,8 +77,10 @@ $(document).ready(function() {
                 console.log("Error: " + textStatus);
             }
         });
+
     }
 
+    //Hvis en bruker med samme brukernavn allerede finnes vil bare kontoen oppdateres med nytt passord og rolle(bruker/admin/inactive)
     function createEmployee() {
         if($("#inputUsername").val() == "") {
             alert("Error: Username cannot be blank!");
@@ -102,33 +105,17 @@ $(document).ready(function() {
         }
 
 
-        console.log('registerUser and empty employee with user_id: ' + $("#inputUsername").val());
-        $.ajax({
-            type: 'POST',
-            contentType: 'application/json',
-            url: 'api/users',
-            dataType: "json",
-            data: JSON.stringify({
-                "user_id": $("#inputUsername").val(),
-                "password": $("#inputPassword").val(),
-                "role": -1
-            }),
-            success: function(data, textStatus, jqXHR){
-                console.log("User added.");
-
-                //creating empty employee with same user_id
+        $.getJSON('api/users/' + $("#inputUsername").val(), function(result){
+            if (result.user_id === $("#inputUsername").val()) {
                 $.ajax({
-                    type: 'POST',
+                    type: 'PUT',
                     contentType: 'application/json',
-                    url: "api/employees",
+                    url: 'api/users/' + $("#inputUsername").val(),
                     dataType: "json",
                     data: JSON.stringify({
                         "user_id": $("#inputUsername").val(),
-                        "firstname": " ",
-                        "surname": " ",
-                        "email": " ",
-                        "phone_number": " ",
-                        "category": -1
+                        "password": $("#inputPassword").val(),
+                        "role": ($("#inputRole").prop('selectedIndex')-1)
                     }),
                     success: function(data, textStatus, jqXHR){
                         console.log("Empty employee added.");
@@ -138,9 +125,47 @@ $(document).ready(function() {
                         console.log("Error: " + textStatus);
                     }
                 });
-            },
-            error: function(data, textStatus, jqXHR){
-                console.log("Error: " + textStatus);
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    contentType: 'application/json',
+                    url: 'api/users',
+                    dataType: "json",
+                    data: JSON.stringify({
+                        "user_id": $("#inputUsername").val(),
+                        "password": $("#inputPassword").val(),
+                        "role": ($("#inputRole").prop('selectedIndex')-1)
+                    }),
+                    success: function(data, textStatus, jqXHR){
+                        console.log("User added.");
+
+                        //creating empty employee with same user_id
+                        $.ajax({
+                            type: 'POST',
+                            contentType: 'application/json',
+                            url: "api/employees",
+                            dataType: "json",
+                            data: JSON.stringify({
+                                "user_id": $("#inputUsername").val(),
+                                "firstname": "",
+                                "surname": "",
+                                "email": "",
+                                "phone_number": "",
+                                "category": -1
+                            }),
+                            success: function(data, textStatus, jqXHR){
+                                console.log("Empty employee added.");
+                                window.location.reload();
+                            },
+                            error: function(data, textStatus, jqXHR){
+                                console.log("Error: " + textStatus);
+                            }
+                        });
+                    },
+                    error: function(data, textStatus, jqXHR){
+                        console.log("Error: " + textStatus);
+                    }
+                });
             }
         });
     }

@@ -73,7 +73,7 @@
         <web-resource-collection>
             <web-resource-name>AllAccess</web-resource-name>
             <!-- ressurser alle har tilgang til -->
-            <url-pattern>/img/login_kommune.png</url-pattern>
+            <url-pattern>/img/*</url-pattern>
             <url-pattern>/css/login.css</url-pattern>
             <url-pattern>/favico.ico</url-pattern>
         </web-resource-collection>
