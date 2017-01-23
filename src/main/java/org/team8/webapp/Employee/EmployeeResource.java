@@ -4,6 +4,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
+import java.sql.Date;
 import java.util.ArrayList;
 
 /**
@@ -19,6 +20,22 @@ public class EmployeeResource {
     public ArrayList<Employee> getEmployees() {
         System.out.println("getEmployees");
         return dao.getEmployees();
+    }
+
+    @Path("shift/{date}")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public ArrayList<Employee> getEMployeesForDate(@PathParam("date") String date){
+        System.out.println("getEmployeesForDate: " + date);
+        return dao.getEmployeesForDate(date);
+    }
+
+    @Path("/shift/{date}/{shift}")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public ArrayList<Employee> getEmployeesForShift(@PathParam("date") String date, @PathParam("shift") int shift_id){
+        System.out.println("getEmployeesForShift: " + date + ", " + shift_id);
+        return dao.getEmployeesForShift(shift_id, date);
     }
 
     @Path("{id}")
