@@ -3,6 +3,7 @@ package org.team8.webapp.ShiftList;
 import org.team8.webapp.Database.DatabaseManagement;
 import org.team8.webapp.TimeList.TimeList;
 import org.team8.webapp.TimeList.TimeListDAO;
+import org.team8.webapp.Employee.Employee;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -90,6 +91,7 @@ public class ShiftListDAO extends DatabaseManagement{
         return out;
     }
 
+    //TODO: må finne en smartere løsning på å finne enkelt shift
     public ShiftList getSingleShift(String user_id, int shift_id){
         ShiftList out = null;
         if(setUp()){
@@ -105,6 +107,30 @@ public class ShiftListDAO extends DatabaseManagement{
             }
             catch (SQLException sqle){
                 System.err.println("Issue with getting single shift_list by user id and shift_id. Error code:" + sqle.getErrorCode() + " Message: " + sqle.getMessage());
+                return null;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return out;
+    }
+
+
+    public ArrayList<ShiftList> getWantSwap(boolean swap){
+        ArrayList<ShiftList> out = new ArrayList<ShiftList>();
+        if(setUp()){
+            try {
+                conn = getConnection();
+                prep = conn.prepareStatement("SELECT * FROM Shift_list WHERE want_swap=?;");
+                prep.setBoolean(1, swap);
+                res = prep.executeQuery();
+                while (res.next()){
+                    out.add(processRow(res));
+                }
+            }
+            catch (SQLException sqle){
+                System.err.println("Issue with getting swapList.");
                 return null;
             }
             finally {
@@ -196,7 +222,7 @@ public class ShiftListDAO extends DatabaseManagement{
     public boolean updateDeviance(ShiftList s_l, String month){
         int numb = 0;
         TimeListDAO dao = new TimeListDAO();
-        
+
         if(setUp()) {
             try {
                 conn = getConnection();

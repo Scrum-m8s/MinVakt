@@ -210,13 +210,6 @@ ALTER TABLE `Employee`
   ADD CONSTRAINT `fk_UserEmployee` FOREIGN KEY (`user_id`) REFERENCES `User` (`user_id`);
 
 --
--- Begrensninger for tabell `Shift_list`
---
-ALTER TABLE `Shift_list`
-  ADD CONSTRAINT `fk_ShiftIDList` FOREIGN KEY (`shift_id`) REFERENCES `Shift` (`shift_id`),
-  ADD CONSTRAINT `fk_UserShiftList` FOREIGN KEY (`user_id`) REFERENCES `User` (`user_id`);
-
---
 -- Begrensninger for tabell `Time_list`
 --
 ALTER TABLE `Time_list`

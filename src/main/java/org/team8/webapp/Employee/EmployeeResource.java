@@ -4,6 +4,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
+import java.sql.Date;
 import java.util.ArrayList;
 
 /**
@@ -21,12 +22,36 @@ public class EmployeeResource {
         return dao.getEmployees();
     }
 
+    @Path("shift/{date}")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public ArrayList<Employee> getEMployeesForDate(@PathParam("date") String date){
+        System.out.println("getEmployeesForDate: " + date);
+        return dao.getEmployeesForDate(date);
+    }
+
+    @Path("/shift/{date}/{shift}")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public ArrayList<Employee> getEmployeesForShift(@PathParam("date") String date, @PathParam("shift") int shift_id){
+        System.out.println("getEmployeesForShift: " + date + ", " + shift_id);
+        return dao.getEmployeesForShift(shift_id, date);
+    }
+
     @Path("{id}")
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Employee getEmployee(@PathParam("id") String id) {
         System.out.println("getEmployeeById: " + id);
         return dao.getEmployeeById(id);
+    }
+
+    @Path("category/{category}")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public ArrayList<Employee> getEmployeeCategory(@PathParam("category") int category) {
+        System.out.println("getEmployeeByCategory: " + category);
+        return dao.getEmployeeByCategory(category);
     }
 
     @Path("/current")

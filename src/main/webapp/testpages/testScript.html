@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Set local storage</title>
+    <script type="text/javascript" src="/js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="/js/checkQualified.js"></script>
+    <script>
+
+        $(document).ready(function(){
+            $("#output").html("Output");
+            $("#inputbutton").click(function(){
+                var date = $("#inputdate").val();
+                var shift = $("#inputshift").val();
+                var role = $("#inputrole").val();
+
+                var date2 = $("#inputdate2").val();
+                var shift2 = $("#inputshift2").val();
+                var role2 = $("#inputrole2").val();
+
+                // Henter antall ansatte for dato
+                checkQualified(function(data){
+
+                    var employees = countRoles(data);
+                    var employeeString = checkSufficientEmployeesString(employees)
+
+                    $("#output").html(employeeString[0]);
+                    $("#output2").html(employeeString[1]);
+                    $("#output3").html(employeeString[2]);
+
+                }, date, shift);
+/*
+                checkCollision(function(acceptable){
+                    console.log("Bytte ok: "  + acceptable);
+                }, date, shift, date2, shift2, role, role2);
+*/
+            });
+        });
+
+    </script>
+
+</head>
+<body>
+Dato fra:
+<input type="date" id="inputdate">
+Skift fra:
+<input type="number" id="inputshift">
+Rolle fra:
+<input type="number" id="inputrole">
+<br>
+Dato til:
+<input type="date" id="inputdate2">
+Skift til:
+<input type="number" id="inputshift2">
+Rolle til:
+<input type="number" id="inputrole2">
+
+<br>
+<button id="inputbutton">Jepp</button>
+<p id="output"></p>
+<p id="output2"></p>
+<p id="output3"></p>
+
+</body>
+</html>

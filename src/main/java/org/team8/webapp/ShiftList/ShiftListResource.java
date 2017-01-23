@@ -27,6 +27,16 @@ public class ShiftListResource {
         return dao.getShiftListsById(user_id);
     }
 
+
+    @Path("want_swap/{want_swap}")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public ArrayList<ShiftList> getWantSwap(@PathParam("want_swap") boolean swap){
+        System.out.println("getWantSwap");
+        return dao.getWantSwap(swap);
+    }
+
+
     @Path("{user_id}/{shift_id}")
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
@@ -50,7 +60,7 @@ public class ShiftListResource {
         return dao.updateShiftlist(s_l);
     }
 
-    @Path("/{user_id}/{shift_id}")
+    @Path("{user_id}/{shift_id}")
     @DELETE
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean removeShiftlist(@PathParam("user_id") String user_id, @PathParam("shift_id") int shift_id){

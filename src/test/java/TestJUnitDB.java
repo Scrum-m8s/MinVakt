@@ -31,6 +31,7 @@ public class TestJUnitDB extends DatabaseManagement{
     private static TimeListDAO timeListDAO;
     private static ShiftListDAO shiftListDAO;
 
+
     private String[] validUser = new String[2];
     private String[] invalidUser = new String[2];
 
@@ -152,6 +153,22 @@ public class TestJUnitDB extends DatabaseManagement{
         employeeDAO.removeEmployee("dummy");
         userDAO.removeUser("dummy");
     }
+
+    @Test
+    public void getEmployeeByCategory() {
+        //creating dummy user to fetch
+        userDAO.createUser(new User("dummy", "dummy", 1));
+
+        //creating dummy employee
+        employeeDAO.createEmployee(new Employee("dummy", "dummy", "dummy", "dummy", "dummy", 1));
+
+        assertNotNull(employeeDAO.getEmployeeByCategory(1));
+
+        //clean up
+        employeeDAO.removeEmployee("dummy");
+        userDAO.removeUser("dummy");
+    }
+
 
     @Test
     public void createEmployee() {
@@ -453,7 +470,19 @@ public class TestJUnitDB extends DatabaseManagement{
         //clean up
         shiftListDAO.removeShiftlist("dummy", 2);
         userDAO.removeUser(("dummy"));
+    }
 
+    @Test
+    public void getWantSwap() {
+        // creating dummy data to fetch
+        userDAO.createUser(new User("dummy", "dummy", 1));
+        shiftListDAO.createShiftlist(new ShiftList("dummy", 2, true, new Date(2017-01-01), 0, true));
+
+        assertNotNull(shiftListDAO.getWantSwap(true));
+
+        //clean up
+        shiftListDAO.removeShiftlist("dummy", 2);
+        userDAO.removeUser(("dummy"));
     }
 
     @Test
