@@ -15,7 +15,7 @@ import java.util.Calendar;
  * Created by Mr.Easter on 20/01/2017.
  */
 
-//Collection of functions performed with data from several tables from the database.
+//Collection of functions performed with data from shift_list and other tables from the database.
 @Path("/shiftlistfunction/")
 public class ShiftListFunctionResource {
     ShiftListDAO dao = new ShiftListDAO();
@@ -61,8 +61,6 @@ public class ShiftListFunctionResource {
         //Goes through each entry in the shift_list.
         for (int i=0;i<shift_list.size();i++){
             tempCat = edao.getEmployeeById(shift_list.get(i).getUser_id()).getCategory();
-
-            System.out.println(tempCat);
             //Increments values in shiftsThisDay based on shift_id and category.
             //TODO: Messy coding. Cleanup? -ASP
             if (tempCat==1){shiftsThisDay.get(shift_list.get(i).getShift_id()-1).setCategory_1(shiftsThisDay.get(shift_list.get(i).getShift_id()-1).getCategory_1()+1);}

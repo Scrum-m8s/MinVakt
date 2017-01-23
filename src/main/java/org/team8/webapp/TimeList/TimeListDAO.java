@@ -53,7 +53,7 @@ public class TimeListDAO extends DatabaseManagement{
                 }
             }
             catch (SQLException sqle){
-                System.err.println("Issue with getting timelist by id and month. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
+                System.err.println("Issue with getting timelist by id. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 sqle.printStackTrace();
                 return null;
             }
