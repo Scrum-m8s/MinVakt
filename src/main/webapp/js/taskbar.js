@@ -18,4 +18,5 @@ $(document).ready(function(){
         $("#menu-icon-id").html('close');
         $("#sidebar-wrapper-id").css('width', '300');
     }
+
 });

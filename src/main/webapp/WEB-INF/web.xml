@@ -26,7 +26,6 @@
         <location>/errorpages/notfound.html</location>
     </error-page>
 
-
     <!-- Sikkerhetskonfigurasjon -->
     <security-role>
         <role-name>admin</role-name>

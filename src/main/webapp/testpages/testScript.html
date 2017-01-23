@@ -19,10 +19,10 @@
                 var role2 = $("#inputrole2").val();
 
                 // Henter antall ansatte for dato
-                checkQualified(function(data){
+                getEmployeesForShift(function(data){
 
                     var employees = countRoles(data);
-                    var employeeString = checkSufficientEmployeesString(employees)
+                    var employeeString = getMissingEmployeesString(employees)
 
                     $("#output").html(employeeString[0]);
                     $("#output2").html(employeeString[1]);

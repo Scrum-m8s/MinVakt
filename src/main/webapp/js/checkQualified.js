@@ -34,7 +34,7 @@ function countRoles(employees){
     return roles;
 }
 
-function checkSufficientEmployeesString(employees){
+function getMissingEmployeesString(employees){
 
     var employeeString = {};
 
@@ -52,7 +52,7 @@ function checkSufficientEmployeesString(employees){
 // første parameter er funksjonen som kjøres når antall ansatte er hentet, se testScript.html for eksempel på hvordan den brukes
 // andre parameter er dato
 // tredje er shift_id, utelates hvis man vil ha for hele dag
-function checkQualified(callback, date, shift){
+function getEmployeesForShift(callback, date, shift){
 
     var queryUrl = 'shift/' + date;
 
@@ -86,9 +86,9 @@ function checkCollision(callback, date1, shift1, date2, shift2, role1, role2){
     var employees1;
     var employees2;
 
-    checkQualified(function(data){
+    getEmployeesForShift(function(data){
         employees1 = data;
-        checkQualified(function(data){
+        getEmployeesForShift(function(data){
             employees2 = data;
 
             var rolecount1 = countRoles(employees1);
