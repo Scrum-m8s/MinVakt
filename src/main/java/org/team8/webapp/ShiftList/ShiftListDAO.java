@@ -4,10 +4,7 @@ import org.team8.webapp.Database.DatabaseManagement;
 import org.team8.webapp.TimeList.TimeList;
 import org.team8.webapp.TimeList.TimeListDAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 /*
@@ -47,7 +44,7 @@ public class ShiftListDAO extends DatabaseManagement{
         return out;
     }
 
-    public ArrayList<ShiftList> getShiftListById(String user_id){
+    public ArrayList<ShiftList> getShiftListsById(String user_id){
         ArrayList<ShiftList> out = new ArrayList<ShiftList>();
         if(setUp()){
             try {
@@ -60,7 +57,30 @@ public class ShiftListDAO extends DatabaseManagement{
                 }
             }
             catch (SQLException sqle){
-                System.err.println("Issue with getting Shift_list by user and shift id. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
+                System.err.println("Issue with getting Shift_list by user_id. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
+                return null;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return out;
+    }
+
+    public ArrayList<ShiftList> getShiftListsByDate(String my_date){
+        ArrayList<ShiftList> out = new ArrayList<ShiftList>();
+        if(setUp()){
+            try {
+                conn = getConnection();
+                prep = conn.prepareStatement("SELECT * FROM Shift_list WHERE my_date=?;");
+                prep.setString(1, my_date);
+                res = prep.executeQuery();
+                while(res.next()){
+                    out.add(processRow(res));
+                }
+            }
+            catch (SQLException sqle){
+                System.err.println("Issue with getting Shift_list by date. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 return null;
             }
             finally {
@@ -99,12 +119,13 @@ public class ShiftListDAO extends DatabaseManagement{
         if(setUp()){
             try {
                 conn = getConnection();
-                prep = conn.prepareStatement("INSERT INTO Shift_list (user_id, shift_id, on_duty, my_date, deviance) VALUES (?, ?, ?, ?, ?);");
+                prep = conn.prepareStatement("INSERT INTO Shift_list (user_id, shift_id, on_duty, my_date, deviance, want_swap) VALUES (?, ?, ?, ?, ?, ?);");
                 prep.setString(1, s_l.getUser_id());
                 prep.setInt(2, s_l.getShift_id());
                 prep.setBoolean(3, s_l.isOn_duty());
                 prep.setDate(4, s_l.getMy_date());
                 prep.setInt(5, s_l.getDeviance());
+                prep.setBoolean(6, s_l.isWant_swap());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
@@ -125,16 +146,19 @@ public class ShiftListDAO extends DatabaseManagement{
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
-                prep = conn.prepareStatement("UPDATE Shift_list SET shift_id=?, on_duty=?, my_date=?, deviance=? WHERE user_id=?;");
+                prep = conn.prepareStatement("UPDATE Shift_list SET shift_id=?, on_duty=?, my_date=?, deviance=?, want_swap=? WHERE user_id=? AND shift_id=?;");
                 prep.setInt(1, s_l.getShift_id());
                 prep.setBoolean(2, s_l.isOn_duty());
                 prep.setDate(3, s_l.getMy_date());
                 prep.setInt(4, s_l.getDeviance());
-                prep.setString(5, s_l.getUser_id());
+                prep.setBoolean(5, s_l.isWant_swap());
+                prep.setString(6, s_l.getUser_id());
+                prep.setInt(7, s_l.getShift_id());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
                 System.err.println("Issue with updating shiftlist. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
+                sqle.printStackTrace();
                 rollbackStatement();
                 return false;
             }
@@ -167,74 +191,28 @@ public class ShiftListDAO extends DatabaseManagement{
         }
         return numb > 0;
     }
-    
-    public ArrayList<ShiftList> getWantSwap(){
-        ArrayList<ShiftList> out = new ArrayList<ShiftList>();
-        if(setUp()){
-            try {
-                conn = getConnection();
-                prep = conn.prepareStatement("SELECT * FROM Shift_list WHERE want_swap=true;");
-                res = prep.executeQuery();
-                while (res.next()){
-                    out.add(processRow(res));
-                }
-            }
-            catch (SQLException sqle){
-                System.err.println("Issue with getting swapList.");
-                return null;
-            }
-            finally {
-                finallyStatement(res, prep);
-            }
-        }
-        return out;
-    }
 
-    public boolean wantSwap(ShiftList s_l) {
-        int numb = 0;
-        if(setUp()) {
-            try {
-                conn = getConnection();
-                conn.setAutoCommit(false);
-                prep = conn.prepareStatement("UPDATE ShiftList SET want_swap=? WHERE user_id=? AND shift_id=?;");
-                prep.setBoolean(1, s_l.isWant_swap());
-                prep.setString(2, s_l.getUser_id());
-                prep.setInt(3, s_l.getShift_id());
-                numb = prep.executeUpdate();
-            }
-            catch (SQLException sqle) {
-                System.err.println("Issue with updating employee.");
-                rollbackStatement();
-                return false;
-            }
-            finally {
-                finallyStatement(res, prep);
-            }
-        }
-        return numb > 0;
-    }
-    
+    //Updates time_list deviances with input data. Creates a new entry if row does not exist in a given month.
     public boolean updateDeviance(ShiftList s_l, String month){
         int numb = 0;
         TimeListDAO dao = new TimeListDAO();
         
         if(setUp()) {
-            //Oppdaterer time_list.
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
-                //Sjekker om en unik rad eksisterer.
+                //Checks if a row exists given user_id and month.
                 boolean exists = dao.rowExists(s_l.getUser_id(),month);
                 if (exists){
-                    TimeList existingTimelist = dao.getTimeListByIdAndMonth(s_l.getUser_id(), month);
-                    //Hvis en unik rad eksisterer og deviance<0, oppdater frav�r.
+                    TimeList existingTimelist = dao.getSingleTimeList(s_l.getUser_id(), month);
+                    //If a unique row exists and deviance<0, update absence.
                     if (s_l.getDeviance()<0) {
                         prep = conn.prepareStatement("UPDATE Time_list SET absence=? WHERE user_id=? AND month=?");
                         prep.setInt(1, existingTimelist.getAbsence() + s_l.getDeviance());
                         prep.setString(2, s_l.getUser_id());
                         prep.setString(3, month);
                     }
-                    //Hvis en unik rad eksisterer og deviance>0, oppdater overtid.
+                    //If a unique row exists and deviance>0, update overtime.
                     else{
                         prep = conn.prepareStatement("UPDATE Time_list SET overtime=? WHERE user_id=? AND month=?");
                         prep.setInt(1,existingTimelist.getOvertime()+s_l.getDeviance());
@@ -243,7 +221,7 @@ public class ShiftListDAO extends DatabaseManagement{
 
                     }
                 }
-                //Hvis en unik rad ikke eksisterer, opprett og fyll inn.
+                //If a unique row does not exist, create and fill in.
                 else {
                     prep = conn.prepareStatement("INSERT INTO Time_list (user_id, month, ordinary, overtime, absence) VALUES (?, ?, ?, ?, ?);");
                     prep.setString(1, s_l.getUser_id());
@@ -272,7 +250,8 @@ public class ShiftListDAO extends DatabaseManagement{
         return numb > 0;
     }
 
-
+    //Removes deviance from shift_list give user_id and shift_id.
+    //TODO: Can this be replaced by previous update-function?
     public boolean removeDeviance(String user_id, int shift_id){
         int numb = 0;
         if(setUp()) {
@@ -296,8 +275,7 @@ public class ShiftListDAO extends DatabaseManagement{
         }
         return numb > 0;
     }
-    
-    
+
     protected ShiftList processRow(ResultSet res) throws SQLException {
         ShiftList s_l = new ShiftList();
         s_l.setUser_id(res.getString("user_id"));
@@ -305,6 +283,7 @@ public class ShiftListDAO extends DatabaseManagement{
         s_l.setOn_duty(res.getBoolean("on_duty"));
         s_l.setMy_date(res.getDate("my_date"));
         s_l.setDeviance(res.getInt("deviance"));
+        s_l.setWant_swap(res.getBoolean("want_swap"));
         return s_l;
     }
 }

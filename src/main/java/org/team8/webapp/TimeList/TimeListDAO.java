@@ -39,8 +39,32 @@ public class TimeListDAO extends DatabaseManagement{
         }
         return out;
     }
-    
-    public TimeList getTimeListByIdAndMonth(String id, String month){
+
+    public ArrayList<TimeList> getTimeListsById(String id){
+        ArrayList<TimeList> out = new ArrayList<TimeList>();
+        if(setUp()){
+            try {
+                conn = getConnection();
+                prep = conn.prepareStatement("SELECT * FROM Time_list WHERE user_id=?;");
+                prep.setString(1, id);
+                res = prep.executeQuery();
+                while (res.next()){
+                    out.add(processRow(res));
+                }
+            }
+            catch (SQLException sqle){
+                System.err.println("Issue with getting timelist by id and month. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
+                sqle.printStackTrace();
+                return null;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return out;
+    }
+
+    public TimeList getSingleTimeList(String id, String month){
         TimeList out = null;
         if(setUp()){
             try {
@@ -54,7 +78,7 @@ public class TimeListDAO extends DatabaseManagement{
                 }
             }
             catch (SQLException sqle){
-                System.err.println("Issue with getting timelist by id and month. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
+                System.err.println("Issue with getting single timelist by id and month.");
                 return null;
             }
             finally {
@@ -89,14 +113,14 @@ public class TimeListDAO extends DatabaseManagement{
         }
         return out;
     }
-    
+
     public boolean createTimeList(TimeList e) {
         int numb = 0;
         if(setUp()){
             try {
                 conn = getConnection();
                 prep = conn.prepareStatement("INSERT INTO Time_list (user_id, month, ordinary, overtime, absence) VALUES (?, ?, ?, ?, ?);");
-                prep.setString(1, e.getUserId());
+                prep.setString(1, e.getUser_id());
                 prep.setString(2, e.getMonth());
                 prep.setInt(3, e.getOrdinary());
                 prep.setInt(4, e.getOvertime());
@@ -125,7 +149,7 @@ public class TimeListDAO extends DatabaseManagement{
                 prep.setInt(1, e.getOrdinary());
                 prep.setInt(2, e.getOvertime());
                 prep.setInt(3, e.getAbsence());
-                prep.setString(4, e.getUserId());
+                prep.setString(4, e.getUser_id());
                 prep.setString(5, e.getMonth());
                 numb = prep.executeUpdate();
             }
@@ -166,7 +190,7 @@ public class TimeListDAO extends DatabaseManagement{
 
     protected TimeList processRow(ResultSet res) throws SQLException {
         TimeList s = new TimeList();
-        s.setUserId(res.getString("user_id"));
+        s.setUser_id(res.getString("user_id"));
         s.setMonth(res.getString("month"));
         s.setOrdinary(res.getInt("ordinary"));
         s.setOvertime(res.getInt("overtime"));

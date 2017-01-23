@@ -6,8 +6,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.sql.Date;
 
@@ -153,7 +151,6 @@ public class EmployeeDAO extends DatabaseManagement {
         return numb > 0;
     }
 
-    //FIXME: vetke om dette blir helt rett. Må ha en dummy database å teste opp mot.
     public boolean removeEmployee(String id) {
         int numb = 0;
         if(setUp()) {

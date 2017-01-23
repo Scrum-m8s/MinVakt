@@ -6,6 +6,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
 import java.util.ArrayList;
 
+/**
+ * Created by asdfLaptop on 10.01.2017.
+ */
 
 @Path("/employees")
 public class EmployeeResource {
@@ -56,4 +59,3 @@ public class EmployeeResource {
         dao.removeEmployee(id);
     }
 }
-
