@@ -1,9 +1,12 @@
 package org.team8.webapp.User;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.SecurityContext;
 import java.util.ArrayList;
 
+import static org.team8.webapp.LoginManagment.Hash.createHashedPassword;
 /**
  *
  * @author Mr.Easter
@@ -19,6 +22,14 @@ public class UserResource {
         return dao.getUsers();
     }
 
+    @Path("/current")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public User getCurrentUser(@Context SecurityContext sc){
+        System.out.println("getCurrentUser");
+        return dao.getUserById(sc.getUserPrincipal().getName());
+    }
+
     @Path("{id}")
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
@@ -29,24 +40,36 @@ public class UserResource {
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean createUser(User e) {
         System.out.println("createUser");
+        String hashedPassword = createHashedPassword(e.getPassword());
+        e.setPassword(hashedPassword);
         return dao.createUser(e);
     }
 
     @Path("{id}")
     @PUT
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean updateUser(User e) {
         System.out.println("updateUser");
+        String hashedPassword = createHashedPassword(e.getPassword());
+        e.setPassword(hashedPassword);
         return dao.updateUser(e);
     }
 
+    /* TODO:
+    @Path("updateRole/{role}")
+    @PUT
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public boolean updateRole(User e) {
+        System.out.println("updateRole");
+        return dao.updateRole(e);
+    }
+    */
+
     @Path("{id}")
     @DELETE
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public void removeUser(@PathParam("id") String id) {
         dao.removeUser(id);
     }

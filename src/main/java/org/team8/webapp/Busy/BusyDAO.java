@@ -43,7 +43,30 @@ public class BusyDAO extends DatabaseManagement {
         return out;
     }
 
-    public Busy getBusyByUserIdAndShiftId(String user_id, int shift_id){
+    public ArrayList<Busy> getBusyById(String id){
+        ArrayList<Busy> out = new ArrayList<Busy>();
+        if(setUp()){
+            try {
+                conn = getConnection();
+                prep = conn.prepareStatement("SELECT * FROM Busy WHERE user_id=?;");
+                prep.setString(1, id);
+                res = prep.executeQuery();
+                while (res.next()){
+                    out.add(processRow(res));
+                }
+            }
+            catch (SQLException sqle){
+                System.err.println("Issue with getting busy by id.");
+                return null;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return out;
+    }
+
+    public Busy getSingleBusy(String user_id, int shift_id){
         Busy out = null;
         if(setUp()){
             try {
@@ -57,7 +80,7 @@ public class BusyDAO extends DatabaseManagement {
                 }
             }
             catch (SQLException sqle){
-                System.err.println("Issue with getting busy by id.");
+                System.err.println("Issue with getting single busy by user_id and shift_id.");
                 return null;
             }
             finally {
@@ -73,9 +96,9 @@ public class BusyDAO extends DatabaseManagement {
             try {
                 conn = getConnection();
                 prep = conn.prepareStatement("INSERT INTO Busy (user_id, shift_id, my_date) VALUES (?, ?, ?);");
-                prep.setString(1, b.getUserId());
-                prep.setInt(2, b.getShiftId());
-                prep.setDate(3, b.getMyDate());
+                prep.setString(1, b.getUser_id());
+                prep.setInt(2, b.getShift_id());
+                prep.setDate(3, b.getMy_date());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
@@ -90,20 +113,20 @@ public class BusyDAO extends DatabaseManagement {
         return numb > 0;
     }
     
-  public boolean updateBusy(Busy e) {
+    public boolean updateBusy(Busy e) {
         int numb = 0;
         if(setUp()) {
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
-                prep = conn.prepareStatement("UPDATE Busy SET my_date=?,  WHERE user_id=? AND shift_id=?;");
-                prep.setDate(1, e.getMyDate());
-                prep.setString(2, e.getUserId());
-                prep.setInt(3, e.getShiftId());
+                prep = conn.prepareStatement("UPDATE Busy SET my_date=? WHERE user_id=? AND shift_id=?;");
+                prep.setDate(1, e.getMy_date());
+                prep.setString(2, e.getUser_id());
+                prep.setInt(3, e.getShift_id());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with updating user.");
+                System.err.println("Issue with updating busy.");
                 rollbackStatement();
                 return false;
             }
@@ -136,14 +159,12 @@ public class BusyDAO extends DatabaseManagement {
         }
         return numb > 0;
     }
-    
+
     protected Busy processRow(ResultSet res) throws SQLException {
         Busy b = new Busy();
-        b.setUserId(res.getString("user_id"));
-        b.setShiftId(res.getInt("shift_id"));
-        b.setMyDate(res.getDate("my_date"));
+        b.setUser_id(res.getString("user_id"));
+        b.setShift_id(res.getInt("shift_id"));
+        b.setMy_date(res.getDate("my_date"));
         return b;
     }
-
-
 }

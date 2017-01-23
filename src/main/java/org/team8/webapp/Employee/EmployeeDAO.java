@@ -2,10 +2,7 @@ package org.team8.webapp.Employee;
 
 import org.team8.webapp.Database.DatabaseManagement;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 /**
@@ -33,6 +30,7 @@ public class EmployeeDAO extends DatabaseManagement {
                 }
             }
             catch (SQLException sqle){
+                sqle.printStackTrace();
                 System.err.println("Issue with getting employees.");
                 return null;
             }
@@ -66,22 +64,46 @@ public class EmployeeDAO extends DatabaseManagement {
         return out;
     }
 
+    public ArrayList<Employee> getEmployeeByCategory(int category){
+        ArrayList<Employee> out = new ArrayList<Employee>();
+        if(setUp()){
+            try {
+                conn = getConnection();
+                prep = conn.prepareStatement("SELECT * FROM Employee WHERE category =?;");
+                prep.setInt(1, category);
+                res = prep.executeQuery();
+                while (res.next()){
+                    out.add(processRow(res));
+                }
+            }
+            catch (SQLException sqle){
+                System.err.println("Issue with getting employee by id.");
+                return null;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return out;
+    }
+
     public boolean createEmployee(Employee e) {
         int numb = 0;
         if(setUp()){
             try {
                 conn = getConnection();
                 prep = conn.prepareStatement("INSERT INTO Employee (user_id, firstname, surname, email, phone_number, category) VALUES (?, ?, ?, ?, ?, ?);");
-                prep.setString(1, e.getUserId());
+                prep.setString(1, e.getUser_id());
                 prep.setString(2, e.getFirstname());
                 prep.setString(3, e.getSurname());
                 prep.setString(4, e.getEmail());
-                prep.setString(5, e.getPhoneNumber());
+                prep.setString(5, e.getPhone_number());
                 prep.setInt(6, e.getCategory());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
                 System.err.println("Issue with creating employee.");
+                sqle.printStackTrace();
                 rollbackStatement();
                 return false;
             }
@@ -102,13 +124,14 @@ public class EmployeeDAO extends DatabaseManagement {
                 prep.setString(1, e.getFirstname());
                 prep.setString(2, e.getSurname());
                 prep.setString(3, e.getEmail());
-                prep.setString(4, e.getPhoneNumber());
+                prep.setString(4, e.getPhone_number());
                 prep.setInt(5, e.getCategory());
-                prep.setString(6, e.getUserId());
+                prep.setString(6, e.getUser_id());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
                 System.err.println("Issue with updating employee.");
+                sqle.printStackTrace();
                 rollbackStatement();
                 return false;
             }
@@ -141,13 +164,66 @@ public class EmployeeDAO extends DatabaseManagement {
         return numb > 0;
     }
 
+    public ArrayList<Employee> getEmployeesForDate(String date){
+        ArrayList<Employee> out = new ArrayList<>();
+        if(setUp()){
+            try{
+                conn = getConnection();
+                prep = conn.prepareStatement("SELECT DISTINCT b.* FROM Shift_list AS a NATURAL JOIN Employee AS b WHERE a.my_date = ?");
+                prep.setString(1, date);
+                res = prep.executeQuery();
+                while (res.next()){
+                    out.add(processRow(res));
+                }
+
+            }catch (SQLException sqle) {
+                System.err.println("Issue with getting employees for shift.");
+                rollbackStatement();
+                return null;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+
+        return out;
+    }
+
+    public ArrayList<Employee> getEmployeesForShift(int shift_id, String date){
+        ArrayList<Employee> out = new ArrayList<>();
+        if(setUp()){
+            try{
+                conn = getConnection();
+                prep = conn.prepareStatement("SELECT b.* FROM Shift_list AS a NATURAL JOIN Employee AS b   WHERE a.shift_id = ? AND a.my_date = ?");
+                prep.setInt(1, shift_id);
+                prep.setString(2, date);
+                res = prep.executeQuery();
+                while (res.next()){
+                    out.add(processRow(res));
+                }
+
+            }catch (SQLException sqle) {
+                System.err.println("Issue with getting employees for shift.");
+                rollbackStatement();
+                return null;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+
+        return out;
+    }
+
+
     protected Employee processRow(ResultSet res) throws SQLException {
         Employee e = new Employee();
-        e.setUserId(res.getString("user_id"));
+
+        e.setUser_id(res.getString("user_id"));
         e.setFirstname(res.getString("firstname"));
         e.setSurname(res.getString("surname"));
         e.setEmail(res.getString("email"));
-        e.setPhoneNumber(res.getString("phone_number"));
+        e.setPhone_number(res.getString("phone_number"));
         e.setCategory(res.getInt("category"));
         return e;
     }

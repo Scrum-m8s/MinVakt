@@ -41,13 +41,13 @@ public class ShiftDAO extends DatabaseManagement {
         return out;
     }
 
-    public Shift getShiftById(String id){
+    public Shift getShiftById(int id){
         Shift out = null;
         if(setUp()){
             try {
                 conn = getConnection();
                 prep = conn.prepareStatement("SELECT * FROM Shift WHERE Shift_id =?;");
-                prep.setString(1, id);
+                prep.setInt(1, id);
                 res = prep.executeQuery();
                 if (res.next()){
                     out = processRow(res);
@@ -70,10 +70,10 @@ public class ShiftDAO extends DatabaseManagement {
             try {
                 conn = getConnection();
                 prep = conn.prepareStatement("INSERT INTO Shift (shift_id, hours, start_time, end_time) VALUES (?, ?, ?, ?);");
-                prep.setInt(1, e.getShiftId());
+                prep.setInt(1, e.getShift_id());
                 prep.setInt(2, e.getHours());
-                prep.setInt(3, e.getStartTime());
-                prep.setInt(4, e.getEndTime());
+                prep.setInt(3, e.getStart_time());
+                prep.setInt(4, e.getEnd_time());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
@@ -96,9 +96,9 @@ public class ShiftDAO extends DatabaseManagement {
                 conn.setAutoCommit(false);
                 prep = conn.prepareStatement("UPDATE Shift SET hours=?, start_time=?, end_time=? WHERE shift_id=?;");
                 prep.setInt(1, e.getHours());
-                prep.setInt(2, e.getStartTime());
-                prep.setInt(3, e.getEndTime());
-                prep.setInt(4, e.getShiftId());
+                prep.setInt(2, e.getStart_time());
+                prep.setInt(3, e.getEnd_time());
+                prep.setInt(4, e.getShift_id());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
@@ -113,14 +113,14 @@ public class ShiftDAO extends DatabaseManagement {
         return numb > 0;
     }
 
-    public boolean removeShift(String id) {
+    public boolean removeShift(int id) {
         int numb = 0;
         if(setUp()) {
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
                 prep = conn.prepareStatement("DELETE FROM Shift WHERE shift_id=?;");
-                prep.setString(1, id);
+                prep.setInt(1, id);
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
@@ -137,10 +137,10 @@ public class ShiftDAO extends DatabaseManagement {
 
     protected Shift processRow(ResultSet res) throws SQLException {
         Shift s = new Shift();
-        s.setShiftId(res.getInt("shift_id"));
+        s.setShift_id(res.getInt("shift_id"));
         s.setHours(res.getInt("hours"));
-        s.setStartTime(res.getInt("start_time"));
-        s.setEndTime(res.getInt("end_time"));
+        s.setStart_time(res.getInt("start_time"));
+        s.setEnd_time(res.getInt("end_time"));
         return s;
     }
 }

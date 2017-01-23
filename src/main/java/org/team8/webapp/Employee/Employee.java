@@ -11,11 +11,22 @@ public class Employee {
     private String phone_number;
     private int category;
 
-    public String getUserId() {
+    public Employee() {}
+
+    public Employee(String user_id, String firstname, String surname, String email, String phone_number, int category) {
+        this.user_id = user_id;
+        this.firstname = firstname;
+        this.surname = surname;
+        this.email = email;
+        this.phone_number = phone_number;
+        this.category = category;
+    }
+
+    public String getUser_id() {
         return user_id;
     }
 
-    public void setUserId(String user_id) {
+    public void setUser_id(String user_id) {
         this.user_id = user_id;
     }
 
@@ -43,11 +54,11 @@ public class Employee {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
+    public String getPhone_number() {
         return phone_number;
     }
 
-    public void setPhoneNumber(String phone_number) {
+    public void setPhone_number(String phone_number) {
         this.phone_number = phone_number;
     }
 

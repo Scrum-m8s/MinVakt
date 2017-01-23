@@ -11,11 +11,20 @@ public class Shift {
     private int start_time;
     private int end_time;
 
-    public int getShiftId() {
+    public Shift(){}
+
+    public Shift(int shift_id, int hours, int start_time, int end_time) {
+        this.shift_id = shift_id;
+        this.hours = hours;
+        this.start_time = start_time;
+        this.end_time = end_time;
+    }
+
+    public int getShift_id() {
         return shift_id;
     }
 
-    public void setShiftId(int shift_id) {
+    public void setShift_id(int shift_id) {
         this.shift_id = shift_id;
     }
 
@@ -27,19 +36,19 @@ public class Shift {
         this.hours = hours;
     }
 
-    public int getStartTime() {
+    public int getStart_time() {
         return start_time;
     }
 
-    public void setStartTime(int start_time) {
+    public void setStart_time(int start_time) {
         this.start_time = start_time;
     }
 
-    public int getEndTime() {
+    public int getEnd_time() {
         return end_time;
     }
 
-    public void setEndTime(int end_time) {
+    public void setEnd_time(int end_time) {
         this.end_time = end_time;
     }
 }

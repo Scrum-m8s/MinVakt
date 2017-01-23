@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/layout.css">
+    <!--<link rel="stylesheet" href="Bootstrap-3.3.6/css/bootstrap.min.css">-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+    <script src="js/jquery-3.1.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/dt-1.10.13/b-1.2.4/b-colvis-1.2.4/b-print-1.2.4/r-2.1.0/se-1.2.0/datatables.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="js/register_new_shift.js"></script>
+    <title>Registrere ny vakt</title>
+</head>
+<body>
+<ul class="sidenav">
+    <li><a href="index.html">Hjem</a></li>
+    <li><a href="timeliste.html">Timelister</a></li>
+    <li><a href="endre_passord.html">Endre passord</a></li>
+    <li><a href="vaktbytte.html">Vaktbytte</a></li>
+    <li><a href="kvalifisert_for_vakt.html">Kvalifisert for vakt/Ledige vakter(?)</a></li>
+    <li><a href = "shift_book.html">Skiftbok</a></li>
+    <li><a class="active" href = "employees.html">Ansatte</a></li>
+    <li><a href = "godkjenne_vaktbytte.html">Ønsker om vaktbytte</a></li>
+</ul>
+
+<div class="content">
+    <h2>Velg rolle: </h2>
+
+    <button id="sykepleier"> Sykepleier </button>
+    <button id="fag"> Fagarbeider </button>
+    <button id="ass"> Assistent </button>
+
+    <p id="regSuccess" style="color:green; display:none">Nytt skift ble registrert</p>
+
+    <table id="role_table" class="table stripe hover" width="100%" style="display:none">
+        <thead>
+        <tr>
+            <th>Etternavn</th>
+            <th>Fornavn</th>
+            <th>Stilling</th>
+            <th>Bruker id</th>
+        </tr>
+        </thead>
+    </table>
+    <h3 id="info1" style="display:none">Velg en ansatt</h3>
+
+    <br>
+    <br>
+
+    <div id="datediv" style="display:none">
+        <form>
+            Velg dato:
+            <input id=datepick type="date" name="dato">
+        </form>
+        <br>
+        <br>
+        <select id="myselect">
+            <option value="1">Nattevakt</option>
+            <option value="2">Dagvakt</option>
+            <option value="3">Aftenvakt</option>
+        </select>
+        <br>
+        <br>
+        <div id="ansvarsvakt">
+        <form>
+            <input id="ansvar" type="checkbox" name="ansvarsvakt" value="1">Merk dersom ansvarsvakt<br>
+        </form>
+        </div>
+        <br>
+        <br>
+        <button id="nyVakt"> Registrer </button>
+        <p id="regFail" style="color:red; display:none">Feil ved registrering</p>
+</div>
+</body>
+</html>
