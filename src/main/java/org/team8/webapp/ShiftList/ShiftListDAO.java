@@ -202,14 +202,15 @@ public class ShiftListDAO extends DatabaseManagement{
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
-                prep = conn.prepareStatement("UPDATE ShiftList SET want_swap=? WHERE user_id=? AND shift_id=?;");
+                prep = conn.prepareStatement("UPDATE Shift_list SET want_swap=? WHERE user_id=? AND shift_id=? AND my_date=?;");
                 prep.setBoolean(1, s_l.isWant_swap());
                 prep.setString(2, s_l.getUser_id());
                 prep.setInt(3, s_l.getShift_id());
+                prep.setDate(4, s_l.getMy_date());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with updating employee.");
+                System.err.println("Issue with updating swap."+prep.toString());
                 rollbackStatement();
                 return false;
             }
