@@ -46,6 +46,14 @@ public class EmployeeResource {
         return dao.getEmployeeById(id);
     }
 
+    @Path("category/{category}")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public ArrayList<Employee> getEmployeeCategory(@PathParam("category") int category) {
+        System.out.println("getEmployeeByCategory: " + category);
+        return dao.getEmployeeByCategory(category);
+    }
+
     @Path("/current")
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})

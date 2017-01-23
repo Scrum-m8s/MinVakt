@@ -64,6 +64,29 @@ public class EmployeeDAO extends DatabaseManagement {
         return out;
     }
 
+    public ArrayList<Employee> getEmployeeByCategory(int category){
+        ArrayList<Employee> out = new ArrayList<Employee>();
+        if(setUp()){
+            try {
+                conn = getConnection();
+                prep = conn.prepareStatement("SELECT * FROM Employee WHERE category =?;");
+                prep.setInt(1, category);
+                res = prep.executeQuery();
+                while (res.next()){
+                    out.add(processRow(res));
+                }
+            }
+            catch (SQLException sqle){
+                System.err.println("Issue with getting employee by id.");
+                return null;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return out;
+    }
+
     public boolean createEmployee(Employee e) {
         int numb = 0;
         if(setUp()){
@@ -202,7 +225,6 @@ public class EmployeeDAO extends DatabaseManagement {
         e.setEmail(res.getString("email"));
         e.setPhone_number(res.getString("phone_number"));
         e.setCategory(res.getInt("category"));
-
         return e;
     }
 }
