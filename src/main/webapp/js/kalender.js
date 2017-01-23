@@ -38,7 +38,6 @@ $(document).ready(function initialize() {
         document.getElementById("r" + l).appendChild(newEndCol);
 
     }
-    //}
 
     var currentDay = first; //variable for counting days when looping through days of the month
     var currentWOM = 1; //variable for counting weeks when looping through days of the month
