@@ -58,7 +58,7 @@ div.content {
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 1060; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -73,7 +73,7 @@ div.content {
 .modal-content {
     background-color: #fefefe;
     margin: 2% auto; /* 15% from the top and centered */
-    z-index: 2;
+    z-index: 1;
     padding: 20px;
     width: 40%; /* Could be more or less, depending on screen size */
     max-height: 100%;
