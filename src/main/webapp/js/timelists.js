@@ -2,8 +2,8 @@
 $(document).ready(function() {
     // Bind opp tabellen mot rest-ressursen
     var user = "nina"; //test
-    var monthNames = ["January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
+    var monthNames = ["Januar", "Februar", "Mars", "April", "Mai", "Juni",
+        "Juli", "August", "September", "Oktober", "November", "Desember"
     ];
 
     var table = $('#table_timelists').DataTable( {
@@ -25,6 +25,7 @@ $(document).ready(function() {
                         'user_id': json[i].user_id
                     })
                 }
+
                 return return_data;
             }
         },
