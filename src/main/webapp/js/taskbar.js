@@ -1,39 +1,22 @@
-var app = angular.module('MinVakt', ['ngMaterial']);
+var app = angular.module('MinVakt', ['ngMaterial', 'ngRoute']);
 
 
-app.config(function($mdThemingProvider) {
+app.config(function($mdThemingProvider, $routeProvider) {
     $mdThemingProvider.theme('default').primaryPalette('blue');
+    $routeProvider
+    .when("/", {
+        templateUrl : "main.html"
+    });
 });
 
-app.controller('MinVaktCtrl', function($scope, $mdSidenav, $mdToast, $http) {
+app.service('employeeService', function($http){
+    return $http.get('http://jsonplaceholder.typicode.com/users')
+});
 
-    $http.get('api/employees/current').
-    then(function(response) {
-        $scope.currentuser = response.data;
-    });
-
-    $scope.toggleSidenav = function(menu) {
-        $mdSidenav(menu).toggle();
-    };
-    $scope.toast = function(message) {
-        var toast = $mdToast.simple().content('You clicked ' + message).position('bottom right');
-        $mdToast.show(toast);
-    };
-    $scope.toastList = function(message) {
-        var toast = $mdToast.simple().content('You clicked ' + message + ' having selected ' + $scope.selected.length + ' item(s)').position('bottom right');
-        $mdToast.show(toast);
-    };
-    $scope.selected = [];
-    $scope.toggle = function(item, list) {
-        var idx = list.indexOf(item);
-        if (idx > -1) list.splice(idx, 1);
-        else list.push(item);
-    };
-    $scope.data = {
+app.service('menuService', function(){
+    return {
         title: 'Trondheim Kommune',
         user: {
-            name: 'Ola Nordmann',
-            email: 'ola@email.no',
             icon: 'account_circle'
         },
         toolbar: {
@@ -66,7 +49,6 @@ app.controller('MinVaktCtrl', function($scope, $mdSidenav, $mdToast, $http) {
         },
         sidenav: {
             sections: [{
-                expand: true,
                 actions: [{
                     name: 'Hjem',
                     icon: 'home',
@@ -81,19 +63,24 @@ app.controller('MinVaktCtrl', function($scope, $mdSidenav, $mdToast, $http) {
                     link: 'Vaktbytte'
                 }]
             }, {
-                expand: true,
-                actions: [{
+                admin: [{
                     name: 'Kontrollpanel',
-                    icon: 'build',
+                    icon: 'developer_board',
                     link: 'Action 4'
                 }, {
                     name: 'Brukere',
                     icon: 'person',
                     link: 'Action 5'
-                }, {
-                    name: 'Action 6',
+                }]
+            }, {
+                bottom: [{
+                    name: 'Innstillinger',
                     icon: 'settings',
-                    link: 'Action 6'
+                    link: 'Innstillinger'
+                }, {
+                    name: 'Logg ut',
+                    icon: 'power_settings_new',
+                    link: 'Logg ut'
                 }]
             }]
         },
@@ -127,4 +114,35 @@ app.controller('MinVaktCtrl', function($scope, $mdSidenav, $mdToast, $http) {
             }]
         }
     }
+});
+
+app.controller('MinVaktCtrl', function($scope, $mdSidenav, $mdToast, $http, employeeService, menuService) {
+
+    employeeService.then(function(result){
+        $scope.employee = result.data[0];
+        $scope.isAdmin = false;
+        if(result.data[0].id===1){
+            $scope.isAdmin = true;
+        }
+    });
+
+    $scope.data = menuService;
+
+    $scope.toggleSidenav = function(menu) {
+        $mdSidenav(menu).toggle();
+    };
+    $scope.toast = function(message) {
+        var toast = $mdToast.simple().content('You clicked ' + message).position('bottom right');
+        $mdToast.show(toast);
+    };
+    $scope.toastList = function(message) {
+        var toast = $mdToast.simple().content('You clicked ' + message + ' having selected ' + $scope.selected.length + ' item(s)').position('bottom right');
+        $mdToast.show(toast);
+    };
+    $scope.selected = [];
+    $scope.toggle = function(item, list) {
+        var idx = list.indexOf(item);
+        if (idx > -1) list.splice(idx, 1);
+        else list.push(item);
+    };
 });
