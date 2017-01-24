@@ -30,6 +30,18 @@ public class UserResource {
         return dao.getUserById(sc.getUserPrincipal().getName());
     }
 
+    @Path("/isadmin")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean isAdmin(@Context SecurityContext sc){
+        User u = dao.getUserById(sc.getUserPrincipal().getName());
+        if(u.getRole() == 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     @Path("{id}")
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
