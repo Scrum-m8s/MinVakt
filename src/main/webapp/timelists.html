@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Hjem</title>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/sidebar.js"></script>
+
+    <!-- user-defined styles -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="master-header-wrapper">
+    <div class="master-header">
+        <div id="menu-id">
+            <button id="menu-button-id"  href="javascript:void(0)" onclick="openNav()">
+                <span class="material-icons">menu</span>
+            </button>
+            <div id="menu-title-id">
+                <a href="#">Trondheim Kommune</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="sidebar-wrapper" id="sidebar-wrapper-id">
+    <div class="sidebar">
+        <a href="javascript:void(0)" onclick="closeNav()">
+            <span class="material-icons">close</span>
+        </a>
+        <a href="index.html">
+            <span class="material-icons">home</span>
+            <span id="display-name">
+                        <span>Hjem</span>
+                    </span>
+        </a>
+
+        <a class="glyphicon glyphicon-list-alt" href="timeliste.html"> Timelister</a>
+        <a href="endre_passord.html">Endre passord</a>
+        <a href="vaktbytte.html">Vaktbytte</a>
+        <a href="shift_book.html">Skiftbok</a>
+        <a href="employees.html">Ansatte</a>
+        <a href="kvalifisert_for_vakt.html">Ledige ansatte</a>
+
+    </div>
+</div>
+
+<div class="content-wrapper">
+    <table id="table_timelists" class="table stripe hover" width="100%">
+        <thead>
+        <tr>
+            <th>Måned</th>
+            <th>Overtid</th>
+            <th>Fravær</th>
+            <th>Totalt</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+</div>
+</body>
+</html>
