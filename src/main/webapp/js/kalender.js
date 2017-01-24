@@ -42,7 +42,6 @@ $(document).ready(function initialize() {
     var currentDay = first; //variable for counting days when looping through days of the month
     var currentWOM = 1; //variable for counting weeks when looping through days of the month
 
-//TODO: write in a smaller date format
 //populate a div for each day of the month. last.getDate is the amount of days current month
     for (var k = 0; k < last.getDate(); ++k) {
         var newDay = document.createElement("div");
