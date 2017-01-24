@@ -8,6 +8,7 @@ $(document).ready(function() {
             right: 'month,agendaWeek,agendaDay'
         },
         editable: true,
+        timeFormat: 'H:mm',
         events: function (start, end, timezone, callback) {
             $.ajax({
                 url: 'api/shift_lists',
@@ -61,6 +62,7 @@ $(document).ready(function() {
                 }
             });
         }
+
 
     });
 
