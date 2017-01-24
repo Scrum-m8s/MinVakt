@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 //Collection of functions performed with data from multiple tables from the database.
 @Path("/function/")
+//@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+//@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 public class ShiftListFunctionResource {
     ShiftListDAO sdao = new ShiftListDAO();
     EmployeeDAO edao = new EmployeeDAO();
@@ -19,9 +21,7 @@ public class ShiftListFunctionResource {
 
     //Updates time_list with deviances from shift_list, and if successful, removes deviances from shift_list.
     @Path("updatedeviances/{year}/{month}")
-    @POST
-    //@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    //@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @GET
     public String updateDeviances(@PathParam("year") int year, @PathParam("month") int month) {
         System.out.println("Update Deviance in Time_list/Shift_list");
         //Fetches entire shift_list
