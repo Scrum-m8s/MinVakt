@@ -1,5 +1,7 @@
 package org.team8.webapp.ShiftList;
 
+import java.sql.Date;
+
 /**
  * Created by Mr.Easter on 20/01/2017.
  */
@@ -46,6 +48,7 @@ public class ShiftDay {
     public void setCategory_3(int category_3) {
         this.category_3 = category_3;
     }
+
 
 
 }
