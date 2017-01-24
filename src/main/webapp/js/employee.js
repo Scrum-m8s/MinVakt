@@ -327,4 +327,8 @@ $(document).ready(function() {
         registerOvertimeAbsence(user_id, shift_id, my_date, deviance);
     })
 
+    $("#getTimelist").click(function () {
+        var user = $("#user_id").val();
+        window.location.href = "timelists.html/" + user;
+    });
 });
