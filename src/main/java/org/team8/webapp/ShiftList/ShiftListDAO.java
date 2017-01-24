@@ -1,11 +1,11 @@
 package org.team8.webapp.ShiftList;
 
 import org.team8.webapp.Database.DatabaseManagement;
-import org.team8.webapp.TimeList.TimeList;
-import org.team8.webapp.TimeList.TimeListDAO;
-import org.team8.webapp.Employee.Employee;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /*
@@ -220,6 +220,31 @@ public class ShiftListDAO extends DatabaseManagement{
         }
         return numb > 0;
     }
+    public boolean registerDeviance(ShiftList s_l) {
+        int numb = 0;
+        if(setUp()) {
+            try {
+                conn = getConnection();
+                conn.setAutoCommit(false);
+                prep = conn.prepareStatement("UPDATE Shift_list SET deviance=? WHERE  user_id=? AND shift_id=? AND my_date=?;");
+                prep.setInt(1, s_l.getDeviance());
+                prep.setString(2, s_l.getUser_id());
+                prep.setInt(3, s_l.getShift_id());
+                prep.setDate(4, s_l.getMy_date());
+                numb = prep.executeUpdate();
+            }
+            catch (SQLException sqle) {
+                System.err.println("Issue with updating deviance.");
+                rollbackStatement();
+                return false;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return numb > 0;
+    }
+
 
     public boolean removeShiftlist(String user_id, int shift_id){
         int numb = 0;

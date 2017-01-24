@@ -6,10 +6,9 @@
 // The root URL for the RESTful services
 var rootURL = "http://localhost:8080/api/employees/";
 
-
-//TODO: use jquery to fetch element
 $(document).ready(function() {
-
+  //FIXME: make this work without commenting out. Prob just move the functions on the bottom to another js file.
+/* 
     // When the user clicks on the create button, open the modal
     $("#createEmployee").on('click', function() {
         $("#createModal").modal('show');
@@ -34,10 +33,8 @@ $(document).ready(function() {
         });
     });
 
-// When the user clicks on <span> (x), close the modal
-    //FIXME
-
-    $("#closeUpdate").on('click', function() {
+    // When the user clicks on <span> (x), close the modal
+     $("#closeUpdate").on('click', function() {
         console.log("update");
         $("#updateModal").modal('hide');
     });
@@ -51,7 +48,7 @@ $(document).ready(function() {
         $("#updateRoleAndPasswordModal").modal('hide');
     });
 
-// When the user clicks anywhere outside of the modal, close it
+    // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
         if (event.target == $("#createModal")) {
             $("#createModal").modal('hide');
@@ -63,7 +60,7 @@ $(document).ready(function() {
             $("#updateRoleAndPasswordModal").modal('hide');
         }
     }
-
+*/
     function editEmployee() {
         var user_id = $('tr.selected td:eq(5)').text();
         console.log('editEmployee with user_id: ' + user_id);
@@ -197,19 +194,19 @@ $(document).ready(function() {
 
     $("#submitCreate").click(function () {
         createEmployee();
-        modalCreate.style.display = "none";
+        $("#createModal").modal('hide');
         return false;
     });
 
     $("#submitUpdate").click(function () {
         editEmployee();
-        modalUpdate.style.display = "none";
+        $("#updateModal").modal('hide');
         return false;
     });
 
     $("#submitUpdateRoleAndPassword").click(function () {
         updateRoleAndPassword();
-        modalUpdate.style.display = "none";
+        $("#updateRoleAndPasswordModal").modal('hide');
         return false;
     });
 
@@ -229,9 +226,7 @@ $(document).ready(function() {
             }
         });
     });
-
-// table with employees qualified for a shift. Constructed empty.
-
+  
     $("#availableEmployeesTable").DataTable({
         data:[],
         columns: [
@@ -276,6 +271,7 @@ $(document).ready(function() {
                 console.log("Error: " + textStatus);
             }
         });
+
     }
     $("#availableEmployees").click(function () {
         var category = $("#category").val();
@@ -286,4 +282,42 @@ $(document).ready(function() {
 
         getAvailableEmployees(shift_id, my_date, category);
     });
+
+
+
+    function registerOvertimeAbsence(user_id, shift_id, my_date, deviance) {
+
+        $.ajax({
+            type: 'PUT',
+            contentType: 'application/json',
+            url: "api/shift_lists/deviance/" + user_id+"/"+ shift_id,
+            data: '{"user_id": "' + user_id + '", "shift_id" : "' + shift_id + '", "my_date" : "' + my_date + '", "deviance" : "' + deviance + '"}',
+            dataType: "json",
+
+            success: function(data, textStatus, jqXHR){
+                console.log("deviance updated.");
+            },
+            error: function(data, textStatus, jqXHR){
+                console.log("Error: " + textStatus);
+            }
+        });
+        alert("Deviance ble registert");
+    }
+
+
+    $("#submitAbsenceOvertime").click(function () {
+        var user_id = $("#user_id").val();
+        var shift_id = $("#shift_id").val();
+        var my_date = $("#my_date").val();
+        var deviance;
+        var selector = document.getElementById("selector");
+        var value_selector = selector.options[selector.selectedIndex].value;
+        if (value_selector == "absence") {
+            deviance = -($("#deviance").val());
+        } else {
+            deviance = $("#deviance").val();
+        }
+        registerOvertimeAbsence(user_id, shift_id, my_date, deviance);
+    })
+
 });
