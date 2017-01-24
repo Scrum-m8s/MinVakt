@@ -6,66 +6,61 @@
 // The root URL for the RESTful services
 var rootURL = "http://localhost:8080/api/employees/";
 
+
+//TODO: use jquery to fetch element
 $(document).ready(function() {
 
-    // Get the modal
-    var modalCreate = document.getElementById('createModal');
-    var modalUpdate = document.getElementById('updateModal');
-    var modalUpdateRoleAndPassword = document.getElementById('updateRoleAndPasswordModal');
-
-// Get the button that opens the modal
-    var btnCreate = document.getElementById("createEmployee");
-    var btnUpdate = document.getElementById("updateEmployee");
-    var btnUpdateRoleAndPassword = document.getElementById("updateRoleAndPassword");
-
-// Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
     // When the user clicks on the create button, open the modal
-    btnCreate.onclick = function() {
-        modalCreate.style.display = "block";
-    }
+    $("#createEmployee").on('click', function() {
+        $("#createModal").modal('show');
+    });
 
-// When the user clicks on the update button, open the modal
-    btnUpdate.onclick = function() {
-        modalUpdate.style.display = "block";
+    // When the user clicks on the update button, open the modal
+    $("#updateEmployee").on('click', function() {
+        $("#updateModal").modal('show');
         $(".username_filler").html('<b>Edit user: ' + $('tr.selected td:eq(5)').text() + '</b>');
         $("#inputFirstname").attr('value', $('tr.selected td:eq(1)').text());
         $("#inputLastname").attr('value', $('tr.selected td:eq(0)').text());
         $("#inputPhone").attr('value', $('tr.selected td:eq(2)').text());
         $("#inputEmail").attr('value', $('tr.selected td:eq(3)').text());
         $("#inputCategory").val($('tr.selected td:eq(4)').text());
-    }
+    });
 
-    btnUpdateRoleAndPassword.onclick = function() {
+    $("#updateRoleAndPassword").on('click', function() {
         $.getJSON('api/users/' + $('tr.selected td:eq(5)').text(), function(result) {
-            modalUpdateRoleAndPassword.style.display = "block";
+            $("#updateRoleAndPasswordModal").modal('show');
             $(".username_filler").html('<b>Edit user: ' + $('tr.selected td:eq(5)').text() + '</b>');
             $("#inputRole1").val(result.role + "Sel");
         });
-
-    }
+    });
 
 // When the user clicks on <span> (x), close the modal
     //FIXME
-    $("#closeUpdate").onclick = function() {
-        modalUpdate.style.display = "none";
-    }
 
-    $("#closeCreate").onclick = function() {
-        modalCreate.style.display = "none";
-    }
+    $("#closeUpdate").on('click', function() {
+        console.log("update");
+        $("#updateModal").modal('hide');
+    });
+
+    $("#closeCreate").on('click', function() {
+        console.log("create");
+        $("#createModal").modal('hide');
+    });
+
+    $("#closeUpdateRoleAndPassword").on('click', function() {
+        $("#updateRoleAndPasswordModal").modal('hide');
+    });
 
 // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
-        if (event.target == modalCreate) {
-            modalCreate.style.display = "none";
+        if (event.target == $("#createModal")) {
+            $("#createModal").modal('hide');
         }
-        if (event.target == modalUpdate) {
-            modalUpdate.style.display = "none";
+        if (event.target == $("#updateModal")) {
+            $("#updateModal").modal('hide');
         }
-        if (event.target == modalUpdateRoleAndPassword) {
-            modalUpdateRoleAndPassword.style.display = "none";
+        if (event.target == $("#updateRoleAndPasswordModal")) {
+            $("#updateRoleAndPasswordModal").modal('hide');
         }
     }
 
