@@ -1,14 +1,16 @@
 package org.team8.webapp.ShiftList;
 
 import org.team8.webapp.Database.DatabaseManagement;
-import org.team8.webapp.Employee.Employee;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /*
 * Created by mariyashchekanenko on 12/01/2017.
-* Edited by Mr_Easter on 12/01/2017.
+* Edited by Mr_Easter on 12/01/2017 and 18.01.2017.
 */
 
 public class ShiftListDAO extends DatabaseManagement{
@@ -33,7 +35,7 @@ public class ShiftListDAO extends DatabaseManagement{
                 }
             }
             catch (SQLException sqle){
-                System.err.println("Issue with getting shiftlists.");
+                System.err.println("Issue with getting shiftlists. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 return null;
             }
             finally {
@@ -43,7 +45,7 @@ public class ShiftListDAO extends DatabaseManagement{
         return out;
     }
 
-    public ArrayList<ShiftList> getShiftListById(String user_id){
+    public ArrayList<ShiftList> getShiftListsById(String user_id){
         ArrayList<ShiftList> out = new ArrayList<ShiftList>();
         if(setUp()){
             try {
@@ -56,7 +58,30 @@ public class ShiftListDAO extends DatabaseManagement{
                 }
             }
             catch (SQLException sqle){
-                System.err.println("Issue with getting Shift_list by user id.");
+                System.err.println("Issue with getting Shift_list by user_id. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
+                return null;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return out;
+    }
+
+    public ArrayList<ShiftList> getShiftListsByDate(String my_date){
+        ArrayList<ShiftList> out = new ArrayList<ShiftList>();
+        if(setUp()){
+            try {
+                conn = getConnection();
+                prep = conn.prepareStatement("SELECT * FROM Shift_list WHERE my_date=?;");
+                prep.setString(1, my_date);
+                res = prep.executeQuery();
+                while(res.next()){
+                    out.add(processRow(res));
+                }
+            }
+            catch (SQLException sqle){
+                System.err.println("Issue with getting Shift_list by date. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 return null;
             }
             finally {
@@ -81,7 +106,7 @@ public class ShiftListDAO extends DatabaseManagement{
                 }
             }
             catch (SQLException sqle){
-                System.err.println("Issue with getting single shift_list by user id and shift_id.");
+                System.err.println("Issue with getting single shift_list by user id and shift_id. Error code:" + sqle.getErrorCode() + " Message: " + sqle.getMessage());
                 return null;
             }
             finally {
@@ -130,7 +155,7 @@ public class ShiftListDAO extends DatabaseManagement{
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with creating shiftlist.");
+                System.err.println("Issue with creating shiftlist. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 rollbackStatement();
                 return false;
             }
@@ -159,7 +184,7 @@ public class ShiftListDAO extends DatabaseManagement{
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with updating shiftlist.");
+                System.err.println("Issue with updating shiftlist. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 sqle.printStackTrace();
                 rollbackStatement();
                 return false;
@@ -170,6 +195,31 @@ public class ShiftListDAO extends DatabaseManagement{
         }
         return numb > 0;
     }
+    public boolean registerDeviance(ShiftList s_l) {
+        int numb = 0;
+        if(setUp()) {
+            try {
+                conn = getConnection();
+                conn.setAutoCommit(false);
+                prep = conn.prepareStatement("UPDATE Shift_list SET deviance=? WHERE  user_id=? AND shift_id=? AND my_date=?;");
+                prep.setInt(1, s_l.getDeviance());
+                prep.setString(2, s_l.getUser_id());
+                prep.setInt(3, s_l.getShift_id());
+                prep.setDate(4, s_l.getMy_date());
+                numb = prep.executeUpdate();
+            }
+            catch (SQLException sqle) {
+                System.err.println("Issue with updating deviance.");
+                rollbackStatement();
+                return false;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return numb > 0;
+    }
+
 
     public boolean removeShiftlist(String user_id, int shift_id){
         int numb = 0;
@@ -183,7 +233,33 @@ public class ShiftListDAO extends DatabaseManagement{
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with removing shiftlist.");
+                System.err.println("Issue with removing shiftlist. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
+                rollbackStatement();
+                return false;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return numb > 0;
+    }
+
+    //Removes deviance from shift_list give user_id and shift_id.
+    //TODO: Can this be replaced by previous update-function?
+    public boolean removeDeviance(String user_id, int shift_id){
+        int numb = 0;
+        if(setUp()) {
+            try {
+                conn = getConnection();
+                conn.setAutoCommit(false);
+                prep = conn.prepareStatement("UPDATE Shift_list SET deviance=? WHERE user_id = ? AND shift_id = ?;");
+                prep.setInt(1,0);
+                prep.setString(2, user_id);
+                prep.setInt(3, shift_id);
+                numb = prep.executeUpdate();
+            }
+            catch (SQLException sqle) {
+                System.err.println("Issue with removing shiftlist. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 rollbackStatement();
                 return false;
             }

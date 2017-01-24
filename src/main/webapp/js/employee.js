@@ -7,7 +7,7 @@
 var rootURL = "http://localhost:8080/api/employees/";
 
 $(document).ready(function() {
-
+/*
     // Get the modal
     var modalCreate = document.getElementById('createModal');
     var modalUpdate = document.getElementById('updateModal');
@@ -68,7 +68,7 @@ $(document).ready(function() {
             modalUpdateRoleAndPassword.style.display = "none";
         }
     }
-    
+*/
     function editEmployee() {
         var user_id = $('tr.selected td:eq(5)').text();
         console.log('editEmployee with user_id: ' + user_id);
@@ -202,19 +202,19 @@ $(document).ready(function() {
 
     $("#submitCreate").click(function () {
         createEmployee();
-        modalCreate.style.display = "none";
+       // modalCreate.style.display = "none";
         return false;
     });
 
     $("#submitUpdate").click(function () {
         editEmployee();
-        modalUpdate.style.display = "none";
+    //    modalUpdate.style.display = "none";
         return false;
     });
 
     $("#submitUpdateRoleAndPassword").click(function () {
         updateRoleAndPassword();
-        modalUpdate.style.display = "none";
+    //    modalUpdate.style.display = "none";
         return false;
     });
 
@@ -297,7 +297,7 @@ $(document).ready(function() {
         $.ajax({
             type: 'PUT',
             contentType: 'application/json',
-            url: "/api/shift_lists/deviance/" + user_id+"/"+ shift_id,
+            url: "api/shift_lists/deviance/" + user_id+"/"+ shift_id,
             data: '{"user_id": "' + user_id + '", "shift_id" : "' + shift_id + '", "my_date" : "' + my_date + '", "deviance" : "' + deviance + '"}',
             dataType: "json",
 
@@ -319,13 +319,12 @@ $(document).ready(function() {
         var deviance;
         var selector = document.getElementById("selector");
         var value_selector = selector.options[selector.selectedIndex].value;
-
         if (value_selector == "absence") {
             deviance = -($("#deviance").val());
         } else {
             deviance = $("#deviance").val();
         }
-
+        registerOvertimeAbsence(user_id, shift_id, my_date, deviance);
     })
 
 });
