@@ -4,9 +4,11 @@ import org.team8.webapp.Database.DatabaseManagement;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.sql.Date;
 
 /**
  * Created by asdfLaptop on 10.01.2017.
+ * Edited by MisterEaster on 19.01.2017.
  */
 public class EmployeeDAO extends DatabaseManagement {
 
@@ -31,7 +33,7 @@ public class EmployeeDAO extends DatabaseManagement {
             }
             catch (SQLException sqle){
                 sqle.printStackTrace();
-                System.err.println("Issue with getting employees.");
+                System.err.println("Issue with getting employees. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 return null;
             }
             finally {
@@ -54,7 +56,7 @@ public class EmployeeDAO extends DatabaseManagement {
                 }
             }
             catch (SQLException sqle){
-                System.err.println("Issue with getting employee by id.");
+                System.err.println("Issue with getting employee by id. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 return null;
             }
             finally {
@@ -87,6 +89,33 @@ public class EmployeeDAO extends DatabaseManagement {
         return out;
     }
 
+
+    public ArrayList<Employee> getAvailableEmployees(int shift_id, Date my_date, int category){
+        ArrayList<Employee> out = new ArrayList<Employee>();
+        if(setUp()){
+            try {
+                conn = getConnection();
+                prep = conn.prepareStatement("SELECT * FROM Employee WHERE user_id NOT IN (SELECT user_id FROM  `Shift_list` WHERE my_date =? AND shift_id =?) AND category =?");
+                prep.setDate(1, my_date);
+                prep.setInt(2,shift_id);
+                prep.setInt(3,category);
+                res = prep.executeQuery();
+                while (res.next()){
+                    out.add(processRow(res));
+                }
+            }
+            catch (SQLException sqle){
+                System.err.println("Issue with getting available employees. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
+                return null;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return out;
+    }
+
+
     public boolean createEmployee(Employee e) {
         int numb = 0;
         if(setUp()){
@@ -102,7 +131,7 @@ public class EmployeeDAO extends DatabaseManagement {
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with creating employee.");
+                System.err.println("Issue with creating employee. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 sqle.printStackTrace();
                 rollbackStatement();
                 return false;
@@ -130,7 +159,7 @@ public class EmployeeDAO extends DatabaseManagement {
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with updating employee.");
+                System.err.println("Issue with updating employee. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 sqle.printStackTrace();
                 rollbackStatement();
                 return false;
@@ -153,7 +182,7 @@ public class EmployeeDAO extends DatabaseManagement {
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with removing employee.");
+                System.err.println("Issue with removing employee. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 rollbackStatement();
                 return false;
             }
@@ -225,6 +254,7 @@ public class EmployeeDAO extends DatabaseManagement {
         e.setEmail(res.getString("email"));
         e.setPhone_number(res.getString("phone_number"));
         e.setCategory(res.getInt("category"));
+
         return e;
     }
 }
