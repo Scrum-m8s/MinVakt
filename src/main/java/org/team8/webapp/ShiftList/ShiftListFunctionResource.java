@@ -31,16 +31,17 @@ public class ShiftListFunctionResource {
         //Adds every deviance to time_list and removes deviance from shift_list. See ShiftListDAO.
         for (int i=0;i<listen.size();i++){
             if (listen.get(i).getDeviance()!=0){
-                result = tdao.updateDeviance(listen.get(i),year,month);
+                result = tdao.updateDeviance(listen.get(i),year,month);     //Updates deviance.
                 message+="User "+listen.get(i).getUser_id()+" has deviance "+listen.get(i).getDeviance()+" added.\n";
                 if (result){
-                    sdao.removeDeviance(listen.get(i).getUser_id(),listen.get(i).getShift_id());}
+                    //TODO: Evaluate necessity of deleting deviance from shift_list after adding to time_list.
+                    sdao.removeDeviance(listen.get(i).getUser_id(),listen.get(i).getShift_id());}   //Removes deviance.
             }
         }
         return "Deviances updated. \n" + message;
     }
 
-    //Finds the amount of employees with specific categories registered on shifts during a parameter-given day.
+    //Finds the amount of employees with specific categories registered on shifts during a parameter-given day(yyyy-MM-dd).
     @Path("getshifttotal/{my_date}")
     @GET
     public ArrayList<ShiftDay> getShiftsByDate(@PathParam("my_date") String my_date_string){
