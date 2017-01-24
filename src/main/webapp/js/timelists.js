@@ -1,7 +1,7 @@
 
 $(document).ready(function() {
     // Bind opp tabellen mot rest-ressursen
-    var user = "Espen";
+    var user = "Espen"; //TODO: gotta get timelists by userid
     var monthNames = ["Januar", "Februar", "Mars", "April", "Mai", "Juni",
         "Juli", "August", "September", "Oktober", "November", "Desember"
     ];
