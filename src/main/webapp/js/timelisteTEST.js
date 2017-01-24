@@ -21,12 +21,20 @@ $(document).ready(function() {
             $("#employeesOnShiftList").html("<hr><h4>På vakt:</h4>");
             $.getJSON('api/function/getshifttotal/' + calEvent.date + "/" + calEvent.shiftId, function(data){
                 $.each(data, function(index, item) {
-                    if(item.on_duty === true) {
-                        $("#employeesOnShiftList").append('<li class="list-group-item justify-content-between">' + item.user_id + '<span class="badge badge-default badge-pill">Ansvar</span></li>');
+                    if(item.on_duty) {
+                        $("#employeesOnShiftList").append('<li class="list-group-item justify-content-between">' + item.user_id + '<span style="float: right; margin-right: 0.5%;" class="label label-success">Ansvar</span></li>');
                     } else {
                         $("#employeesOnShiftList").append('<li class="list-group-item justify-content-between">' + item.user_id + '</li>');
-
                     }
+
+                    if(item.want_swap === true) {
+                        $("#employeesOnShiftList li:last").append('<span style="float: right; margin-right: 0.5%;" class="label label-danger">Vil bytte</span>');
+                    }
+
+                    if(item.want_swap === true) {
+                        $("#employeesOnShiftList li:last").append('<span style="float: right; margin-right: 0.5%;" class="label label-danger">Vil bytte</span>');
+                    }
+
                 });
             });
         },
