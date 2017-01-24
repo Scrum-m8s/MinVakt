@@ -92,32 +92,37 @@ public class TimeListDAO extends DatabaseManagement{
     }
 
     //Updates time_list deviances with input data. Creates a new entry if row does not exist in a given year and month.
+    //Designed to be called once a month.
     public boolean updateDeviance(ShiftList s_l, int year, int month){
+        //Checks if a row exists given user_id and month.
+        TimeList existingTimelist = new TimeList();
+        boolean exists = rowExists(s_l.getUser_id(), year, month);
+        if (exists){existingTimelist = getSingleTimeList(s_l.getUser_id(), year, month);}
+
         int numb = 0;
 
         if(setUp()) {
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
-                //Checks if a row exists given user_id and month.
-                boolean exists = rowExists(s_l.getUser_id(), year, month);
                 if (exists){
-                    TimeList existingTimelist = getSingleTimeList(s_l.getUser_id(), year, month);
                     //If a unique row exists and deviance<0, update absence.
                     if (s_l.getDeviance()<0) {
-                        prep = conn.prepareStatement("UPDATE Time_list SET absence=? WHERE user_id=? AND year=? AND month=?");
-                        prep.setInt(1, existingTimelist.getAbsence() + s_l.getDeviance());
-                        prep.setString(2, s_l.getUser_id());
-                        prep.setInt(3,year);
-                        prep.setInt(4, month);
+                        prep = conn.prepareStatement("UPDATE Time_list SET ordinary=?, absence=? WHERE user_id=? AND year=? AND month=?");
+                        prep.setInt(1, existingTimelist.getOrdinary());           //Hard-coded for 8-hour shifts.
+                        prep.setInt(2, existingTimelist.getAbsence() + s_l.getDeviance());
+                        prep.setString(3, s_l.getUser_id());
+                        prep.setInt(4,year);
+                        prep.setInt(5, month);
                     }
                     //If a unique row exists and deviance>0, update overtime.
                     else{
-                        prep = conn.prepareStatement("UPDATE Time_list SET overtime=? WHERE user_id=? AND year=? AND month=?");
-                        prep.setInt(1,existingTimelist.getOvertime()+s_l.getDeviance());
-                        prep.setString(2,s_l.getUser_id());
-                        prep.setInt(3, year);
-                        prep.setInt(4, month);
+                        prep = conn.prepareStatement("UPDATE Time_list SET ordinary=?, overtime=? WHERE user_id=? AND year=? AND month=?");
+                        prep.setInt(1, existingTimelist.getOrdinary()+8);           //Hard-coded for 8-hour shifts.
+                        prep.setInt(2,existingTimelist.getOvertime()+s_l.getDeviance());
+                        prep.setString(3,s_l.getUser_id());
+                        prep.setInt(4, year);
+                        prep.setInt(5, month);
 
                     }
                 }
@@ -127,7 +132,7 @@ public class TimeListDAO extends DatabaseManagement{
                     prep.setString(1, s_l.getUser_id());
                     prep.setInt(2,year);
                     prep.setInt(3, month);
-                    prep.setInt(4, 0);
+                    prep.setInt(4, 8);                                              //Hard-coded for 8-hour shifts.
                     if (s_l.getDeviance()>0){
                         prep.setInt(5,s_l.getDeviance());
                         prep.setInt(6,0);
