@@ -5,15 +5,17 @@ package org.team8.webapp.TimeList;
  */
 public class TimeList {
     private String user_id;
-    private String month;
+    private int year;
+    private int month;
     private int ordinary;
     private int overtime;
     private int absence;
 
     public TimeList() {}
 
-    public TimeList(String user_id, String month, int ordinary, int overtime, int absence) {
+    public TimeList(String user_id, int year, int month, int ordinary, int overtime, int absence) {
         this.user_id = user_id;
+        this.year = year;
         this.month = month;
         this.ordinary = ordinary;
         this.overtime = overtime;
@@ -28,11 +30,19 @@ public class TimeList {
         this.user_id = user_id;
     }
 
-    public String getMonth() {
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getMonth() {
         return month;
     }
 
-    public void setMonth(String month) {
+    public void setMonth(int month) {
         this.month = month;
     }
 
