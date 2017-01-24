@@ -9,10 +9,26 @@ $(document).ready(function() {
         },
         editable: true,
         timeFormat: 'H:mm',
+        weekNumbers: true,
+        eventOverlap: function(stillEvent, movingEvent) {
+            console.log(stillEvent.title && movingEvent.title);
+        },
         eventClick: function(calEvent, jsEvent, view) {
-
             $("#shiftModal").modal('show');
+            $("#username_filler_shift").html("Brukernavn: " + calEvent.title);
+            $("#date_shift").html("Dato: " + calEvent.date);
+            $("#time_shift").html("Tid: " + calEvent.startTime + " - " + calEvent.endTime + " (" + calEvent.shiftType + ")");
+            $("#employeesOnShiftList").html("<hr><h4>På vakt:</h4>");
+            $.getJSON('api/function/getshifttotal/' + calEvent.date + "/" + calEvent.shiftId, function(data){
+                $.each(data, function(index, item) {
+                    if(item.on_duty === true) {
+                        $("#employeesOnShiftList").append('<li class="list-group-item justify-content-between">' + item.user_id + '<span class="badge badge-default badge-pill">Ansvar</span></li>');
+                    } else {
+                        $("#employeesOnShiftList").append('<li class="list-group-item justify-content-between">' + item.user_id + '</li>');
 
+                    }
+                });
+            });
         },
         events: function (start, end, timezone, callback) {
             $.ajax({
@@ -52,14 +68,21 @@ $(document).ready(function() {
                                 startTime = "16";
                                 endTime = "24"
                             }
+
                             events.push({
                                 title: entry.user_id,
                                 //start: new Date(entry.my_date, startTime, 0),
                                 //end: new Date(entry.my_date, endTime, 0),
+                                date: new Date(y, m, d+1).toISOString().slice(0, 10),
+                                startTime: startTime + ":00",
+                                endTime: endTime + ":00",
                                 start: new Date(y, m, d, startTime, 0),
                                 end: new Date(y, m, d, endTime, 0),
                                 allDay: false,
+                                shiftType: shiftTypeString,
+                                shiftId: entry.shift_id,
                                 color: color
+
                             });
                         });
                     }
@@ -68,5 +91,7 @@ $(document).ready(function() {
             });
         }
     });
+
+
 
 });

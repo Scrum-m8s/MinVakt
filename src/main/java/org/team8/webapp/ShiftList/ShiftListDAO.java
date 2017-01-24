@@ -91,6 +91,31 @@ public class ShiftListDAO extends DatabaseManagement{
         return out;
     }
 
+    public ArrayList<ShiftList> getShiftListsByDateAndShiftId(String my_date, int shift_id){
+        ArrayList<ShiftList> out = new ArrayList<ShiftList>();
+        if(setUp()){
+            try {
+                conn = getConnection();
+                prep = conn.prepareStatement("SELECT * FROM Shift_list WHERE my_date=? AND shift_id=?;");
+                prep.setString(1, my_date);
+                prep.setInt(2, shift_id);
+                res = prep.executeQuery();
+                while(res.next()){
+                    out.add(processRow(res));
+                }
+            }
+            catch (SQLException sqle){
+                sqle.printStackTrace();
+                System.err.println("Issue with getting Shift_list by date and shift_id. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
+                return null;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return out;
+    }
+
     //TODO: må finne en smartere løsning på å finne enkelt shift
     public ShiftList getSingleShift(String user_id, int shift_id){
         ShiftList out = null;
