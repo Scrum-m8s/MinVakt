@@ -5,6 +5,9 @@ $(document).ready(function() {
     var monthNames = ["Januar", "Februar", "Mars", "April", "Mai", "Juni",
         "Juli", "August", "September", "Oktober", "November", "Desember"
     ];
+    var totOver = 0;
+    var totAbs = 0;
+    var totOrd = 0;
 
     var table = $('#table_timelists').DataTable( {
         "paging": false,
@@ -23,9 +26,18 @@ $(document).ready(function() {
                         'ordinary': json[i].ordinary,
                         'total': json[i].overtime + json[i].absence + json[i].ordinary,
                         'user_id': json[i].user_id
-                    })
+                    });
+                    totOver += json[i].overtime;
+                    totAbs += json[i].absence;
+                    totOrd += json[i].ordinary;
                 }
-
+                return_data.push({
+                    'month': "Totalt:",
+                    'overtime': totOver,
+                    'absence': totAbs,
+                    'ordinary': totOrd,
+                    'total': totOver + totAbs + totOrd
+                });
                 return return_data;
             }
         },
