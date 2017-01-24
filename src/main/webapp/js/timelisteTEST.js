@@ -9,6 +9,11 @@ $(document).ready(function() {
         },
         editable: true,
         timeFormat: 'H:mm',
+        eventClick: function(calEvent, jsEvent, view) {
+
+            $("#shiftModal").modal('toggle');
+
+        },
         events: function (start, end, timezone, callback) {
             $.ajax({
                 url: 'api/shift_lists',
@@ -62,70 +67,6 @@ $(document).ready(function() {
                 }
             });
         }
-
-
     });
 
 });
-
-
-/*
- events: {
- url: 'api/shift_lists/nina',
- type: 'GET',
- data: function(json) {
- // a function that returns an object
- var date;
- var d;
- var m;
- var y;
-
- var color;
- var shiftTypeString;
- var user_id;
- var startTime;
- var endTime;
-
- for (var i = 0; i < json.length; i++) {
- user_id = json[i].user_id;
- date = new Date(json[i].my_date);
- d = date.getDay();
- m = date.getMonth();
- y = date.getFullYear();
-
- if (json[i].shift_id == 1) {
- color = "DarkSlateBlue";
- shiftTypeString = "Nattevakt";
- startTime = "0";
- endTime = "8"
- } else if (json[i].shift_id == 2) {
- color = "GoldenRod";
- shiftTypeString = "Dagsvakt";
- startTime = "8";
- endTime = "16"
- } else if (json[i].shift_id == 3) {
- color = "LightSlateGrey";
- shiftTypeString = "Kveldsvakt";
- startTime = "16";
- endTime = "24"
- }
- }
-
- return {
- //dummy data
- 'title': 'test',
- 'start': new Date(2017, 1, 23, 16, 0),
- //'end': new Date(2017, 1, 23, 24, 0),
- 'allDay': true,
- 'id': 'test'
-
- //'title': shiftTypeString,
- //'start': new Date(y, m, d, startTime, 0),
- //'end': new Date(y, m, d, endTime, 0),
- //'eventColor': color,
- //'allDay': false,
- //'id': user_id
- };
- }
- }
- */
