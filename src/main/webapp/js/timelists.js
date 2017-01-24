@@ -1,13 +1,8 @@
-<!--
-   Hente ut liste med antall timer jobbet, og antall timer fravær/overtid gitt bruker og mnd
-   dette er for admin. på slutten av mnd ser alle timer
-   Backend ferdig (?) hent timelist
-   -->
-
 
 $(document).ready(function() {
     // Bind opp tabellen mot rest-ressursen
     var user = "nina"; //test
+
     var table = $('#table_timelists').DataTable( {
         "paging": false,
         "info" : false,
