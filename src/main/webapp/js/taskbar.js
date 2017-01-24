@@ -15,7 +15,7 @@ function openCloseNav() {
 
 $(document).ready(function(){
     if(screen.height > "750"){
-        $("#menu-icon-id").html('close');
-        $("#sidebar-wrapper-id").css('width', '300');
+        $("#menu-icon-id").html('menu');
+        $("#sidebar-wrapper-id").css('width', '0');
     }
 });
