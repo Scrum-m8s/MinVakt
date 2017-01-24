@@ -17,15 +17,6 @@ $(document).ready(function() {
             "dataSrc": function (json) {
                 var return_data = new Array();
                 for (var i = 0; i < json.length; i++) {
-                    if (json[i].category === 1) {
-                        json[i].category = 'Sykepleier';
-                    } else if (json[i].category === 2) {
-                        json[i].category = 'Fagarbeider';
-                    } else if (json[i].category === 3) {
-                        json[i].category = 'Assistent';
-                    } else {
-                        json[i].category = 'Uregistrert';
-                    }
                     return_data.push({
                         'month': json[i].month,
                         'overtime': json[i].overtime,
