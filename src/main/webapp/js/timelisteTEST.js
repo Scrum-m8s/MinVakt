@@ -7,34 +7,45 @@ $(document).ready(function() {
             center: 'title',
             right: 'month,agendaWeek,agendaDay'
         },
-        editable: true,
+        editable: false,
         timeFormat: 'H:mm',
         weekNumbers: true,
         eventOverlap: function(stillEvent, movingEvent) {
             console.log(stillEvent.title && movingEvent.title);
         },
         eventClick: function(calEvent, jsEvent, view) {
+            $("#buttonsShift").html("");
+            $("#employeesOnShiftList").html("<hr><h4>På vakt:</h4>");
             $("#shiftModal").modal('show');
             $("#username_filler_shift").html("Brukernavn: " + calEvent.title);
             $("#date_shift").html("Dato: " + calEvent.date);
             $("#time_shift").html("Tid: " + calEvent.startTime + " - " + calEvent.endTime + " (" + calEvent.shiftType + ")");
-            $("#employeesOnShiftList").html("<hr><h4>På vakt:</h4>");
+
             $.getJSON('api/function/getshifttotal/' + calEvent.date + "/" + calEvent.shiftId, function(data){
                 $.each(data, function(index, item) {
                     if(item.on_duty) {
-                        $("#employeesOnShiftList").append('<li class="list-group-item justify-content-between">' + item.user_id + '<span style="float: right; margin-right: 0.5%;" class="label label-success">Ansvar</span></li>');
+                        $("#employeesOnShiftList").append('<li id="' + item.user_id + '" class="list-group-item justify-content-between">' + item.user_id + '<span style="float: right; margin-right: 0.5%;" class="label label-success">Ansvar</span></li>');
                     } else {
-                        $("#employeesOnShiftList").append('<li class="list-group-item justify-content-between">' + item.user_id + '</li>');
+                        $("#employeesOnShiftList").append('<li id="' + item.user_id + '" class="list-group-item justify-content-between">' + item.user_id + '</li>');
                     }
 
                     if(item.want_swap === true) {
                         $("#employeesOnShiftList li:last").append('<span style="float: right; margin-right: 0.5%;" class="label label-danger">Vil bytte</span>');
                     }
 
-                    if(item.want_swap === true) {
-                        $("#employeesOnShiftList li:last").append('<span style="float: right; margin-right: 0.5%;" class="label label-danger">Vil bytte</span>');
+                    getCategory(item.user_id, function(category){
+                        $('#' + item.user_id).append('<span style="float: right; margin-right: 0.5%;" class="label label-primary">' + category + '</span>');
+                    })
+                });
+            })
+            .success(function(){
+                console.log("successfully fetched shifts!");
+                isEmployeeOnShift(function(amt) {
+                    if(amt === 1) {
+                        $("#buttonsShift").html('<button style="margin-right: 2%" type="submit" class="btn btn-primary" id="changeShiftBtn">Bytte vakt?</button><button type="submit" class="btn btn-primary" id="regAbsence">Registrer fravær</button>');
+                    } else {
+                        $("#buttonsShift").html('<button type="submit" class="btn btn-primary" id="setBusyBtn">Opptatt?</button>');
                     }
-
                 });
             });
         },
@@ -100,6 +111,30 @@ $(document).ready(function() {
         }
     });
 
+    function getCategory(user_id, callback) {
+        $.getJSON('api/employees/' + user_id, function(json) {
+            if (json.category === 1) {
+                callback('Sykepleier');
+            } else if (json.category === 2) {
+                callback('Fagarbeider');
+            } else if (json.category === 3) {
+                callback('Assistent');
+            } else {
+                callback('Uregistrert');
+            }
+        });
+    }
 
+    function isEmployeeOnShift(callback) {
+        $.getJSON('api/users/current', function(json)  {
+            var amt = 0;
+            $("#employeesOnShiftList li").each(function() {
+                if($(this).is('#' + json.user_id)) {
+                    amt++;
+                }
+            });
+            callback(amt);
+        });
+    }
 
 });
