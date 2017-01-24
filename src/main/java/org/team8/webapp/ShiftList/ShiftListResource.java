@@ -52,6 +52,16 @@ public class ShiftListResource {
         return dao.createShiftlist(s_l);
     }
 
+
+    @Path("deviance/{user_id}/{shift_id}")
+    @PUT
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public boolean registerDeviance(ShiftList s_l) {
+        System.out.println("register deviance");
+        return dao.registerDeviance(s_l);
+    }
+
+
     @Path("{user_id}/{shift_id}")
     @PUT
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
@@ -78,7 +88,6 @@ public class ShiftListResource {
         System.out.println("getWantSwap");
         return sdao.getWantSwap(swap);
     }
-
     //Skal være mulig å bruke update shiftlist for tilsvarende funskjon uten konflikter
     @Path("{user_id}/{shift_id}/{want_swap}")
     @PUT

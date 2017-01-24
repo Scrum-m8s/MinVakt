@@ -65,13 +65,6 @@ public class ShiftListFunctionResource {
             else if (tempCat==3){shiftsThisDay.get(shift_list.get(i).getShift_id()-1).setCategory_3(shiftsThisDay.get(shift_list.get(i).getShift_id()-1).getCategory_3()+1);}
             else {System.out.println("Error: Category out of bounds.");}
         }
-    return shiftsThisDay;
-    }
-
-    @Path("getshifttotal/{my_date}/{shift_id}")
-    @GET
-    public ArrayList<ShiftList> getShiftsByDateAndShiftId(@PathParam("my_date") String my_date_string, @PathParam("shift_id") int shift_id){
-        System.out.println("getShiftsByDateAndShiftId");
-        return sdao.getShiftListsByDateAndShiftId(my_date_string, shift_id);
+        return shiftsThisDay;
     }
 }

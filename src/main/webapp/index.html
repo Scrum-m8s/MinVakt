@@ -18,8 +18,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="js/sidebar.js"></script>
-        <script src="js/kalenderuke.js"></script>
+        <script src="js/taskbar.js"></script>
 
         <!-- user-defined styles -->
         <link rel="stylesheet" href="css/style.css">
@@ -28,59 +27,90 @@
         <div class="master-header-wrapper">
             <div class="master-header">
                 <div id="menu-id">
-                    <button id="menu-button-id"  href="javascript:void(0)" onclick="openNav()">
-                        <span class="material-icons">menu</span>
-                    </button>
-                    <div id="menu-title-id">
-                        <a href="#">Trondheim Kommune</a>
+                    <a href="javascript:void(0)" onclick="openCloseNav()" id="menu-button-id">
+                        <span class="material-icons" id="menu-icon-id">menu</span>
+                    </a>
+
+                    <a href="index.html" id="menu-title-id">Trondheim Kommune</a>
+
+
+                    <div class="dropdown-wrapper">
+                        <span class="material-icons" id="dropdown">account_circle</span>
+                        <div class="dropdown-content">
+                            <a href="#" class="dropdown-link">
+                                <span class="material-icons">settings</span>
+                                <span class="dropdown-name">Innstillinger</span>
+                            </a>
+                            <a href="logout.jsp" class="dropdown-link">
+                                <span class="material-icons">power_settings_new</span>
+                                <span class="dropdown-name">Logg av</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
+
+
+
+            <!-- Sidebar innhold-->
         <div class="sidebar-wrapper" id="sidebar-wrapper-id">
             <div class="sidebar">
-                <a href="javascript:void(0)" onclick="closeNav()">
-                    <span class="material-icons">close</span>
-                </a>
-                <a href="index.html">
+
+                <a href="index.html" class="sidebar-link">
+                    <span class="selector-current"></span>
                     <span class="material-icons">home</span>
-                    <span id="display-name">
-                        <span>Hjem</span>
-                    </span>
+                    <span class="display-name">Hjem</span>
                 </a>
 
+                <a href="timeliste.html" class="sidebar-link">
+                    <span class="selector"></span>
+                    <span class="material-icons">today</span>
+                    <span class="display-name">Timelister</span>
+                </a>
 
-                <a class="glyphicon glyphicon-list-alt" href="timeliste.html"> Timelister</a>
-                <a href="endre_passord.html">Endre passord</a>
-                <a href="vaktbytte.html">Vaktbytte</a>
-                <a href="shift_book.html">Skiftbok</a>
-                <a href="employees.html">Ansatte</a>
-                <a href="kvalifisert_for_vakt.html">Ledige ansatte</a>
+                <a href="vaktbytte.html" class="sidebar-link">
+                    <span class="selector"></span>
+                    <span class="material-icons">swap_horiz</span>
+                    <span class="display-name">Vaktbytte</span>
+                </a>
 
+                <a href="shift_book.html" class="sidebar-link">
+                    <span class="selector"></span>
+                    <span class="material-icons">book</span>
+                    <span class="display-name">Skiftbok</span>
+                </a>
+
+                <a href="employees.html" class="sidebar-link">
+                    <span class="selector"></span>
+                    <span class="material-icons">people</span>
+                    <span class="display-name">Ansatte</span>
+                </a>
+
+                <a href="register_new_shift.html" class="sidebar-link">
+                    <span class="selector"></span>
+                    <span class="material-icons">today</span>
+                    <span class="display-name">Registrer ny vakt</span>
+                </a>
+
+                <a href="create_timelist.html" class="sidebar-link">
+                    <span class="selector"></span>
+                    <span class="material-icons">book</span>
+                    <span class="display-name">lage timelister</span>
+                </a>
+                <a href="overtime_absence.html" class="sidebar-link">
+                    <span class="selector"></span>
+                    <span class="material-icons">today</span>
+                    <span class="display-name">Overtid/fravær</span>
+                </a>
             </div>
         </div>
 
-
-
+        
         <div class="content-wrapper">
-            <h1>Velkommen, </h1> <!-- insert fornavn -->
-            <p>Under ser du når du jobber denne måneden.</p>
-            <h4>Januar</h4> <!-- denne måneden. feks Januar -->
+            <div class="content-card">
 
-            <!-- bootstrap -->
-            <div class="container-fluid" id = "bscal">
-                <div class="row" style = "background-color: lightgreen">
-                    <div class="col-sm-1">Uke</div>
-                    <div class="col-sm-1">Mandag</div>
-                    <div class="col-sm-1">Tirsdag</div>
-                    <div class="col-sm-1">Onsdag</div>
-                    <div class="col-sm-1">Torsdag</div>
-                    <div class="col-sm-1">Fredag</div>
-                    <div class="col-sm-1">Lørdag</div>
-                    <div class="col-sm-1">Søndag</div>
-                    <div class="col-sm-4"></div>
-                </div>
             </div>
         </div>
     </div>
