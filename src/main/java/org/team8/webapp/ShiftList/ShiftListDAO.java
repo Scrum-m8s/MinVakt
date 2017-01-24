@@ -1,11 +1,9 @@
 package org.team8.webapp.ShiftList;
 
 import org.team8.webapp.Database.DatabaseManagement;
+import org.team8.webapp.Employee.Employee;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 /*
@@ -93,6 +91,30 @@ public class ShiftListDAO extends DatabaseManagement{
         return out;
     }
 
+
+    public ArrayList<ShiftList> getWantSwap(boolean swap){
+        ArrayList<ShiftList> out = new ArrayList<ShiftList>();
+        if(setUp()){
+            try {
+                conn = getConnection();
+                prep = conn.prepareStatement("SELECT * FROM Shift_list WHERE want_swap=?;");
+                prep.setBoolean(1, swap);
+                res = prep.executeQuery();
+                while (res.next()){
+                    out.add(processRow(res));
+                }
+            }
+            catch (SQLException sqle){
+                System.err.println("Issue with getting swapList.");
+                return null;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return out;
+    }
+
     public boolean createShiftlist(ShiftList s_l){
         int numb = 0;
         if(setUp()){
@@ -125,7 +147,7 @@ public class ShiftListDAO extends DatabaseManagement{
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
-                prep = conn.prepareStatement("UPDATE Shift_list SET shift_id=?, on_duty=?, my_date=?, deviance=?, want_swap=? WHERE user_id=? AND shift_id=?;");
+                prep = conn.prepareStatement("UPDATE Shift_list SET shift_id=?, on_duty=?, my_date=?, deviance=?, want_swap=? WHERE user_id=? AND shift_id=? AND my_date=?;");
                 prep.setInt(1, s_l.getShift_id());
                 prep.setBoolean(2, s_l.isOn_duty());
                 prep.setDate(3, s_l.getMy_date());
@@ -133,6 +155,7 @@ public class ShiftListDAO extends DatabaseManagement{
                 prep.setBoolean(5, s_l.isWant_swap());
                 prep.setString(6, s_l.getUser_id());
                 prep.setInt(7, s_l.getShift_id());
+                prep.setDate(8, s_l.getMy_date());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
@@ -171,56 +194,6 @@ public class ShiftListDAO extends DatabaseManagement{
         return numb > 0;
     }
 
-    //Kommentert ut i resourcefilen også. Dette skal være mulig å få ut fra get funksjonen.
-    /*
-    public ArrayList<ShiftList> getWantSwap(boolean swap){
-        ArrayList<ShiftList> out = new ArrayList<ShiftList>();
-        if(setUp()){
-            try {
-                conn = getConnection();
-                prep = conn.prepareStatement("SELECT * FROM Shift_list WHERE want_swap=?;");
-                prep.setBoolean(1, swap);
-                res = prep.executeQuery();
-                while (res.next()){
-                    out.add(processRow(res));
-                }
-            }
-            catch (SQLException sqle){
-                System.err.println("Issue with getting swapList.");
-                return null;
-            }
-            finally {
-                finallyStatement(res, prep);
-            }
-        }
-        return out;
-    }
-
-    public boolean wantSwap(ShiftList s_l) {
-        int numb = 0;
-        if(setUp()) {
-            try {
-                conn = getConnection();
-                conn.setAutoCommit(false);
-                prep = conn.prepareStatement("UPDATE ShiftList SET want_swap=? WHERE user_id=? AND shift_id=?;");
-                prep.setBoolean(1, s_l.isWant_swap());
-                prep.setString(2, s_l.getUser_id());
-                prep.setInt(3, s_l.getShift_id());
-                numb = prep.executeUpdate();
-            }
-            catch (SQLException sqle) {
-                System.err.println("Issue with updating employee.");
-                rollbackStatement();
-                return false;
-            }
-            finally {
-                finallyStatement(res, prep);
-            }
-        }
-        return numb > 0;
-    }
-    */
-    
     protected ShiftList processRow(ResultSet res) throws SQLException {
         ShiftList s_l = new ShiftList();
         s_l.setUser_id(res.getString("user_id"));
