@@ -37,9 +37,11 @@
                     }else{
                         sessionStorage.setItem("role", "user");
                     }
+                    getMenu();
                 });
+            }else{
+                getMenu();
             }
-            getMenu();
         });
 
 

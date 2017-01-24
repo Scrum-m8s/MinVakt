@@ -6,11 +6,13 @@ package org.team8.webapp.User;
  */
 import org.team8.webapp.Database.DatabaseManagement;
 
+import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class UserDAO extends DatabaseManagement {
 
@@ -114,6 +116,8 @@ public class UserDAO extends DatabaseManagement {
         }
         return numb > 0;
     }
+
+
 
     public boolean removeUser(String id) {
         int numb = 0;
