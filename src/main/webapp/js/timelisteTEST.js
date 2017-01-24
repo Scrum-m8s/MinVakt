@@ -11,7 +11,7 @@ $(document).ready(function() {
         timeFormat: 'H:mm',
         eventClick: function(calEvent, jsEvent, view) {
 
-            $("#shiftModal").modal('toggle');
+            $("#shiftModal").modal('show');
 
         },
         events: function (start, end, timezone, callback) {

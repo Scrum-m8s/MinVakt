@@ -35,12 +35,15 @@ $(document).ready(function() {
     });
 
 // When the user clicks on <span> (x), close the modal
+    //FIXME
 
     $("#closeUpdate").on('click', function() {
+        console.log("update");
         $("#updateModal").modal('hide');
     });
 
     $("#closeCreate").on('click', function() {
+        console.log("create");
         $("#createModal").modal('hide');
     });
 
