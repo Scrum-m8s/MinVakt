@@ -65,6 +65,6 @@ public class ShiftListFunctionResource {
             else if (tempCat==3){shiftsThisDay.get(shift_list.get(i).getShift_id()-1).setCategory_3(shiftsThisDay.get(shift_list.get(i).getShift_id()-1).getCategory_3()+1);}
             else {System.out.println("Error: Category out of bounds.");}
         }
-    return shiftsThisDay;
+        return shiftsThisDay;
     }
 }
