@@ -18,6 +18,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -29,7 +30,6 @@ public class TestJUnitDB extends DatabaseManagement{
     private static BusyDAO busyDAO;
     private static TimeListDAO timeListDAO;
     private static ShiftListDAO shiftListDAO;
-
 
     private String[] validUser = new String[2];
     private String[] invalidUser = new String[2];
@@ -288,6 +288,7 @@ public class TestJUnitDB extends DatabaseManagement{
         assertNotNull(busyDAO.getBusy());
     }
 
+
     @Test
     public void getBusyById(){
         //dummy data
@@ -308,7 +309,7 @@ public class TestJUnitDB extends DatabaseManagement{
         userDAO.createUser(new User("dummy", "dummy", 1));
         busyDAO.createBusy(new Busy("dummy", 1, new Date(1970-05-07)));
 
-        assertNotNull(busyDAO.getSingleBusy("dummy", 1));
+        assertNotNull(busyDAO.getSingleBusy("dummy",1));
 
         //clean up
         busyDAO.removeBusy("dummy", 1);
@@ -373,7 +374,7 @@ public class TestJUnitDB extends DatabaseManagement{
     }
 
     @Test
-    public void getTimeListsById(){
+    public void getSingleTimeList() {
         //creating dummy data to fetch
         userDAO.createUser(new User("dummy", "dummy", 1));
         timeListDAO.createTimeList(new TimeList("dummy", 1990, 0, 60, 0, 0));
@@ -382,19 +383,6 @@ public class TestJUnitDB extends DatabaseManagement{
 
         //clean up
         timeListDAO.removeTimeList(1990,0, "dummy");
-        userDAO.removeUser("dummy");
-    }
-
-    @Test
-    public void getSingleTimeList() {
-        //creating dummy data to fetch
-        userDAO.createUser(new User("dummy", "dummy", 1));
-        timeListDAO.createTimeList(new TimeList("dummy", 1990, 0, 60, 0, 0));
-
-        assertNotNull(timeListDAO.getSingleTimeList(1990, 0, "dummy"));
-
-        //clean up
-        timeListDAO.removeTimeList(1990, 0, "dummy");
         userDAO.removeUser("dummy");
     }
 
@@ -506,6 +494,7 @@ public class TestJUnitDB extends DatabaseManagement{
 
         //clean up
         shiftListDAO.removeShiftlist(new Date(2017-01-01), 1, "dummy3");
+
         userDAO.removeUser(("dummy3"));
     }
 
