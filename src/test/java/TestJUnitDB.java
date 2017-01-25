@@ -9,7 +9,6 @@ import org.team8.webapp.Shift.Shift;
 import org.team8.webapp.Shift.ShiftDAO;
 import org.team8.webapp.ShiftList.ShiftList;
 import org.team8.webapp.ShiftList.ShiftListDAO;
-import org.team8.webapp.TimeList.TimeList;
 import org.team8.webapp.TimeList.TimeListDAO;
 import org.team8.webapp.User.User;
 import org.team8.webapp.User.UserDAO;
@@ -18,7 +17,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -334,7 +332,7 @@ public class TestJUnitDB extends DatabaseManagement{
           userDAO.removeUser("dummy");
       }
   }
-
+/*
   @Test
   public void updateBusy() {
       //dummy data and dates
@@ -522,7 +520,7 @@ public class TestJUnitDB extends DatabaseManagement{
         assertTrue(shiftListDAO.removeShiftlist(new Date(2017-01-01), 1, "dummy3"));
 
         userDAO.removeUser(("dummy3"));
-    }
+    }*/
 
     @Test
     public void testShiftList() {

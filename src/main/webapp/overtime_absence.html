@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/layout.css">
+        <!--<link rel="stylesheet" href="Bootstrap-3.3.6/css/bootstrap.min.css">-->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+        <script src="js/jquery-3.1.0.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/dt-1.10.13/b-1.2.4/b-colvis-1.2.4/b-print-1.2.4/r-2.1.0/se-1.2.0/datatables.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="js/employee.js"></script>
+        <title>registrer fravær-overtid</title>
+    </head>
+    <body>
+        <ul class="sidenav">
+            <ul class="sidenav">
+                <li><a href="index.html">Hjem</a></li>
+                <li><a href="timeliste.html">Timelister</a></li>
+                <li><a href="endre_passord.html">Endre passord</a></li>
+                <li><a href="vaktbytte.html">Vaktbytte</a></li>
+                <li><a href="kvalifisert_for_vakt.html">Kvalifisert for vakt/Ledige vakter(?)</a></li>
+                <li><a href = "shift_book.html">Skiftbok</a></li>
+                <li><a href = "employees.html">Ansatte</a></li>
+                <li><a href = "godkjenne_vaktbytte.html">Ønsker om vaktbytte</a></li>
+            </ul>
+        </ul>
+        <div class="content">
+            Bruker_id: <input type="text" id="user_id"><br>
+            Shift_id: <input type="number" id="shift_id"><br>
+            <!--my_date: <input type="date" id="my_date" name="my_date"><br>-->
+            <form>
+                Velg dato:
+                <input id=my_date type="date" name="dato">
+            </form>
+            <select id="selector">
+                <option value="overtime">overtid</option>
+                <option value="absence">fravær</option>
+            </select>
+            Antall timer: <input type="number" id="deviance"><br>
+            <button id="submitAbsenceOvertime"> Registrer </button>
+        </div>
+    </body>
+</html>

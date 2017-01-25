@@ -22,6 +22,7 @@ public class ShiftListFunctionResource {
     //TODO: This needs some work, especially if we are supposed to have liquid updates.
     @GET
     @Path("updatedeviances/{year}/{month}")
+    @GET
     public String updateDeviances(@PathParam("year") int year, @PathParam("month") int month) {
         System.out.println("Update Deviance in Time_list/Shift_list");
         //Fetches entire shift_list
@@ -89,6 +90,6 @@ public class ShiftListFunctionResource {
             else if (tempCat==3){shiftsThisDay.get(shift_list.get(i).getShift_id()-1).setCategory_3(shiftsThisDay.get(shift_list.get(i).getShift_id()-1).getCategory_3()+1);}
             else {System.out.println("Error: Category out of bounds.");}
         }
-    return shiftsThisDay;
+        return shiftsThisDay;
     }
 }
