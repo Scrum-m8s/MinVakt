@@ -1,6 +1,6 @@
 var app = angular.module('MinVakt', ['ngMaterial', 'ngRoute']);
 
-app.config(function($mdThemingProvider, $routeProvider) {
+app.config(function($mdThemingProvider, $routeProvider, $locationProvider) {
     $mdThemingProvider.theme('default').primaryPalette('blue');
     $routeProvider
     .when("/", {
@@ -9,9 +9,12 @@ app.config(function($mdThemingProvider, $routeProvider) {
         templateUrl: "cards/test.html"
     }).when("/ansatt", {
         templateUrl:  "cards/employees.html"
+    }).when("/innstillinger", {
+        templateUrl: "cards/settings.html"
     }).otherwise(
         "/test"
     );
+    $locationProvider.html5Mode(false);
 });
 
 app.service('employeeService', function($http){
@@ -60,7 +63,8 @@ app.service('menuService', function(){
                 bottom: [{
                     name: 'Innstillinger',
                     icon: 'settings',
-                    link: 'Innstillinger'
+                    link: 'Innstillinger',
+                    url: '#innstillinger'
                 }, {
                     name: 'Logg ut',
                     icon: 'power_settings_new',
