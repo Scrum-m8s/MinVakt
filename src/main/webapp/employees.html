@@ -35,5 +35,118 @@
             <li><a class="active" href = "employees.html">Ansatte</a></li>
             <li><a href = "godkjenne_vaktbytte.html">Ønsker om vaktbytte</a></li>
         </ul>
+
+        <div class="content">
+            <h2>Employees</h2>
+            <table id="table_employees" class="table stripe hover" width="100%">
+                <thead>
+                    <tr>
+                        <th>Etternavn</th>
+                        <th>Fornavn</th>
+                        <th>Telefon</th>
+                        <th>Epost</th>
+                        <th>Stilling</th>
+                        <th>Brukernavn</th>
+                    </tr>
+                </thead>
+            </table>
+            <br>
+            <div class="pull-right">
+                <!-- Create Modal content -->
+                <div id="createModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" id="closeCreate">&times;</span>
+                        <form>
+
+                            <div class="form-group">
+                                <label for="inputUsername">Brukernavn</label>
+                                <input type="username" class="form-control" id="inputUsername" placeholder="Skriv inn brukernavn">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword">Passord</label>
+                                <input type="password" class="form-control" id="inputPassword" placeholder="Skriv inn passord">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputRole">Velg tilgangsrettigheter</label>
+                                <select class="form-control" id="inputRole">
+                                    <option value="Inaktiv">Inaktiv</option>
+                                    <option value="Ansatt">Ansatt</option>
+                                    <option value="Admin">Admin</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="submitCreate">Submit</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Create Modal content -->
+                <div id="updateRoleAndPasswordModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" id="closeUpdateRoleAndPassword">&times;</span>
+                        <form>
+
+                            <div class="form-group">
+                                <h4 class="username_filler"> </h4>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword">Passord</label>
+                                <input type="password" class="form-control" id="inputPassword1" placeholder="Skriv inn passord">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputRole">Velg tilgangsrettigheter</label>
+                                <select class="form-control" id="inputRole1">
+                                    <option value="-1Sel">Inaktiv</option>
+                                    <option value="0Sel">Admin</option>
+                                    <option value="1Sel">Ansatt</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="submitUpdateRoleAndPassword">Submit</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Update Modal content -->
+                <div id="updateModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" id="closeUpdate">&times;</span>
+                        <form>
+                            <div class="form-group">
+                               <h4 class="username_filler"> </h4>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputFirstname">Fornavn</label>
+                                <input type="firstname" class="form-control" id="inputFirstname" placeholder="Skriv inn fornavn">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputLastname">Etternavn</label>
+                                <input type="lastname" class="form-control" id="inputLastname" placeholder="Skriv inn etternavn">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPhone">Telefon</label>
+                                <input type="phone" class="form-control" id="inputPhone" placeholder="Telefon">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail">Epost</label>
+                                <input type="email" class="form-control" id="inputEmail" placeholder="Skriv inn epost">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputCategory">Velg en stilling</label>
+                                <select class="form-control" id="inputCategory">
+                                    <option value="Sykepleier">Sykepleier</option>
+                                    <option value="Fagarbeider">Fagarbeider</option>
+                                    <option value="Assistent">Assistent</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="submitUpdate">Submit</button>
+                        </form>
+                    </div>
+
+                </div>
+                <button id="createEmployee">Opprett ansatt</button>
+                <button id="updateRoleAndPassword">Oppdater passord/tilgang</button>
+                <button id="updateEmployee" >Oppdater ansatt</button>
+                <button id="deleteEmployee">Fjern ansatt</button>
+            </div>
+        </div>
     </body>
 </html>

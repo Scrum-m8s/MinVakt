@@ -154,6 +154,21 @@ public class TestJUnitDB extends DatabaseManagement{
     }
 
     @Test
+    public void getEmployeeByCategory() {
+        //creating dummy user to fetch
+        userDAO.createUser(new User("dummy", "dummy", 1));
+
+        //creating dummy employee
+        employeeDAO.createEmployee(new Employee("dummy", "dummy", "dummy", "dummy", "dummy", 1));
+
+        assertNotNull(employeeDAO.getEmployeeByCategory(1));
+
+        //clean up
+        employeeDAO.removeEmployee("dummy");
+        userDAO.removeUser("dummy");
+    }
+
+    @Test
     public void createEmployee() {
         try {
             //creating dummy user to fetch
@@ -273,12 +288,26 @@ public class TestJUnitDB extends DatabaseManagement{
         assertNotNull(busyDAO.getBusy());
     }
 
+
     @Test
     public void getBusyById(){
         //dummy data
         userDAO.createUser(new User("dummy", "dummy", 1));
         busyDAO.createBusy(new Busy("dummy", 1, new Date(1970-05-07)));
 
+
+        assertNotNull(busyDAO.getBusyById("dummy"));
+
+        //clean up
+        busyDAO.removeBusy("dummy", 1);
+        userDAO.removeUser("dummy");
+    }
+
+    @Test
+    public void getSingleBusy() {
+        //dummy data
+        userDAO.createUser(new User("dummy", "dummy", 1));
+        busyDAO.createBusy(new Busy("dummy", 1, new Date(1970-05-07)));
 
         assertNotNull(busyDAO.getBusyById("dummy"));
 
@@ -374,12 +403,25 @@ public class TestJUnitDB extends DatabaseManagement{
     public void getSingleTimeList() {
         //creating dummy data to fetch
         userDAO.createUser(new User("dummy", "dummy", 1));
-        timeListDAO.createTimeList(new TimeList("dummy", "dummy", 60, 0, 0));
+        timeListDAO.createTimeList(new TimeList("dummy", 1990, 0, 60, 0, 0));
 
-        assertNotNull(timeListDAO.getSingleTimeList("dummy", "dummy"));
+        assertNotNull(timeListDAO.getTimeListsById("dummy"));
 
         //clean up
-        timeListDAO.removeTimeList("dummy", "dummy");
+        timeListDAO.removeTimeList(1990,0, "dummy");
+        userDAO.removeUser("dummy");
+    }
+
+    @Test
+    public void getSingleTimeList() {
+        //creating dummy data to fetch
+        userDAO.createUser(new User("dummy", "dummy", 1));
+        timeListDAO.createTimeList(new TimeList("dummy", 1990, 0, 60, 0, 0));
+
+        assertNotNull(timeListDAO.getSingleTimeList(1990, 0, "dummy"));
+
+        //clean up
+        timeListDAO.removeTimeList(1990, 0, "dummy");
         userDAO.removeUser("dummy");
     }
 
@@ -387,10 +429,10 @@ public class TestJUnitDB extends DatabaseManagement{
     public void createTimelist(){
         // creating dummy data to fetch
         userDAO.createUser(new User("dummy", "dummy", 1));
-        assertTrue(timeListDAO.createTimeList(new TimeList("dummy", "dummy", 60, 0, 0)));
+        assertTrue(timeListDAO.createTimeList(new TimeList("dummy", 1990, 0, 60, 0, 0)));
 
         //clean up
-        timeListDAO.removeTimeList("dummy", "dummy");
+        timeListDAO.removeTimeList(1990, 0, "dummy");
         userDAO.removeUser(("dummy"));
     }
 
@@ -398,12 +440,12 @@ public class TestJUnitDB extends DatabaseManagement{
     public void updateTimeList(){
         // creating dummy data to fetch
         userDAO.createUser(new User("dummy2", "dummy2", 1));
-        timeListDAO.createTimeList(new TimeList("dummy2", "dummy2", 60, 0, 0));
+        timeListDAO.createTimeList(new TimeList("dummy2", 1990, 0, 60, 0, 0));
 
-        assertTrue(timeListDAO.updateTimeList(new TimeList("dummy2", "dummy2", 65, 1, 1)));
+        assertTrue(timeListDAO.updateTimeList(new TimeList("dummy2", 1990, 0, 65, 1, 1)));
 
         //clean up
-        timeListDAO.removeTimeList("dummy2", "dummy2");
+        timeListDAO.removeTimeList(1990, 0, "dummy");
         userDAO.removeUser("dummy2");
     }
 
@@ -411,9 +453,9 @@ public class TestJUnitDB extends DatabaseManagement{
     public void removeTimeList(){
         // creating dummy data to fetch
         userDAO.createUser(new User("dummy2", "dummy2", 1));
-        timeListDAO.createTimeList(new TimeList("dummy2", "dummy2", 60, 0, 0));
+        timeListDAO.createTimeList(new TimeList("dummy2", 1990, 0, 60, 0, 0));
 
-        assertTrue(timeListDAO.removeTimeList("dummy2", "dummy2"));
+        assertTrue(timeListDAO.removeTimeList(1990, 0, "dummy2"));
 
         //clean up
         userDAO.removeUser("dummy2");
@@ -434,10 +476,10 @@ public class TestJUnitDB extends DatabaseManagement{
         userDAO.createUser(new User("dummy3", "dummy3", 1));
         shiftListDAO.createShiftlist(new ShiftList("dummy3", 1, false, new Date(2017-01-01), 0, true));
 
-        assertNotNull(shiftListDAO.getShiftListById("dummy3"));
+        assertNotNull(shiftListDAO.getShiftListsById("dummy3"));
 
         //clean up
-        shiftListDAO.removeShiftlist("dummy3", 1);
+        shiftListDAO.removeShiftlist(new Date(2017-01-01),1,"dummy3");
         userDAO.removeUser(("dummy3"));
 
     }
@@ -448,12 +490,24 @@ public class TestJUnitDB extends DatabaseManagement{
         userDAO.createUser(new User("dummy", "dummy", 1));
         shiftListDAO.createShiftlist(new ShiftList("dummy", 2, false, new Date(2017-01-01), 0, true));
 
-        assertNotNull(shiftListDAO.getSingleShift("dummy", 2));
+        assertNotNull(shiftListDAO.getSingleShift(new Date(2017-01-01), 2, "dummy"));
 
         //clean up
-        shiftListDAO.removeShiftlist("dummy", 2);
+        shiftListDAO.removeShiftlist(new Date(2017-01-01), 2, "dummy");
         userDAO.removeUser(("dummy"));
+    }
 
+    @Test
+    public void getWantSwap() {
+        // creating dummy data to fetch
+        userDAO.createUser(new User("dummy", "dummy", 1));
+        shiftListDAO.createShiftlist(new ShiftList("dummy", 2, true, new Date(2017-01-01), 0, true));
+
+        assertNotNull(shiftListDAO.getWantSwap(true));
+
+        //clean up
+        shiftListDAO.removeShiftlist(new Date(2017-01-01), 2, "dummy");
+        userDAO.removeUser(("dummy"));
     }
 
     @Test
@@ -464,7 +518,7 @@ public class TestJUnitDB extends DatabaseManagement{
         assertTrue(shiftListDAO.createShiftlist(new ShiftList("dummy3", 1, false, new Date(2017-01-01), 0, true)));
 
         //clean up
-        shiftListDAO.removeShiftlist("dummy3", 1);
+        shiftListDAO.removeShiftlist(new Date(2017-01-01), 1, "dummy3");
         userDAO.removeUser(("dummy3"));
     }
 
@@ -478,7 +532,8 @@ public class TestJUnitDB extends DatabaseManagement{
         assertTrue(shiftListDAO.updateShiftlist(new ShiftList("dummy3", 1, true, new Date(2015-01-02), 50, false)));
 
         //clean up
-        shiftListDAO.removeShiftlist("dummy3", 1);
+        shiftListDAO.removeShiftlist(new Date(2017-01-01), 1, "dummy3");
+
         userDAO.removeUser(("dummy3"));
     }
 
@@ -490,7 +545,7 @@ public class TestJUnitDB extends DatabaseManagement{
         shiftListDAO.createShiftlist(new ShiftList("dummy3", 1, false, new Date(2017-01-01), 0, true));
 
         //clean up and test
-        assertTrue(shiftListDAO.removeShiftlist("dummy3", 1));
+        assertTrue(shiftListDAO.removeShiftlist(new Date(2017-01-01), 1, "dummy3"));
 
         userDAO.removeUser(("dummy3"));
     }

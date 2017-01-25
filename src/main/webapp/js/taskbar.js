@@ -102,6 +102,7 @@ app.service('menuService', function(){
                 }]
             }]
         }
+
     }
 });
 

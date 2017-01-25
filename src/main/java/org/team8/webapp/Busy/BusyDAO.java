@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 /**
  * Created by Nina on 12.01.2017.
- * Edited by Mr_Easter on 12.01.2017
+ * Edited by Mr_Easter on 12.01.2017 and 18.01.2017.
  */
 public class BusyDAO extends DatabaseManagement {
 
@@ -33,7 +33,7 @@ public class BusyDAO extends DatabaseManagement {
                 }
             }
             catch (SQLException sqle){
-                System.err.println("Issue with getting busy.");
+                System.err.println("Issue with getting busy. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 return null;
             }
             finally {
@@ -80,7 +80,9 @@ public class BusyDAO extends DatabaseManagement {
                 }
             }
             catch (SQLException sqle){
-                System.err.println("Issue with getting single busy by user_id and shift_id.");
+
+                System.err.println("Issue with getting single busy by user_id and shift_id. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
+
                 return null;
             }
             finally {
@@ -102,7 +104,7 @@ public class BusyDAO extends DatabaseManagement {
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with creating busy.");
+                System.err.println("Issue with creating busy. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 rollbackStatement();
                 return false;
             }
@@ -112,7 +114,6 @@ public class BusyDAO extends DatabaseManagement {
         }
         return numb > 0;
     }
-    
     public boolean updateBusy(Busy e) {
         int numb = 0;
         if(setUp()) {
@@ -126,7 +127,7 @@ public class BusyDAO extends DatabaseManagement {
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with updating busy.");
+                System.err.println("Issue with updating busy. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 rollbackStatement();
                 return false;
             }
@@ -149,7 +150,7 @@ public class BusyDAO extends DatabaseManagement {
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with removing busy.");
+                System.err.println("Issue with removing busy. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 rollbackStatement();
                 return false;
             }

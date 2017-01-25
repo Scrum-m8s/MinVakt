@@ -22,7 +22,12 @@ public class ShiftList {
         this.my_date = my_date;
         this.deviance = deviance;
         this.want_swap = want_swap;
+    }
 
+    public ShiftList(String user_id, int shift_id, boolean want_swap){
+        this.user_id = user_id;
+        this.shift_id = shift_id;
+        this.want_swap = want_swap;
     }
 
     public String getUser_id() {
