@@ -69,6 +69,7 @@ public class ShiftListResource {
         return result;
     }
 
+
     @Path("{my_date}/{shift_id}/{user_id}")
     @PUT
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
