@@ -6,7 +6,9 @@ $(document).ready(function() {
     var table = $('#table_employees').DataTable( {
         "paging": false,
         "info" : false,
-        "select" : true,
+        "select" : {
+            style: 'single'
+        },
         ajax: {
             url: 'api/employees',
             "dataSrc": function (json) {
