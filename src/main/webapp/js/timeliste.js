@@ -143,7 +143,7 @@ $(document).ready(function() {
             }),
             success: function(data, textStatus, jqXHR){
                 console.log("Want swap status updated.");
-                window.location.reload();
+                $("#shiftModal").modal('hide');
             },
             error: function(data, textStatus, jqXHR){
                 console.log("Error: " + data.want_swap + "\n" + data.user_id);
