@@ -80,7 +80,9 @@ public class BusyDAO extends DatabaseManagement {
                 }
             }
             catch (SQLException sqle){
+
                 System.err.println("Issue with getting single busy by user_id and shift_id. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
+
                 return null;
             }
             finally {
@@ -112,7 +114,6 @@ public class BusyDAO extends DatabaseManagement {
         }
         return numb > 0;
     }
-
     public boolean updateBusy(Busy e) {
         int numb = 0;
         if(setUp()) {
