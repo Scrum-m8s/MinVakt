@@ -327,8 +327,4 @@ $(document).ready(function() {
         registerOvertimeAbsence(user_id, shift_id, my_date, deviance);
     })
 
-    function getPhoneNumbers(){
-
-    }
-
 });

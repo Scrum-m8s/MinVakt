@@ -39,7 +39,7 @@ $(document).ready(function() {
             }
         });
     }
-
+/*
     function createTimelist(year, month){
         $.ajax({
             type: 'GET',
@@ -54,12 +54,12 @@ $(document).ready(function() {
             }
         });
 
-    }
+    }*/
     $("#generateTimelistButton").click(function () {
         var year = $("#year").val();
         var month = $("#month").val();
         console.log("Year: "+year+" month: "+month);
         getTimelist(year, month);
-        createTimelist(year, month);
+        //createTimelist(year, month);
     });
 })
