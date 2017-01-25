@@ -7,8 +7,6 @@
 var rootURL = "http://localhost:8080/api/employees/";
 
 $(document).ready(function() {
-  //FIXME: make this work without commenting out. Prob just move the functions on the bottom to another js file.
-/* 
     // When the user clicks on the create button, open the modal
     $("#createEmployee").on('click', function() {
         $("#createModal").modal('show');
@@ -16,22 +14,31 @@ $(document).ready(function() {
 
     // When the user clicks on the update button, open the modal
     $("#updateEmployee").on('click', function() {
-        $("#updateModal").modal('show');
-        $(".username_filler").html('<b>Edit user: ' + $('tr.selected td:eq(5)').text() + '</b>');
-        $("#inputFirstname").attr('value', $('tr.selected td:eq(1)').text());
-        $("#inputLastname").attr('value', $('tr.selected td:eq(0)').text());
-        $("#inputPhone").attr('value', $('tr.selected td:eq(2)').text());
-        $("#inputEmail").attr('value', $('tr.selected td:eq(3)').text());
-        $("#inputCategory").val($('tr.selected td:eq(4)').text());
+        if($('tr.selected td:eq(5)').text() != "") {
+            $("#updateModal").modal('show');
+            $(".username_filler").html('<b>Edit user: ' + $('tr.selected td:eq(5)').text() + '</b>');
+            $("#inputFirstname").attr('value', $('tr.selected td:eq(1)').text());
+            $("#inputLastname").attr('value', $('tr.selected td:eq(0)').text());
+            $("#inputPhone").attr('value', $('tr.selected td:eq(2)').text());
+            $("#inputEmail").attr('value', $('tr.selected td:eq(3)').text());
+            $("#inputCategory").val($('tr.selected td:eq(4)').text());
+        } else {
+            alert("Trykk på en ansatt før du endrer.");
+        }
 
     });
 
     $("#updateRoleAndPassword").on('click', function() {
-        $.getJSON('api/users/' + $('tr.selected td:eq(5)').text(), function(result) {
-            $("#updateRoleAndPasswordModal").modal('show');
-            $(".username_filler").html('<b>Edit user: ' + $('tr.selected td:eq(5)').text() + '</b>');
-            $("#inputRole1").val(result.role + "Sel");
-        });
+        if($('tr.selected td:eq(5)').text() != "") {
+            $.getJSON('api/users/' + $('tr.selected td:eq(5)').text(), function(result) {
+                $("#updateRoleAndPasswordModal").modal('show');
+                $(".username_filler").html('<b>Edit user: ' + $('tr.selected td:eq(5)').text() + '</b>');
+                $("#inputRole1").val(result.role + "Sel");
+            });
+        } else {
+            alert("Trykk på en ansatt før du endrer.");
+        }
+
     });
 
     // When the user clicks on <span> (x), close the modal
@@ -61,7 +68,7 @@ $(document).ready(function() {
             $("#updateRoleAndPasswordModal").modal('hide');
         }
     }
-*/
+
     function editEmployee() {
         var user_id = $('tr.selected td:eq(5)').text();
         console.log('editEmployee with user_id: ' + user_id);
@@ -253,19 +260,23 @@ $(document).ready(function() {
 
     //delete employee
     $("#deleteEmployee").click(function () {
-        var user_id = $('tr.selected td:eq(5)').text();
-        console.log(user_id);
-        $.ajax({
-            url: rootURL + user_id,
-            type: 'DELETE',
-            success: function(result) {
-                console.log("Employee was deleted with user_id: " + user_id);
-                window.location.reload();
-            },
-            error: function(data, textStatus, jqXHR){
-                console.log("Error: " + textStatus);
-            }
-        });
+        if($('tr.selected td:eq(5)').text() != "") {
+            var user_id = $('tr.selected td:eq(5)').text();
+            $.ajax({
+                url: rootURL + user_id,
+                type: 'DELETE',
+                success: function(result) {
+                    console.log("Employee was deleted with user_id: " + user_id);
+                    window.location.reload();
+                },
+                error: function(data, textStatus, jqXHR){
+                    console.log("Error: " + textStatus);
+                }
+            });
+        } else {
+            alert("Trykk på en ansatt før du fjerner.");
+        }
+
     });
   
     $("#availableEmployeesTable").DataTable({
@@ -312,8 +323,8 @@ $(document).ready(function() {
                 console.log("Error: " + textStatus);
             }
         });
-
     }
+
     $("#availableEmployees").click(function () {
         var category = $("#category").val();
         var my_date = $("#my_date").val();
@@ -359,7 +370,7 @@ $(document).ready(function() {
             deviance = $("#deviance").val();
         }
         registerOvertimeAbsence(user_id, shift_id, my_date, deviance);
-    })
+    });
 
     function getPhoneNumbers(){
 

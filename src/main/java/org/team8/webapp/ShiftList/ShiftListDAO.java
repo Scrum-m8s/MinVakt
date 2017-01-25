@@ -139,6 +139,31 @@ public class ShiftListDAO extends DatabaseManagement{
         return out;
     }
 
+    public ShiftList getSpesificShift(String my_date, int shift_id, String user_id){
+        ShiftList out = null;
+        if(setUp()){
+            try {
+                conn = getConnection();
+                prep = conn.prepareStatement("SELECT * FROM Shift_list WHERE user_id=? AND shift_id=? AND my_date=?;");
+                prep.setString(1, user_id);
+                prep.setInt(2, shift_id);
+                prep.setString(3, my_date);
+                res = prep.executeQuery();
+                if (res.next()){
+                    out = processRow(res);
+                }
+            }
+            catch (SQLException sqle){
+                System.err.println("Issue with getting specific shift_list by user id and shift_id and my_date. Error code:" + sqle.getErrorCode() + " Message: " + sqle.getMessage());
+                return null;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return out;
+    }
+
 
     public ArrayList<ShiftList> getWantSwap(boolean swap){
         ArrayList<ShiftList> out = new ArrayList<ShiftList>();
@@ -161,6 +186,32 @@ public class ShiftListDAO extends DatabaseManagement{
             }
         }
         return out;
+    }
+
+    public boolean setWantSwap(boolean swap, String user_id, int shift_id, String my_date){
+        int numb = 0;
+        if(setUp()) {
+            try {
+                conn = getConnection();
+                conn.setAutoCommit(false);
+                prep = conn.prepareStatement("UPDATE Shift_list SET want_swap=? WHERE user_id=? AND shift_id=? AND my_date=?;");
+                prep.setBoolean(1, swap);
+                prep.setString(2, user_id);
+                prep.setInt(3, shift_id);
+                prep.setString(4, my_date);
+                numb = prep.executeUpdate();
+            }
+            catch (SQLException sqle) {
+                System.err.println("Issue with updating shiftlist want_swap. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
+                sqle.printStackTrace();
+                rollbackStatement();
+                return false;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return numb > 0;
     }
 
     public boolean createShiftlist(ShiftList s_l){
@@ -222,6 +273,7 @@ public class ShiftListDAO extends DatabaseManagement{
         }
         return numb > 0;
     }
+
     public boolean registerDeviance(ShiftList s_l) {
         int numb = 0;
         if(setUp()) {
