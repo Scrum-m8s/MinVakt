@@ -92,14 +92,15 @@ public class ShiftListDAO extends DatabaseManagement{
     }
 
     //TODO: må finne en smartere løsning på å finne enkelt shift
-    public ShiftList getSingleShift(String user_id, int shift_id){
+    public ShiftList getSingleShift(Date my_date, int shift_id, String user_id){
         ShiftList out = null;
         if(setUp()){
             try {
                 conn = getConnection();
-                prep = conn.prepareStatement("SELECT * FROM Shift_list WHERE user_id=? AND shift_id=?;");
+                prep = conn.prepareStatement("SELECT * FROM Shift_list WHERE user_id=? AND shift_id=? AND my_date=?;");
                 prep.setString(1, user_id);
                 prep.setInt(2, shift_id);
+                prep.setDate(3, my_date);
                 res = prep.executeQuery();
                 if (res.next()){
                     out = processRow(res);
@@ -196,15 +197,16 @@ public class ShiftListDAO extends DatabaseManagement{
         return numb > 0;
     }
 
-    public boolean removeShiftlist(String user_id, int shift_id){
+    public boolean removeShiftlist(Date my_date, int shift_id, String user_id){
         int numb = 0;
         if(setUp()) {
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
-                prep = conn.prepareStatement("DELETE FROM Shift_list WHERE user_id = ? AND shift_id = ?;");
+                prep = conn.prepareStatement("DELETE FROM Shift_list WHERE user_id = ? AND shift_id = ? AND my_date=?;");
                 prep.setString(1, user_id);
                 prep.setInt(2, shift_id);
+                prep.setDate(3, my_date);
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
@@ -219,18 +221,18 @@ public class ShiftListDAO extends DatabaseManagement{
         return numb > 0;
     }
 
-    //Removes deviance from shift_list give user_id and shift_id.
-    //TODO: Can this be replaced by previous update-function?
-    public boolean removeDeviance(String user_id, int shift_id){
+    //Removes deviance from shift_list given date, user_id and shift_id.
+    public boolean removeDeviance(Date my_date, int shift_id, String user_id){
         int numb = 0;
         if(setUp()) {
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
-                prep = conn.prepareStatement("UPDATE Shift_list SET deviance=? WHERE user_id = ? AND shift_id = ?;");
+                prep = conn.prepareStatement("UPDATE Shift_list SET deviance=? WHERE user_id = ? AND shift_id = ? AND my_date=?;");
                 prep.setInt(1,0);
                 prep.setString(2, user_id);
                 prep.setInt(3, shift_id);
+                prep.setDate(4, my_date);
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {

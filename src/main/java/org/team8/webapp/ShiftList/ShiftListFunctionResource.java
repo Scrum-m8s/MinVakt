@@ -5,6 +5,7 @@ import org.team8.webapp.TimeList.TimeListDAO;
 
 import javax.ws.rs.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by Mr.Easter on 20/01/2017.
@@ -18,36 +19,55 @@ public class ShiftListFunctionResource {
     TimeListDAO tdao = new TimeListDAO();
 
     //Updates time_list with deviances from shift_list, and if successful, removes deviances from shift_list.
+    //TODO: This needs some work, especially if we are supposed to have liquid updates.
+    @GET
     @Path("updatedeviances/{year}/{month}")
-    @POST
-    //@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    //@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public String updateDeviances(@PathParam("year") int year, @PathParam("month") int month) {
         System.out.println("Update Deviance in Time_list/Shift_list");
         //Fetches entire shift_list
-        ArrayList<ShiftList> listen = sdao.getShiftLists();
+
+
+        ArrayList<ShiftList> theShiftList = sdao.getShiftLists();
+        ArrayList<ShiftList> newList = new ArrayList<>();
+        Calendar cal = Calendar.getInstance();
+
+        //Makes a temporary list with shifts contained within criteria (year, month)
+        for (int i=0;i<theShiftList.size();i++){
+            cal.setTime(theShiftList.get(i).getMy_date());
+
+            System.out.println("getYear: "+cal.get(Calendar.YEAR) + " year " + year + " getMonth: "+ cal.get(Calendar.MONTH) + " month: " + month);
+
+            if (cal.get(Calendar.YEAR)==year && cal.get(Calendar.MONTH)==month){
+                System.out.println(theShiftList.get(i).getUser_id()+" "+theShiftList.get(i).getMy_date());
+                newList.add(theShiftList.get(i));
+            }
+        }
+
         String message="";
         boolean result = false;
-        //Adds every deviance to time_list and removes deviance from shift_list. See ShiftListDAO.
-        for (int i=0;i<listen.size();i++){
-            if (listen.get(i).getDeviance()!=0){
-                result = tdao.updateDeviance(listen.get(i),year,month);     //Updates deviance.
-                message+="User "+listen.get(i).getUser_id()+" has deviance "+listen.get(i).getDeviance()+" added.\n";
+        //Adds every deviance from temporary list to time_list and removes deviance from shift_list. See ShiftListDAO.
+        for (int i=0;i<newList.size();i++){
+            if (newList.get(i).getDeviance()!=0){
+                result = tdao.updateDeviance(newList.get(i),year,month);     //Updates deviance.
+                message+="\nUser "+newList.get(i).getUser_id()+" has deviance "+newList.get(i).getDeviance()+" added.";
                 if (result){
                     //TODO: Evaluate necessity of deleting deviance from shift_list after adding to time_list.
-                    sdao.removeDeviance(listen.get(i).getUser_id(),listen.get(i).getShift_id());}   //Removes deviance.
+                    //Removes deviance.
+                    //sdao.removeDeviance(newList.get(i).getMy_date(),newList.get(i).getShift_id(),newList.get(i).getUser_id());
+                }
             }
         }
         return "Deviances updated. \n" + message;
     }
 
+    //TODO: Returns 500 error in the middle of iterating.
     //Finds the amount of employees with specific categories registered on shifts during a parameter-given day(yyyy-MM-dd).
     @Path("getshifttotal/{my_date}")
     @GET
     public ArrayList<ShiftDay> getShiftsByDate(@PathParam("my_date") String my_date_string){
         System.out.println(my_date_string);
 
-        //Entire shiftlist fetched from database.
+        //Entire shiftlist for that date fetched from database.
         ArrayList<ShiftList> shift_list = sdao.getShiftListsByDate(my_date_string);
 
         //Initiating resulting array after upcoming for-loop.
@@ -55,10 +75,20 @@ public class ShiftListFunctionResource {
         shiftsThisDay.add(new ShiftDay(1,0,0,0));
         shiftsThisDay.add(new ShiftDay(2,0,0,0));
         shiftsThisDay.add(new ShiftDay(3,0,0,0));
+
         int tempCat;
+        String tempUser;
+
+        for (int i=0;i<shift_list.size();i++){
+            System.out.println(shift_list.get(i).getUser_id());
+            System.out.println(shift_list.get(i).getShift_id());
+        }
+
         //Goes through each entry in the shift_list.
         for (int i=0;i<shift_list.size();i++){
-            tempCat = edao.getEmployeeById(shift_list.get(i).getUser_id()).getCategory();
+            tempUser = shift_list.get(i).getUser_id();
+            System.out.println(tempUser);
+            tempCat = edao.getEmployeeById(tempUser).getCategory();
             //Increments values in shiftsThisDay based on shift_id and category.
             //TODO: Messy coding. Cleanup? -ASP
             if (tempCat==1){shiftsThisDay.get(shift_list.get(i).getShift_id()-1).setCategory_1(shiftsThisDay.get(shift_list.get(i).getShift_id()-1).getCategory_1()+1);}

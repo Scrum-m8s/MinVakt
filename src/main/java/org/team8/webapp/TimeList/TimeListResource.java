@@ -8,7 +8,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 
-@Path("/timelists")
+@Path("/timelists/")
 public class TimeListResource {
     TimeListDAO dao = new TimeListDAO();
 
@@ -19,7 +19,7 @@ public class TimeListResource {
         return dao.getTimeLists();
     }
 
-    @Path("{id}")
+    @Path("user/{id}")
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public ArrayList<TimeList> getTimeListById(@PathParam("id") String id) {
@@ -27,15 +27,23 @@ public class TimeListResource {
         return dao.getTimeListsById(id);
     }
 
-    @Path("{id}/{year}/{month}")
+    @Path("{year}/{month}")
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public TimeList getSingleTimeList(@PathParam("id") String id, @PathParam("year") int year, @PathParam("month") int month) {
-        System.out.println("getSingleTimeList");
-        return dao.getSingleTimeList(id, year, month);
+    public ArrayList<TimeList> getTimeListsByMonth(@PathParam("year") int year, @PathParam("month") int month) {
+        System.out.println("getTimeListsByMonth");
+        return dao.getTimeListsByMonth(year, month);
     }
 
-    @Path("{id}/{year}/{month}/exists")
+    @Path("{year}/{month}/{id}")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public TimeList getSingleTimeList(@PathParam("year") int year, @PathParam("month") int month, @PathParam("id") String id) {
+        System.out.println("getSingleTimeList");
+        return dao.getSingleTimeList(year, month, id);
+    }
+
+    @Path("{year}/{month}/{id}/exists")
     @GET
     //@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean rowExists(@PathParam("id") String id, @PathParam("year") int year, @PathParam("month") int month) {
@@ -50,7 +58,7 @@ public class TimeListResource {
         return dao.createTimeList(e);
     }
 
-    @Path("{id}/{year}/{month}")
+    @Path("{year}/{month}/{id}")
     @PUT
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean updateTimeList(TimeList e) {
@@ -58,10 +66,10 @@ public class TimeListResource {
         return dao.updateTimeList(e);
     }
 
-    @Path("{id}/{year}/{month}")
+    @Path("{year}/{month}/{id}")
     @DELETE
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public void removeTimeList(@PathParam("id") String id, @PathParam("year") int year, @PathParam("month") int month) {
-        dao.removeTimeList(id, year, month);
+    public void removeTimeList(@PathParam("year") int year, @PathParam("month") int month, @PathParam("id") String id) {
+        dao.removeTimeList(year, month, id);
     }
 }
