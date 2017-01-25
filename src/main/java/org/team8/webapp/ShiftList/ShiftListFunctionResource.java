@@ -4,6 +4,7 @@ import org.team8.webapp.Employee.EmployeeDAO;
 import org.team8.webapp.TimeList.TimeListDAO;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 
 /**
@@ -73,5 +74,19 @@ public class ShiftListFunctionResource {
     public ArrayList<ShiftList> getShiftsByDateAndShiftId(@PathParam("my_date") String my_date_string, @PathParam("shift_id") int shift_id){
         System.out.println("getShiftsByDateAndShiftId");
         return sdao.getShiftListsByDateAndShiftId(my_date_string, shift_id);
+    }
+
+    @Path("getshifttotal/{my_date}/{shift_id}/{user_id}")
+    @GET
+    public ShiftList getSpesificShift(@PathParam("my_date") String my_date_string, @PathParam("shift_id") int shift_id, @PathParam("user_id") String user_id){
+        System.out.println("getSpesificShift");
+        return sdao.getSpesificShift(my_date_string, shift_id, user_id);
+    }
+
+    @Path("getshifttotal/{my_date}/{shift_id}/{user_id}")
+    @PUT
+    public boolean setWantSwap(boolean swap, @PathParam("my_date") String my_date_string, @PathParam("shift_id") int shift_id, @PathParam("user_id") String user_id){
+        System.out.println("setWantSwap: " + swap);
+        return sdao.setWantSwap(swap, user_id, shift_id, my_date_string);
     }
 }
