@@ -84,27 +84,30 @@ $(document).ready(function() {
             ansvarCheck = 1;
         }
         $.ajax({
-            type: 'POST',
-            contentType: 'application/json',
-            url: 'api/shift_lists',
-            dataType: "json",
-            data: JSON.stringify({
-                "user_id": table.rows( { selected: true } ).data()[0].user_id,
-                "my_date": $("#datepick").val(),
-                "shift_id": $("#myselect").val(),
-                "on_duty": ansvarCheck,
-                "deviance": 0,
-                "want_swap":0
-            }),
-            success: function(data, textStatus, jqXHR){
-                $('#regSuccess').show().delay(2000).fadeOut();
-                $('#role_table').hide();
-                $("#datediv").hide();
-                $('#info1').hide();
+                type: 'POST',
+                contentType: 'application/json',
+                url: 'api/shift_lists',
+                dataType: "json",
+                data: JSON.stringify({
+                    "user_id": table.rows({selected: true}).data()[0].user_id,
+                    "my_date": $("#datepick").val(),
+                    "shift_id": $("#myselect").val(),
+                    "on_duty": ansvarCheck,
+                    "deviance": 0,
+                    "want_swap": 0
+                }),
+                success: function (data, textStatus, jqXHR) {
+                    if (data == false) {
+                        $('#regDuplicate').show().delay(2000).fadeOut();
+                    } else {
+                    $('#regSuccess').show().delay(2000).fadeOut();
+                    $('#role_table').hide();
+                    $("#datediv").hide();
+                    $('#info1').hide();
+                }
             },
             error: function(data, textStatus, jqXHR){
                 $('#regFail').show().delay(2000).fadeOut();
-
             }
         });
     });
