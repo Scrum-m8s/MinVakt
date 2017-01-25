@@ -15,6 +15,8 @@ app.config(function($mdThemingProvider, $routeProvider, $locationProvider) {
         templateUrl: "partials/settings_password.html"
     }).when("/skift", {
         templateUrl: "partials/shiftlist.html"
+    }).when("/kontrollpanel", {
+        templateUrl: "partials/kontrollpanel.html"
     }).otherwise(
         "/"
     );
@@ -61,7 +63,8 @@ app.service('menuService', function(){
                 admin: [{
                     name: 'Kontrollpanel',
                     icon: 'developer_board',
-                    link: 'Action 4'
+                    link: 'Action 4',
+                    url: '#kontrollpanel'
                 }, {
                     name: 'Ansatte',
                     icon: 'people',
@@ -140,12 +143,29 @@ app.service('menuService', function(){
             }]
         },
         settings: {
-            options:{
-                option: 'Endre passord',
-                icon: 'face',
-                toast: '',
-                url: ''
-            }
+            user: [{
+                name:'Innstillinger',
+                options:[{
+                    option: 'Endre passord',
+                    icon: 'lock',
+                    toast: 'Endre passord',
+                    url: '#innstillinger/password'
+                }, {
+                    option: 'Endre Adresse',
+                    icon: 'place',
+                    toast: '',
+                    url: '#innstillinger/password'
+                }]
+            }],
+            admin: [{
+                name:'Kontrollpanel',
+                options:[{
+                    option: 'Brukere',
+                    icon: 'people',
+                    toast: 'Endre passord',
+                    url: '#innstillinger/password'
+                }]
+            }]
         }
 
     }
