@@ -65,6 +65,7 @@ public class ShiftListDAO extends DatabaseManagement{
         return out;
     }
 
+
     public ArrayList<ShiftList> getShiftListsByDate(String my_date){
         ArrayList<ShiftList> out = new ArrayList<ShiftList>();
         if(setUp()){
@@ -245,7 +246,9 @@ public class ShiftListDAO extends DatabaseManagement{
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
+
                 prep = conn.prepareStatement("UPDATE Shift_list SET shift_id=?, on_duty=?, my_date=?, deviance=?, want_swap=? WHERE user_id=? AND shift_id=? AND my_date=?;");
+
                 prep.setInt(1, s_l.getShift_id());
                 prep.setBoolean(2, s_l.isOn_duty());
                 prep.setDate(3, s_l.getMy_date());
@@ -253,11 +256,13 @@ public class ShiftListDAO extends DatabaseManagement{
                 prep.setBoolean(5, s_l.isWant_swap());
                 prep.setString(6, s_l.getUser_id());
                 prep.setInt(7, s_l.getShift_id());
+
                 prep.setDate(8, s_l.getMy_date());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
                 System.err.println("Issue with updating shiftlist. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
+
                 sqle.printStackTrace();
                 rollbackStatement();
                 return false;
@@ -293,6 +298,7 @@ public class ShiftListDAO extends DatabaseManagement{
         }
         return numb > 0;
     }
+
 
     public boolean removeShiftlist(Date my_date, int shift_id, String user_id){
         int numb = 0;
@@ -343,7 +349,6 @@ public class ShiftListDAO extends DatabaseManagement{
         }
         return numb > 0;
     }
-
     protected ShiftList processRow(ResultSet res) throws SQLException {
         ShiftList s_l = new ShiftList();
         s_l.setUser_id(res.getString("user_id"));
