@@ -53,7 +53,7 @@ public class ShiftListResource {
     }
 
 
-    @Path("deviance/{user_id}/{shift_id}")
+    @Path("deviance")
     @PUT
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean registerDeviance(ShiftList s_l) {
