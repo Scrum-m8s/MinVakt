@@ -290,7 +290,7 @@ $(document).ready(function() {
         $.ajax({
             type: 'PUT',
             contentType: 'application/json',
-            url: "api/shift_lists/deviance/" + user_id+"/"+ shift_id,
+            url: "api/shift_lists/deviance",
             data: '{"user_id": "' + user_id + '", "shift_id" : "' + shift_id + '", "my_date" : "' + my_date + '", "deviance" : "' + deviance + '"}',
             dataType: "json",
 
@@ -319,5 +319,9 @@ $(document).ready(function() {
         }
         registerOvertimeAbsence(user_id, shift_id, my_date, deviance);
     })
+
+    function getPhoneNumbers(){
+
+    }
 
 });

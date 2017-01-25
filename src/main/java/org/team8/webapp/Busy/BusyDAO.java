@@ -112,7 +112,7 @@ public class BusyDAO extends DatabaseManagement {
         }
         return numb > 0;
     }
-    
+
     public boolean updateBusy(Busy e) {
         int numb = 0;
         if(setUp()) {
