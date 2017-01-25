@@ -9,6 +9,7 @@ $(document).ready(function() {
     var totAbs = 0;
     var totOrd = 0;
 
+
     var table = $('#table_timelists').DataTable( {
         "paging": false,
         "info" : false,
@@ -18,9 +19,9 @@ $(document).ready(function() {
             url: 'api/timelists/' + user,
             "dataSrc": function (json) {
                 var return_data = new Array();
-                for (var i = 0; i < json.length; i++) {
+                for (var i = 0;  i < json.length; ++i) {
                     return_data.push({
-                        'month': monthNames[json[i].month - 1],
+                        'month': json[i].month, //monthNames[json[i].month]
                         'overtime': json[i].overtime,
                         'absence': json[i].absence,
                         'ordinary': json[i].ordinary,
@@ -50,6 +51,9 @@ $(document).ready(function() {
             { data: 'total'}
         ]
     });
+
+    //$('#table_timelists').DataTable(
+    //monthNames[
 
     //write table
     table.draw();
