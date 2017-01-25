@@ -32,8 +32,8 @@
                 <div class="md-toolbar-tools" layout layout-padding>
                     <md-icon>{{data.user.icon}}</md-icon>
                     <div layout="column" layout-padding>
-                        <span class="md-body-2">{{employee.name}}</span>
-                        <span class="md-caption">{{employee.email}}</span>
+                        <span class="md-body-2">{{employee.firstname}}</span>
+                        <span class="md-caption">{{employee.surname}}</span>
                     </div>
                     <span flex></span>
                 </div>
@@ -41,21 +41,21 @@
             <md-content role="navigation">
                 <md-list ng-repeat="section in data.sidenav.sections">
 
-                    <md-list-item ng-repeat="x in section.actions" ng-click="toast(x.link)">
+                    <md-list-item ng-repeat="x in section.actions" ng-click="toast(x.link)"  href="{{x.url}}">
                         <md-icon>{{x.icon}}</md-icon>
                         <p class="md-body-2">{{x.name}}</p>
                         <span flex></span>
                         <md-icon>chevron_right</md-icon>
                     </md-list-item>
 
-                    <md-list-item ng-show="isAdmin" ng-repeat="x in section.admin" ng-click="toast(x.link)">
+                    <md-list-item ng-show="isAdmin" ng-repeat="x in section.admin" ng-click="toast(x.link)" href="{{x.url}}">
                         <md-icon>{{x.icon}}</md-icon>
                         <p class="md-body-2">{{x.name}}</p>
                         <span flex></span>
                         <md-icon>chevron_right</md-icon>
                     </md-list-item>
 
-                    <md-list-item ng-repeat="x in section.bottom" ng-click="toast(x.link)">
+                    <md-list-item ng-repeat="x in section.bottom" ng-click="toast(x.link)" href="{{x.url}}">
                         <md-icon>{{x.icon}}</md-icon>
                         <p class="md-body-2">{{x.name}}</p>
                         <span flex></span>
@@ -73,23 +73,6 @@
                     </md-button>
                     <h4 class="md-title">{{data.title}}</h4>
                     <span flex></span>
-                    <md-button class="md-icon-button" ng-repeat="button in data.toolbar.buttons" aria-label={{button.name}} ng-click="toast(button.link)">
-                        <md-icon>{{button.icon}}</md-icon>
-                    </md-button>
-                    <md-menu md-position-mode="target-right target" ng-repeat="menu in data.toolbar.menus">
-                        <md-button class="md-icon-button" aria-label="{{menu.name}}" ng-click="$mdOpenMenu($event)">
-                            <md-icon>{{menu.icon}}</md-icon>
-                        </md-button>
-                        <md-menu-content width={{menu.width}}>
-                            <md-subheader>{{menu.name}}</md-subheader>
-                            <md-menu-item ng-repeat="action in menu.actions">
-                                <md-button layout-fill md-ink-ripple ng-click="toast(action.message)">
-                                    <md-icon md-class="{{action.error ? 'md-warn' : 'md-primary'}}" md-menu-align-target>{{action.completed ? 'done' : 'hourglass_empty'}}</md-icon>
-                                    {{action.name}}
-                                </md-button>
-                            </md-menu-item>
-                        </md-menu-content>
-                    </md-menu>
                 </div>
             </md-toolbar>
             <ng-view>
@@ -103,6 +86,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
 
     <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
     <script src="js/taskbar.js"></script>

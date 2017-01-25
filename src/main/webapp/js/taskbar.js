@@ -1,16 +1,25 @@
 var app = angular.module('MinVakt', ['ngMaterial', 'ngRoute']);
 
-
 app.config(function($mdThemingProvider, $routeProvider) {
     $mdThemingProvider.theme('default').primaryPalette('blue');
     $routeProvider
     .when("/", {
-        templateUrl : "main.html"
-    });
+        templateUrl : "cards/main.html"
+    }).when("/test", {
+        templateUrl: "cards/test.html"
+    }).when("/ansatt", {
+        templateUrl:  "cards/employees.html"
+    }).otherwise(
+        "/test"
+    );
 });
 
 app.service('employeeService', function($http){
-    return $http.get('http://jsonplaceholder.typicode.com/users')
+    return $http.get('api/employees/current')
+})
+
+app.service('userService', function($http){
+    return $http.get('api/users/current')
 });
 
 app.service('menuService', function(){
@@ -19,44 +28,18 @@ app.service('menuService', function(){
         user: {
             icon: 'account_circle'
         },
-        toolbar: {
-            buttons: [{
-                name: 'Button 1',
-                icon: 'add',
-                link: 'Button 1'
-            }],
-            menus: [{
-                name: 'Menu 1',
-                icon: 'message',
-                width: '4',
-                actions: [{
-                    name: 'Action 1',
-                    message: 'Action 1',
-                    completed: true,
-                    error: true
-                }, {
-                    name: 'Action 2',
-                    message: 'Action 2',
-                    completed: false,
-                    error: false
-                }, {
-                    name: 'Action 3',
-                    message: 'Action 3',
-                    completed: true,
-                    error: true
-                }]
-            }]
-        },
         sidenav: {
             sections: [{
                 actions: [{
                     name: 'Hjem',
                     icon: 'home',
                     link: 'Hjem',
+                    url: '#/'
                 }, {
                     name: 'Timelister',
                     icon: 'assignment',
-                    link: 'Timelister'
+                    link: 'Timelister',
+                    url: '#test'
                 }, {
                     name: 'Vaktbytte',
                     icon: 'swap_horiz',
@@ -68,9 +51,10 @@ app.service('menuService', function(){
                     icon: 'developer_board',
                     link: 'Action 4'
                 }, {
-                    name: 'Brukere',
-                    icon: 'person',
-                    link: 'Action 5'
+                    name: 'Ansatte',
+                    icon: 'people',
+                    link: 'Ansatte',
+                    url: '#ansatt'
                 }]
             }, {
                 bottom: [{
@@ -80,7 +64,8 @@ app.service('menuService', function(){
                 }, {
                     name: 'Logg ut',
                     icon: 'power_settings_new',
-                    link: 'Logg ut'
+                    link: 'Logg ut',
+                    url: 'logout.jsp'
                 }]
             }]
         },
@@ -116,14 +101,23 @@ app.service('menuService', function(){
     }
 });
 
-app.controller('MinVaktCtrl', function($scope, $mdSidenav, $mdToast, $http, employeeService, menuService) {
+app.controller('MinVaktCtrl', function($scope, $mdSidenav, $mdToast, $http, employeeService, menuService, userService) {
 
     employeeService.then(function(result){
-        $scope.employee = result.data[0];
-        $scope.isAdmin = false;
-        if(result.data[0].id===1){
-            $scope.isAdmin = true;
+        $scope.employee = result.data;
+    }, function(result){
+        $scope.employee = {
+            firstname: 'Ola',
+            surname: 'Nordmann'
         }
+        console.log('Issue loading employee data from api');
+    });
+
+    userService.then(function(result){
+        $scope.isAdmin = (result.data.role===0)
+    }, function(result){
+        console.log('Issue loading user data from api');
+        $scope.isAdmin = true;
     });
 
     $scope.data = menuService;
