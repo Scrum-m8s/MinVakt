@@ -91,21 +91,22 @@ public class ShiftSwitchDAO extends DatabaseManagement{
         }
         return numb > 0;
     }
-/*
-    public boolean updateShiftSwitch(User e) {
+
+    public boolean updateShiftSwitch(ShiftSwitch e) {
         int numb = 0;
         if(setUp()) {
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
-                prep = conn.prepareStatement("UPDATE User SET password=?, role = ? WHERE user_id=?;");
-                prep.setString(1, e.getPassword());
-                prep.setInt(2, e.getRole());
-                prep.setString(3, e.getUser_id());
+                prep = conn.prepareStatement("UPDATE Shift_switch SET user_id_to=? WHERE my_date=? AND shift_id=? AND user_id_from=?;");
+                prep.setString(1, e.getUser_id_to());
+                prep.setDate(2, e.getMy_date());
+                prep.setInt(3, e.getShift_id());
+                prep.setString(4, e.getUser_id_from());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
-                System.err.println("Issue with updating user. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
+                System.err.println("Issue with updating shift switch. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 rollbackStatement();
                 return false;
             }
@@ -115,7 +116,6 @@ public class ShiftSwitchDAO extends DatabaseManagement{
         }
         return numb > 0;
     }
-*/
 
     public boolean removeShiftSwitch(Date my_date, int shift_id, String user_id_from) {
         int numb = 0;

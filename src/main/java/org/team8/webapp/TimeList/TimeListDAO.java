@@ -8,6 +8,7 @@ import org.team8.webapp.ShiftList.ShiftList;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 @SuppressWarnings("ALL")
 public class TimeListDAO extends DatabaseManagement{
@@ -90,8 +91,6 @@ public class TimeListDAO extends DatabaseManagement{
         return out;
     }
 
-
-
     public TimeList getSingleTimeList(int year, int month, String id){
         TimeList out = null;
         if(setUp()){
@@ -117,8 +116,89 @@ public class TimeListDAO extends DatabaseManagement{
         return out;
     }
 
-    //Updates time_list deviances with input data. Creates a new entry if row does not exist in a given year and month.
-    //Designed to be called once a month.
+    public boolean onShiftListCreate(ShiftList s_l) {
+        boolean numb;
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(s_l.getMy_date());
+
+        //Checks if a row exists given user_id and month.
+        TimeList existingTimelist = new TimeList();
+        boolean exists = rowExists(s_l.getUser_id(), cal.get(Calendar.YEAR), cal.get(Calendar.MONTH));
+        //If exists, +8 ordinary to existing
+        if (exists){
+            existingTimelist = getSingleTimeList(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), s_l.getUser_id());
+            existingTimelist.setOrdinary(existingTimelist.getOrdinary()+8);
+            numb = updateTimeList(existingTimelist);
+        }
+        //If no timelist, create with 8 ordinary.
+        else{numb=createTimeList(new TimeList(s_l.getUser_id(),cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),8,0,0));
+        }
+        return numb;
+    }
+    //TODO: Update so admin can approve, instead of automatically adding.
+    public boolean onShiftListDevianceUpdate(ShiftList s_l) {
+        int numb = 0;
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(s_l.getMy_date());
+
+        TimeList existingTimelist = getSingleTimeList(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), s_l.getUser_id());
+
+        if(setUp()) {
+            try {
+                conn = getConnection();
+                conn.setAutoCommit(false);
+                //If deviance<0, update absence.
+                if (s_l.getDeviance() < 0) {
+                    prep = conn.prepareStatement("UPDATE Time_list SET absence=? WHERE user_id=? AND year=? AND month=?");
+                    prep.setInt(1, existingTimelist.getAbsence() + s_l.getDeviance());
+                    prep.setString(2, s_l.getUser_id());
+                    prep.setInt(3, cal.get(Calendar.YEAR));
+                    prep.setInt(4, cal.get(Calendar.MONTH));
+                }
+                //If deviance>0, update overtime.
+                else {
+                    prep = conn.prepareStatement("UPDATE Time_list SET overtime=? WHERE user_id=? AND year=? AND month=?");
+                    prep.setInt(1, existingTimelist.getOvertime() + s_l.getDeviance());
+                    prep.setString(2, s_l.getUser_id());
+                    prep.setInt(3, cal.get(Calendar.YEAR));
+                    prep.setInt(4, cal.get(Calendar.MONTH));
+
+                }
+                numb = prep.executeUpdate();
+            }
+            catch (SQLException sqle) {
+                System.err.println("Issue with updating deviance. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
+                rollbackStatement();
+                return false;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return numb > 0;
+    }
+
+    public boolean onShiftListRemove(Date my_date,int shift_id,String user_id) {
+        boolean numb;
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(my_date);
+
+        TimeList existingTimelist = getSingleTimeList(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), user_id);
+
+        //If ordinary<=8, remove timelist
+        if(existingTimelist.getOrdinary()<=8){
+            numb = removeTimeList(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),user_id);
+        }
+
+        //Else -8 to ordinary
+        else{
+            existingTimelist.setOrdinary(existingTimelist.getOrdinary()-8);
+            numb = updateTimeList(existingTimelist);
+        }
+        return numb;
+    }
+
+    //TODO: Deprecated. Delete when all other functions have updated.
     public boolean updateDeviance(ShiftList s_l, int year, int month){
         //Checks if a row exists given user_id and month.
         TimeList existingTimelist = new TimeList();

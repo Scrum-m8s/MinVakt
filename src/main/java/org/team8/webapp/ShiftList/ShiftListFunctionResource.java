@@ -60,7 +60,6 @@ public class ShiftListFunctionResource {
         return "Deviances updated. \n" + message;
     }
 
-    //TODO: Returns 500 error in the middle of iterating.
     //Finds the amount of employees with specific categories registered on shifts during a parameter-given day(yyyy-MM-dd).
     @Path("getshifttotal/{my_date}")
     @GET
@@ -79,15 +78,9 @@ public class ShiftListFunctionResource {
         int tempCat;
         String tempUser;
 
-        for (int i=0;i<shift_list.size();i++){
-            System.out.println(shift_list.get(i).getUser_id());
-            System.out.println(shift_list.get(i).getShift_id());
-        }
-
         //Goes through each entry in the shift_list.
         for (int i=0;i<shift_list.size();i++){
             tempUser = shift_list.get(i).getUser_id();
-            System.out.println(tempUser);
             tempCat = edao.getEmployeeById(tempUser).getCategory();
             //Increments values in shiftsThisDay based on shift_id and category.
             //TODO: Messy coding. Cleanup? -ASP

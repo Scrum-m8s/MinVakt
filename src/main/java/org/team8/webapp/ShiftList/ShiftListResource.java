@@ -1,5 +1,7 @@
 package org.team8.webapp.ShiftList;
 
+import org.team8.webapp.TimeList.TimeListDAO;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.sql.Date;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 @Path("/shift_lists/")
 public class ShiftListResource {
     ShiftListDAO dao = new ShiftListDAO();
+    TimeListDAO tdao = new TimeListDAO();
 
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
@@ -49,7 +52,21 @@ public class ShiftListResource {
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean createShiftlist(ShiftList s_l) {
         System.out.println("create Shift_list");
-        return dao.createShiftlist(s_l);
+        System.out.println(s_l.getMy_date());
+
+        boolean result = dao.createShiftlist(s_l);
+        if (result){tdao.onShiftListCreate(s_l);}
+        return result;
+    }
+
+    @Path("deviance")
+    @PUT
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public boolean registerDeviance(ShiftList s_l) {
+        System.out.println("register deviance");
+        boolean result = dao.registerDeviance(s_l);
+        if (result){tdao.onShiftListDevianceUpdate(s_l);}
+        return result;
     }
 
     @Path("{my_date}/{shift_id}/{user_id}")
@@ -65,6 +82,8 @@ public class ShiftListResource {
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean removeShiftlist(@PathParam("my_date") Date my_date, @PathParam("shift_id") int shift_id, @PathParam("user_id") String user_id) {
         System.out.println("remove Shift_list");
-        return dao.removeShiftlist(my_date, shift_id, user_id);
+        boolean result = dao.removeShiftlist(my_date, shift_id, user_id);
+        if (result){tdao.onShiftListRemove(my_date,shift_id,user_id);}
+        return result;
     }
 }

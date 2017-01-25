@@ -91,7 +91,6 @@ public class ShiftListDAO extends DatabaseManagement{
         return out;
     }
 
-    //TODO: må finne en smartere løsning på å finne enkelt shift
     public ShiftList getSingleShift(Date my_date, int shift_id, String user_id){
         ShiftList out = null;
         if(setUp()){
@@ -187,6 +186,31 @@ public class ShiftListDAO extends DatabaseManagement{
             catch (SQLException sqle) {
                 System.err.println("Issue with updating shiftlist. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 sqle.printStackTrace();
+                rollbackStatement();
+                return false;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return numb > 0;
+    }
+
+    public boolean registerDeviance(ShiftList s_l) {
+        int numb = 0;
+        if(setUp()) {
+            try {
+                conn = getConnection();
+                conn.setAutoCommit(false);
+                prep = conn.prepareStatement("UPDATE Shift_list SET deviance=? WHERE  user_id=? AND shift_id=? AND my_date=?;");
+                prep.setInt(1, s_l.getDeviance());
+                prep.setString(2, s_l.getUser_id());
+                prep.setInt(3, s_l.getShift_id());
+                prep.setDate(4, s_l.getMy_date());
+                numb = prep.executeUpdate();
+            }
+            catch (SQLException sqle) {
+                System.err.println("Issue with updating deviance.");
                 rollbackStatement();
                 return false;
             }
