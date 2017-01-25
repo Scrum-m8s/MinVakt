@@ -2,13 +2,14 @@
 $(document).ready(function() {
     // Bind opp tabellen mot rest-ressursen
     var user = "Espen"; //TODO: gotta get timelists by userid
+
+
     var monthNames = ["Januar", "Februar", "Mars", "April", "Mai", "Juni",
         "Juli", "August", "September", "Oktober", "November", "Desember"
     ];
     var totOver = 0;
     var totAbs = 0;
     var totOrd = 0;
-
 
     var table = $('#table_timelists').DataTable( {
         "paging": false,
@@ -51,9 +52,6 @@ $(document).ready(function() {
             { data: 'total'}
         ]
     });
-
-    //$('#table_timelists').DataTable(
-    //monthNames[
 
     //write table
     table.draw();
