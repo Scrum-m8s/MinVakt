@@ -2,14 +2,13 @@
  * Created by espen on 24.01.2017.
  */
 
-function userCallback(userdata){
-
-
-
-}
-
 
 $(document).ready(function(){
-    $.get("/api/users/current", userCallback(data));
+    $.get("/api/users/current", function(data){
+        userCallback(data)
+    });
+    $.get("/api/employees/current", function(data){
+        employeeCallback(data)
+    });
 });
 
