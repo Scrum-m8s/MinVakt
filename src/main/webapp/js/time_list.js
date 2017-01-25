@@ -40,26 +40,10 @@ $(document).ready(function() {
         });
     }
 
-    function createTimelist(year, month){
-        $.ajax({
-            type: 'GET',
-            contentType: 'application/json',
-            url: 'api/function/updatedeviances/'+ year + "/"+month,
-
-            success: function(data, textStatus, jqXHR){
-                alert("Timelesten for "+ month + ". " + year + " ble registert");
-            },
-            error: function(data, textStatus, jqXHR){
-                console.log("Error: " + textStatus);
-            }
-        });
-
-    }
     $("#generateTimelistButton").click(function () {
         var year = $("#year").val();
         var month = $("#month").val();
         console.log("Year: "+year+" month: "+month);
         getTimelist(year, month);
-        createTimelist(year, month);
     });
-})
+});

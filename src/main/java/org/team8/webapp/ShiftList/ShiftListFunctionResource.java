@@ -16,50 +16,6 @@ import java.util.Calendar;
 public class ShiftListFunctionResource {
     ShiftListDAO sdao = new ShiftListDAO();
     EmployeeDAO edao = new EmployeeDAO();
-    TimeListDAO tdao = new TimeListDAO();
-
-    //Updates time_list with deviances from shift_list, and if successful, removes deviances from shift_list.
-    //TODO: This needs some work, especially if we are supposed to have liquid updates.
-    @GET
-    @Path("updatedeviances/{year}/{month}")
-    @GET
-    public String updateDeviances(@PathParam("year") int year, @PathParam("month") int month) {
-        System.out.println("Update Deviance in Time_list/Shift_list");
-        //Fetches entire shift_list
-
-
-        ArrayList<ShiftList> theShiftList = sdao.getShiftLists();
-        ArrayList<ShiftList> newList = new ArrayList<>();
-        Calendar cal = Calendar.getInstance();
-
-        //Makes a temporary list with shifts contained within criteria (year, month)
-        for (int i=0;i<theShiftList.size();i++){
-            cal.setTime(theShiftList.get(i).getMy_date());
-
-            System.out.println("getYear: "+cal.get(Calendar.YEAR) + " year " + year + " getMonth: "+ cal.get(Calendar.MONTH) + " month: " + month);
-
-            if (cal.get(Calendar.YEAR)==year && cal.get(Calendar.MONTH)==month){
-                System.out.println(theShiftList.get(i).getUser_id()+" "+theShiftList.get(i).getMy_date());
-                newList.add(theShiftList.get(i));
-            }
-        }
-
-        String message="";
-        boolean result = false;
-        //Adds every deviance from temporary list to time_list and removes deviance from shift_list. See ShiftListDAO.
-        for (int i=0;i<newList.size();i++){
-            if (newList.get(i).getDeviance()!=0){
-                result = tdao.updateDeviance(newList.get(i),year,month);     //Updates deviance.
-                message+="\nUser "+newList.get(i).getUser_id()+" has deviance "+newList.get(i).getDeviance()+" added.";
-                if (result){
-                    //TODO: Evaluate necessity of deleting deviance from shift_list after adding to time_list.
-                    //Removes deviance.
-                    //sdao.removeDeviance(newList.get(i).getMy_date(),newList.get(i).getShift_id(),newList.get(i).getUser_id());
-                }
-            }
-        }
-        return "Deviances updated. \n" + message;
-    }
 
     //Finds the amount of employees with specific categories registered on shifts during a parameter-given day(yyyy-MM-dd).
     @Path("getshifttotal/{my_date}")
