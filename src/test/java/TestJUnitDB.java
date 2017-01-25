@@ -1,3 +1,5 @@
+/*
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.team8.webapp.Busy.Busy;
@@ -37,9 +39,8 @@ public class TestJUnitDB extends DatabaseManagement{
     private final int NO_ACCESS = 0;
     private final int ACCESS = 1;
 
-    /**
-     *  Bare for testing
-     */
+    //Bare for testing
+
     private boolean testExecuteSQL(String sql){
         if(setUp()){
             PreparedStatement prep = null;
@@ -531,3 +532,6 @@ public class TestJUnitDB extends DatabaseManagement{
     }
 
 }
+
+
+*/

@@ -7,7 +7,9 @@ package org.team8.webapp.Busy;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 @Path("/busy")
 public class BusyResource{
@@ -28,7 +30,7 @@ public class BusyResource{
                 return dao.getBusyById(user_id);
         }
 
-        @Path("{user_id}/{shift_id}")
+        @Path("{user_id}/{shift_id}/{my_date}")
         @GET
         @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
         public Busy getBusyByUserId(@PathParam("user_id") String user_id, @PathParam("shift_id") int shift_id) {
@@ -44,16 +46,16 @@ public class BusyResource{
                 return dao.createBusy(b);
         }
 
-        @Path("{user_id}/{shift_id}")
+        //@Path("{user_id}/{shift_id}")
         @PUT
         @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-        public void updateBusy(Busy b) {
-                dao.updateBusy(b);
+        public void updateBusy(ArrayList<Busy> busies) {
+                dao.updateBusy(busies);
         }
-        @Path("{user_id}/{shift_id}")
+        
+        @Path("{user_id}/{shift_id}/{my_date}")
         @DELETE
-        @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-        public void removeBusy(@PathParam("user_id") String user_id, @PathParam("shift_id") int shift_id) {
-                dao.removeBusy(user_id, shift_id);
+        public void removeBusy(@PathParam("user_id") String user_id, @PathParam("shift_id") int shift_id, @PathParam("my_date") Date my_date) {
+            dao.removeBusy(user_id, shift_id, my_date);
         }
 }
