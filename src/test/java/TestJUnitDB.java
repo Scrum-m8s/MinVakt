@@ -309,20 +309,7 @@ public class TestJUnitDB extends DatabaseManagement{
         userDAO.createUser(new User("dummy", "dummy", 1));
         busyDAO.createBusy(new Busy("dummy", 1, new Date(1970-05-07)));
 
-        assertNotNull(busyDAO.getBusyById("dummy"));
-
-        //clean up
-        busyDAO.removeBusy("dummy", 1);
-        userDAO.removeUser("dummy");
-    }
-
-    @Test
-    public void getSingleBusy() {
-        //dummy data
-        userDAO.createUser(new User("dummy", "dummy", 1));
-        busyDAO.createBusy(new Busy("dummy", 1, new Date(1970-05-07)));
-
-        assertNotNull(busyDAO.getSingleBusy("dummy", 1));
+        assertNotNull(busyDAO.getSingleBusy("dummy",1));
 
         //clean up
         busyDAO.removeBusy("dummy", 1);
@@ -387,19 +374,6 @@ public class TestJUnitDB extends DatabaseManagement{
     }
 
     @Test
-    public void getTimeListsById(){
-        //creating dummy data to fetch
-        userDAO.createUser(new User("dummy", "dummy", 1));
-        timeListDAO.createTimeList(new TimeList("dummy", "dummy", 60, 0, 0));
-
-        assertNotNull(timeListDAO.getTimeListsById("dummy"));
-
-        //clean up
-        timeListDAO.removeTimeList("dummy", "dummy");
-        userDAO.removeUser("dummy");
-    }
-
-    @Test
     public void getSingleTimeList() {
         //creating dummy data to fetch
         userDAO.createUser(new User("dummy", "dummy", 1));
@@ -409,19 +383,6 @@ public class TestJUnitDB extends DatabaseManagement{
 
         //clean up
         timeListDAO.removeTimeList(1990,0, "dummy");
-        userDAO.removeUser("dummy");
-    }
-
-    @Test
-    public void getSingleTimeList() {
-        //creating dummy data to fetch
-        userDAO.createUser(new User("dummy", "dummy", 1));
-        timeListDAO.createTimeList(new TimeList("dummy", 1990, 0, 60, 0, 0));
-
-        assertNotNull(timeListDAO.getSingleTimeList(1990, 0, "dummy"));
-
-        //clean up
-        timeListDAO.removeTimeList(1990, 0, "dummy");
         userDAO.removeUser("dummy");
     }
 
