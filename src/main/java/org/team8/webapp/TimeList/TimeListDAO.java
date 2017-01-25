@@ -66,7 +66,33 @@ public class TimeListDAO extends DatabaseManagement{
         return out;
     }
 
-    public TimeList getSingleTimeList(String id, int year, int month){
+    public ArrayList<TimeList> getTimeListsByMonth(int year, int month){
+        ArrayList<TimeList> out = new ArrayList<TimeList>();
+        if(setUp()){
+            try {
+                conn = getConnection();
+                prep = conn.prepareStatement("SELECT * FROM Time_list WHERE year=? AND month=?;");
+                prep.setInt(1, year);
+                prep.setInt(2,month);
+                res = prep.executeQuery();
+                while (res.next()){
+                    out.add(processRow(res));
+                }
+            }
+            catch (SQLException sqle){
+                System.err.println("Issue with getting timelists by month.");
+                return null;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return out;
+    }
+
+
+
+    public TimeList getSingleTimeList(int year, int month, String id){
         TimeList out = null;
         if(setUp()){
             try {
@@ -97,7 +123,7 @@ public class TimeListDAO extends DatabaseManagement{
         //Checks if a row exists given user_id and month.
         TimeList existingTimelist = new TimeList();
         boolean exists = rowExists(s_l.getUser_id(), year, month);
-        if (exists){existingTimelist = getSingleTimeList(s_l.getUser_id(), year, month);}
+        if (exists){existingTimelist = getSingleTimeList(year, month, s_l.getUser_id());}
 
         int numb = 0;
 
@@ -236,7 +262,7 @@ public class TimeListDAO extends DatabaseManagement{
         return numb > 0;
     }
 
-    public boolean removeTimeList(String id, int year, int month) {
+    public boolean removeTimeList(int year, int month, String id) {
         int numb = 0;
         if(setUp()) {
             try {

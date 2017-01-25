@@ -2,31 +2,6 @@
  * Created by mariyashchekanenko on 23/01/2017.
  */
 $(document).ready(function() {
-
-    function createTimelist(year, month){
-        $.ajax({
-            type: 'GET',
-            contentType: 'application/json',
-            url: 'api/function/updatedeviances/'+ year + "/"+month,
-
-            success: function(data, textStatus, jqXHR){
-                alert("Timelesten for "+ month + ". " + year + " ble registert");
-            },
-            error: function(data, textStatus, jqXHR){
-                console.log("Error: " + textStatus);
-            }
-        });
-
-    }
-    $("#generateTimelistButton").click(function () {
-        var year = $("#year").val();
-        var month = $("#month").val();
-        console.log("Year: "+year+" month: "+month);
-
-        createTimelist(year, month);
-        getTimelist();
-    });
-
     $("#timelistTable").DataTable({
         data:[],
         columns: [
@@ -47,18 +22,32 @@ $(document).ready(function() {
         retrieve: true
     });
 
-    //function to list all timelists
-    function getTimelist(){
+    function getTimelist(year, month){
         var table = $('#timelistTable').DataTable();
         $.ajax({
             type: 'GET',
             contentType: 'application/json',
-            url: 'api/timelists',
-            success: function(data, textStatus, jqXHR){
-                console.log("Timelisten."+data);
+            url: 'api/timelists/'+ year +"/" + month,
+            success: function (data, textStatus, jqXHR) {
+                console.log("Timelisten." + data);
                 table.clear();
                 table.rows.add(data);
                 table.draw();
+            },
+            error: function (data, textStatus, jqXHR) {
+                console.log("Error: " + textStatus);
+            }
+        });
+    }
+
+    function createTimelist(year, month){
+        $.ajax({
+            type: 'GET',
+            contentType: 'application/json',
+            url: 'api/function/updatedeviances/'+ year + "/"+month,
+
+            success: function(data, textStatus, jqXHR){
+                alert("Timelesten for "+ month + ". " + year + " ble registert");
             },
             error: function(data, textStatus, jqXHR){
                 console.log("Error: " + textStatus);
@@ -66,5 +55,11 @@ $(document).ready(function() {
         });
 
     }
-
+    $("#generateTimelistButton").click(function () {
+        var year = $("#year").val();
+        var month = $("#month").val();
+        console.log("Year: "+year+" month: "+month);
+        getTimelist(year, month);
+        createTimelist(year, month);
+    });
 })
