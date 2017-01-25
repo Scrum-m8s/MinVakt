@@ -48,4 +48,11 @@ public class ShiftListFunctionResource {
         }
         return shiftsThisDay;
     }
+
+    @Path("getshifttotal/{my_date}/{shift_id}")
+    @GET
+    public ArrayList<ShiftList> getShiftsByDateAndShiftId(@PathParam("my_date") String my_date_string, @PathParam("shift_id") int shift_id){
+        System.out.println("getShiftsByDateAndShiftId");
+        return sdao.getShiftListsByDateAndShiftId(my_date_string, shift_id);
+    }
 }

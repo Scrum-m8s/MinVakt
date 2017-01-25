@@ -167,7 +167,6 @@ public class TestJUnitDB extends DatabaseManagement{
         userDAO.removeUser("dummy");
     }
 
-
     @Test
     public void createEmployee() {
         try {
