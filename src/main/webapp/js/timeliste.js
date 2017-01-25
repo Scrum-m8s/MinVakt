@@ -78,12 +78,12 @@ $(document).ready(function() {
                                 endTime = "8"
                             } else if (entry.shift_id == 2) {
                                 color = 'LimeGreen';
-                                shiftTypeString = "Dagsvakt";
+                                shiftTypeString = "Dagvakt";
                                 startTime = "8";
                                 endTime = "16"
                             } else if (entry.shift_id == 3) {
                                 color = 'DarkOrange';
-                                shiftTypeString = "Kveldsvakt";
+                                shiftTypeString = "Aftenvakt";
                                 startTime = "16";
                                 endTime = "24"
                             }
@@ -110,6 +110,8 @@ $(document).ready(function() {
             });
         }
     });
+
+
 
     function getCategory(user_id, callback) {
         $.getJSON('api/employees/' + user_id, function(json) {
