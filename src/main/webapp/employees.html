@@ -20,6 +20,8 @@
 
 
         <title>Oversikt over ansatte</title>
+
+
     </head>
 
     <body>
@@ -50,11 +52,6 @@
             </table>
             <br>
             <div class="pull-right">
-                <!-- TODO: fiks create og edit employee knapper slik at det kommer opp en modal med skjema man kan fylle ut og ikke bare blir linka til de andre sidene. -->
-                <!-- Trigger/Open The Modal -->
-
-                <!-- The Modal -->
-
                 <!-- Create Modal content -->
                 <div id="createModal" class="modal">
                     <div class="modal-content">
@@ -85,7 +82,7 @@
                 <!-- Create Modal content -->
                 <div id="updateRoleAndPasswordModal" class="modal">
                     <div class="modal-content">
-                        <span class="close" id="closeupdateRoleAndPassword">&times;</span>
+                        <span class="close" id="closeUpdateRoleAndPassword">&times;</span>
                         <form>
 
                             <div class="form-group">
@@ -99,8 +96,8 @@
                                 <label for="inputRole">Velg tilgangsrettigheter</label>
                                 <select class="form-control" id="inputRole1">
                                     <option value="-1Sel">Inaktiv</option>
-                                    <option value="0Sel">Ansatt</option>
-                                    <option value="1Sel">Admin</option>
+                                    <option value="0Sel">Admin</option>
+                                    <option value="1Sel">Ansatt</option>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary" id="submitUpdateRoleAndPassword">Submit</button>
@@ -147,7 +144,7 @@
                 </div>
                 <button id="createEmployee">Opprett ansatt</button>
                 <button id="updateRoleAndPassword">Oppdater passord/tilgang</button>
-                <button id="updateEmployee" >Oppdater ansatt</button>
+                <button id="updateEmployee" >Endre ansatt</button>
                 <button id="deleteEmployee">Fjern ansatt</button>
             </div>
         </div>
