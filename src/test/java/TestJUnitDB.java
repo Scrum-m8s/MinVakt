@@ -418,7 +418,7 @@ public class TestJUnitDB extends DatabaseManagement{
         assertTrue(timeListDAO.updateTimeList(new TimeList("dummy2", 1990, 0, 65, 1, 1)));
 
         //clean up
-        timeListDAO.removeTimeList(1990, 0, "dummy");
+        timeListDAO.removeTimeList(1990, 0, "dummy2");
         userDAO.removeUser("dummy2");
     }
 
