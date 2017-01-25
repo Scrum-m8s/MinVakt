@@ -9,10 +9,12 @@ app.config(function($mdThemingProvider, $routeProvider, $locationProvider) {
         templateUrl: "partials/test.html"
     }).when("/ansatt", {
         templateUrl:  "partials/employees.html"
-    }).when("/i", {
+    }).when("/innstillinger", {
         templateUrl: "partials/settings.html"
-    }).when("/i/password", {
-        templateUrl: "partkals/settings_password.html"
+    }).when("/innstillinger/password", {
+        templateUrl: "partials/settings_password.html"
+    }).when("/skift", {
+        templateUrl: "partials/shiftlist.html"
     }).otherwise(
         "/"
     );
@@ -41,6 +43,11 @@ app.service('menuService', function(){
                     link: 'Hjem',
                     url: '#/'
                 }, {
+                    name: 'Skiftbok',
+                    icon: 'book',
+                    link: 'Skiftbok',
+                    url: '#skift'
+                }, {
                     name: 'Timelister',
                     icon: 'assignment',
                     link: 'Timelister',
@@ -66,7 +73,7 @@ app.service('menuService', function(){
                     name: 'Innstillinger',
                     icon: 'settings',
                     link: 'Innstillinger',
-                    url: '#i'
+                    url: '#innstillinger'
                 }, {
                     name: 'Logg ut',
                     icon: 'power_settings_new',
