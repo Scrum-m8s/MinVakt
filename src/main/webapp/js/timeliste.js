@@ -39,9 +39,9 @@ $(document).ready(function() {
                 console.log("successfully fetched shifts!");
                 isEmployeeOnShift(function(amt) {
                     if(amt === 1) {
-                        $("#buttonsShift").html('<button style="margin-right: 2%" class="btn btn-primary" id="wantSwapBtn">Bytte vakt?</button><button class="btn btn-primary" id="regAbsenceBtn">Registrer fravær</button>');
+                        $("#buttonsShift").html('<button style="margin-right: 2%" class="btn btn-primary" id="wantSwapBtn">Toggle bytte vakt</button><button class="btn btn-primary" id="regAbsenceBtn">Registrer fravær</button>');
                     } else {
-                        $("#buttonsShift").html('<button class="btn btn-primary" id="setBusyBtn">Opptatt?</button>');
+                        $("#buttonsShift").html('<button class="btn btn-primary" id="setBusyBtn">Toggle opptatt</button>');
                     }
                 });
             });
@@ -108,17 +108,20 @@ $(document).ready(function() {
         }
     });
 
-    $(document).on("click", "#wantSwapBtn", function(){
-        console.log($(this).is("#wantSwapLabel"));
-        if($(this).is("#wantSwapLabel")) {
-            setWantSwap(false);
-        } else {
-            setWantSwap(true);
-        }
+    getCurrentUserId(function(user_id) {
+        $(document).on("click", "#wantSwapBtn", function(){
+            console.log("current user on button click: " + user_id);
+            if($("#" + user_id).children("span").is("#wantSwapLabel")) {
+                setWantSwap(false, user_id);
+            } else {
+                setWantSwap(true, user_id);
+            }
+
+        });
     });
 
-    function setWantSwap(swap) {
-        var user_id = $("#username_filler_shift span").text();
+
+    function setWantSwap(swap, user_id) {
         var date = $("#date_shift span").text();
         var shift_type = $("#time_shift span").text();
         var shift_id = -1;
@@ -129,16 +132,14 @@ $(document).ready(function() {
         } else if(shift_type === "Aftenvakt") {
             shift_id = 3;
         }
-        console.log(user_id);
-        console.log(date);
-        console.log(shift_id);
         $.ajax({
             type: 'PUT',
             contentType: 'application/json',
+            accept: 'application/json',
             url: 'api/function/getshifttotal/' + date + "/" + shift_id + "/" + user_id,
             dataType: "json",
             data: JSON.stringify({
-                want_swap: swap,
+                want_swap: swap
             }),
             success: function(data, textStatus, jqXHR){
                 console.log("Want swap status updated.");
@@ -173,6 +174,12 @@ $(document).ready(function() {
                 }
             });
             callback(amt);
+        });
+    }
+
+    function getCurrentUserId(callback) {
+        $.getJSON('api/users/current', function(json)  {
+            callback(json.user_id);
         });
     }
 
