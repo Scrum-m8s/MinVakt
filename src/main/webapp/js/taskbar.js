@@ -4,15 +4,17 @@ app.config(function($mdThemingProvider, $routeProvider, $locationProvider) {
     $mdThemingProvider.theme('default').primaryPalette('blue');
     $routeProvider
     .when("/", {
-        templateUrl : "cards/main.html"
+        templateUrl : "partials/main.html"
     }).when("/test", {
-        templateUrl: "cards/test.html"
+        templateUrl: "partials/test.html"
     }).when("/ansatt", {
-        templateUrl:  "cards/employees.html"
-    }).when("/innstillinger", {
-        templateUrl: "cards/settings.html"
+        templateUrl:  "partials/employees.html"
+    }).when("/i", {
+        templateUrl: "partials/settings.html"
+    }).when("/i/password", {
+        templateUrl: "partkals/settings_password.html"
     }).otherwise(
-        "/test"
+        "/"
     );
     $locationProvider.html5Mode(false);
 });
@@ -64,7 +66,7 @@ app.service('menuService', function(){
                     name: 'Innstillinger',
                     icon: 'settings',
                     link: 'Innstillinger',
-                    url: '#innstillinger'
+                    url: '#i'
                 }, {
                     name: 'Logg ut',
                     icon: 'power_settings_new',
@@ -96,11 +98,47 @@ app.service('menuService', function(){
                     description: 'Description 2',
                     link: 'Item 2'
                 }, {
+                    name: 'Item 2',
+                    description: 'Description 2',
+                    link: 'Item 2'
+                }, {
+                    name: 'Item 2',
+                    description: 'Description 2',
+                    link: 'Item 2'
+                }, {
+                    name: 'Item 2',
+                    description: 'Description 2',
+                    link: 'Item 2'
+                }, {
+                    name: 'Item 2',
+                    description: 'Description 2',
+                    link: 'Item 2'
+                }, {
+                    name: 'Item 2',
+                    description: 'Description 2',
+                    link: 'Item 2'
+                }, {
+                    name: 'Item 2',
+                    description: 'Description 2',
+                    link: 'Item 2'
+                }, {
+                    name: 'Item 2',
+                    description: 'Description 2',
+                    link: 'Item 2'
+                }, {
                     name: 'Item 3',
                     description: 'Description 3',
                     link: 'Item 3'
                 }]
             }]
+        },
+        settings: {
+            options:{
+                option: 'Endre passord',
+                icon: 'face',
+                toast: '',
+                url: ''
+            }
         }
 
     }
@@ -114,7 +152,7 @@ app.controller('MinVaktCtrl', function($scope, $mdSidenav, $mdToast, $http, empl
         $scope.employee = {
             firstname: 'Ola',
             surname: 'Nordmann'
-        }
+        };
         console.log('Issue loading employee data from api');
     });
 

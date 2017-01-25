@@ -77,9 +77,13 @@
                     <span flex></span>
                 </div>
             </md-toolbar>
-            <ng-view>
-                <!-- COMMENT -->
-            </ng-view>
+            <section id="content" role="content" layout="column" layout-padding md-scroll>
+                <md-content class="md-whiteframe-3dp" ng-cloak>
+                    <ng-view>
+                        <!-- Her vil html code fra cards/* automatisk implementeres -->
+                    </ng-view>
+                </md-content>
+            </section>
         </section>
     </div>
 
