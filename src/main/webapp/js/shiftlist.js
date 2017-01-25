@@ -10,6 +10,7 @@ $(document).ready(function() {
         editable: false,
         timeFormat: 'H:mm',
         weekNumbers: true,
+        firstDay: 1,
         eventClick: function(calEvent, jsEvent, view) {
             $("#buttonsShift").html("");
             $("#employeesOnShiftList").html("<hr><h4>På vakt:</h4>");
