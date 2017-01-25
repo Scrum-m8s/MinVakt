@@ -2,7 +2,6 @@
  * Created by Nina on 16.01.2017.
  */
 
-/*
 var editor;
 $(document).ready(function() {
     // Bind opp tabellen mot rest-ressursen
@@ -12,7 +11,7 @@ $(document).ready(function() {
         "info" : false,
         //"ordering": false,
         ajax: {
-            url: 'api/shift_lists/want_swap',
+            url: 'api/shift_lists/want_swap/true',
             "dataSrc": function (json) {
                 var return_data = new Array();
                 for (var i = 0; i < json.length; i++) {
@@ -58,7 +57,7 @@ $(document).ready(function() {
         }
         alert(JSON.stringify(table.rows( { selected: true } ).data()[0].user_id + "  er valgt"));
         $.ajax({
-            url: 'api/shift_lists/' + table.rows( { selected: true } ).data()[0].user_id + '/' + table.rows( { selected: true } ).data()[0].shift_id + '/want_swap',
+            url: 'api/shift_lists/' + table.rows( { selected: true } ).data()[0].user_id + '/' + table.rows( { selected: true } ).data()[0].shift_id,
             type: 'PUT',
             contentType: 'application/json',
             data: JSON.stringify({
@@ -75,4 +74,3 @@ $(document).ready(function() {
 });
 
 
-*/

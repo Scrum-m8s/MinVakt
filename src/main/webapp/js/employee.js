@@ -7,68 +7,60 @@
 var rootURL = "http://localhost:8080/api/employees/";
 
 $(document).ready(function() {
-
-    // Get the modal
-    var modalCreate = document.getElementById('createModal');
-    var modalUpdate = document.getElementById('updateModal');
-    var modalUpdateRoleAndPassword = document.getElementById('updateRoleAndPasswordModal');
-
-// Get the button that opens the modal
-    var btnCreate = document.getElementById("createEmployee");
-    var btnUpdate = document.getElementById("updateEmployee");
-    var btnUpdateRoleAndPassword = document.getElementById("updateRoleAndPassword");
-
-// Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
+  //FIXME: make this work without commenting out. Prob just move the functions on the bottom to another js file.
+/* 
     // When the user clicks on the create button, open the modal
-    btnCreate.onclick = function() {
-        modalCreate.style.display = "block";
-    }
+    $("#createEmployee").on('click', function() {
+        $("#createModal").modal('show');
+    });
 
-// When the user clicks on the update button, open the modal
-    btnUpdate.onclick = function() {
-        modalUpdate.style.display = "block";
+    // When the user clicks on the update button, open the modal
+    $("#updateEmployee").on('click', function() {
+        $("#updateModal").modal('show');
         $(".username_filler").html('<b>Edit user: ' + $('tr.selected td:eq(5)').text() + '</b>');
         $("#inputFirstname").attr('value', $('tr.selected td:eq(1)').text());
         $("#inputLastname").attr('value', $('tr.selected td:eq(0)').text());
         $("#inputPhone").attr('value', $('tr.selected td:eq(2)').text());
         $("#inputEmail").attr('value', $('tr.selected td:eq(3)').text());
         $("#inputCategory").val($('tr.selected td:eq(4)').text());
-    }
+    });
 
-    btnUpdateRoleAndPassword.onclick = function() {
+    $("#updateRoleAndPassword").on('click', function() {
         $.getJSON('api/users/' + $('tr.selected td:eq(5)').text(), function(result) {
-            modalUpdateRoleAndPassword.style.display = "block";
+            $("#updateRoleAndPasswordModal").modal('show');
             $(".username_filler").html('<b>Edit user: ' + $('tr.selected td:eq(5)').text() + '</b>');
             $("#inputRole1").val(result.role + "Sel");
         });
+    });
 
-    }
+    // When the user clicks on <span> (x), close the modal
+     $("#closeUpdate").on('click', function() {
+        console.log("update");
+        $("#updateModal").modal('hide');
+    });
 
-// When the user clicks on <span> (x), close the modal
-    //FIXME
-    $("#closeUpdate").onclick = function() {
-        modalUpdate.style.display = "none";
-    }
+    $("#closeCreate").on('click', function() {
+        console.log("create");
+        $("#createModal").modal('hide');
+    });
 
-    $("#closeCreate").onclick = function() {
-        modalCreate.style.display = "none";
-    }
+    $("#closeUpdateRoleAndPassword").on('click', function() {
+        $("#updateRoleAndPasswordModal").modal('hide');
+    });
 
-// When the user clicks anywhere outside of the modal, close it
+    // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
-        if (event.target == modalCreate) {
-            modalCreate.style.display = "none";
+        if (event.target == $("#createModal")) {
+            $("#createModal").modal('hide');
         }
-        if (event.target == modalUpdate) {
-            modalUpdate.style.display = "none";
+        if (event.target == $("#updateModal")) {
+            $("#updateModal").modal('hide');
         }
-        if (event.target == modalUpdateRoleAndPassword) {
-            modalUpdateRoleAndPassword.style.display = "none";
+        if (event.target == $("#updateRoleAndPasswordModal")) {
+            $("#updateRoleAndPasswordModal").modal('hide');
         }
     }
-    
+*/
     function editEmployee() {
         var user_id = $('tr.selected td:eq(5)').text();
         console.log('editEmployee with user_id: ' + user_id);
@@ -202,19 +194,19 @@ $(document).ready(function() {
 
     $("#submitCreate").click(function () {
         createEmployee();
-        modalCreate.style.display = "none";
+        $("#createModal").modal('hide');
         return false;
     });
 
     $("#submitUpdate").click(function () {
         editEmployee();
-        modalUpdate.style.display = "none";
+        $("#updateModal").modal('hide');
         return false;
     });
 
     $("#submitUpdateRoleAndPassword").click(function () {
         updateRoleAndPassword();
-        modalUpdate.style.display = "none";
+        $("#updateRoleAndPasswordModal").modal('hide');
         return false;
     });
 
@@ -234,6 +226,98 @@ $(document).ready(function() {
             }
         });
     });
+  
+    $("#availableEmployeesTable").DataTable({
+        data:[],
+        columns: [
+            { data: 'firstname' },
+            { data: 'surname' },
+            { data: 'email' },
+            { data: 'phone_number' },
+            { data: 'category' }
+        ],
+        rowCallback: function (row, data) {},
+        filter: false,
+        info: false,
+        ordering: false,
+        processing: true,
+        searching: false,
+        paging: false,
+        retrieve: true
+    });
 
+    //function to get employees qualified for a shift
+    //is used in kvalifisert_for_vakt.html
+    function getAvailableEmployees(shift_id, my_date, category){
+        var table = $('#availableEmployeesTable').DataTable();
+
+        $.ajax({
+            type: 'POST',
+            contentType: 'application/json',
+            url: 'api/availableemployees',
+            data: JSON.stringify({
+                shift_id: shift_id,
+                my_date: my_date,
+                category: category
+            }),
+            dataType: "json",
+            success: function(data, textStatus, jqXHR){
+                console.log("Available employees."+data);
+                table.clear();
+                table.rows.add(data);
+                table.draw();
+            },
+            error: function(data, textStatus, jqXHR){
+                console.log("Error: " + textStatus);
+            }
+        });
+
+    }
+    $("#availableEmployees").click(function () {
+        var category = $("#category").val();
+        var my_date = $("#my_date").val();
+        var shift_id = $("#shift_id").val();
+
+        console.log("Before function. Category: "+category+" My_date: "+my_date+" Shift_id: "+shift_id);
+
+        getAvailableEmployees(shift_id, my_date, category);
+    });
+
+
+
+    function registerOvertimeAbsence(user_id, shift_id, my_date, deviance) {
+
+        $.ajax({
+            type: 'PUT',
+            contentType: 'application/json',
+            url: "api/shift_lists/deviance/" + user_id+"/"+ shift_id,
+            data: '{"user_id": "' + user_id + '", "shift_id" : "' + shift_id + '", "my_date" : "' + my_date + '", "deviance" : "' + deviance + '"}',
+            dataType: "json",
+
+            success: function(data, textStatus, jqXHR){
+                console.log("deviance updated.");
+            },
+            error: function(data, textStatus, jqXHR){
+                console.log("Error: " + textStatus);
+            }
+        });
+        alert("Deviance ble registert");
+    }
+
+
+    $("#submitAbsenceOvertime").click(function () {
+        var user_id = $("#user_id").val();
+        var shift_id = $("#shift_id").val();
+        var my_date = $("#my_date").val();
+        var deviance;
+        var selector = document.getElementById("selector");
+        var value_selector = selector.options[selector.selectedIndex].value;
+        if (value_selector == "absence") {
+            deviance = -($("#deviance").val());
+        } else {
+            deviance = $("#deviance").val();
+        }
+        registerOvertimeAbsence(user_id, shift_id, my_date, deviance);
+    })
 
 });
