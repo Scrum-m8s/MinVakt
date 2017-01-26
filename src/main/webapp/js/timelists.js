@@ -2,7 +2,6 @@
 $(document).ready(function() {
     // Bind opp tabellen mot rest-ressursen
     var user = window.location.href.split("/")[5];
-    console.log(user);
 
     var monthNames = ["Januar", "Februar", "Mars", "April", "Mai", "Juni",
         "Juli", "August", "September", "Oktober", "November", "Desember"
@@ -21,8 +20,11 @@ $(document).ready(function() {
             "dataSrc": function (json) {
                 var return_data = new Array();
                 for (var i = 0;  i < json.length; ++i) {
+                    console.log((json[i].month - 1));
+                    json[i].month = monthNames[(json[i].month)];
+
                     return_data.push({
-                        'month': json[i].month, //monthNames[json[i].month]
+                        'month': json[i].month,
                         'overtime': json[i].overtime,
                         'absence': json[i].absence,
                         'ordinary': json[i].ordinary,
