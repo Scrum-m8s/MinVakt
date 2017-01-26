@@ -66,7 +66,7 @@ app.service('menuService', function(){
                     url: '#timelister_current'
                 }, {
                     name: 'Vaktbytte',
-                    icon: 'swap_hroiz',
+                    icon: 'swap_horiz',
                     link: 'Vaktbytte',
                     url: '#/'
                 }, {
@@ -93,63 +93,6 @@ app.service('menuService', function(){
                     icon: 'power_settings_new',
                     link: 'Logg ut',
                     url: 'logout.jsp'
-                }]
-            }]
-        },
-        content: {
-            lists: [{
-                name: 'List 1',
-                menu: {
-                    name: 'Menu 1',
-                    icon: 'settings',
-                    width: '4',
-                    actions: [{
-                        name: 'Action 1',
-                        message: 'Action 1',
-                        completed: true,
-                        error: true
-                    }]
-                },
-                items: [{
-                    name: 'Item 1',
-                    description: 'Description 1',
-                    link: 'Item 1'
-                }, {
-                    name: 'Item 2',
-                    description: 'Description 2',
-                    link: 'Item 2'
-                }, {
-                    name: 'Item 2',
-                    description: 'Description 2',
-                    link: 'Item 2'
-                }, {
-                    name: 'Item 2',
-                    description: 'Description 2',
-                    link: 'Item 2'
-                }, {
-                    name: 'Item 2',
-                    description: 'Description 2',
-                    link: 'Item 2'
-                }, {
-                    name: 'Item 2',
-                    description: 'Description 2',
-                    link: 'Item 2'
-                }, {
-                    name: 'Item 2',
-                    description: 'Description 2',
-                    link: 'Item 2'
-                }, {
-                    name: 'Item 2',
-                    description: 'Description 2',
-                    link: 'Item 2'
-                }, {
-                    name: 'Item 2',
-                    description: 'Description 2',
-                    link: 'Item 2'
-                }, {
-                    name: 'Item 3',
-                    description: 'Description 3',
-                    link: 'Item 3'
                 }]
             }]
         },
