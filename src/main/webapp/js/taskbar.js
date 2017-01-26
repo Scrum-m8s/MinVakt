@@ -65,6 +65,11 @@ app.service('menuService', function(){
                     link: 'Timelister',
                     url: '#timelister_current'
                 }, {
+                    name: 'Vaktbytte',
+                    icon: 'swap_hroiz',
+                    link: 'Vaktbytte',
+                    url: '#/'
+                }, {
                     name: 'Ansatte',
                     icon: 'people',
                     link: 'Ansatte',
