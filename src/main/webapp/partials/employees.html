@@ -1,6 +1,6 @@
-<script src="js/List_employees.js"></script>
-<script src="js/employee.js"></script>
-<link rel="stylesheet" href="css/layout.css">
+<script src="/js/List_employees.js"></script>
+<script src="/js/employee.js"></script>
+<link rel="stylesheet" href="/css/layout.css">
 
 
 <div class="content">
@@ -37,8 +37,8 @@
                         <label for="inputRole">Velg tilgangsrettigheter</label>
                         <select class="form-control" id="inputRole">
                             <option value="Inaktiv">Inaktiv</option>
-                            <option value="Ansatt">Ansatt</option>
                             <option value="Admin">Admin</option>
+                            <option value="Ansatt">Ansatt</option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary" id="submitCreate">Submit</button>
@@ -107,11 +107,15 @@
                     <button type="submit" class="btn btn-primary" id="submitUpdate">Submit</button>
                 </form>
             </div>
-
         </div>
-        <button id="createEmployee">Opprett ansatt</button>
-        <button id="updateRoleAndPassword">Oppdater passord/tilgang</button>
-        <button id="updateEmployee" >Endre ansatt</button>
-        <button id="deleteEmployee">Fjern ansatt</button>
+
+
+        <div ng-show="isAdmin">
+            <button id="getTimelist">Se timeliste</button>
+            <button id="createEmployee">Opprett ansatt</button>
+            <button id="updateRoleAndPassword">Oppdater passord/tilgang</button>
+            <button id="updateEmployee" >Endre ansatt</button>
+            <button id="deleteEmployee">Fjern ansatt</button>
+        </div>
     </div>
 </div>

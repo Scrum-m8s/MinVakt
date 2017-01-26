@@ -5,8 +5,6 @@ app.config(function($mdThemingProvider, $routeProvider, $locationProvider) {
     $routeProvider
     .when("/", {
         templateUrl : "partials/main.html"
-    }).when("/test", {
-        templateUrl: "partials/test.html"
     }).when("/ansatt", {
         templateUrl:  "partials/employees.html"
     }).when("/innstillinger", {
@@ -16,7 +14,14 @@ app.config(function($mdThemingProvider, $routeProvider, $locationProvider) {
     }).when("/skift", {
         templateUrl: "partials/shiftlist.html"
     }).when("/kontrollpanel", {
-        templateUrl: "partials/kontrollpanel.html"
+        templateUrl: "partials/controlpanel.html"
+    }).when("/timelister_current", {
+        templateUrl: "partials/timelists_current.html"
+    }).when("/timelister/:id", {
+        templateUrl: "partials/timelists.html",
+        controller: 'TimelistsCtrl'
+    }).when("/kontrollpanel/godkjennevaktbytte", {
+        templateUrl: "partials/confirm_swap.html"
     }).otherwise(
         "/"
     );
@@ -53,11 +58,16 @@ app.service('menuService', function(){
                     name: 'Timelister',
                     icon: 'assignment',
                     link: 'Timelister',
-                    url: '#test'
+                    url: '#timelister_current'
                 }, {
                     name: 'Vaktbytte',
                     icon: 'swap_horiz',
                     link: 'Vaktbytte'
+                }, {
+                    name: 'Ansatte',
+                    icon: 'people',
+                    link: 'Ansatte',
+                    url: '#ansatt'
                 }]
             }, {
                 admin: [{
@@ -65,11 +75,6 @@ app.service('menuService', function(){
                     icon: 'developer_board',
                     link: 'Action 4',
                     url: '#kontrollpanel'
-                }, {
-                    name: 'Ansatte',
-                    icon: 'people',
-                    link: 'Ansatte',
-                    url: '#ansatt'
                 }]
             }, {
                 bottom: [{
@@ -155,15 +160,30 @@ app.service('menuService', function(){
                     icon: 'place',
                     toast: '',
                     url: '#innstillinger/password'
+                }, {
+                    option: 'Endre Telefonnummer',
+                    icon: 'phone',
+                    toast: '',
+                    url: '#innstillinger/password'
+                }, {
+                    option: 'Endre E-post',
+                    icon: 'email',
+                    toast: '',
+                    url: '#innstillinger/password'
                 }]
             }],
             admin: [{
                 name:'Kontrollpanel',
                 options:[{
-                    option: 'Brukere',
-                    icon: 'people',
+                    option: 'Lag Vakt',
+                    icon: 'add_box',
                     toast: 'Endre passord',
                     url: '#innstillinger/password'
+                }, {
+                    option: 'Godkjenne Vaktbytte',
+                    icon: 'playlist_add_check',
+                    toast: 'Endre passord',
+                    url: '#kontrollpanel/godkjennevaktbytte'
                 }]
             }]
         }
@@ -171,7 +191,7 @@ app.service('menuService', function(){
     }
 });
 
-app.controller('MinVaktCtrl', function($scope, $mdSidenav, $mdToast, $http, employeeService, menuService, userService) {
+app.controller('MinVaktCtrl', function($scope, $mdSidenav, $mdToast, $http, $routeParams, employeeService, menuService, userService) {
 
     employeeService.then(function(result){
         $scope.employee = result.data;
@@ -196,11 +216,11 @@ app.controller('MinVaktCtrl', function($scope, $mdSidenav, $mdToast, $http, empl
         $mdSidenav(menu).toggle();
     };
     $scope.toast = function(message) {
-        var toast = $mdToast.simple().content('You clicked ' + message).position('bottom right');
+        var toast = $mdToast.simple().content('Du klikket ' + message).position('bottom right');
         $mdToast.show(toast);
     };
     $scope.toastList = function(message) {
-        var toast = $mdToast.simple().content('You clicked ' + message + ' having selected ' + $scope.selected.length + ' item(s)').position('bottom right');
+        var toast = $mdToast.simple().content('Du klikket ' + message + ' ,har velget ' + $scope.selected.length).position('bottom right');
         $mdToast.show(toast);
     };
     $scope.selected = [];
@@ -209,4 +229,8 @@ app.controller('MinVaktCtrl', function($scope, $mdSidenav, $mdToast, $http, empl
         if (idx > -1) list.splice(idx, 1);
         else list.push(item);
     };
+});
+
+app.controller('TimelistsCtrl', function($scope, $routeParams){
+    $scope.id = $routeParams.id;
 });

@@ -23,7 +23,7 @@ $(document).ready(function() {
             $("#inputEmail").attr('value', $('tr.selected td:eq(3)').text());
             $("#inputCategory").val($('tr.selected td:eq(4)').text());
         } else {
-            alert("Trykk på en ansatt før du endrer.");
+            alert("Velg en ansatt før du endrer.");
         }
 
     });
@@ -36,19 +36,17 @@ $(document).ready(function() {
                 $("#inputRole1").val(result.role + "Sel");
             });
         } else {
-            alert("Trykk på en ansatt før du endrer.");
+            alert("Velg en ansatt før du endrer.");
         }
 
     });
 
     // When the user clicks on <span> (x), close the modal
-     $("#closeUpdate").on('click', function() {
-        console.log("update");
+    $("#closeUpdate").on('click', function() {
         $("#updateModal").modal('hide');
     });
 
     $("#closeCreate").on('click', function() {
-        console.log("create");
         $("#createModal").modal('hide');
     });
 
@@ -133,12 +131,12 @@ $(document).ready(function() {
             }),
             success: function(data, textStatus, jqXHR){
                 console.log("User added.");
-
+                console.log(($("#inputRole").prop('selectedIndex')-1));
                 //creating empty employee with same user_id
                 $.ajax({
-                    type: 'PUT',
+                    type: 'POST',
                     contentType: 'application/json',
-                    url: 'api/users/' + $("#inputUsername").val(),
+                    url: 'api/employees',
                     dataType: "json",
                     data: JSON.stringify({
                         "user_id": $("#inputUsername").val(),
@@ -225,11 +223,20 @@ $(document).ready(function() {
         if($('tr.selected td:eq(5)').text() != "") {
             var user_id = $('tr.selected td:eq(5)').text();
             $.ajax({
-                url: rootURL + user_id,
+                url: 'api/employees/' + user_id,
                 type: 'DELETE',
                 success: function(result) {
-                    console.log("Employee was deleted with user_id: " + user_id);
-                    window.location.reload();
+                    $.ajax({
+                        url: 'api/users/' + user_id,
+                        type: 'DELETE',
+                        success: function(result) {
+                        console.log("Employee and user was deleted with user_id: " + user_id);
+                        window.location.reload();
+                        },
+                        error: function(data, textStatus, jqXHR){
+                            console.log("Error: " + textStatus);
+                        }
+                    });
                 },
                 error: function(data, textStatus, jqXHR){
                     console.log("Error: " + textStatus);
@@ -334,8 +341,13 @@ $(document).ready(function() {
         registerOvertimeAbsence(user_id, shift_id, my_date, deviance);
     });
 
-    function getPhoneNumbers(){
-
-    }
+    $('#getTimelist').click(function() {
+        var user_id = $('tr.selected td:eq(5)').text();
+        if(user_id != "") {
+            window.location = "#/timelister/" + user_id;
+        } else {
+            alert("Velg på en ansatt først.");
+        }
+    });
 
 });
