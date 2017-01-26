@@ -11,6 +11,10 @@ app.config(function($mdThemingProvider, $routeProvider, $locationProvider) {
         templateUrl: "partials/settings.html"
     }).when("/innstillinger/password", {
         templateUrl: "partials/settings_password.html"
+    }).when("/innstillinger/email", {
+        templateUrl: "partials/settings_email.html"
+    }).when("/innstillinger/tlf", {
+        templateUrl: "partials/settings_phone.html"
     }).when("/skift", {
         templateUrl: "partials/shiftlist.html"
     }).when("/kontrollpanel", {
@@ -22,8 +26,9 @@ app.config(function($mdThemingProvider, $routeProvider, $locationProvider) {
         controller: 'TimelistsCtrl'
     }).when("/kontrollpanel/godkjennevaktbytte", {
         templateUrl: "partials/confirm_swap.html"
-    }).otherwise(
-        "/"
+    }).when("/feil", {
+        templateUrl: "partials/error.html"
+    }).otherwise("/feil"
     );
     $locationProvider.html5Mode(false);
 });
@@ -59,10 +64,6 @@ app.service('menuService', function(){
                     icon: 'assignment',
                     link: 'Timelister',
                     url: '#timelister_current'
-                }, {
-                    name: 'Vaktbytte',
-                    icon: 'swap_horiz',
-                    link: 'Vaktbytte'
                 }, {
                     name: 'Ansatte',
                     icon: 'people',
@@ -151,25 +152,20 @@ app.service('menuService', function(){
             user: [{
                 name:'Innstillinger',
                 options:[{
-                    option: 'Endre passord',
+                    option: 'Endre Passord',
                     icon: 'lock',
                     toast: 'Endre passord',
-                    url: '#innstillinger/password'
-                }, {
-                    option: 'Endre Adresse',
-                    icon: 'place',
-                    toast: '',
                     url: '#innstillinger/password'
                 }, {
                     option: 'Endre Telefonnummer',
                     icon: 'phone',
                     toast: '',
-                    url: '#innstillinger/password'
+                    url: '#innstillinger/tlf'
                 }, {
                     option: 'Endre E-post',
                     icon: 'email',
                     toast: '',
-                    url: '#innstillinger/password'
+                    url: '#innstillinger/email'
                 }]
             }],
             admin: [{
@@ -191,7 +187,7 @@ app.service('menuService', function(){
     }
 });
 
-app.controller('MinVaktCtrl', function($scope, $mdSidenav, $mdToast, $http, $routeParams, employeeService, menuService, userService) {
+app.controller('MinVaktCtrl', function($scope, $mdSidenav, $mdToast, $mdDialog ,$http, $routeParams, employeeService, menuService, userService) {
 
     employeeService.then(function(result){
         $scope.employee = result.data;
@@ -199,6 +195,7 @@ app.controller('MinVaktCtrl', function($scope, $mdSidenav, $mdToast, $http, $rou
         $scope.employee = {
             firstname: 'Ola',
             surname: 'Nordmann'
+
         };
         console.log('Issue loading employee data from api');
     });
@@ -220,7 +217,7 @@ app.controller('MinVaktCtrl', function($scope, $mdSidenav, $mdToast, $http, $rou
         $mdToast.show(toast);
     };
     $scope.toastList = function(message) {
-        var toast = $mdToast.simple().content('Du klikket ' + message + ' ,har velget ' + $scope.selected.length).position('bottom right');
+        var toast = $mdToast.simple().content('Du klikket ' + message + ' og har velget ' + $scope.selected.length).position('bottom right');
         $mdToast.show(toast);
     };
     $scope.selected = [];
