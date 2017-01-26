@@ -1,5 +1,7 @@
 package org.team8.webapp.User;
 
+import org.team8.webapp.LoginManagment.Hash;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -28,6 +30,27 @@ public class UserResource {
     public User getCurrentUser(@Context SecurityContext sc){
         System.out.println("getCurrentUser");
         return dao.getUserById(sc.getUserPrincipal().getName());
+    }
+
+    @Path("current/updatepassword")
+    @PUT
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String changePassword(@Context SecurityContext sc, String newPassword){
+
+        User u = dao.getUserById(sc.getUserPrincipal().getName());
+
+        if(u == null) return "User database error";
+
+        String hashedPassword = Hash.createHashedPassword(newPassword);
+
+        u.setPassword(hashedPassword);
+
+        if(dao.updateUser(u)){
+            return "New password set";
+        }else{
+            return "Update user error";
+        }
     }
 
     @Path("/isadmin")
@@ -68,6 +91,7 @@ public class UserResource {
         e.setPassword(hashedPassword);
         return dao.updateUser(e);
     }
+
 
     /* TODO:
     @Path("updateRole/{role}")
