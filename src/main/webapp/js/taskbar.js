@@ -17,6 +17,8 @@ app.config(function($mdThemingProvider, $routeProvider, $locationProvider) {
         templateUrl: "partials/settings_phone.html"
     }).when("/skift", {
         templateUrl: "partials/shiftlist.html"
+    }).when("/vaktbytte", {
+        templateUrl: "partials/swaplist.html"
     }).when("/kontrollpanel", {
         templateUrl: "partials/controlpanel.html"
     }).when("/timelister_current", {
@@ -66,9 +68,9 @@ app.service('menuService', function(){
                     url: '#timelister_current'
                 }, {
                     name: 'Vaktbytte',
-                    icon: 'swap_hroiz',
+                    icon: 'swap_horiz',
                     link: 'Vaktbytte',
-                    url: '#/'
+                    url: '#vaktbytte'
                 }, {
                     name: 'Ansatte',
                     icon: 'people',
