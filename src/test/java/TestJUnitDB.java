@@ -1,5 +1,3 @@
-/*
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.team8.webapp.Busy.Busy;
@@ -39,8 +37,9 @@ public class TestJUnitDB extends DatabaseManagement{
     private final int NO_ACCESS = 0;
     private final int ACCESS = 1;
 
-    //Bare for testing
-
+    /**
+     *  Bare for testing
+     */
     private boolean testExecuteSQL(String sql){
         if(setUp()){
             PreparedStatement prep = null;
@@ -256,7 +255,7 @@ public class TestJUnitDB extends DatabaseManagement{
             shiftDAO.removeShift(4);
         }
     }
-  
+
     @Test
     public void updateShift() {
         //creating dummy data to fetch
@@ -279,8 +278,8 @@ public class TestJUnitDB extends DatabaseManagement{
         //clean up and test
         assertTrue(shiftDAO.removeShift(dummy.getShift_id()));
     }
-  
-  
+
+
     //
     //Busy-tests
     //
@@ -300,7 +299,7 @@ public class TestJUnitDB extends DatabaseManagement{
         assertNotNull(busyDAO.getBusyById("dummy"));
 
         //clean up
-        busyDAO.removeBusy("dummy", 1);
+        busyDAO.removeBusy("dummy", 1, new Date(1970-05-07));
         userDAO.removeUser("dummy");
     }
 
@@ -313,57 +312,58 @@ public class TestJUnitDB extends DatabaseManagement{
         assertNotNull(busyDAO.getSingleBusy("dummy",1));
 
         //clean up
-        busyDAO.removeBusy("dummy", 1);
+        busyDAO.removeBusy("dummy", 1, new Date(1970-05-07));
         userDAO.removeUser("dummy");
     }
-  
+
     @Test
     public void createBusy() {
-      try {
-          //dummy data
-          userDAO.createUser(new User("dummy", "dummy", 1));
-          assertTrue(busyDAO.createBusy(new Busy("dummy", 1, new Date(1970-05-07))));
-      }
-      catch (Exception e){
-          System.err.println("Issue with database connection.");
-          e.printStackTrace();
-      }
-      finally {
-          //removing test data after tests to avoid clutter in database
-          busyDAO.removeBusy("dummy", 1);
-          userDAO.removeUser("dummy");
-      }
-  }
+        try {
+            //dummy data
+            userDAO.createUser(new User("dummy", "dummy", 1));
+            assertTrue(busyDAO.createBusy(new Busy("dummy", 1, new Date(1970-05-07))));
+        }
+        catch (Exception e){
+            System.err.println("Issue with database connection.");
+            e.printStackTrace();
+        }
+        finally {
+            //removing test data after tests to avoid clutter in database
+            busyDAO.removeBusy("dummy", 1, new Date(1970-05-07));
+            userDAO.removeUser("dummy");
+        }
+    }
 
-  @Test
-  public void updateBusy() {
-      //dummy data and dates
-      Date date = new Date(2017-11-12);
-      Date dateUpdated = new Date(2016-01-06);
+    @Test
+    public void updateBusy() {
+        //dummy data and dates
+        Date date = new Date(2017-11-12);
+        Date dateUpdated = new Date(2016-01-06);
+        ArrayList<Busy> b = new ArrayList<Busy>();
+        b.add(new Busy("dummy", 1, new Date(1970-05-07)));
+        b.add(new Busy("dummy", 1, new Date(1974-05-07)));
 
-      userDAO.createUser(new User("dummy", "dummy", 1));
-      busyDAO.createBusy(new Busy("dummy", 1, date));
+        userDAO.createUser(new User("dummy", "dummy", 1));
+        busyDAO.createBusy(new Busy("dummy", 1, new Date(1970-05-07)));
 
-      assertTrue(busyDAO.updateBusy(new Busy("dummy", 1, dateUpdated)));
+        assertTrue(busyDAO.updateBusy(b));
 
-      //clean up
-      busyDAO.removeBusy("dummy", 1);
-      userDAO.removeUser("dummy");
-  }
+        //clean up
+        busyDAO.removeBusy("dummy", 1, new Date(1974-05-07));
+        userDAO.removeUser("dummy");
+    }
 
-  @Test
-  public void removeBusy() {
-      //dummy data and dates
-      Date date = new Date(2017-11-12);
+    @Test
+    public void removeBusy() {
+        //dummy data and dates
+        userDAO.createUser(new User("dummy", "dummy", 1));
+        busyDAO.createBusy(new Busy("dummy", 1, new Date(2017-11-12)));
 
-      userDAO.createUser(new User("dummy", "dummy", 1));
-      busyDAO.createBusy(new Busy("dummy", 1, date));
+        assertTrue(busyDAO.removeBusy("dummy", 1, new Date(2017-11-12)));
 
-      assertTrue(busyDAO.removeBusy("dummy", 1));
-
-      //clean up
-      userDAO.removeUser("dummy");
-  }
+        //clean up
+        userDAO.removeUser("dummy");
+    }
 
 
     //
@@ -532,6 +532,3 @@ public class TestJUnitDB extends DatabaseManagement{
     }
 
 }
-
-
-*/
