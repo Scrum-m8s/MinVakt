@@ -77,7 +77,7 @@
                         <md-icon>chevron_right</md-icon>
                     </md-list-item>
 
-                    <md-list-item ng-show="isAdmin" ng-repeat="x in section.admin" ng-click="toast(x.link); toggleSidenav('left'))" href="{{x.url}}">
+                    <md-list-item ng-show="isAdmin" ng-repeat="x in section.admin" ng-click="toast(x.link); toggleSidenav('left')" href="{{x.url}}">
                         <md-icon>{{x.icon}}</md-icon>
                         <p class="md-body-2">{{x.name}}</p>
                         <span flex></span>
