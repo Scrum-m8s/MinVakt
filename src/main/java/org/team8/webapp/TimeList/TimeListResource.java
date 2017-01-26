@@ -69,7 +69,8 @@ public class TimeListResource {
     @Path("{year}/{month}/{id}")
     @DELETE
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public void removeTimeList(@PathParam("year") int year, @PathParam("month") int month, @PathParam("id") String id) {
-        dao.removeTimeList(year, month, id);
+    public boolean removeTimeList(@PathParam("year") int year, @PathParam("month") int month, @PathParam("id") String id) {
+        System.out.println("removeTimeList");
+        return dao.removeTimeList(year, month, id);
     }
 }

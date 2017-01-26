@@ -2,10 +2,7 @@ package org.team8.webapp.Busy;
 
 import org.team8.webapp.Database.DatabaseManagement;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 /**
  * Created by Nina on 12.01.2017.
@@ -66,14 +63,15 @@ public class BusyDAO extends DatabaseManagement {
         return out;
     }
 
-    public Busy getSingleBusy(String user_id, int shift_id){
+    public Busy getSingleBusy(Date my_date, int shift_id, String user_id){
         Busy out = null;
         if(setUp()){
             try {
                 conn = getConnection();
-                prep = conn.prepareStatement("SELECT * FROM Busy WHERE user_id=? AND shift_id=?;");
+                prep = conn.prepareStatement("SELECT * FROM Busy WHERE user_id=? AND shift_id=? AND my_date=?;");
                 prep.setString(1, user_id);
                 prep.setInt(2, shift_id);
+                prep.setDate(3, my_date);
                 res = prep.executeQuery();
                 if (res.next()){
                     out = processRow(res);
@@ -137,15 +135,16 @@ public class BusyDAO extends DatabaseManagement {
         return numb > 0;
     }
 
-    public boolean removeBusy(String user_id, int shift_id){
+    public boolean removeBusy(Date my_date, int shift_id, String user_id){
         int numb = 0;
         if(setUp()) {
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
-                prep = conn.prepareStatement("DELETE FROM Busy WHERE user_id = ? AND shift_id = ?;");
+                prep = conn.prepareStatement("DELETE FROM Busy WHERE user_id = ? AND shift_id = ? AND my_date=?;");
                 prep.setString(1, user_id);
                 prep.setInt(2, shift_id);
+                prep.setDate(3, my_date);
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
