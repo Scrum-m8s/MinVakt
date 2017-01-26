@@ -1,1 +1,51 @@
-TEST
+<md-list>
+    <div class="md-actions" layout layout-align="end center">
+        <md-subheader class="md-no-sticky">Ansatte</md-subheader>
+        <span flex></span>
+        <md-button class="md-icon-button" aria-label="{{list.menu.name}}" ng-click="$mdOpenMenu($event)">
+            <md-icon class="md-primary">settings</md-icon>
+        </md-button>
+    </div>
+    <md-divider></md-divider>
+    <md-list-item class="md-2-line" ng-click="null">
+        <md-checkbox ng-click="toggle(item, selected)"></md-checkbox>
+        <div class="md-list-item-text">
+            <h3>firstname</h3>
+        </div>
+        <div class="md-list-item-text">
+            <h3>lastname</h3>
+        </div>
+        <div class="md-list-item-text" ng-show="$mdMedia('gt-md')">
+            <h3>phone</h3>
+        </div>
+        <div class="md-list-item-text" ng-show="$mdMedia('gt-md')">
+            <h3>email</h3>
+        </div>
+        <div class="md-list-item-text" ng-show="$mdMedia('gt-md')">
+            <h3>role</h3>
+        </div>
+        <span flex></span>
+        <md-icon>chevron_right</md-icon>
+    </md-list-item>
+</md-list>
+<md-list ng-repeat="item in test">
+    <md-list-item class="md-2-line" ng-click="item.expand = !item.expand">
+        <md-checkbox ng-click="toggle(item, selected)"></md-checkbox>
+        <div class="md-list-item-text" layout="column">
+            <h3>{{item.firstname}}</h3>
+            <p>{{item.lastname}}</p>
+        </div>
+        <md-icon class="md-primary md-icon-button">arrow_drop_down</md-icon>
+    </md-list-item>
+    <md-list-item ng-show="item.expand" ng-click="null">
+        <div class="md-list-item-text" layout="column">
+            <p>{{item.phone}}</p>
+            <p>{{item.email}}</p>
+        </div>
+        <span flex="10"></span>
+        <div class="md-list-item-text" layout="column">
+            <p>{{item.role}}</p>
+            <p>{{item.username}}</p>
+        </div>
+    </md-list-item>
+</md-list>

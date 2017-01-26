@@ -7,13 +7,6 @@
           <element id="module-output" name="MinVakt" />
         </element>
         <element id="directory" name="lib">
-          <element id="library" level="project" name="Maven: org.webjars.bower:angular:1.6.1" />
-          <element id="library" level="project" name="Maven: org.webjars.bower:angular-animate:1.6.1" />
-          <element id="library" level="project" name="Maven: org.webjars.bower:angular-aria:1.6.1" />
-          <element id="library" level="project" name="Maven: org.webjars.bower:angular-material:1.1.1" />
-          <element id="library" level="project" name="Maven: org.webjars.bower:angular-messages:1.6.1" />
-          <element id="library" level="project" name="Maven: org.webjars.bower:angular-sanitize:1.6.1" />
-          <element id="library" level="project" name="Maven: org.webjars.bower:angular-route:1.6.1" />
           <element id="library" level="project" name="Maven: org.mockito:mockito-all:1.10.19" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:6.0.5" />
           <element id="library" level="project" name="Maven: com.google.guava:guava:19.0" />

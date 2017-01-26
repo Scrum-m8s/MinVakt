@@ -9,6 +9,7 @@ $(document).ready(function() {
         "select" : {
             style: 'single'
         },
+        responsive: true,
         ajax: {
             url: 'api/employees',
             "dataSrc": function (json) {

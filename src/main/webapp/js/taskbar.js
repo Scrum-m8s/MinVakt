@@ -7,6 +7,8 @@ app.config(function($mdThemingProvider, $routeProvider, $locationProvider) {
         templateUrl : "partials/main.html"
     }).when("/ansatt", {
         templateUrl:  "partials/employees.html"
+    }).when("/t", {
+        templateUrl:  "partials/test.html"
     }).when("/innstillinger", {
         templateUrl: "partials/settings.html"
     }).when("/innstillinger/password", {
@@ -33,9 +35,13 @@ app.config(function($mdThemingProvider, $routeProvider, $locationProvider) {
     $locationProvider.html5Mode(false);
 });
 
-app.service('employeeService', function($http){
+app.service('employeeCurrentService', function($http){
     return $http.get('api/employees/current')
-})
+});
+
+app.service('employeeService', function($http){
+    return $http.get('api/employees')
+});
 
 app.service('userService', function($http){
     return $http.get('api/users/current')
@@ -135,18 +141,37 @@ app.service('menuService', function(){
     }
 });
 
-app.controller('MinVaktCtrl', function($scope, $mdSidenav, $mdToast, $mdDialog ,$http, $routeParams, employeeService, menuService, userService) {
+app.controller('MinVaktCtrl', function($scope, $mdSidenav, $mdToast, $mdMedia ,$http, $routeParams, employeeService, employeeCurrentService, menuService, userService) {
 
-    employeeService.then(function(result){
+    $scope.$mdMedia = $mdMedia;
+
+    employeeCurrentService.then(function(result){
         $scope.employee = result.data;
     }, function(result){
         $scope.employee = {
             firstname: 'Ola',
             surname: 'Nordmann'
-
         };
+        console.log('Issue loading current employee data from api');
+    });
+
+    employeeService.then(function(result){
+        $scope.employees = result.data;
+    }, function(result){
         console.log('Issue loading employee data from api');
     });
+
+    $scope.test = {
+        section: {
+            expand: false,
+            firstname: 'Ola',
+            lastname: 'Nordmann',
+            phone: '94892213',
+            email: 'ola@mail.no',
+            role: 'Lege',
+            username: 'olanord'
+        }
+    };
 
     userService.then(function(result){
         $scope.isAdmin = (result.data.role===0)

@@ -2,10 +2,10 @@
 <script src="/js/employee.js"></script>
 <link rel="stylesheet" href="/css/layout.css">
 
+<h3 class="md-title">Ansatte</h3>
 
-<div class="content">
-    <h2>Ansatte</h2>
-    <table id="table_employees" class="table stripe hover" width="100%">
+<div class="content" style="width: 99%">
+    <table id="table_employees" class="table stripe hover">
         <thead>
         <tr>
             <th>Etternavn</th>
@@ -108,14 +108,13 @@
                 </form>
             </div>
         </div>
-
-
-        <div ng-show="isAdmin">
-            <button id="getTimelist">Se timeliste</button>
-            <button id="createEmployee">Opprett ansatt</button>
-            <button id="updateRoleAndPassword">Oppdater passord/tilgang</button>
-            <button id="updateEmployee">Endre ansatt</button>
-            <button id="deleteEmployee">Fjern ansatt</button>
-        </div>
+    </div>
+    <span flex></span>
+    <div ng-show="isAdmin">
+        <md-button class="md-primary md-raised" id="getTimelist">Se timeliste</md-button>
+        <md-button class="md-raised" id="createEmployee">Opprett ansatt</md-button>
+        <md-button class="md-raised" id="updateRoleAndPassword">Oppdater passord/tilgang</md-button>
+        <md-button class="md-raised" id="updateEmployee">Endre ansatt</md-button>
+        <md-button class="md-raised" id="deleteEmployee">Fjern ansatt</md-button>
     </div>
 </div>
