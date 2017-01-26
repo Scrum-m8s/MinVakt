@@ -336,7 +336,7 @@ $(document).ready(function() {
 
     $('#getTimelist').click(function() {
         var user_id = $('tr.selected td:eq(5)').text();
-        window.location = "http://www.localhost:8080/timelists.html?=" + user_id;
+        window.location = "http://www.localhost:8080/timelists.html?user/=" + user_id;
     });
 
 });

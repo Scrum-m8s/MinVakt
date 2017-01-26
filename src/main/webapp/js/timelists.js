@@ -1,7 +1,7 @@
 
 $(document).ready(function() {
     // Bind opp tabellen mot rest-ressursen
-    var user = "admin";//window.location.search.substring(1).split("=")[1];
+    var user = window.location.search.substring(1).split("=")[1];
 
     var monthNames = ["Januar", "Februar", "Mars", "April", "Mai", "Juni",
         "Juli", "August", "September", "Oktober", "November", "Desember"
@@ -16,7 +16,7 @@ $(document).ready(function() {
         "select" : true,
 
         ajax: {
-            url: 'api/timelists/' + user,
+            url: 'api/timelists/user/' + user,
             "dataSrc": function (json) {
                 var return_data = new Array();
                 for (var i = 0;  i < json.length; ++i) {
