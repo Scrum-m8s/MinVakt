@@ -1,7 +1,9 @@
 
 $(document).ready(function() {
     // Bind opp tabellen mot rest-ressursen
-    var user = "Espen"; //TODO: gotta get timelists by userid
+    var pathArray = window.location.pathname.split( '/' );
+    var user = pathArray[0]; //TODO: gotta get timelists by userid
+    //http://www.localhost:8080/timelists?source=
 
 
     var monthNames = ["Januar", "Februar", "Mars", "April", "Mai", "Juni",

@@ -318,6 +318,11 @@ $(document).ready(function() {
             deviance = $("#deviance").val();
         }
         registerOvertimeAbsence(user_id, shift_id, my_date, deviance);
-    })
+    });
+
+    $("#getTimelist").click(function (){
+        var user_id = $('tr.selected td:eq(5)').text();
+        $("#getTimelist").attr("href", "http://www.localhost:8080/timelists?source=" + user_id)
+    });
 
 });
