@@ -243,7 +243,6 @@ public class TestJUnitDB extends DatabaseManagement{
 
         //test
         assertNotNull(availableEmployeeResource.getAvailableEmployees(new AvailableEmployee(2,"2017-02-02",3)));
-        assertNotNull(availableEmployeeResource.getAvailableEmployees(2,"2017-02-02",3));
 
         //clean up
         shiftListResource.removeShiftlist(new Date(2017-01-01),1,"dummy3");

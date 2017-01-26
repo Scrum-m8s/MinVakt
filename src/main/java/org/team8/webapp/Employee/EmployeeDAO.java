@@ -32,7 +32,6 @@ public class EmployeeDAO extends DatabaseManagement {
                 }
             }
             catch (SQLException sqle){
-                sqle.printStackTrace();
                 System.err.println("Issue with getting employees. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 return null;
             }
@@ -139,7 +138,6 @@ public class EmployeeDAO extends DatabaseManagement {
             }
             catch (SQLException sqle) {
                 System.err.println("Issue with creating employee. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
-                sqle.printStackTrace();
                 rollbackStatement();
                 return false;
             }
@@ -167,7 +165,6 @@ public class EmployeeDAO extends DatabaseManagement {
             }
             catch (SQLException sqle) {
                 System.err.println("Issue with updating employee. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
-                sqle.printStackTrace();
                 rollbackStatement();
                 return false;
             }

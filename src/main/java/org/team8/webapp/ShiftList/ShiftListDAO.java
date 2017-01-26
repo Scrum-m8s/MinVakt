@@ -102,7 +102,6 @@ public class ShiftListDAO extends DatabaseManagement{
                 }
             }
             catch (SQLException sqle){
-                sqle.printStackTrace();
                 System.err.println("Issue with getting Shift_list by date and shift_id. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 return null;
             }
@@ -207,7 +206,6 @@ public class ShiftListDAO extends DatabaseManagement{
             }
             catch (SQLException sqle) {
                 System.err.println("Issue with updating shiftlist. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
-                sqle.printStackTrace();
                 rollbackStatement();
                 return false;
             }
