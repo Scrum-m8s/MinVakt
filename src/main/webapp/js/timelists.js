@@ -1,7 +1,8 @@
 
 $(document).ready(function() {
     // Bind opp tabellen mot rest-ressursen
-    var user = window.location.search.substring(1).split("=")[1];
+    var user = window.location.href.split("/")[5];
+    console.log(user);
 
     var monthNames = ["Januar", "Februar", "Mars", "April", "Mai", "Juni",
         "Juli", "August", "September", "Oktober", "November", "Desember"
