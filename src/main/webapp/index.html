@@ -14,105 +14,114 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
 
+
+        <!-- jquery -->
+        <script src="js/jquery-3.1.0.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+
+        <!-- bootstrap -->
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+        <!-- datatable -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+        <script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/dt-1.10.13/b-1.2.4/b-colvis-1.2.4/b-print-1.2.4/r-2.1.0/se-1.2.0/datatables.min.js"></script>        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+        <!-- fullcalendar -->
+        <link rel='stylesheet' href='http://fullcalendar.io/js/fullcalendar-2.2.3/fullcalendar.css' />
+        <script src='http://fullcalendar.io/js/fullcalendar-2.2.3/lib/moment.min.js'></script>
+        <script src='http://fullcalendar.io/js/fullcalendar-2.2.3/fullcalendar.min.js'></script>
+
+
+        <!-- fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="js/taskbar.js"></script>
+
+
+        <!-- angular -->
+        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+
 
         <!-- user-defined styles -->
         <link rel="stylesheet" href="css/style.css">
 
-        <!-- hindrer at man omdirigeres til favicon.ico etter at man logger inn -->
-        <link rel="icon" href="data:;base64,=">
+
+        <!--<base href="/" />-->
     </head>
+
     <body>
-        <div class="master-header-wrapper">
-            <div class="master-header">
-                <div id="menu-id">
-                    <a href="javascript:void(0)" onclick="openCloseNav()" id="menu-button-id">
-                        <span class="material-icons" id="menu-icon-id">menu</span>
-                    </a>
 
-                    <a href="index.html" id="menu-title-id">Trondheim Kommune</a>
-
-
-                    <div class="dropdown-wrapper">
-                        <span class="material-icons" id="dropdown">account_circle</span>
-                        <div class="dropdown-content">
-                            <a href="#" class="dropdown-link">
-                                <span class="material-icons">settings</span>
-                                <span class="dropdown-name">Innstillinger</span>
-                            </a>
-                            <a href="logout.jsp" class="dropdown-link">
-                                <span class="material-icons">power_settings_new</span>
-                                <span class="dropdown-name">Logg av</span>
-                            </a>
-                        </div>
+    <div ng-app="MinVakt" ng-controller="MinVaktCtrl" layout="row" layout-fill ng-cloak>
+        <md-sidenav class="md-sidenav-left md-whiteframe-z2" role="sidenav" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+            <md-toolbar class="md-tall md-hue-2" layout-align="end end">
+                <div class="md-toolbar-tools" layout layout-padding>
+                    <md-icon>{{data.user.icon}}</md-icon>
+                    <div layout="column" layout-padding>
+                        <span class="md-body-2">{{employee.firstname}}</span>
+                        <span class="md-caption">{{employee.surname}}</span>
                     </div>
+                    <span flex></span>
                 </div>
-            </div>
-        </div>
+            </md-toolbar>
+            <md-content role="navigation">
+                <md-list ng-repeat="section in data.sidenav.sections">
 
-            <!-- Sidebar innhold-->
-        <div class="sidebar-wrapper" id="sidebar-wrapper-id">
-            <div class="sidebar">
+                    <md-list-item ng-repeat="x in section.actions" ng-click="toast(x.link); toggleSidenav('left')"  href="{{x.url}}">
+                        <md-icon>{{x.icon}}</md-icon>
+                        <p class="md-body-2">{{x.name}}</p>
+                        <span flex></span>
+                        <md-icon>chevron_right</md-icon>
+                    </md-list-item>
 
-                <a href="index.html" class="sidebar-link">
-                    <span class="selector-current"></span>
-                    <span class="material-icons">home</span>
-                    <span class="display-name">Hjem</span>
-                </a>
+                    <md-list-item ng-show="isAdmin" ng-repeat="x in section.admin" ng-click="toast(x.link); toggleSidenav('left')" href="{{x.url}}">
+                        <md-icon>{{x.icon}}</md-icon>
+                        <p class="md-body-2">{{x.name}}</p>
+                        <span flex></span>
+                        <md-icon>chevron_right</md-icon>
+                    </md-list-item>
 
-                <a href="timeliste.html" class="sidebar-link">
-                    <span class="selector"></span>
-                    <span class="material-icons">today</span>
-                    <span class="display-name">Timelister</span>
-                </a>
+                    <md-list-item ng-repeat="x in section.bottom" ng-click="toast(x.link); toggleSidenav('left')" href="{{x.url}}">
+                        <md-icon>{{x.icon}}</md-icon>
+                        <p class="md-body-2">{{x.name}}</p>
+                        <span flex></span>
+                        <md-icon>chevron_right</md-icon>
+                    </md-list-item>
 
-                <a href="vaktbytte.html" class="sidebar-link">
-                    <span class="selector"></span>
-                    <span class="material-icons">swap_horiz</span>
-                    <span class="display-name">Vaktbytte</span>
-                </a>
-
-                <a href="shift_book.html" class="sidebar-link">
-                    <span class="selector"></span>
-                    <span class="material-icons">book</span>
-                    <span class="display-name">Skiftbok</span>
-                </a>
-
-                <a href="employees.html" class="sidebar-link">
-                    <span class="selector"></span>
-                    <span class="material-icons">people</span>
-                    <span class="display-name">Ansatte</span>
-                </a>
-
-                <a href="register_new_shift.html" class="sidebar-link">
-                    <span class="selector"></span>
-                    <span class="material-icons">today</span>
-                    <span class="display-name">Registrer ny vakt</span>
-                </a>
-
-                <a href="create_timelist.html" class="sidebar-link">
-                    <span class="selector"></span>
-                    <span class="material-icons">book</span>
-                    <span class="display-name">lage timelister</span>
-                </a>
-                <a href="overtime_absence.html" class="sidebar-link">
-                    <span class="selector"></span>
-                    <span class="material-icons">today</span>
-                    <span class="display-name">Overtid/fravær</span>
-                </a>
-            </div>
-        </div>
-
-        
-        <div class="content-wrapper">
-            <div class="content-card">
-
-            </div>
-        </div>
+                </md-list>
+            </md-content>
+        </md-sidenav>
+        <section layout="column" role="main" flex>
+            <md-toolbar role="toolbar">
+                <div class="md-toolbar-tools">
+                    <md-button class="md-icon-button" ng-click="toggleSidenav('left')" hide-gt-md aria-label="Menu">
+                        <md-icon>menu</md-icon>
+                    </md-button>
+                    <h4 class="md-title">{{data.title}}</h4>
+                    <span flex></span>
+                </div>
+            </md-toolbar>
+            <section id="content" role="content" layout="column" layout-padding md-scroll>
+                <md-content class="md-whiteframe-3dp" ng-cloak>
+                    <ng-view>
+                        <!-- Her vil html code fra cards/* automatisk implementeres -->
+                    </ng-view>
+                </md-content>
+            </section>
+        </section>
     </div>
+
+        <!-- AngularJS -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+    <script src="js/taskbar.js"></script>
     </body>
 </html>

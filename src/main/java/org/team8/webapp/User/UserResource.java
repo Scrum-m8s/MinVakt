@@ -56,13 +56,11 @@ public class UserResource {
     @Path("/isadmin")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public boolean isAdmin(@Context SecurityContext sc){
+    public String isAdmin(@Context SecurityContext sc){
         User u = dao.getUserById(sc.getUserPrincipal().getName());
         if(u.getRole() == 0){
-            return true;
-        }else{
-            return false;
-        }
+            return Boolean.TRUE.toString();
+        }else return Boolean.FALSE.toString();
     }
 
     @Path("{id}")

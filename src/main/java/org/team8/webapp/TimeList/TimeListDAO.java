@@ -8,6 +8,7 @@ import org.team8.webapp.ShiftList.ShiftList;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 @SuppressWarnings("ALL")
 public class TimeListDAO extends DatabaseManagement{
@@ -66,7 +67,32 @@ public class TimeListDAO extends DatabaseManagement{
         return out;
     }
 
-    public TimeList getSingleTimeList(String id, int year, int month){
+
+    public ArrayList<TimeList> getTimeListsByMonth(int year, int month){
+        ArrayList<TimeList> out = new ArrayList<TimeList>();
+        if(setUp()){
+            try {
+                conn = getConnection();
+                prep = conn.prepareStatement("SELECT * FROM Time_list WHERE year=? AND month=?;");
+                prep.setInt(1, year);
+                prep.setInt(2,month);
+                res = prep.executeQuery();
+                while (res.next()){
+                    out.add(processRow(res));
+                }
+            }
+            catch (SQLException sqle){
+                System.err.println("Issue with getting timelists by month.");
+                return null;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return out;
+    }
+
+    public TimeList getSingleTimeList(int year, int month, String id){
         TimeList out = null;
         if(setUp()){
             try {
@@ -91,51 +117,53 @@ public class TimeListDAO extends DatabaseManagement{
         return out;
     }
 
-    //Updates time_list deviances with input data. Creates a new entry if row does not exist in a given year and month.
-    public boolean updateDeviance(ShiftList s_l, int year, int month){
+    public boolean onShiftListCreate(ShiftList s_l) {
+        boolean numb;
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(s_l.getMy_date());
+
+        //Checks if a row exists given user_id and month.
+        TimeList existingTimelist = new TimeList();
+        boolean exists = rowExists(s_l.getUser_id(), cal.get(Calendar.YEAR), cal.get(Calendar.MONTH));
+        //If exists, +8 ordinary to existing
+        if (exists){
+            existingTimelist = getSingleTimeList(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), s_l.getUser_id());
+            existingTimelist.setOrdinary(existingTimelist.getOrdinary()+8);
+            numb = updateTimeList(existingTimelist);
+        }
+        //If no timelist, create with 8 ordinary.
+        else{numb=createTimeList(new TimeList(s_l.getUser_id(),cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),8,0,0));
+        }
+        return numb;
+    }
+    //TODO: Update so admin can approve, instead of automatically adding.
+    public boolean onShiftListDevianceUpdate(ShiftList s_l) {
         int numb = 0;
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(s_l.getMy_date());
+
+        TimeList existingTimelist = getSingleTimeList(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), s_l.getUser_id());
 
         if(setUp()) {
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
-                //Checks if a row exists given user_id and month.
-                boolean exists = rowExists(s_l.getUser_id(), year, month);
-                if (exists){
-                    TimeList existingTimelist = getSingleTimeList(s_l.getUser_id(), year, month);
-                    //If a unique row exists and deviance<0, update absence.
-                    if (s_l.getDeviance()<0) {
-                        prep = conn.prepareStatement("UPDATE Time_list SET absence=? WHERE user_id=? AND year=? AND month=?");
-                        prep.setInt(1, existingTimelist.getAbsence() + s_l.getDeviance());
-                        prep.setString(2, s_l.getUser_id());
-                        prep.setInt(3,year);
-                        prep.setInt(4, month);
-                    }
-                    //If a unique row exists and deviance>0, update overtime.
-                    else{
-                        prep = conn.prepareStatement("UPDATE Time_list SET overtime=? WHERE user_id=? AND year=? AND month=?");
-                        prep.setInt(1,existingTimelist.getOvertime()+s_l.getDeviance());
-                        prep.setString(2,s_l.getUser_id());
-                        prep.setInt(3, year);
-                        prep.setInt(4, month);
-
-                    }
+                //If deviance<0, update absence.
+                if (s_l.getDeviance() < 0) {
+                    prep = conn.prepareStatement("UPDATE Time_list SET absence=? WHERE user_id=? AND year=? AND month=?");
+                    prep.setInt(1, existingTimelist.getAbsence() + s_l.getDeviance());
+                    prep.setString(2, s_l.getUser_id());
+                    prep.setInt(3, cal.get(Calendar.YEAR));
+                    prep.setInt(4, cal.get(Calendar.MONTH));
                 }
-                //If a unique row does not exist, create and fill in.
+                //If deviance>0, update overtime.
                 else {
-                    prep = conn.prepareStatement("INSERT INTO Time_list (user_id, year, month, ordinary, overtime, absence) VALUES (?, ?, ?, ?, ?, ?);");
-                    prep.setString(1, s_l.getUser_id());
-                    prep.setInt(2,year);
-                    prep.setInt(3, month);
-                    prep.setInt(4, 0);
-                    if (s_l.getDeviance()>0){
-                        prep.setInt(5,s_l.getDeviance());
-                        prep.setInt(6,0);
-                    }
-                    else{
-                        prep.setInt(5,0);
-                        prep.setInt(6,s_l.getDeviance());
-                    }
+                    prep = conn.prepareStatement("UPDATE Time_list SET overtime=? WHERE user_id=? AND year=? AND month=?");
+                    prep.setInt(1, existingTimelist.getOvertime() + s_l.getDeviance());
+                    prep.setString(2, s_l.getUser_id());
+                    prep.setInt(3, cal.get(Calendar.YEAR));
+                    prep.setInt(4, cal.get(Calendar.MONTH));
+
                 }
                 numb = prep.executeUpdate();
             }
@@ -149,6 +177,26 @@ public class TimeListDAO extends DatabaseManagement{
             }
         }
         return numb > 0;
+    }
+
+    public boolean onShiftListRemove(Date my_date,int shift_id,String user_id) {
+        boolean numb;
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(my_date);
+
+        TimeList existingTimelist = getSingleTimeList(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), user_id);
+
+        //If ordinary<=8, remove timelist
+        if(existingTimelist.getOrdinary()<=8){
+            numb = removeTimeList(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),user_id);
+        }
+
+        //Else -8 to ordinary
+        else{
+            existingTimelist.setOrdinary(existingTimelist.getOrdinary()-8);
+            numb = updateTimeList(existingTimelist);
+        }
+        return numb;
     }
 
     public boolean rowExists(String id, int year, int month){
@@ -231,7 +279,7 @@ public class TimeListDAO extends DatabaseManagement{
         return numb > 0;
     }
 
-    public boolean removeTimeList(String id, int year, int month) {
+    public boolean removeTimeList(int year, int month, String id) {
         int numb = 0;
         if(setUp()) {
             try {
