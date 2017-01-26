@@ -4,9 +4,7 @@ import org.team8.webapp.Busy.Busy;
 import org.team8.webapp.Busy.BusyDAO;
 import org.team8.webapp.Busy.BusyResource;
 import org.team8.webapp.Database.DatabaseManagement;
-import org.team8.webapp.Employee.Employee;
-import org.team8.webapp.Employee.EmployeeDAO;
-import org.team8.webapp.Employee.EmployeeResource;
+import org.team8.webapp.Employee.*;
 import org.team8.webapp.Shift.Shift;
 import org.team8.webapp.Shift.ShiftDAO;
 import org.team8.webapp.Shift.ShiftResource;
@@ -45,6 +43,7 @@ public class TestJUnitDB extends DatabaseManagement{
     private static TimeListResource timeListResource;
     private static ShiftListResource shiftListResource;
     private static ShiftListFunctionResource shiftListFunctionResource;
+    private static AvailableEmployeeResource availableEmployeeResource;
 
 
     private String[] validUser = new String[2];
@@ -92,7 +91,7 @@ public class TestJUnitDB extends DatabaseManagement{
             timeListResource = new TimeListResource();
             shiftListResource = new ShiftListResource();
             shiftListFunctionResource = new ShiftListFunctionResource();
-
+            availableEmployeeResource = new AvailableEmployeeResource();
         }
         catch(Exception e) {
             System.err.println("Issue with database connections.");
@@ -198,7 +197,7 @@ public class TestJUnitDB extends DatabaseManagement{
     //
     @Test
     public void getEmployees() {
-        assertNotNull(employeeDAO.getEmployees());
+        assertNotNull(employeeResource.getEmployees());
     }
     @Test
     public void getEmployeeById() {
@@ -235,6 +234,25 @@ public class TestJUnitDB extends DatabaseManagement{
         assertNull(userResource.getUser("dummy"));
     }
     @Test
+    public void getAvailableEmployeeById() {
+        //creating dummy user to fetch
+        userDAO.createUser(new User("dummy", "dummy", 1));
+
+        //creating dummy shiftlist
+        shiftListResource.createShiftlist(new ShiftList("dummy3", 1, false, new Date(2017-01-01), 0, true));
+
+        //test
+        assertNotNull(availableEmployeeResource.getAvailableEmployees(new AvailableEmployee(2,"2017-02-02",3)));
+        assertNotNull(availableEmployeeResource.getAvailableEmployees(2,"2017-02-02",3));
+
+        //clean up
+        shiftListResource.removeShiftlist(new Date(2017-01-01),1,"dummy3");
+        userDAO.removeUser("dummy");
+
+        //test clean up
+        assertNull(userResource.getUser("dummy"));
+    }
+    @Test
     public void getEmployeeByCategory() {
         //creating dummy user to fetch
         userDAO.createUser(new User("dummy", "dummy", 1));
@@ -250,6 +268,33 @@ public class TestJUnitDB extends DatabaseManagement{
 
         //test clean up
         assertNull(userResource.getUser("dummy"));
+    }
+    @Test
+    public void getEmployeesForShift(){
+        //creating dummy user to fetch
+        userDAO.createUser(new User("dummy", "dummy", 1));
+        //creating dummy employee
+        employeeDAO.createEmployee(new Employee("dummy", "dummy", "dummy", "dummy", "dummy", 1));
+
+        assertNotNull(employeeResource.getEmployeesForShift("dummy", 1));
+
+        //clean up
+        employeeDAO.removeEmployee("dummy");
+        userDAO.removeUser("dummy");
+
+    }
+    @Test
+    public void getEmployeesForDate(){
+        //creating dummy user to fetch
+        userDAO.createUser(new User("dummy", "dummy", 1));
+        //creating dummy employee
+        employeeDAO.createEmployee(new Employee("dummy", "dummy", "dummy", "dummy", "dummy", 1));
+
+        assertNotNull(employeeResource.getEMployeesForDate("2017-01-01"));
+
+        //clean up
+        employeeDAO.removeEmployee("dummy");
+        userDAO.removeUser("dummy");
     }
 
     /* Impossible to reach?
