@@ -4,6 +4,7 @@ import org.team8.webapp.Employee.EmployeeDAO;
 import org.team8.webapp.TimeList.TimeListDAO;
 
 import javax.ws.rs.*;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -20,11 +21,10 @@ public class ShiftListFunctionResource {
     //Finds the amount of employees with specific categories registered on shifts during a parameter-given day(yyyy-MM-dd).
     @Path("getshifttotal/{my_date}")
     @GET
-    public ArrayList<ShiftDay> getShiftsByDate(@PathParam("my_date") String my_date_string){
-        System.out.println(my_date_string);
+    public ArrayList<ShiftDay> getShiftsByDate(@PathParam("my_date") Date my_date){
 
         //Entire shiftlist for that date fetched from database.
-        ArrayList<ShiftList> shift_list = sdao.getShiftListsByDate(my_date_string);
+        ArrayList<ShiftList> shift_list = sdao.getShiftListsByDate(my_date);
 
         //Initiating resulting array after upcoming for-loop.
         ArrayList<ShiftDay> shiftsThisDay = new ArrayList<ShiftDay>();
@@ -51,8 +51,8 @@ public class ShiftListFunctionResource {
 
     @Path("getshifttotal/{my_date}/{shift_id}")
     @GET
-    public ArrayList<ShiftList> getShiftsByDateAndShiftId(@PathParam("my_date") String my_date_string, @PathParam("shift_id") int shift_id){
+    public ArrayList<ShiftList> getShiftsByDateAndShiftId(@PathParam("my_date") Date my_date, @PathParam("shift_id") int shift_id){
         System.out.println("getShiftsByDateAndShiftId");
-        return sdao.getShiftListsByDateAndShiftId(my_date_string, shift_id);
+        return sdao.getShiftListsByDateAndShiftId(my_date, shift_id);
     }
 }

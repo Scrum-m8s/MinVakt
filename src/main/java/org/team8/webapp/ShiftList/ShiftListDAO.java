@@ -65,13 +65,13 @@ public class ShiftListDAO extends DatabaseManagement{
         return out;
     }
 
-    public ArrayList<ShiftList> getShiftListsByDate(String my_date){
+    public ArrayList<ShiftList> getShiftListsByDate(Date my_date){
         ArrayList<ShiftList> out = new ArrayList<ShiftList>();
         if(setUp()){
             try {
                 conn = getConnection();
                 prep = conn.prepareStatement("SELECT * FROM Shift_list WHERE my_date=?;");
-                prep.setString(1, my_date);
+                prep.setDate(1, my_date);
                 res = prep.executeQuery();
                 while(res.next()){
                     out.add(processRow(res));
@@ -88,13 +88,13 @@ public class ShiftListDAO extends DatabaseManagement{
         return out;
     }
 
-    public ArrayList<ShiftList> getShiftListsByDateAndShiftId(String my_date, int shift_id){
+    public ArrayList<ShiftList> getShiftListsByDateAndShiftId(Date my_date, int shift_id){
         ArrayList<ShiftList> out = new ArrayList<ShiftList>();
         if(setUp()){
             try {
                 conn = getConnection();
                 prep = conn.prepareStatement("SELECT * FROM Shift_list WHERE my_date=? AND shift_id=?;");
-                prep.setString(1, my_date);
+                prep.setDate(1, my_date);
                 prep.setInt(2, shift_id);
                 res = prep.executeQuery();
                 while(res.next()){
@@ -252,32 +252,6 @@ public class ShiftListDAO extends DatabaseManagement{
                 prep.setString(1, user_id);
                 prep.setInt(2, shift_id);
                 prep.setDate(3, my_date);
-                numb = prep.executeUpdate();
-            }
-            catch (SQLException sqle) {
-                System.err.println("Issue with removing shiftlist. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
-                rollbackStatement();
-                return false;
-            }
-            finally {
-                finallyStatement(res, prep);
-            }
-        }
-        return numb > 0;
-    }
-
-    //Removes deviance from shift_list given date, user_id and shift_id.
-    public boolean removeDeviance(Date my_date, int shift_id, String user_id){
-        int numb = 0;
-        if(setUp()) {
-            try {
-                conn = getConnection();
-                conn.setAutoCommit(false);
-                prep = conn.prepareStatement("UPDATE Shift_list SET deviance=? WHERE user_id = ? AND shift_id = ? AND my_date=?;");
-                prep.setInt(1,0);
-                prep.setString(2, user_id);
-                prep.setInt(3, shift_id);
-                prep.setDate(4, my_date);
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {

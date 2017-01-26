@@ -70,7 +70,7 @@ public class UserResource {
     @Path("{id}")
     @DELETE
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public void removeUser(@PathParam("id") String id) {
-        dao.removeUser(id);
+    public boolean removeUser(@PathParam("id") String id) {
+        return dao.removeUser(id);
     }
 }
