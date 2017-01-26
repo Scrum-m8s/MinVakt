@@ -72,7 +72,7 @@ $(document).ready(function() {
         });
     });
 
-    $('#deny').click(function() {
+    $('#approve').click(function() {
         var date = $('tr.selected td:eq(0)').text();
         var shift = $('tr.selected td:eq(1)').text();
         var user = $('tr.selected td:eq(2)').text();
@@ -83,7 +83,7 @@ $(document).ready(function() {
         });
 
         if(user!= null) {
-            window.location = "http://www.localhost:8080/kvalifisert_for_vakt.html?date=" + date + "/shi=" + shift + "/cat=" + category;
+            window.location = "http://www.localhost:8080/kvalifisert_for_vakt.html?var1=" + date + "&var2=" + shift + "&var3=" + category;
         }
     });
 });
