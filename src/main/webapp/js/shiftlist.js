@@ -155,6 +155,10 @@ $(document).ready(function() {
         });
     }
 
+    $("#closeShift").on('click', function() {
+        $("#shiftModal").modal('hide');
+    });
+
     function getCategory(user_id, callback) {
         $.getJSON('api/employees/' + user_id, function(json) {
             if (json.category === 1) {

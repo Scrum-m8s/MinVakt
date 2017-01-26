@@ -27,7 +27,7 @@ $(document).ready(function() {
         $.ajax({
             type: 'GET',
             contentType: 'application/json',
-            url: 'api/timelists/'+ year +"/" + month,
+            url: 'api/timelists/'+ year + "/" + month,
             success: function (data, textStatus, jqXHR) {
                 console.log("Timelisten." + data);
                 table.clear();
