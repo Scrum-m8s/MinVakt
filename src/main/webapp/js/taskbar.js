@@ -13,6 +13,8 @@ app.config(function($mdThemingProvider, $routeProvider, $locationProvider) {
         templateUrl: "partials/settings_password.html"
     }).when("/skift", {
         templateUrl: "partials/shiftlist.html"
+    }).when("/timelister", {
+        templateUrl: "test"
     }).when("/kontrollpanel", {
         templateUrl: "partials/controlpanel.html"
     }).when("/timelister/:id", {
