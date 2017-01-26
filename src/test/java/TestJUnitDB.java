@@ -158,7 +158,7 @@ public class TestJUnitDB extends DatabaseManagement{
         //creating dummy user to update
         userDAO.createUser(new User("dummy", "dummy", 1));
 
-        assertTrue(userDAO.updateUser(new User("notdummy", "dummyUPDATED", 2)));
+        assertFalse(userDAO.updateUser(new User("notdummy", "dummyUPDATED", 2)));
 
         //clean up
         userDAO.removeUser("dummy");
@@ -188,7 +188,6 @@ public class TestJUnitDB extends DatabaseManagement{
     public void getEmployees() {
         assertNotNull(employeeDAO.getEmployees());
     }
-
     @Test
     public void getEmployeeById() {
         //creating dummy user to fetch
@@ -197,13 +196,32 @@ public class TestJUnitDB extends DatabaseManagement{
         //creating dummy employee
         employeeDAO.createEmployee(new Employee("dummy", "dummy", "dummy", "dummy", "dummy", 1));
 
-        assertNotNull(employeeDAO.getEmployeeById("dummy"));
+        assertNotNull(employeeResource.getEmployee("dummy"));
 
         //clean up
         employeeDAO.removeEmployee("dummy");
         userDAO.removeUser("dummy");
-    }
 
+        //test clean up
+        assertNull(userResource.getUser("dummy"));
+    }
+    @Test
+    public void getEmployeeByIdCatch() {
+        //creating dummy user to fetch
+        userDAO.createUser(new User("dummy", "dummy", 1));
+
+        //creating dummy employee
+        employeeDAO.createEmployee(new Employee("dummy", "dummy", "dummy", "dummy", "dummy", 1));
+
+        assertNull(employeeResource.getEmployee("notdummy"));
+
+        //clean up
+        employeeDAO.removeEmployee("dummy");
+        userDAO.removeUser("dummy");
+
+        //test clean up
+        assertNull(userResource.getUser("dummy"));
+    }
     @Test
     public void getEmployeeByCategory() {
         //creating dummy user to fetch
@@ -212,54 +230,92 @@ public class TestJUnitDB extends DatabaseManagement{
         //creating dummy employee
         employeeDAO.createEmployee(new Employee("dummy", "dummy", "dummy", "dummy", "dummy", 1));
 
-        assertNotNull(employeeDAO.getEmployeeByCategory(1));
+        assertNotNull(employeeResource.getEmployeeCategory(1));
+
+        //clean up
+        employeeDAO.removeEmployee("dummy");
+        userDAO.removeUser("dummy");
+
+        //test clean up
+        assertNull(userResource.getUser("dummy"));
+    }
+
+    /* Impossible to reach?
+    @Test
+    public void getEmployeeByCategoryCatch() {
+        //creating dummy user to fetch
+        userDAO.createUser(new User("dummy", "dummy", 1));
+
+        //creating dummy employee
+        employeeDAO.createEmployee(new Employee("dummy", "dummy", "dummy", "dummy", "dummy", 1));
+
+        assertNull(employeeResource.getEmployeeCategory(4));
 
         //clean up
         employeeDAO.removeEmployee("dummy");
         userDAO.removeUser("dummy");
     }
-
+    */
     @Test
     public void createEmployee() {
-        try {
-            //creating dummy user to fetch
-            userDAO.createUser(new User("dummy", "dummy", 1));
-            assertTrue(employeeDAO.createEmployee(new Employee("dummy", "dummy", "dummy", "dummy", "dummy", 1)));
-        }
-        catch (Exception ex){
-            System.err.println("Issue with database connection.");
-            ex.printStackTrace();
-        }
-        finally {
-            //removing test data after tests to avoid clutter in database
-            employeeDAO.removeEmployee("dummy");
-            userDAO.removeUser("dummy");
-        }
-    }
+        //creating dummy user to fetch
+        userDAO.createUser(new User("dummy", "dummy", 1));
+        assertTrue(employeeResource.createEmployee(new Employee("dummy", "dummy", "dummy", "dummy", "dummy", 1)));
 
+        //removing test data after tests to avoid clutter in database
+        employeeDAO.removeEmployee("dummy");
+        userDAO.removeUser("dummy");
+
+        //test clean up
+        assertNull(userResource.getUser("dummy"));
+    }
+    @Test
+    public void createEmployeeCatch() {
+        //creating dummy user to fetch
+        userDAO.createUser(new User("dummy", "dummy", 1));
+        assertFalse(employeeResource.createEmployee(new Employee("notdummy", "dummy", "dummy", "dummy", "dummy", 1)));
+
+        //removing test data after tests to avoid clutter in database
+        employeeDAO.removeEmployee("dummy");
+        userDAO.removeUser("dummy");
+
+        //test clean up
+        assertNull(userResource.getUser("dummy"));
+    }
     @Test
     public void updateEmployee() {
-        try {
             //creating dummy user to fetch
             userDAO.createUser(new User("dummy", "dummy", 1));
 
             //creating dummy employee
             employeeDAO.createEmployee(new Employee("dummy", "dummy", "dummy", "dummy", "dummy", 1));
 
-            assertTrue(employeeDAO.updateEmployee(new Employee("dummy", "dummyUpdated", "dummyUpdated", "dummyUpdated", "dummyUpdated", 1)));
-        }
-        catch (Exception ex){
-            System.err.println("Issue with database connection.");
-            ex.printStackTrace();
-        }
-        finally {
+            assertTrue(employeeResource.updateEmployee(new Employee("dummy", "dummyUpdated", "dummyUpdated", "dummyUpdated", "dummyUpdated", 1)));
+
             //clean up
             employeeDAO.removeEmployee("dummy");
             userDAO.removeUser("dummy");
+
+            //test clean up
+            assertNull(userResource.getUser("dummy"));
         }
+    @Test
+    public void updateEmployeeCatch() {
+        //creating dummy user to fetch
+        userDAO.createUser(new User("dummy", "dummy", 1));
 
+        //creating dummy employee
+        employeeDAO.createEmployee(new Employee("dummy", "dummy", "dummy", "dummy", "dummy", 1));
+
+        assertFalse(employeeResource.updateEmployee(new Employee("notdummy", "dummyUpdated", "dummyUpdated", "dummyUpdated", "dummyUpdated", 1)));
+
+        //clean up
+        employeeDAO.removeEmployee("dummy");
+        userDAO.removeUser("dummy");
+
+        //test clean up
+        assertNull(userResource.getUser("dummy"));
     }
-
     @Test
     public void removeEmployee() {
         //create dummy user to delete first
@@ -269,10 +325,29 @@ public class TestJUnitDB extends DatabaseManagement{
         employeeDAO.createEmployee(new Employee("dummy", "dummy", "dummy", "dummy", "dummy", 3));
 
         //removing dummy data to avoid clutter in database
-        assertTrue(employeeDAO.removeEmployee("dummy"));
+        assertTrue(employeeResource.removeEmployee("dummy"));
         userDAO.removeUser("dummy");
-    }
 
+        //test clean up
+        assertNull(userResource.getUser("dummy"));
+    }
+    @Test
+    public void removeEmployeeCatch() {
+        //create dummy user to delete first
+        userDAO.createUser(new User("dummy", "dummy", 1));
+
+        //Create dummy employee to delete
+        employeeDAO.createEmployee(new Employee("dummy", "dummy", "dummy", "dummy", "dummy", 3));
+
+        assertFalse(employeeResource.removeEmployee("notdummy"));
+
+        //removing dummy data to avoid clutter in database
+        employeeResource.removeEmployee("dummy");
+        userDAO.removeUser("dummy");
+
+        //test clean up
+        assertNull(userResource.getUser("dummy"));
+    }
 
     //
     //Shift-tests
@@ -301,16 +376,12 @@ public class TestJUnitDB extends DatabaseManagement{
     public void createShift(){
         Shift dummy = new Shift(4, 1, 1, 1);
 
-        try {
-            assertTrue(shiftDAO.createShift(dummy));
-        }
-        catch (Exception ex){
-            System.err.println("Issue with database connection.");
-            ex.printStackTrace();
-        }
-        finally {
-            shiftDAO.removeShift(4);
-        }
+        //test
+        assertTrue(shiftResource.createShift(dummy));
+
+        //clean up
+        shiftDAO.removeShift(4);
+
     }
     @Test
     public void updateShift() {
@@ -366,6 +437,7 @@ public class TestJUnitDB extends DatabaseManagement{
         busyDAO.removeBusy(new Date(1970-05-07), 1, "dummy");
         userDAO.removeUser("dummy");
     }
+    /*Unreachable catch?
     @Test
     public void getBusyByIdCatch(){
         //dummy data
@@ -373,12 +445,13 @@ public class TestJUnitDB extends DatabaseManagement{
         busyDAO.createBusy(new Busy("dummy", 1, new Date(1970-05-07)));
 
 
-        assertNull(busyResource.getBusyByUserId("notdummy"));
+        assertArrayEquals(new ArrayList<Busy>,busyResource.getBusyByUserId("notdummy"));
 
         //clean up
         busyDAO.removeBusy(new Date(1970-05-07), 1, "dummy");
         userDAO.removeUser("dummy");
     }
+    */
     @Test
     public void getSingleBusy() {
         //dummy data
@@ -507,6 +580,7 @@ public class TestJUnitDB extends DatabaseManagement{
         timeListDAO.removeTimeList(1990,0, "dummy");
         userDAO.removeUser("dummy");
     }
+    /*Unreachable catch?
     @Test
     public void getTimeListsByIdCatch(){
         //creating dummy data to fetch
@@ -519,6 +593,7 @@ public class TestJUnitDB extends DatabaseManagement{
         timeListDAO.removeTimeList(1990,0, "dummy");
         userDAO.removeUser("dummy");
     }
+    */
     @Test
     public void getSingleTimeList() {
         //creating dummy data to fetch
@@ -571,7 +646,7 @@ public class TestJUnitDB extends DatabaseManagement{
         assertTrue(timeListResource.updateTimeList(new TimeList("dummy2", 1990, 0, 65, 1, 1)));
 
         //clean up
-        timeListDAO.removeTimeList(1990, 0, "dummy");
+        timeListDAO.removeTimeList(1990, 0, "dummy2");
         userDAO.removeUser("dummy2");
     }
     @Test
@@ -583,7 +658,7 @@ public class TestJUnitDB extends DatabaseManagement{
         assertFalse(timeListResource.updateTimeList(new TimeList("notdummy2", 1990, 0, 65, 1, 1)));
 
         //clean up
-        timeListDAO.removeTimeList(1990, 0, "dummy");
+        timeListDAO.removeTimeList(1990, 0, "dummy2");
         userDAO.removeUser("dummy2");
     }
     @Test
@@ -621,12 +696,12 @@ public class TestJUnitDB extends DatabaseManagement{
     public void getShiftListById(){
         //creating dummy data to fetch
         userDAO.createUser(new User("dummy3", "dummy3", 1));
-        shiftListDAO.createShiftlist(new ShiftList("dummy3", 1, false, new Date(2017-01-01), 0, true));
+        shiftListResource.createShiftlist(new ShiftList("dummy3", 1, false, new Date(2017-01-01), 0, true));
 
         assertNotNull(shiftListResource.getShiftListById("dummy3"));
 
         //clean up
-        shiftListDAO.removeShiftlist(new Date(2017-01-01),1,"dummy3");
+        shiftListResource.removeShiftlist(new Date(2017-01-01),1,"dummy3");
         userDAO.removeUser(("dummy3"));
 
     }
@@ -634,12 +709,12 @@ public class TestJUnitDB extends DatabaseManagement{
     public void getShiftListByIdCatch(){
         //creating dummy data to fetch
         userDAO.createUser(new User("dummy3", "dummy3", 1));
-        shiftListDAO.createShiftlist(new ShiftList("dummy3", 1, false, new Date(2017-01-01), 0, true));
+        shiftListResource.createShiftlist(new ShiftList("dummy3", 1, false, new Date(2017-01-01), 0, true));
 
         assertNotNull(shiftListResource.getShiftListById("notdummy3"));
 
         //clean up
-        shiftListDAO.removeShiftlist(new Date(2017-01-01),1,"dummy3");
+        shiftListResource.removeShiftlist(new Date(2017-01-01),1,"dummy3");
         userDAO.removeUser(("dummy3"));
 
     }
@@ -647,36 +722,36 @@ public class TestJUnitDB extends DatabaseManagement{
     public void getSingleShift(){
         // creating dummy data to fetch
         userDAO.createUser(new User("dummy", "dummy", 1));
-        shiftListDAO.createShiftlist(new ShiftList("dummy", 2, false, new Date(2017-01-01), 0, true));
+        shiftListResource.createShiftlist(new ShiftList("dummy", 2, false, new Date(2017-01-01), 0, true));
 
         assertNotNull(shiftListResource.getSingleShift(new Date(2017-01-01), 2, "dummy"));
 
         //clean up
-        shiftListDAO.removeShiftlist(new Date(2017-01-01), 2, "dummy");
+        shiftListResource.removeShiftlist(new Date(2017-01-01), 2, "dummy");
         userDAO.removeUser(("dummy"));
     }
     @Test
     public void getSingleShiftCatch(){
         // creating dummy data to fetch
         userDAO.createUser(new User("dummy", "dummy", 1));
-        shiftListDAO.createShiftlist(new ShiftList("dummy", 2, false, new Date(2017-01-01), 0, true));
+        shiftListResource.createShiftlist(new ShiftList("dummy", 2, false, new Date(2017-01-01), 0, true));
 
         assertNull(shiftListResource.getSingleShift(new Date(2017-01-01), 2, "notdummy"));
 
         //clean up
-        shiftListDAO.removeShiftlist(new Date(2017-01-01), 2, "dummy");
+        shiftListResource.removeShiftlist(new Date(2017-01-01), 2, "dummy");
         userDAO.removeUser(("dummy"));
     }
     @Test
     public void getWantSwap() {
         // creating dummy data to fetch
         userDAO.createUser(new User("dummy", "dummy", 1));
-        shiftListDAO.createShiftlist(new ShiftList("dummy", 2, true, new Date(2017-01-01), 0, true));
+        shiftListResource.createShiftlist(new ShiftList("dummy", 2, true, new Date(2017-01-01), 0, true));
 
         assertNotNull(shiftListResource.getWantSwap(true));
 
         //clean up
-        shiftListDAO.removeShiftlist(new Date(2017-01-01), 2, "dummy");
+        shiftListResource.removeShiftlist(new Date(2017-01-01), 2, "dummy");
         userDAO.removeUser(("dummy"));
     }
     @Test
@@ -687,7 +762,7 @@ public class TestJUnitDB extends DatabaseManagement{
         assertTrue(shiftListResource.createShiftlist(new ShiftList("dummy3", 1, false, new Date(2017-01-01), 0, true)));
 
         //clean up
-        shiftListDAO.removeShiftlist(new Date(2017-01-01), 1, "dummy3");
+        shiftListResource.removeShiftlist(new Date(2017-01-01), 1, "dummy3");
         userDAO.removeUser(("dummy3"));
     }
     @Test
@@ -700,38 +775,58 @@ public class TestJUnitDB extends DatabaseManagement{
         //clean up
         userDAO.removeUser(("dummy3"));
     }
-
     @Test
     public void updateShiftList(){
         // creating dummy data to fetch
         userDAO.createUser(new User("dummy3", "dummy3", 1));
-        shiftListDAO.createShiftlist(new ShiftList("dummy3", 1, false, new Date(2017-01-01), 0, true));
+        shiftListResource.createShiftlist(new ShiftList("dummy3", 1, false, new Date(2017-01-01), 0, true));
 
-        assertTrue(shiftListDAO.updateShiftlist(new ShiftList("dummy3", 1, true, new Date(2015-01-02), 50, false)));
+        assertTrue(shiftListResource.updateShiftlist(new ShiftList("dummy3", 1, true, new Date(2015-01-02), 50, false)));
 
         //clean up
-        shiftListDAO.removeShiftlist(new Date(2017-01-01), 1, "dummy3");
+        shiftListResource.removeShiftlist(new Date(2017-01-01), 1, "dummy3");
         userDAO.removeUser(("dummy3"));
     }
+    @Test
+    public void updateShiftListCatch(){
+        // creating dummy data to fetch
+        userDAO.createUser(new User("dummy3", "dummy3", 1));
+        shiftListResource.createShiftlist(new ShiftList("dummy3", 1, false, new Date(2017-01-01), 0, true));
 
+        assertFalse(shiftListResource.updateShiftlist(new ShiftList("notdummy3", 1, true, new Date(2015-01-01), 50, false)));
 
+        //clean up
+        shiftListResource.removeShiftlist(new Date(2017-01-01), 1, "dummy3");
+        userDAO.removeUser(("dummy3"));
+    }
     @Test
     public void removeShiftList(){
         //creating dummy data to fetch
         userDAO.createUser(new User("dummy3", "dummy3", 1));
-        shiftListDAO.createShiftlist(new ShiftList("dummy3", 1, false, new Date(2017-01-01), 0, true));
+        shiftListResource.createShiftlist(new ShiftList("dummy3", 1, false, new Date(2017-01-01), 0, true));
 
         //clean up and test
-        assertTrue(shiftListDAO.removeShiftlist(new Date(2017-01-01), 1, "dummy3"));
+        assertTrue(shiftListResource.removeShiftlist(new Date(2017-01-01), 1, "dummy3"));
 
         userDAO.removeUser(("dummy3"));
     }
+    @Test
+    public void removeShiftListCatch(){
+        //creating dummy data to fetch
+        userDAO.createUser(new User("dummy3", "dummy3", 1));
+        shiftListResource.createShiftlist(new ShiftList("dummy3", 1, false, new Date(2017-01-01), 0, true));
 
+        //clean up and test
+        assertFalse(shiftListResource.removeShiftlist(new Date(2017-01-01), 1, "notdummy3"));
+
+        shiftListResource.removeShiftlist(new Date(2017-01-01), 1, "dummy3");
+        userDAO.removeUser(("dummy3"));
+    }
     @Test
     public void testShiftList() {
         ArrayList<ShiftList> shiftLists;
         ArrayList<ShiftList> want_swap_list = new ArrayList<>();
-        shiftLists = shiftListDAO.getShiftLists();
+        shiftLists = shiftListResource.getShiftLists();
         for (int i =0; i < shiftLists.size(); i++) {
             if(shiftLists.get(i).isWant_swap() == true) {
                 want_swap_list.add(shiftLists.get(i));
@@ -743,7 +838,7 @@ public class TestJUnitDB extends DatabaseManagement{
         }
 
         //System.out.println(shiftLists.get(1).isWant_swap());
-        //assertTrue(shiftListDAO.updateShiftlist(new ShiftList("nina", 1, false, new Date(2017-01-01), 0, false)));
+        //assertTrue(shiftListResource.updateShiftlist(new ShiftList("nina", 1, false, new Date(2017-01-01), 0, false)));
     }
 
 }

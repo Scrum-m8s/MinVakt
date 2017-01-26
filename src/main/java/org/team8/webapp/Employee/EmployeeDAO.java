@@ -79,7 +79,7 @@ public class EmployeeDAO extends DatabaseManagement {
                 }
             }
             catch (SQLException sqle){
-                System.err.println("Issue with getting employee by id.");
+                System.err.println("Issue with getting employee by category.");
                 return null;
             }
             finally {
