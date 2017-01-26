@@ -229,6 +229,6 @@ app.controller('MinVaktCtrl', function($scope, $mdSidenav, $mdToast, $http, $rou
     };
 });
 
-app.controller('TimelistsCtrl', function($scope, $routeParams, employeeService){
+app.controller('TimelistsCtrl', function($scope, $routeParams){
     $scope.id = $routeParams.id;
 });
