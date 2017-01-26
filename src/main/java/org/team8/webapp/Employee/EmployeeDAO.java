@@ -95,9 +95,16 @@ public class EmployeeDAO extends DatabaseManagement {
         if(setUp()){
             try {
                 conn = getConnection();
-                prep = conn.prepareStatement("SELECT * FROM Employee WHERE user_id NOT IN (SELECT user_id FROM  `Shift_list` WHERE my_date =? AND shift_id =?) AND category =?");
+                prep = conn.prepareStatement(
+                        "SELECT * FROM Employee WHERE user_id NOT IN " +
+                            "(SELECT user_id FROM  `Busy` WHERE my_date =? AND shift_id =? " +
+                            "UNION " +
+                            "SELECT user_id FROM  `Shift_list` WHERE my_date =? AND shift_id =?) " +
+                        "AND category =1;");
                 prep.setDate(1, my_date);
                 prep.setInt(2,shift_id);
+                prep.setDate(3,my_date);
+                prep.setInt(4,shift_id);
                 prep.setInt(3,category);
                 res = prep.executeQuery();
                 while (res.next()){
