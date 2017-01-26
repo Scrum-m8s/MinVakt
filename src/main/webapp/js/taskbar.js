@@ -56,7 +56,7 @@ app.service('menuService', function(){
                     name: 'Timelister',
                     icon: 'assignment',
                     link: 'Timelister',
-                    url: '#timelister'
+                    url: '#timelister_current'
                 }, {
                     name: 'Vaktbytte',
                     icon: 'swap_horiz',
