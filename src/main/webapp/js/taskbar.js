@@ -15,6 +15,8 @@ app.config(function($mdThemingProvider, $routeProvider, $locationProvider) {
         templateUrl: "partials/settings_password.html"
     }).when("/skift", {
         templateUrl: "partials/shiftlist.html"
+    }).when("/opptatt", {
+        templateUrl: "partials/busy.html"
     }).when("/kontrollpanel", {
         templateUrl: "partials/kontrollpanel.html"
     }).otherwise(
@@ -70,6 +72,11 @@ app.service('menuService', function(){
                     icon: 'people',
                     link: 'Ansatte',
                     url: '#ansatt'
+                }, {
+                    name: 'Opptatt',
+                    icon: 'watch_later',
+                    link: 'Opptatt',
+                    url: '#opptatt'
                 }]
             }, {
                 bottom: [{
