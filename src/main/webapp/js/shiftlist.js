@@ -111,13 +111,11 @@ $(document).ready(function() {
 
     getCurrentUserId(function(user_id) {
         $(document).on("click", "#wantSwapBtn", function(){
-            console.log("current user on button click: " + user_id);
             if($("#" + user_id).children("span").is("#wantSwapLabel")) {
                 setWantSwap(false, user_id);
             } else {
                 setWantSwap(true, user_id);
             }
-
         });
     });
 
@@ -145,6 +143,11 @@ $(document).ready(function() {
             success: function(data, textStatus, jqXHR){
                 console.log("Want swap status updated.");
                 $("#shiftModal").modal('hide');
+                if(swap) {
+                    alert("Ønsket om å bytte bort vakten er registrert.");
+                } else {
+                    alert("Ønsket om å bytte bort vakten er fjernet.");
+                }
             },
             error: function(data, textStatus, jqXHR){
                 console.log("Error: " + data.want_swap + "\n" + data.user_id);
