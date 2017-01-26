@@ -23,7 +23,7 @@ $(document).ready(function() {
     $("#busyButton").click(function () {
         var user_id = $("#user_id").val();
         var shift_id = $("#shift_id").val();
-        var my_date = $("#my_date").val();
+        var my_date = $("#my_date").vay787l();
         console.log("user_id: "+user_id+" shift_id: "+shift_id+ " my_date: "+my_date);
         setEmployeeAsBusy(user_id, shift_id, my_date);
     });
