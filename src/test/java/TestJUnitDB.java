@@ -184,6 +184,10 @@ public class TestJUnitDB extends DatabaseManagement{
     public void getEmployees() {
         assertNotNull(employeeDAO.getEmployees());
     }
+    @Test
+    public void getEmployees2(){
+        assertNotNull(employeeResource.getEmployees());
+    }
 
     @Test
     public void getEmployeeById() {
@@ -217,7 +221,7 @@ public class TestJUnitDB extends DatabaseManagement{
 
 /*
     @Test
-    //funker ikke
+    //fungerer ikke
     public void  getAvailableEmployees(){
         //creating dummy user to fetch
        // userDAO.createUser(new User("dummy", "dummy", 1));
@@ -233,6 +237,7 @@ public class TestJUnitDB extends DatabaseManagement{
         //userDAO.removeUser("dummy");
     }
 */
+
     @Test
     public void getEmployeesForDate(){
         //creating dummy user to fetch
@@ -240,7 +245,7 @@ public class TestJUnitDB extends DatabaseManagement{
         //creating dummy employee
         employeeDAO.createEmployee(new Employee("dummy", "dummy", "dummy", "dummy", "dummy", 1));
 
-        assertNotNull(employeeDAO.getEmployeesForDate("dummy"));
+        assertNotNull(employeeResource.getEMployeesForDate("2017-01-01"));
 
         //clean up
         employeeDAO.removeEmployee("dummy");
@@ -254,11 +259,42 @@ public class TestJUnitDB extends DatabaseManagement{
         //creating dummy employee
         employeeDAO.createEmployee(new Employee("dummy", "dummy", "dummy", "dummy", "dummy", 1));
 
-        assertNotNull(employeeDAO.getEmployeesForShift(1, "dummy"));
+        assertNotNull(employeeResource.getEmployeesForShift("dummy", 1));
 
         //clean up
         employeeDAO.removeEmployee("dummy");
         userDAO.removeUser("dummy");
+
+    }
+    @Test
+    public void getEmployee(){
+        //creating dummy user to fetch
+        userDAO.createUser(new User("dummy", "dummy", 1));
+        //creating dummy employee
+        employeeDAO.createEmployee(new Employee("dummy", "dummy", "dummy", "dummy", "dummy", 1));
+        assertNotNull(employeeResource.getEmployee("dummy"));
+
+        //clean up
+        employeeDAO.removeEmployee("dummy");
+        userDAO.removeUser("dummy");
+    }
+
+    @Test
+    public void getEmployeeCategory(){
+        //creating dummy user to fetch
+        userDAO.createUser(new User("dummy", "dummy", 1));
+        //creating dummy employee
+        employeeDAO.createEmployee(new Employee("dummy", "dummy", "dummy", "dummy", "dummy", 1));
+        assertNotNull(employeeResource.getEmployeeCategory(1));
+
+        //clean up
+        employeeDAO.removeEmployee("dummy");
+        userDAO.removeUser("dummy");
+
+    }
+    //?????
+    @Test
+    public void getCurrentEmployee(){
 
     }
 
@@ -267,7 +303,7 @@ public class TestJUnitDB extends DatabaseManagement{
         try {
             //creating dummy user to fetch
             userDAO.createUser(new User("dummy", "dummy", 1));
-            assertTrue(employeeDAO.createEmployee(new Employee("dummy", "dummy", "dummy", "dummy", "dummy", 1)));
+            assertTrue(employeeResource.createEmployee(new Employee("dummy", "dummy", "dummy", "dummy", "dummy", 1)));
         }
         catch (Exception ex){
             System.err.println("Issue with database connection.");
@@ -289,7 +325,7 @@ public class TestJUnitDB extends DatabaseManagement{
             //creating dummy employee
             employeeDAO.createEmployee(new Employee("dummy", "dummy", "dummy", "dummy", "dummy", 1));
 
-            assertTrue(employeeDAO.updateEmployee(new Employee("dummy", "dummyUpdated", "dummyUpdated", "dummyUpdated", "dummyUpdated", 1)));
+            assertTrue(employeeResource.updateEmployee(new Employee("dummy", "dummyUpdated", "dummyUpdated", "dummyUpdated", "dummyUpdated", 1)));
         }
         catch (Exception ex){
             System.err.println("Issue with database connection.");
@@ -303,6 +339,7 @@ public class TestJUnitDB extends DatabaseManagement{
 
     }
 
+/*
     @Test
     public void removeEmployee() {
         //create dummy user to delete first
@@ -312,9 +349,15 @@ public class TestJUnitDB extends DatabaseManagement{
         employeeDAO.createEmployee(new Employee("dummy", "dummy", "dummy", "dummy", "dummy", 3));
 
         //removing dummy data to avoid clutter in database
-        assertTrue(employeeDAO.removeEmployee("dummy"));
+        assertTrue(employeeResource.removeEmployee("dummy"));
         userDAO.removeUser("dummy");
+
+        //test clean up
+        assertNull(userResource.getUser("dummy"));
     }
+*/
+
+
 
 
 
