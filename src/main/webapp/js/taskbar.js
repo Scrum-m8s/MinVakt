@@ -15,6 +15,8 @@ app.config(function($mdThemingProvider, $routeProvider, $locationProvider) {
         templateUrl: "partials/shiftlist.html"
     }).when("/kontrollpanel", {
         templateUrl: "partials/controlpanel.html"
+    }).when("/timelister_current", {
+        templateUrl: "partials/timelists_current.html"
     }).when("/timelister/:id", {
         templateUrl: "partials/timelists.html",
         controller: 'TimelistsCtrl'

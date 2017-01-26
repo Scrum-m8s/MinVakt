@@ -20,7 +20,6 @@ $(document).ready(function() {
             "dataSrc": function (json) {
                 var return_data = new Array();
                 for (var i = 0;  i < json.length; ++i) {
-                    console.log((json[i].month - 1));
                     json[i].month = monthNames[(json[i].month)];
 
                     return_data.push({
