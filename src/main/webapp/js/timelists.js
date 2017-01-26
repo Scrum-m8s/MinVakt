@@ -1,8 +1,8 @@
 
 $(document).ready(function() {
     // Bind opp tabellen mot rest-ressursen
-    var pathArray = window.location.pathname.split( '=' );
-    var user = pathArray[1]; //TODO: gotta get timelists by userid
+    var pathArray = window.location.pathname.split( '/' );
+    var user = pathArray[2]; //TODO: gotta get timelists by userid
     //http://www.localhost:8080/timelists?source=
 
 
