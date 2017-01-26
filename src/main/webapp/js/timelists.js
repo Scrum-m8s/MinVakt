@@ -13,7 +13,11 @@ $(document).ready(function() {
     var table = $('#table_timelists').DataTable( {
         "paging": false,
         "info" : false,
-        "select" : true,
+        "select" : {
+            style: 'single'
+        },
+        "responsive": true,
+        "autoWidth": true,
 
         ajax: {
             url: 'api/timelists/user/' + user,
