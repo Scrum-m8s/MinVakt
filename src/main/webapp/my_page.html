@@ -19,10 +19,10 @@
         }
 
         function employeeCallback(data){
-            $("#firstname").html(data.firstname);
-            $("#surname").html(data.surname);
-            $("#email").html(data.email);
-            $("#phonenumber").html(data.phone_number);
+            $("#firstname").val(data.firstname);
+            $("#surname").val(data.surname);
+            $("#email").val(data.email);
+            $("#phonenumber").val(data.phone_number);
 
             var categoryString = "";
             if(data.category == 1){
@@ -46,23 +46,28 @@
 <p id="access"></p>
 
 <p>Fornavn:</p>
-<p id="firstname"></p>
+<input type="text" id="firstname">
 
 <p>Etternavn:</p>
-<p id="surname"></p>
+<input type="text" id="surname">
 
 <p>Epost:</p>
-<p id="email"></p>
+<input type="text" id="email">
 
 <p>Telefonnummer:</p>
-<p id="phonenumber"></p>
+<input type="text" id="phonenumber">
 
 <p>Type ansatt:</p>
 <p id="category"></p>
 
+<input type="button" id="submitnewinfo" value="Endre info">
+<p id="infosuccess"></p>
+
 <p>Endre passord:</p>
+<input type="password" id="oldpassword">
 <input type="password" id="newpassword">
-<input type="button" value="Endre" id="submitnewpassword">
+<input type="password" id="newpasswordrepeat">
+<input type="button" value="Endre passord" id="submitnewpassword">
 <p id="passwordsuccess"></p>
 
 </body>
