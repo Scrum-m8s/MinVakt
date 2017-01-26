@@ -1,4 +1,5 @@
 /**
+ /**
  * Created by Nina on 16.01.2017.
  */
 
@@ -27,20 +28,20 @@ $(document).ready(function() {
                         json[i].on_duty = 'Nei ';
                     }
                     return_data.push({
-                        'user_id': json[i].user_id,
+                        'my_date': json[i].my_date,
                         'shift_id': json[i].shift_id,
+                        'user_id': json[i].user_id,
                         'on_duty': json[i].on_duty,
-                        'my_date': json[i].my_date
                     })
                 }
                 return return_data;
             }
         },
         "columns" : [
-            { data: 'user_id', orderable: false},
+            { data: 'my_date'},
             { data: 'shift_id', orderable: false},
-            { data: 'on_duty', orderable: false},
-            { data: 'my_date'}
+            { data: 'user_id', orderable: false},
+            { data: 'on_duty', orderable: false}
         ],
     });
 
@@ -48,6 +49,7 @@ $(document).ready(function() {
     table.draw();
 
     $("#avslaa").click(function () {
+        var shift;
         if (table.rows( { selected: true } ).data()[0].shift_id === 'Nattevakt') {
             table.rows( { selected: true } ).data()[0].shift_id = 1;
         } else if (table.rows( { selected: true } ).data()[0].shift_id === 'Dagvakt') {
@@ -57,20 +59,36 @@ $(document).ready(function() {
         }
         alert(JSON.stringify(table.rows( { selected: true } ).data()[0].user_id + "  er valgt"));
         $.ajax({
-            url: 'api/shift_lists/' + table.rows( { selected: true } ).data()[0].user_id + '/' + table.rows( { selected: true } ).data()[0].shift_id,
+            url: 'api/function/setwantswap/' + table.rows( { selected: true } ).data()[0].my_date + '/' + shift + '/' + table.rows( { selected: true } ).data()[0].user_id + '/false',
+            //url: 'api/shift_lists/' + table.rows( { selected: true } ).data()[0].user_id + '/' + table.rows( { selected: true } ).data()[0].shift_id,
             type: 'PUT',
-            contentType: 'application/json',
-            data: JSON.stringify({
-                user_id: table.rows( { selected: true } ).data()[0].user_id,
-                shift_id: table.rows( { selected: true } ).data()[0].shift_id,
-                my_date: table.rows( { selected: true } ).data()[0].my_date,
-                want_swap: false
-            }),
             success: function(result){
                 table.ajax.reload();
             },
         });
     });
+
+    $('#se_ledige').click(function() {
+        var date = $('tr.selected td:eq(0)').text();
+        var shiftString = $('tr.selected td:eq(1)').text();
+        var user = $('tr.selected td:eq(2)').text();
+        var shift;
+        if(shiftString === ("Nattevakt")){
+            shift = 1;
+        } else if(shiftString === ("Dagvakt")){
+            shift = 2;
+        } else{
+            shift = 3;
+        }
+        var category = 1;
+        $.get("/api/employees/" + user, function(data){
+            category = data.category;
+        });
+        if(user!= null) {
+            window.location = "http://www.localhost:8080/kvalifisert_for_vakt.html?var1=" + date + "&var2=" + shift + "&var3=" + category;
+        }
+    });
 });
+
 
 

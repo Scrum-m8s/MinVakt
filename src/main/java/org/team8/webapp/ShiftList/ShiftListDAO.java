@@ -188,14 +188,14 @@ public class ShiftListDAO extends DatabaseManagement{
         return out;
     }
 
-    public boolean setWantSwap(boolean swap, String user_id, int shift_id, String my_date){
+    public boolean setWantSwap(String user_id, int shift_id, String my_date, boolean want_swap){
         int numb = 0;
         if(setUp()) {
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
                 prep = conn.prepareStatement("UPDATE Shift_list SET want_swap=? WHERE user_id=? AND shift_id=? AND my_date=?;");
-                prep.setBoolean(1, swap);
+                prep.setBoolean(1, want_swap);
                 prep.setString(2, user_id);
                 prep.setInt(3, shift_id);
                 prep.setString(4, my_date);
@@ -349,6 +349,32 @@ public class ShiftListDAO extends DatabaseManagement{
         }
         return numb > 0;
     }
+/*
+    public boolean wantSwap(ShiftList s_l) {
+        int numb = 0;
+        if(setUp()) {
+            try {
+                conn = getConnection();
+                conn.setAutoCommit(false);
+                prep = conn.prepareStatement("UPDATE Shift_list SET want_swap=? WHERE user_id=? AND shift_id=? AND my_date;");
+                prep.setBoolean(1, s_l.isWant_swap());
+                prep.setString(2, s_l.getUser_id());
+                prep.setInt(3, s_l.getShift_id());
+                prep.setDate(4, s_l.setWant_swap());
+                numb = prep.executeUpdate();
+            }
+            catch (SQLException sqle) {
+                System.err.println("Issue with updating swap."+prep.toString());
+                rollbackStatement();
+                return false;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return numb > 0;
+    }
+    */
     protected ShiftList processRow(ResultSet res) throws SQLException {
         ShiftList s_l = new ShiftList();
         s_l.setUser_id(res.getString("user_id"));

@@ -64,11 +64,11 @@ public class ShiftListFunctionResource {
         return sdao.getSpesificShift(my_date_string, shift_id, user_id);
     }
 
-    @Path("getshifttotal/{my_date}/{shift_id}/{user_id}")
+    @Path("setwantswap/{my_date}/{shift_id}/{user_id}/{want_swap}")
     @PUT
-    //@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public boolean setWantSwap(ShiftList sl, @PathParam("my_date") String my_date_string, @PathParam("shift_id") int shift_id, @PathParam("user_id") String user_id){
-        System.out.println("setWantSwap: " + sl.isWant_swap());
-        return sdao.setWantSwap(sl.isWant_swap(), user_id, shift_id, my_date_string);
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public boolean setWantSwap(@PathParam("my_date") String my_date_string, @PathParam("shift_id") int shift_id, @PathParam("user_id") String user_id, @PathParam("want_swap") boolean want_swap){
+        System.out.println("setWantSwap: " + want_swap);
+        return sdao.setWantSwap( user_id, shift_id, my_date_string, want_swap);
     }
 }

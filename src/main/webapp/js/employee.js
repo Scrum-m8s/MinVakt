@@ -156,7 +156,7 @@ $(document).ready(function() {
                         console.log("Error: " + textStatus);
                     }
                 });
-            } else {
+            } /*  else {
                 $.ajax({
                     type: 'POST',
                     contentType: 'application/json',
@@ -197,7 +197,7 @@ $(document).ready(function() {
                         console.log("Error: " + textStatus);
                     }
                 });
-            }
+            }  */
         });
     }
 
@@ -326,9 +326,12 @@ $(document).ready(function() {
     }
 
     $("#availableEmployees").click(function () {
-        var category = $("#category").val();
+        var my_date = window.location.search.substring(1).split(/[=&]/)[1];
+        var shift_id = window.location.search.substring(1).split(/[=&]/)[3];
+        var category = window.location.search.substring(1).split(/[=&]/)[5];
+       /* var category = $("#category").val();
         var my_date = $("#my_date").val();
-        var shift_id = $("#shift_id").val();
+        var shift_id = $("#shift_id").val();*/
 
         console.log("Before function. Category: "+category+" My_date: "+my_date+" Shift_id: "+shift_id);
 
@@ -338,7 +341,6 @@ $(document).ready(function() {
 
 
     function registerOvertimeAbsence(user_id, shift_id, my_date, deviance) {
-
         $.ajax({
             type: 'PUT',
             contentType: 'application/json',
