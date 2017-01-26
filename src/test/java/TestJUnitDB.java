@@ -236,7 +236,7 @@ public class TestJUnitDB extends DatabaseManagement{
     @Test
     public void getAvailableEmployeeById() {
         //creating dummy user to fetch
-        userDAO.createUser(new User("dummy", "dummy", 1));
+        userDAO.createUser(new User("dummy3", "dummy3", 1));
 
         //creating dummy shiftlist
         shiftListResource.createShiftlist(new ShiftList("dummy3", 1, false, new Date(2017-01-01), 0, true));
@@ -246,10 +246,10 @@ public class TestJUnitDB extends DatabaseManagement{
 
         //clean up
         shiftListResource.removeShiftlist(new Date(2017-01-01),1,"dummy3");
-        userDAO.removeUser("dummy");
+        userDAO.removeUser("dummy3");
 
         //test clean up
-        assertNull(userResource.getUser("dummy"));
+        assertNull(userResource.getUser("dummy3"));
     }
     @Test
     public void getEmployeeByCategory() {
