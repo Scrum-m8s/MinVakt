@@ -13,8 +13,6 @@ app.config(function($mdThemingProvider, $routeProvider, $locationProvider) {
         templateUrl: "partials/settings_password.html"
     }).when("/skift", {
         templateUrl: "partials/shiftlist.html"
-    }).when("/timelister", {
-        templateUrl: "test"
     }).when("/kontrollpanel", {
         templateUrl: "partials/controlpanel.html"
     }).when("/timelister/:id", {
@@ -58,7 +56,7 @@ app.service('menuService', function(){
                     name: 'Timelister',
                     icon: 'assignment',
                     link: 'Timelister',
-                    url: '#timelister'
+                    url: '#timelister_current'
                 }, {
                     name: 'Vaktbytte',
                     icon: 'swap_horiz',
