@@ -17,7 +17,10 @@ $(document).ready(function() {
         var table = $('#table_timelists_current').DataTable( {
             "paging": false,
             "info" : false,
-            "select" : true,
+            "select" : {
+                style: 'single'
+            },
+            "responsive": true,
 
             ajax: {
                 url: 'api/timelists/user/' + user_id,
