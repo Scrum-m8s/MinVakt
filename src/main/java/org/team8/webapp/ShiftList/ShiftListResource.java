@@ -16,6 +16,9 @@ public class ShiftListResource {
     ShiftListDAO dao = new ShiftListDAO();
     TimeListDAO tdao = new TimeListDAO();
 
+    private static final String SUCCESS_RESULT="<result>success</result>";
+    private static final String FAILURE_RESULT="<result>failure</result>";
+
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public ArrayList<ShiftList> getShiftLists() {
@@ -95,11 +98,13 @@ public class ShiftListResource {
 
     @Path("{my_date}/{shift_id}/{user_id}")
     @DELETE
-    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public boolean removeShiftlist(@PathParam("my_date") Date my_date, @PathParam("shift_id") int shift_id, @PathParam("user_id") String user_id) {
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public String removeShiftlist(@PathParam("my_date") Date my_date, @PathParam("shift_id") int shift_id, @PathParam("user_id") String user_id) {
         System.out.println("remove Shift_list");
         boolean result = dao.removeShiftlist(my_date, shift_id, user_id);
-        if (result){tdao.onShiftListRemove(my_date,shift_id,user_id);}
-        return result;
+        if (result){tdao.onShiftListRemove(my_date,shift_id,user_id);
+            return SUCCESS_RESULT;
+        }
+        return FAILURE_RESULT;
     }
 }

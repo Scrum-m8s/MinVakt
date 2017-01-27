@@ -30,6 +30,9 @@ import static org.junit.Assert.*;
 
 public class TestJUnitDB extends DatabaseManagement{
 
+    private static final String SUCCESS_RESULT="<result>success</result>";
+    private static final String FAILURE_RESULT="<result>failure</result>";
+
     private static EmployeeDAO employeeDAO;
     private static ShiftDAO shiftDAO;
     private static UserDAO userDAO;
@@ -596,7 +599,7 @@ public class TestJUnitDB extends DatabaseManagement{
         userDAO.createUser(new User("dummy", "dummy", 1));
         busyDAO.createBusy(new Busy("dummy", 1, date));
 
-        assertTrue(busyResource.removeBusy(date, 1,"dummy"));
+        assertEquals(SUCCESS_RESULT,busyResource.removeBusy(date, 1,"dummy"));
 
         //clean up
         userDAO.removeUser("dummy");
@@ -609,7 +612,7 @@ public class TestJUnitDB extends DatabaseManagement{
       userDAO.createUser(new User("dummy", "dummy", 1));
       busyDAO.createBusy(new Busy("dummy", 1, date));
 
-      assertFalse(busyResource.removeBusy(date, 1,"notdummy"));
+      assertEquals(FAILURE_RESULT,busyResource.removeBusy(date, 1,"notdummy"));
 
       //clean up
       busyResource.removeBusy(date, 1, "dummy");
@@ -922,7 +925,7 @@ public class TestJUnitDB extends DatabaseManagement{
         shiftListResource.createShiftlist(new ShiftList("dummy3", 1, false, new Date(2017-01-01), 0, true));
 
         //clean up and test
-        assertTrue(shiftListResource.removeShiftlist(new Date(2017-01-01), 1, "dummy3"));
+        assertEquals(SUCCESS_RESULT,shiftListResource.removeShiftlist(new Date(2017-01-01), 1, "dummy3"));
 
         userDAO.removeUser(("dummy3"));
     }
@@ -933,7 +936,7 @@ public class TestJUnitDB extends DatabaseManagement{
         shiftListResource.createShiftlist(new ShiftList("dummy3", 1, false, new Date(2017-01-01), 0, true));
 
         //clean up and test
-        assertFalse(shiftListResource.removeShiftlist(new Date(2017-01-01), 1, "notdummy3"));
+        assertEquals(FAILURE_RESULT,shiftListResource.removeShiftlist(new Date(2017-01-01), 1, "notdummy3"));
 
         shiftListResource.removeShiftlist(new Date(2017-01-01), 1, "dummy3");
         userDAO.removeUser(("dummy3"));
