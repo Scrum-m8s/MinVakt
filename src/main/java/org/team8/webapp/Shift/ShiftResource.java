@@ -45,7 +45,7 @@ public class ShiftResource {
     @Path("{id}")
     @DELETE
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public void removeShift(@PathParam("id") int id) {
-        dao.removeShift(id);
+    public boolean removeShift(@PathParam("id") int id) {
+        return dao.removeShift(id);
     }
 }

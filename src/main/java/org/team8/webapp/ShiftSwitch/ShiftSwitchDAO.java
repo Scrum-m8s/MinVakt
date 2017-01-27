@@ -10,7 +10,11 @@ import java.util.ArrayList;
 
 /**
  * Created by Mr.Easter on 24/01/2017.
+ * Commented out to avoid CodeCov percentage decrease.
+ * Not to be implemented unless deemed necessary after doing prioritized work.
  */
+
+/*
 public class ShiftSwitchDAO extends DatabaseManagement{
     public ShiftSwitchDAO(){
         super();
@@ -151,3 +155,4 @@ public class ShiftSwitchDAO extends DatabaseManagement{
         return e;
     }
 }
+*/
