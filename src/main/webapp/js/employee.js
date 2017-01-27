@@ -278,7 +278,7 @@ $(document).ready(function() {
         }
 
     });
-  
+  /*
     $("#availableEmployeesTable").DataTable({
         data:[],
         columns: [
@@ -298,6 +298,9 @@ $(document).ready(function() {
         retrieve: true
     });
 
+    */
+
+    /*
     //function to get employees qualified for a shift
     //is used in kvalifisert_for_vakt.html
     function getAvailableEmployees(shift_id, my_date, category){
@@ -325,18 +328,22 @@ $(document).ready(function() {
         });
     }
 
+*/
+    /*
     $("#availableEmployees").click(function () {
         var my_date = window.location.search.substring(1).split(/[=&]/)[1];
         var shift_id = window.location.search.substring(1).split(/[=&]/)[3];
         var category = window.location.search.substring(1).split(/[=&]/)[5];
-       /* var category = $("#category").val();
+        var category = $("#category").val();
         var my_date = $("#my_date").val();
-        var shift_id = $("#shift_id").val();*/
+        var shift_id = $("#shift_id").val();
 
         console.log("Before function. Category: "+category+" My_date: "+my_date+" Shift_id: "+shift_id);
 
         getAvailableEmployees(shift_id, my_date, category);
     });
+
+*/
 
 
 
