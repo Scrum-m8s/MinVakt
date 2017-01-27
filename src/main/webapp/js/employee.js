@@ -23,7 +23,7 @@ $(document).ready(function() {
             $("#inputEmail").attr('value', $('tr.selected td:eq(3)').text());
             $("#inputCategory").val($('tr.selected td:eq(4)').text());
         } else {
-            alert("Trykk på en ansatt før du endrer.");
+            alert("Velg en ansatt før du endrer.");
         }
 
     });
@@ -36,7 +36,7 @@ $(document).ready(function() {
                 $("#inputRole1").val(result.role + "Sel");
             });
         } else {
-            alert("Trykk på en ansatt før du endrer.");
+            alert("Velg en ansatt før du endrer.");
         }
 
     });
@@ -348,7 +348,9 @@ $(document).ready(function() {
     $('#getTimelist').click(function() {
         var user_id = $('tr.selected td:eq(5)').text();
         if(user_id != "") {
-            window.location = "http://www.localhost:8080/timelists.html?user/=" + user_id;
+            window.location = "#/timelister/" + user_id;
+        } else {
+            alert("Velg på en ansatt først.");
         }
     });
 

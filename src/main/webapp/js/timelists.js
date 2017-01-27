@@ -1,7 +1,7 @@
 
 $(document).ready(function() {
     // Bind opp tabellen mot rest-ressursen
-    var user = window.location.search.substring(1).split("=")[1];
+    var user = window.location.href.split("/")[5];
 
     var monthNames = ["Januar", "Februar", "Mars", "April", "Mai", "Juni",
         "Juli", "August", "September", "Oktober", "November", "Desember"
@@ -13,15 +13,21 @@ $(document).ready(function() {
     var table = $('#table_timelists').DataTable( {
         "paging": false,
         "info" : false,
-        "select" : true,
+        "select" : {
+            style: 'single'
+        },
+        "responsive": true,
+        "autoWidth": true,
 
         ajax: {
             url: 'api/timelists/user/' + user,
             "dataSrc": function (json) {
                 var return_data = new Array();
                 for (var i = 0;  i < json.length; ++i) {
+                    json[i].month = monthNames[(json[i].month)];
+
                     return_data.push({
-                        'month': json[i].month, //monthNames[json[i].month]
+                        'month': json[i].month,
                         'overtime': json[i].overtime,
                         'absence': json[i].absence,
                         'ordinary': json[i].ordinary,

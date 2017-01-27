@@ -5,22 +5,34 @@ app.config(function($mdThemingProvider, $routeProvider, $locationProvider) {
     $routeProvider
     .when("/", {
         templateUrl : "partials/main.html"
-    }).when("/test", {
-        templateUrl: "partials/test.html"
     }).when("/ansatt", {
         templateUrl:  "partials/employees.html"
     }).when("/innstillinger", {
         templateUrl: "partials/settings.html"
     }).when("/innstillinger/password", {
         templateUrl: "partials/settings_password.html"
+    }).when("/innstillinger/email", {
+        templateUrl: "partials/settings_email.html"
+    }).when("/innstillinger/tlf", {
+        templateUrl: "partials/settings_phone.html"
     }).when("/skift", {
         templateUrl: "partials/shiftlist.html"
     }).when("/opptatt", {
         templateUrl: "partials/busy.html"
+    }).when("/vaktbytte", {
+        templateUrl: "partials/swaplist.html"
     }).when("/kontrollpanel", {
-        templateUrl: "partials/kontrollpanel.html"
-    }).otherwise(
-        "/"
+        templateUrl: "partials/controlpanel.html"
+    }).when("/timelister_current", {
+        templateUrl: "partials/timelists_current.html"
+    }).when("/timelister/:id", {
+        templateUrl: "partials/timelists.html",
+        controller: 'TimelistsCtrl'
+    }).when("/kontrollpanel/godkjennevaktbytte", {
+        templateUrl: "partials/confirm_swap.html"
+    }).when("/feil", {
+        templateUrl: "partials/error.html"
+    }).otherwise("/feil"
     );
     $locationProvider.html5Mode(false);
 });
@@ -55,11 +67,17 @@ app.service('menuService', function(){
                     name: 'Timelister',
                     icon: 'assignment',
                     link: 'Timelister',
-                    url: '#test'
+                    url: '#timelister_current'
                 }, {
                     name: 'Vaktbytte',
                     icon: 'swap_horiz',
-                    link: 'Vaktbytte'
+                    link: 'Vaktbytte',
+                    url: '#vaktbytte'
+                }, {
+                    name: 'Ansatte',
+                    icon: 'people',
+                    link: 'Ansatte',
+                    url: '#ansatt'
                 }]
             }, {
                 admin: [{
@@ -92,85 +110,38 @@ app.service('menuService', function(){
                 }]
             }]
         },
-        content: {
-            lists: [{
-                name: 'List 1',
-                menu: {
-                    name: 'Menu 1',
-                    icon: 'settings',
-                    width: '4',
-                    actions: [{
-                        name: 'Action 1',
-                        message: 'Action 1',
-                        completed: true,
-                        error: true
-                    }]
-                },
-                items: [{
-                    name: 'Item 1',
-                    description: 'Description 1',
-                    link: 'Item 1'
-                }, {
-                    name: 'Item 2',
-                    description: 'Description 2',
-                    link: 'Item 2'
-                }, {
-                    name: 'Item 2',
-                    description: 'Description 2',
-                    link: 'Item 2'
-                }, {
-                    name: 'Item 2',
-                    description: 'Description 2',
-                    link: 'Item 2'
-                }, {
-                    name: 'Item 2',
-                    description: 'Description 2',
-                    link: 'Item 2'
-                }, {
-                    name: 'Item 2',
-                    description: 'Description 2',
-                    link: 'Item 2'
-                }, {
-                    name: 'Item 2',
-                    description: 'Description 2',
-                    link: 'Item 2'
-                }, {
-                    name: 'Item 2',
-                    description: 'Description 2',
-                    link: 'Item 2'
-                }, {
-                    name: 'Item 2',
-                    description: 'Description 2',
-                    link: 'Item 2'
-                }, {
-                    name: 'Item 3',
-                    description: 'Description 3',
-                    link: 'Item 3'
-                }]
-            }]
-        },
         settings: {
             user: [{
                 name:'Innstillinger',
                 options:[{
-                    option: 'Endre passord',
+                    option: 'Endre Passord',
                     icon: 'lock',
                     toast: 'Endre passord',
                     url: '#innstillinger/password'
                 }, {
-                    option: 'Endre Adresse',
-                    icon: 'place',
+                    option: 'Endre Telefonnummer',
+                    icon: 'phone',
                     toast: '',
-                    url: '#innstillinger/password'
+                    url: '#innstillinger/tlf'
+                }, {
+                    option: 'Endre E-post',
+                    icon: 'email',
+                    toast: '',
+                    url: '#innstillinger/email'
                 }]
             }],
             admin: [{
                 name:'Kontrollpanel',
                 options:[{
-                    option: 'Brukere',
-                    icon: 'people',
+                    option: 'Lag Vakt',
+                    icon: 'add_box',
                     toast: 'Endre passord',
                     url: '#innstillinger/password'
+                }, {
+                    option: 'Godkjenne Vaktbytte',
+                    icon: 'playlist_add_check',
+                    toast: 'Endre passord',
+                    url: '#kontrollpanel/godkjennevaktbytte'
                 }]
             }]
         }
@@ -178,7 +149,7 @@ app.service('menuService', function(){
     }
 });
 
-app.controller('MinVaktCtrl', function($scope, $mdSidenav, $mdToast, $http, employeeService, menuService, userService) {
+app.controller('MinVaktCtrl', function($scope, $mdSidenav, $mdToast, $mdDialog ,$http, $routeParams, employeeService, menuService, userService) {
 
     employeeService.then(function(result){
         $scope.employee = result.data;
@@ -186,6 +157,7 @@ app.controller('MinVaktCtrl', function($scope, $mdSidenav, $mdToast, $http, empl
         $scope.employee = {
             firstname: 'Ola',
             surname: 'Nordmann'
+
         };
         console.log('Issue loading employee data from api');
     });
@@ -203,11 +175,11 @@ app.controller('MinVaktCtrl', function($scope, $mdSidenav, $mdToast, $http, empl
         $mdSidenav(menu).toggle();
     };
     $scope.toast = function(message) {
-        var toast = $mdToast.simple().content('You clicked ' + message).position('bottom right');
+        var toast = $mdToast.simple().content('Du klikket ' + message).position('bottom right');
         $mdToast.show(toast);
     };
     $scope.toastList = function(message) {
-        var toast = $mdToast.simple().content('You clicked ' + message + ' having selected ' + $scope.selected.length + ' item(s)').position('bottom right');
+        var toast = $mdToast.simple().content('Du klikket ' + message + ' og har velget ' + $scope.selected.length).position('bottom right');
         $mdToast.show(toast);
     };
     $scope.selected = [];
@@ -216,4 +188,8 @@ app.controller('MinVaktCtrl', function($scope, $mdSidenav, $mdToast, $http, empl
         if (idx > -1) list.splice(idx, 1);
         else list.push(item);
     };
+});
+
+app.controller('TimelistsCtrl', function($scope, $routeParams){
+    $scope.id = $routeParams.id;
 });

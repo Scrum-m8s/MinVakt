@@ -6,10 +6,11 @@ var editor;
 $(document).ready(function() {
     // Bind opp tabellen mot rest-ressursen
     $('#table_wantSwap').DataTable( {
-        select: true,
+        "select" : {
+            style: 'single'
+        },
         "paging": false,
         "info" : false,
-        //"ordering": false,
         ajax: {
             url: 'api/shift_lists/want_swap/true',
             "dataSrc": function (json) {
