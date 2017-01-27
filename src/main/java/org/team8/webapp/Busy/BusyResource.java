@@ -45,7 +45,7 @@ public class BusyResource{
                 return dao.createBusy(b);
         }
 
-        @Path("{my_date}/{shift_id}/{user_id}")
+        //@Path("{my_date}/{shift_id}/{user_id}")
         @PUT
         @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
         public boolean updateBusy(ArrayList<Busy> busies) {

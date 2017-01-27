@@ -101,12 +101,12 @@ $(document).ready(function() {
         $.ajax({
             type: 'PUT',
             contentType: 'application/json',
-            url: 'api/busy',
+            url: 'api/busy/',
             dataType: "json",
             data: JSON.stringify({
-                "user_id": user_id,
+                "my_date": $("#updateInputDate").val(),
                 "shift_id": ($("#updateShiftId").prop('selectedIndex')+1),
-                "my_date": $("#updateInputDate").val()
+                "user_id": user_id
             }),
             success: function(data, textStatus, jqXHR){
                 console.log("Busy added.");
