@@ -10,6 +10,7 @@ import java.sql.Date;
  * Created by asdfLaptop on 10.01.2017.
  * Edited by MisterEaster on 19.01.2017.
  */
+@SuppressWarnings("ALL")
 public class EmployeeDAO extends DatabaseManagement {
 
     public EmployeeDAO() {
@@ -21,7 +22,7 @@ public class EmployeeDAO extends DatabaseManagement {
     ResultSet res = null;
 
     public ArrayList<Employee> getEmployees(){
-        ArrayList<Employee> out = new ArrayList<Employee>();
+        ArrayList<Employee> out = new ArrayList<>();
         if(setUp()){
             try {
                 conn = getConnection();
@@ -66,7 +67,7 @@ public class EmployeeDAO extends DatabaseManagement {
     }
 
     public ArrayList<Employee> getEmployeeByCategory(int category){
-        ArrayList<Employee> out = new ArrayList<Employee>();
+        ArrayList<Employee> out = new ArrayList<>();
         if(setUp()){
             try {
                 conn = getConnection();
@@ -90,7 +91,7 @@ public class EmployeeDAO extends DatabaseManagement {
 
 
     public ArrayList<Employee> getAvailableEmployees(int shift_id, Date my_date, int category){
-        ArrayList<Employee> out = new ArrayList<Employee>();
+        ArrayList<Employee> out = new ArrayList<>();
         if(setUp()){
             try {
                 conn = getConnection();

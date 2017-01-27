@@ -575,8 +575,6 @@ public class TestJUnitDB extends DatabaseManagement{
     @Test
     public void updateBusy() {
       //dummy data and dates
-        Date date = new Date(2017-11-12);
-        Date dateUpdated = new Date(2016-01-06)
         ArrayList<Busy> b = new ArrayList<Busy>();
         b.add(new Busy("dummy", 1, new Date(1970-05-07)));
         b.add(new Busy("dummy", 1, new Date(1974-05-07)));
@@ -584,28 +582,12 @@ public class TestJUnitDB extends DatabaseManagement{
         userDAO.createUser(new User("dummy", "dummy", 1));
         busyDAO.createBusy(new Busy("dummy", 1, new Date(1970-05-07)));
 
-      //TODO:Link to busyResource
-        assertTrue(busyDAO.updateBusy(b));
+        assertTrue(busyResource.updateBusy(b));
 
       //clean up
       busyDAO.removeBusy(new Date(1974-05-07), 1, "dummy");
       userDAO.removeUser("dummy");
   }
-    @Test
-    public void updateBusyCatch() {
-        //dummy data and dates
-        Date date = new Date(2017-11-12);
-        Date dateUpdated = new Date(2016-01-06);
-
-        userDAO.createUser(new User("dummy", "dummy", 1));
-        busyDAO.createBusy(new Busy("dummy", 1, date));
-
-        assertFalse(busyResource.updateBusy(new Busy("Dumbdummy, but it has way too long of a name. Seriously!", 1, dateUpdated)));
-
-        //clean up
-        busyDAO.removeBusy(date, 1, "dummy");
-        userDAO.removeUser("dummy");
-    }
     @Test
     public void removeBusy() {
         //dummy data and dates
