@@ -5,6 +5,7 @@ import org.team8.webapp.ShiftList.ShiftListDAO;
 import org.team8.webapp.TimeList.TimeListDAO;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -32,7 +33,7 @@ public class ShiftListFunctionResource {
         System.out.println(my_date_string);
 
         //Entire shiftlist for that date fetched from database.
-        ArrayList<ShiftList> shift_list = sdao.getShiftListsByDate(my_date);
+        ArrayList<ShiftList> shift_list = sdao.getShiftListsByDate(my_date_string);
 
         //Initiating resulting array after upcoming for-loop.
         ArrayList<ShiftDay> shiftsThisDay = new ArrayList<ShiftDay>();
@@ -66,14 +67,14 @@ public class ShiftListFunctionResource {
     @GET
     public ArrayList<ShiftList> getShiftsByDateAndShiftId(@PathParam("my_date") String my_date_string, @PathParam("shift_id") int shift_id) {
         System.out.println("getShiftsByDateAndShiftId");
-        return sdao.getShiftListsByDateAndShiftId(my_date, shift_id);
+        return sdao.getShiftListsByDateAndShiftId(my_date_string, shift_id);
     }
 
     @Path("getshifttotal/{my_date}/{shift_id}/{user_id}")
     @GET
     public ShiftList getSpesificShift(@PathParam("my_date") String my_date_string, @PathParam("shift_id") int shift_id, @PathParam("user_id") String user_id) {
         System.out.println("getSpesificShift");
-        return sdao.getSingleShift(my_date, shift_id, user_id);
+        return sdao.getSingleShift(my_date_string, shift_id, user_id);
     }
 
     @Path("setwantswap/{my_date}/{shift_id}/{user_id}/{want_swap}")

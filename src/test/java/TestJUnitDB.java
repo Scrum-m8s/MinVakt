@@ -802,7 +802,7 @@ public class TestJUnitDB extends DatabaseManagement{
         userDAO.createUser(new User("dummy3", "dummy3", 1));
         shiftListResource.createShiftlist(new ShiftList("dummy3", 1, false, new Date(2017-01-01), 0, true));
 
-        assertNotNull(shiftListResource.getShiftListsByDate(new Date(2017-01-01)));
+        assertNotNull(shiftListResource.getShiftListsByDate("2017-01-01"));
 
         //clean up
         shiftListResource.removeShiftlist(new Date(2017-01-01),1,"dummy3");
@@ -815,7 +815,7 @@ public class TestJUnitDB extends DatabaseManagement{
         userDAO.createUser(new User("dummy3", "dummy3", 1));
         shiftListResource.createShiftlist(new ShiftList("dummy3", 1, false, new Date(2017-01-01), 0, true));
 
-        assertNotNull(shiftListResource.getShiftListsByDateAndShiftId(new Date(2017-01-01),1));
+        assertNotNull(shiftListResource.getShiftListsByDateAndShiftId("2017-01-01",1));
 
         //clean up
         shiftListResource.removeShiftlist(new Date(2017-01-01),1,"dummy3");
@@ -828,7 +828,7 @@ public class TestJUnitDB extends DatabaseManagement{
         userDAO.createUser(new User("dummy", "dummy", 1));
         shiftListResource.createShiftlist(new ShiftList("dummy", 2, false, new Date(2017-01-01), 0, true));
 
-        assertNotNull(shiftListResource.getSingleShift(new Date(2017-01-01), 2, "dummy"));
+        assertNotNull(shiftListResource.getSingleShift("2017-01-01", 2, "dummy"));
 
         //clean up
         shiftListResource.removeShiftlist(new Date(2017-01-01), 2, "dummy");
@@ -840,7 +840,7 @@ public class TestJUnitDB extends DatabaseManagement{
         userDAO.createUser(new User("dummy", "dummy", 1));
         shiftListResource.createShiftlist(new ShiftList("dummy", 2, false, new Date(2017-01-01), 0, true));
 
-        assertNull(shiftListResource.getSingleShift(new Date(2017-01-01), 2, "notdummy"));
+        assertNull(shiftListResource.getSingleShift("2017-01-01", 2, "notdummy"));
 
         //clean up
         shiftListResource.removeShiftlist(new Date(2017-01-01), 2, "dummy");
@@ -963,7 +963,7 @@ public class TestJUnitDB extends DatabaseManagement{
         shiftListResource.createShiftlist(new ShiftList("dummy3", 1, false, new Date(2017-01-01), 0, true));
         employeeResource.createEmployee(new Employee("dummy3","dummy3","dummy3","dummy3","dummy3", 1));
 
-        assertNotNull(shiftListFunctionResource.getShiftsByDate(new Date(2017-01-01)));
+        assertNotNull(shiftListFunctionResource.getShiftsByDate("2017-01-01"));
 
         //clean up
         employeeResource.removeEmployee("dummy3");
@@ -977,7 +977,7 @@ public class TestJUnitDB extends DatabaseManagement{
         userDAO.createUser(new User("dummy3", "dummy3", 1));
         shiftListResource.createShiftlist(new ShiftList("dummy3", 1, false, new Date(2017-01-01), 0, true));
 
-        assertNotNull(shiftListFunctionResource.getShiftsByDateAndShiftId(new Date(2017-01-01),1));
+        assertNotNull(shiftListFunctionResource.getShiftsByDateAndShiftId("2017-01-01",1));
 
         //clean up
         shiftListResource.removeShiftlist(new Date(2017-01-01),1,"dummy3");

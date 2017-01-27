@@ -127,6 +127,7 @@ public class ShiftListDAO extends DatabaseManagement{
                 }
             }
             catch (SQLException sqle){
+                sqle.printStackTrace();
                 System.err.println("Issue with getting single shift_list by user id and shift_id. Error code:" + sqle.getErrorCode() + " Message: " + sqle.getMessage());
                 return null;
             }
@@ -137,30 +138,6 @@ public class ShiftListDAO extends DatabaseManagement{
         return out;
     }
 
-    public ShiftList getSpesificShift(String my_date, int shift_id, String user_id){
-        ShiftList out = null;
-        if(setUp()){
-            try {
-                conn = getConnection();
-                prep = conn.prepareStatement("SELECT * FROM Shift_list WHERE user_id=? AND shift_id=? AND my_date=?;");
-                prep.setString(1, user_id);
-                prep.setInt(2, shift_id);
-                prep.setString(3, my_date);
-                res = prep.executeQuery();
-                if (res.next()){
-                    out = processRow(res);
-                }
-            }
-            catch (SQLException sqle){
-                System.err.println("Issue with getting specific shift_list by user id and shift_id and my_date. Error code:" + sqle.getErrorCode() + " Message: " + sqle.getMessage());
-                return null;
-            }
-            finally {
-                finallyStatement(res, prep);
-            }
-        }
-        return out;
-    }
 
     public ArrayList<Shift_list_w_cat> getWantSwap_cat(){
         ArrayList<Shift_list_w_cat> out = new ArrayList<Shift_list_w_cat>();
@@ -215,7 +192,7 @@ public class ShiftListDAO extends DatabaseManagement{
         return out;
     }
 
-    public boolean setWantSwap(String user_id, int shift_id, String my_date, boolean want_swap){
+    public boolean setWantSwap(String user_id, int shift_id, Date my_date, boolean want_swap){
         int numb = 0;
         if(setUp()) {
             try {
@@ -225,7 +202,7 @@ public class ShiftListDAO extends DatabaseManagement{
                 prep.setBoolean(1, want_swap);
                 prep.setString(2, user_id);
                 prep.setInt(3, shift_id);
-                prep.setString(4, my_date);
+                prep.setDate(4, my_date);
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {
