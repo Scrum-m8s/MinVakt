@@ -164,7 +164,7 @@ app.controller('MinVaktCtrl', function($scope, $mdSidenav, $mdToast, $mdDialog ,
         $scope.isAdmin = (result.data.role===0)
     }, function(result){
         console.log('Issue loading user data from api');
-        $scope.isAdmin = true;
+        $scope.isAdmin = false;
     });
 
     $scope.data = menuService;
