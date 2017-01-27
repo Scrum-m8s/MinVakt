@@ -13,8 +13,16 @@
         <processorPath useClasspath="true" />
         <module name="minvakt" />
       </profile>
+      <profile default="false" name="Annotation profile for MinVakt" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="MinVakt" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="MinVakt" target="1.8" />
       <module name="minvakt" target="1.8" />
     </bytecodeTargetLevel>
   </component>
