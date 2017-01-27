@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/layout.css">
     <!--<link rel="stylesheet" href="Bootstrap-3.3.6/css/bootstrap.min.css">-->
@@ -29,7 +28,7 @@
     <li><a href="kvalifisert_for_vakt.html">Kvalifisert for vakt/Ledige vakter(?)</a></li>
     <li><a href = "shift_book.html">Skiftbok</a></li>
     <li><a class="active" href = "employees.html">Ansatte</a></li>
-    <li><a href = "godkjenne_vaktbytte.html">Ønsker om vaktbytte</a></li>
+    <li><a href = "godkjenne_vaktbytte.html">Ã˜nsker om vaktbytte</a></li>
 </ul>
 
 <div class="content">
@@ -71,14 +70,17 @@
         <br>
         <br>
         <div id="ansvarsvakt">
-        <form>
-            <input id="ansvar" type="checkbox" name="ansvarsvakt" value="1">Merk dersom ansvarsvakt<br>
-        </form>
+            <form>
+                <input id="ansvar" type="checkbox" name="ansvarsvakt" value="1">Merk dersom ansvarsvakt<br>
+            </form>
         </div>
         <br>
         <br>
         <button id="nyVakt"> Registrer </button>
         <p id="regFail" style="color:red; display:none">Feil ved registrering</p>
+        <p id="regDuplicate" style="color:red; display:none">Skift finnes allerede</p>
+
+    </div>
 </div>
 </div>
 </body>

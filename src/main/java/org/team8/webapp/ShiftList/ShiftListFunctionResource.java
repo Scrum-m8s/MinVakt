@@ -55,4 +55,19 @@ public class ShiftListFunctionResource {
         System.out.println("getShiftsByDateAndShiftId");
         return sdao.getShiftListsByDateAndShiftId(my_date, shift_id);
     }
+
+    @Path("getshifttotal/{my_date}/{shift_id}/{user_id}")
+    @GET
+    public ShiftList getSpesificShift(@PathParam("my_date") Date my_date, @PathParam("shift_id") int shift_id, @PathParam("user_id") String user_id){
+        System.out.println("getSpesificShift");
+        return sdao.getSingleShift(my_date, shift_id, user_id);
+    }
+
+    @Path("getshifttotal/{my_date}/{shift_id}/{user_id}")
+    @PUT
+    //@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public boolean setWantSwap(ShiftList sl, @PathParam("my_date") String my_date_string, @PathParam("shift_id") int shift_id, @PathParam("user_id") String user_id){
+        System.out.println("setWantSwap: " + sl.isWant_swap());
+        return sdao.setWantSwap(sl.isWant_swap(), user_id, shift_id, my_date_string);
+    }
 }

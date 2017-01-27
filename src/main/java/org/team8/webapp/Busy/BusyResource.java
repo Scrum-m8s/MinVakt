@@ -9,6 +9,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 @Path("/busy")
 public class BusyResource{
@@ -47,8 +48,8 @@ public class BusyResource{
         @Path("{my_date}/{shift_id}/{user_id}")
         @PUT
         @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-        public boolean updateBusy(Busy b) {
-                return dao.updateBusy(b);
+        public void updateBusy(ArrayList<Busy> busies) {
+                dao.updateBusy(busies);
         }
 
         @Path("{my_date}/{shift_id}/{user_id}")

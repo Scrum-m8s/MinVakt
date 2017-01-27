@@ -24,6 +24,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
@@ -483,8 +484,8 @@ public class TestJUnitDB extends DatabaseManagement{
         //clean up
         shiftDAO.removeShift(dummy.getShift_id());
     }
-  
-  
+
+
     //
     //Busy-tests
     //
@@ -574,16 +575,20 @@ public class TestJUnitDB extends DatabaseManagement{
     @Test
     public void updateBusy() {
       //dummy data and dates
-      Date date = new Date(2017-11-12);
-      Date dateUpdated = new Date(2016-01-06);
+        Date date = new Date(2017-11-12);
+        Date dateUpdated = new Date(2016-01-06)
+        ArrayList<Busy> b = new ArrayList<Busy>();
+        b.add(new Busy("dummy", 1, new Date(1970-05-07)));
+        b.add(new Busy("dummy", 1, new Date(1974-05-07)));
 
-      userDAO.createUser(new User("dummy", "dummy", 1));
-      busyDAO.createBusy(new Busy("dummy", 1, date));
+        userDAO.createUser(new User("dummy", "dummy", 1));
+        busyDAO.createBusy(new Busy("dummy", 1, new Date(1970-05-07)));
 
-      assertTrue(busyResource.updateBusy(new Busy("dummy", 1, dateUpdated)));
+      //TODO:Link to busyResource
+        assertTrue(busyDAO.updateBusy(b));
 
       //clean up
-      busyDAO.removeBusy(dateUpdated, 1, "dummy");
+      busyDAO.removeBusy(new Date(1974-05-07), 1, "dummy");
       userDAO.removeUser("dummy");
   }
     @Test

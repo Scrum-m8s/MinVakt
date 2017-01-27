@@ -4,32 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/layout.css">
-    <!--<link rel="stylesheet" href="Bootstrap-3.3.6/css/bootstrap.min.css">-->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="Bootstrap-3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="Bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script src="Bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script src="js/jquery-3.1.0.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/dt-1.10.13/b-1.2.4/b-colvis-1.2.4/b-print-1.2.4/r-2.1.0/se-1.2.0/datatables.min.js"></script>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <!--<script src="Bootstrap-3.3.6/js/bootstrap.min.js"></script>-->
-   <!-- <script href="Editor-1.6.1/dataTables.editor.js"></script>-->
-    <!--<link rel="stylesheet" type="text/css" href="Editor-1.6.1/css/dataTables.editor.css">-->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/dt-1.10.13/jqc-1.11.3,dt-1.10.13,b-1.2.4,se-1.2.1/datatables.min.css"/>
-    <link rel="stylesheet" type="text/css" href="Editor-1.6.1/css/editor.dataTables.css">
-    <!--<script type="text/javascript" src="https://cdn.datatables.net/r/dt-1.10.13/jqc-1.11.3,dt-1.10.13,b-1.2.4,se-1.2.1/datatables.min.js"></script>-->
-    <script type="text/javascript" src="Editor-1.6.1/js/dataTables.editor.js"></script>
-    <script src="js/Shiftswap_request.js"></script>
-    <title>Ønsker om vaktbytte</title>
-
-
+    <title>Godkjenne vaktbytte</title>
 </head>
 <body>
 <ul class="sidenav">
     <li><a href="index.html">Hjem</a></li>
-    <li><a href="timeliste_old.html">Timelister</a></li>
+    <li><a href="timeliste.html">Timelister</a></li>
     <li><a href="endre_passord.html">Endre passord</a></li>
     <li><a href="vaktbytte.html">Vaktbytte</a></li>
     <li><a href="kvalifisert_for_vakt.html">Kvalifisert for vakt/Ledige vakter(?)</a></li>
@@ -38,23 +23,22 @@
     <li><a class="active" href = "godkjenne_vaktbytte.html">Ønsker om vaktbytte</a></li>
 </ul>
 <div class="content">
-    <h1>Ønsker om vaktbytte</h1>
-    <table id="table_wantSwap" class="stripe hover" width="100%">
-        <thead>
+    <table class="table">
+        <h1>Ønsker om vaktbytte</h1>
         <tr>
-            <th>Brukernavn</th>
-            <th>Type vakt</th>
-            <th>Ansvarsvakt</th>
+            <th>Navn</th>
+            <th>Stilling</th>
             <th>Dato</th>
+            <th>Vakt</th>
+            <th>Vil bytte med</th>
         </tr>
-        </thead>
     </table>
-
     <div class="container">
-        <button id="se_ledige" class="btn btn-default" type="button">Se ledige</button>
-        <button id="godkjenn" class="btn btn-default" type="button">Godkjenn</button>
-        <button id="avslaa" class="btn btn-default" type="button">Avslå</button>
+        <button class="btn btn-default" type="button">Godkjenn</button>
+        <button class="btn btn-default" type="button">Avslå</button>
     </div>
 </div>
+
+
 </body>
 </html>

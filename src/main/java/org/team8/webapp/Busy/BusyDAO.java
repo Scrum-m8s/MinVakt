@@ -4,6 +4,9 @@ import org.team8.webapp.Database.DatabaseManagement;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.sql.Date;
+import java.util.List;
+
 /**
  * Created by Nina on 12.01.2017.
  * Edited by Mr_Easter on 12.01.2017 and 18.01.2017.
@@ -111,16 +114,21 @@ public class BusyDAO extends DatabaseManagement {
         return numb > 0;
     }
 
-    public boolean updateBusy(Busy e) {
+    public boolean updateBusy(ArrayList<Busy> busies) {
         int numb = 0;
+        Busy oldBusy = busies.get(0);
+        Busy newBusy = busies.get(1);
         if(setUp()) {
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
-                prep = conn.prepareStatement("UPDATE Busy SET my_date=? WHERE user_id=? AND shift_id=?;");
-                prep.setDate(1, e.getMy_date());
-                prep.setString(2, e.getUser_id());
-                prep.setInt(3, e.getShift_id());
+                prep = conn.prepareStatement("UPDATE Busy SET my_date=?, user_id=?, shift_id=? WHERE my_date=? AND user_id=? AND shift_id=?;");
+                prep.setDate(1, newBusy.getMy_date());
+                prep.setString(2, newBusy.getUser_id());
+                prep.setInt(3, newBusy.getShift_id());
+                prep.setDate(4, oldBusy.getMy_date());
+                prep.setString(5, oldBusy.getUser_id());
+                prep.setInt(6, oldBusy.getShift_id());
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {

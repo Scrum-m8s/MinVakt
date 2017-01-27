@@ -1,0 +1,10 @@
+<md-list class="md-2-line" ng-repeat="list in data.settings.user">
+    <md-subheader>{{list.name}}</md-subheader>
+    <md-divider></md-divider>
+    <md-list-item ng-repeat="item in list.options" ng-click="null; toast(item.toast)" href="{{item.url}}">
+        <md-icon ng-click="null">{{item.icon}}</md-icon>
+        <p class="md-body-2">{{item.option}}</p>
+        <span flex></span>
+        <md-icon>chevron_right</md-icon>
+    </md-list-item>
+</md-list>

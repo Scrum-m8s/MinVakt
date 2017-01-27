@@ -161,6 +161,32 @@ public class ShiftListDAO extends DatabaseManagement{
         return out;
     }
 
+    public boolean setWantSwap(boolean swap, String user_id, int shift_id, String my_date){
+        int numb = 0;
+        if(setUp()) {
+            try {
+                conn = getConnection();
+                conn.setAutoCommit(false);
+                prep = conn.prepareStatement("UPDATE Shift_list SET want_swap=? WHERE user_id=? AND shift_id=? AND my_date=?;");
+                prep.setBoolean(1, swap);
+                prep.setString(2, user_id);
+                prep.setInt(3, shift_id);
+                prep.setString(4, my_date);
+                numb = prep.executeUpdate();
+            }
+            catch (SQLException sqle) {
+                System.err.println("Issue with updating shiftlist want_swap. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
+                sqle.printStackTrace();
+                rollbackStatement();
+                return false;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return numb > 0;
+    }
+
     public boolean createShiftlist(ShiftList s_l){
         int numb = 0;
         if(setUp()){
@@ -193,7 +219,9 @@ public class ShiftListDAO extends DatabaseManagement{
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
+
                 prep = conn.prepareStatement("UPDATE Shift_list SET shift_id=?, on_duty=?, my_date=?, deviance=?, want_swap=? WHERE user_id=? AND shift_id=? AND my_date=?;");
+
                 prep.setInt(1, s_l.getShift_id());
                 prep.setBoolean(2, s_l.isOn_duty());
                 prep.setDate(3, s_l.getMy_date());
@@ -215,6 +243,7 @@ public class ShiftListDAO extends DatabaseManagement{
         }
         return numb > 0;
     }
+
     public boolean registerDeviance(ShiftList s_l) {
         int numb = 0;
         if(setUp()) {
