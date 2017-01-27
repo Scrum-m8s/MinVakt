@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="Bootstrap-3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="Bootstrap-3.3.6/js/bootstrap.min.js"></script>
-    <script src="Bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script src="js/jquery-3.1.0.min.js"></script>
+    <script src="js/swaplist.js"></script>
+    <script src="js/Shiftswap_request.js"></script>
     <title>Godkjenne vaktbytte</title>
 </head>
 <body>
+<!--
 <ul class="sidenav">
     <li><a href="index.html">Hjem</a></li>
     <li><a href="timeliste.html">Timelister</a></li>
@@ -22,8 +22,9 @@
     <li><a href = "employees.html">Ansatte</a></li>
     <li><a class="active" href = "godkjenne_vaktbytte.html">Ønsker om vaktbytte</a></li>
 </ul>
+-->
 <div class="content">
-    <table class="table">
+    <table class="table" id="table_wantSwap">
         <h1>Ønsker om vaktbytte</h1>
         <tr>
             <th>Navn</th>
@@ -34,6 +35,7 @@
         </tr>
     </table>
     <div class="container">
+        <button class = "btn btn-default" type="button" id="btnCheck">Se kvalifiserte</button>
         <button class="btn btn-default" type="button">Godkjenn</button>
         <button class="btn btn-default" type="button">Avslå</button>
     </div>

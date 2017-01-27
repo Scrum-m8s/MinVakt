@@ -72,6 +72,30 @@ $(document).ready(function() {
             },
         });
     });
+
+    $('#btnCheck').click(function() {
+        var date = $('tr.selected td:eq(0)').text();
+        var shiftString = $('tr.selected td:eq(1)').text();
+        var user = $('tr.selected td:eq(2)').text();
+
+        var shift = 0;
+        if(shiftString.equals("Nattevakt")){
+            shift = 1;
+        } else if(shiftString.equals("Dagvakt")){
+            shift = 2;
+        } else{
+            shift = 3;
+        }
+
+        var category = 0;
+        $.get("/api/employees/" + user, function(data){
+            category = data.category;
+        });
+
+        if(user!= null) {
+            window.location = "http://www.localhost:8080/kvalifisert_for_vakt.html?var1=" + date + "&var2=" + shift + "&var3=" + category;
+        }
+    });
 });
 
 

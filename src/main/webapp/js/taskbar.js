@@ -17,6 +17,8 @@ app.config(function($mdThemingProvider, $routeProvider, $locationProvider) {
         templateUrl: "partials/settings_phone.html"
     }).when("/skift", {
         templateUrl: "partials/shiftlist.html"
+    }).when("/opptatt", {
+        templateUrl: "partials/busy.html"
     }).when("/vaktbytte", {
         templateUrl: "partials/swaplist.html"
     }).when("/kontrollpanel", {
@@ -83,6 +85,16 @@ app.service('menuService', function(){
                     icon: 'developer_board',
                     link: 'Action 4',
                     url: '#kontrollpanel'
+                }, {
+                    name: 'Ansatte',
+                    icon: 'people',
+                    link: 'Ansatte',
+                    url: '#ansatt'
+                }, {
+                    name: 'Opptatt',
+                    icon: 'watch_later',
+                    link: 'Opptatt',
+                    url: '#opptatt'
                 }]
             }, {
                 bottom: [{

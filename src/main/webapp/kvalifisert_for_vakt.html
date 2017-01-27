@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-    <html lang="en">
-        <head>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/layout.css">
@@ -10,54 +10,44 @@
     <script src="Bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script src="js/jquery-3.1.0.min.js"></script>
     <script src="http://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
-
-    <title>kvalifisert for vakt</title>
+    <script src="js/employee.js"></script>
 </head>
 <body>
 <ul class="sidenav">
-    <li><a href="index.html">Hjem</a></li>
-    <li><a href="timeliste.html">Timelister</a></li>
-    <li><a href="endre_passord.html">Endre passord</a></li>
-    <li><a href="vaktbytte.html">Vaktbytte</a></li>
-    <li><a class="active" href="kvalifisert_for_vakt.html">Kvalifisert for vakt/Ledige vakter(?)</a></li>
-    <li><a href = "shift_book.html">Skiftbok</a></li>
-    <li><a href = "employees.html">Ansatte</a></li>
-    <li><a href = "godkjenne_vaktbytte.html">Ønsker om vaktbytte</a></li>
+    <ul class="sidenav">
+        <li><a href="index.html">Hjem</a></li>
+        <li><a href="timeliste.html">Timelister</a></li>
+        <li><a href="endre_passord.html">Endre passord</a></li>
+        <li><a href="vaktbytte.html">Vaktbytte</a></li>
+
+        <li><a href = "overtime_absence.html">overtid-fravær</a></li>
+        <li><a href = "shift_book.html">Skiftbok</a></li>
+        <li><a href = "employees.html">Ansatte</a></li>
+        <li><a href = "godkjenne_vaktbytte.html">Ønsker om vaktbytte</a></li>
+    </ul>
 </ul>
+
+
 <div class="content">
-    <h1>Velg stilling</h1>
-    <div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">stillinger
-            <span class="caret"></span></button>
-        <ul class="dropdown-menu">
-            <li><a href="#">sykepleier</a></li>
-            <li><a href="#">assistent</a></li>
-            <li><a href="#">helsefagarbeider</a></li>
-        </ul>
-
-
-        <div class="content">
-            <div>
-                <h1>kvalifisert for vakt</h1>
-                category: <input type="number" id="category" name="category"><br>
-                my_date: <input type="date" id="my_date" name="my_date"><br>
-                shift_id: <input type="number" id="shift_id" name="shift_id"><br>
-                <button id="availableEmployees"> OK </button>
-            </div>
-
-            <table id="availableEmployeesTable" class="table stripe hover" width="100%">
-                <thead>
-                <tr>
-                    <th>Fornavn</th>
-                    <th>Etternavn</th>
-                    <th>Telefon</th>
-                    <th>Epost</th>
-                    <th>Kategori</th>
-                </tr>
-                </thead>
-            </table>
-        </div>
+    <div>
+        <h1>kvalifisert for vakt</h1>
+        category: <input type="number" id="category" name="category"><br>
+        my_date: <input type="date" id="my_date" name="my_date"><br>
+        shift_id: <input type="number" id="shift_id" name="shift_id"><br>
+        <button id="availableEmployees"> OK </button>
     </div>
+
+    <table id="availableEmployeesTable" class="table stripe hover" width="100%">
+        <thead>
+        <tr>
+            <th>Fornavn</th>
+            <th>Etternavn</th>
+            <th>Telefon</th>
+            <th>Epost</th>
+            <th>Kategori</th>
+        </tr>
+        </thead>
+    </table>
 </div>
 </body>
 </html>
