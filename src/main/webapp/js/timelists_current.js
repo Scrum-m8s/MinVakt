@@ -30,6 +30,7 @@ $(document).ready(function() {
                         json[i].month = monthNames[(json[i].month)];
 
                         return_data.push({
+                            'year': json[i].year,
                             'month': json[i].month,
                             'overtime': json[i].overtime,
                             'absence': json[i].absence,
@@ -42,7 +43,8 @@ $(document).ready(function() {
                         totOrd += json[i].ordinary;
                     }
                     return_data.push({
-                        'month': "Totalt:",
+                        'year': "Totalt:",
+                        'month': "-",
                         'overtime': totOver,
                         'absence': totAbs,
                         'ordinary': totOrd,
@@ -53,6 +55,7 @@ $(document).ready(function() {
             },
 
             "columns" : [
+                { data: 'year'},
                 { data: 'month'},
                 { data: 'overtime', orderable: false},
                 { data: 'absence', orderable: false},
