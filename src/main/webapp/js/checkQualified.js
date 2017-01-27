@@ -1,7 +1,7 @@
 /**
  * Created by espen on 19.01.2017.
  */
-var rootURL = "http://localhost:8080/api/employees/";
+var rootURL = "/api/employees/";
 
 // TODO: eksempelkrav, byttes med ekte krav til vakt
 // antar minst ti på jobb, min 3 fagarbeidere (30%) og 2 sykepleiere (20%)

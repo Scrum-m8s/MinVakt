@@ -1,4 +1,4 @@
-var app = angular.module('MinVakt', ['ngMaterial', 'ngRoute']);
+var app = angular.module('MinVakt', ['ngMaterial', 'ngRoute', 'ngMessages']);
 
 app.config(function($mdThemingProvider, $routeProvider, $locationProvider) {
     $mdThemingProvider.theme('default').primaryPalette('blue');
@@ -196,6 +196,8 @@ app.controller('TimelistsCtrl', function($scope, $routeParams){
 
 app.controller('SettingsCtrl', function($scope, $http){
 
+    $scope.regex = ".*[0-9].*";
+
     $scope.changePassword = function(oldpassword, newpassword, newpasswordrepeat){
         console.log("changePassword():");
         console.log(oldpassword);
@@ -205,20 +207,25 @@ app.controller('SettingsCtrl', function($scope, $http){
         if(newpassword != newpasswordrepeat){
             $scope.passwordsMatch = true;
             return false;
-        }else{
-            $http({
-                method: 'PUT',
-                url: 'api/users/current/updatepassword',
-                data: {
-                    oldpassword: oldpassword,
-                    newpassword: newpassword
-                }
-            }).then(function success(response){
-                console.log(response);
-            }, function error(response){
-                console.log("PUT password error");
-            });
         }
+
+        $http({
+            method: 'PUT',
+            url: 'api/users/current/updatepassword',
+            data: {
+                oldpassword: oldpassword,
+                newpassword: newpassword
+            }
+        }).then(function success(response){
+            console.log(response);
+            if(response == 'false'){
+                $scope.oldPasswordIncorrect = true;
+            }else{
+                $scope.passwordChanged = true;
+            }
+        }, function error(response){
+            console.log("PUT password error");
+        });
     }
 
     $scope.changePhonenumber = function(newnumber){
