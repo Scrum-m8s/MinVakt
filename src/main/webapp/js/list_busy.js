@@ -103,15 +103,18 @@ $(document).ready(function() {
         }
 
         $.ajax({
-            url: '/api/busy/',
+            url: '/api/busy/' + my_date + '/' + shift_id + '/' + user_id,
             type: 'PUT',
             contentType: 'application/json',
+            dataType: "json",
             data: JSON.stringify([
-                { "user_id": user_id,
+                {
+                    "user_id": user_id,
                     "shift_id": shift_id,
                     "my_date": my_date
                 },
-                { "user_id": user_id,
+                {
+                    "user_id": user_id,
                     "shift_id": ($("#updateShiftId").prop('selectedIndex')+1),
                     "my_date": $("#updateInputDate").val()
                 }]),
@@ -124,7 +127,6 @@ $(document).ready(function() {
             }
         });
     });
-
     $("#delete").click(function(){
         var user_id = $('tr.selected td:eq(0)').text();
         var shift_id = $('tr.selected td:eq(1)').text();
