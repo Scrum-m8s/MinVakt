@@ -54,7 +54,6 @@ public class BusyResource{
 
         @Path("{my_date}/{shift_id}/{user_id}")
         @DELETE
-        @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
         public boolean removeBusy(@PathParam("my_date") Date my_date, @PathParam("shift_id") int shift_id, @PathParam("user_id") String user_id) {
                 return dao.removeBusy(my_date, shift_id, user_id);
         }

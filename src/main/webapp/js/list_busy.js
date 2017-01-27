@@ -144,15 +144,16 @@ $(document).ready(function() {
             $.ajax({
                 url: '/api/busy/' + my_date + '/' + shift_id + '/' + user_id,
                 type: 'DELETE',
-                contentType: 'application/json',
                 success: function (data, textStatus, jqXHR) {
-                    console.log("Busy added.");
+                    console.log("User deleted");
                     window.location.reload();
                 },
                 error: function (data, textStatus, jqXHR) {
                     console.log("Error: " + textStatus);
                 }
             });
+        }else {
+            alert("Trykk på en ansatt før du fjerner.");
         }
 
     });
