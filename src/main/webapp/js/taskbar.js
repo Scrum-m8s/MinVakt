@@ -21,8 +21,6 @@ app.config(function($mdThemingProvider, $routeProvider, $locationProvider) {
         templateUrl: "partials/swaplist.html"
     }).when("/kontrollpanel", {
         templateUrl: "partials/controlpanel.html"
-    }).when("/opptatt", {
-        templateUrl: "partials/busy.html"
     }).when("/timelister_current", {
         templateUrl: "partials/timelists_current.html"
     }).when("/timelister/:id", {
@@ -63,11 +61,6 @@ app.service('menuService', function(){
                     icon: 'book',
                     link: 'Skiftbok',
                     url: '#skift'
-                },{
-                    name: 'Opptatt',
-                    icon: 'assignment',
-                    link: 'Opptatt',
-                    url: '#opptatt'
                 }, {
                     name: 'Timelister',
                     icon: 'assignment',
