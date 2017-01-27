@@ -26,16 +26,34 @@
     <table class="table">
         <h1>Ønsker om vaktbytte</h1>
         <tr>
-            <th>Navn</th>
-            <th>Stilling</th>
             <th>Dato</th>
-            <th>Vakt</th>
-            <th>Vil bytte med</th>
+            <th>Type vakt</th>
+            <th>Brukernavn</th>
+            <th>Ansvarsvakt</th>
+            <th>Kategori</th>
         </tr>
     </table>
-    <div class="container">
-        <button class="btn btn-default" type="button">Godkjenn</button>
-        <button class="btn btn-default" type="button">Avslå</button>
+
+        <button id="availableEmployees" class="btn btn-default" type="button">Se ledige</button>
+
+        <!--<button id="se_ledige" class="btn btn-default" type="button">Se ledige</button>-->
+        <button id="avslaa" class="btn btn-default" type="button">Avslå</button>
+
+    <div>
+
+    <table id="availableEmployeesTable" class="table stripe hover" width="100%">
+        <thead>
+        <tr>
+            <th>Fornavn</th>
+            <th>Etternavn</th>
+            <th>Telefon</th>
+            <th>Epost</th>
+            <th>Kategori</th>
+            <th>Brukernavn</th>
+        </tr>
+        </thead>
+    </table>
+        <button id="change" class="btn btn-default" type="button">Ok</button>
     </div>
 </div>
 

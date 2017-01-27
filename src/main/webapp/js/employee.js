@@ -247,7 +247,7 @@ $(document).ready(function() {
         }
 
     });
-  
+  /*
     $("#availableEmployeesTable").DataTable({
         data:[],
         columns: [
@@ -267,6 +267,9 @@ $(document).ready(function() {
         retrieve: true
     });
 
+    */
+
+    /*
     //function to get employees qualified for a shift
     //is used in kvalifisert_for_vakt.html
     function getAvailableEmployees(shift_id, my_date, category){
@@ -294,7 +297,12 @@ $(document).ready(function() {
         });
     }
 
+*/
+    /*
     $("#availableEmployees").click(function () {
+        var my_date = window.location.search.substring(1).split(/[=&]/)[1];
+        var shift_id = window.location.search.substring(1).split(/[=&]/)[3];
+        var category = window.location.search.substring(1).split(/[=&]/)[5];
         var category = $("#category").val();
         var my_date = $("#my_date").val();
         var shift_id = $("#shift_id").val();
@@ -304,10 +312,11 @@ $(document).ready(function() {
         getAvailableEmployees(shift_id, my_date, category);
     });
 
+*/
+
 
 
     function registerOvertimeAbsence(user_id, shift_id, my_date, deviance) {
-
         $.ajax({
             type: 'PUT',
             contentType: 'application/json',
