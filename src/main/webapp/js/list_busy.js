@@ -2,12 +2,32 @@
  * Created by Nina on 23.01.2017.
  */
 $(document).ready(function() {
-    var modalNew = document.getElementById('createmodal');
-    var modalUpdt = document.getElementById('updatemodal');
+    var modalNew = document.getElementById('createModalBusy');
+    var modalUpdt = document.getElementById('updateModalBusy');
 
     var btnNew = document.getElementById("register");
     var btnUpdt = document.getElementById("update");
     var span = document.getElementsByClassName("close")[0];
+
+
+    window.onclick = function(event) {
+        if (event.target == $("#createModalBusy")) {
+            $("#createModalBusy").modal('hide');
+        }
+        if (event.target == $("#updateModalBusy")) {
+            $("#updateModalBusy").modal('hide');
+        }
+    }
+
+    $("#closeCreateBusy").on('click', function() {
+        $("#createModalBusy").modal('hide');
+    });
+
+    $("#closeUpdateBusy").on('click', function() {
+        $("#updateModalBusy").modal('hide');
+    });
+
+
 
     var table = $('#busy_table').DataTable( {
         "paging": false,

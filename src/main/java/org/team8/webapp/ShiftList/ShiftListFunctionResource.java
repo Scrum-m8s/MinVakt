@@ -63,20 +63,6 @@ public class ShiftListFunctionResource {
         return shiftsThisDay;
     }
 
-    @Path("getshifttotal/{my_date}/{shift_id}")
-    @GET
-    public ArrayList<ShiftList> getShiftsByDateAndShiftId(@PathParam("my_date") String my_date_string, @PathParam("shift_id") int shift_id) {
-        System.out.println("getShiftsByDateAndShiftId");
-        return sdao.getShiftListsByDateAndShiftId(my_date_string, shift_id);
-    }
-
-    @Path("getshifttotal/{my_date}/{shift_id}/{user_id}")
-    @GET
-    public ShiftList getSpesificShift(@PathParam("my_date") String my_date_string, @PathParam("shift_id") int shift_id, @PathParam("user_id") String user_id) {
-        System.out.println("getSpesificShift");
-        return sdao.getSpesificShift(my_date_string, shift_id, user_id);
-    }
-
     @Path("setwantswap/{my_date}/{shift_id}/{user_id}/{want_swap}")
     @PUT
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})

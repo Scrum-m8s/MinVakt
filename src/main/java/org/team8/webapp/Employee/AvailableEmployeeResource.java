@@ -20,7 +20,6 @@ public class AvailableEmployeeResource{
     //Parses JSON-data to an AvailableEmployee object. Accepts date as a string in "yyyy-MM-dd"-format.
     @POST
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public ArrayList<Employee> getAvailableEmployees(AvailableEmployee ae) {
         System.out.println("getAvailableEmployees");
 

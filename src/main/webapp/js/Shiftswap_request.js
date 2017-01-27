@@ -73,15 +73,13 @@ $(document).ready(function() {
             success: function(result){
                 wantSwapTable.ajax.reload();
             },
+            error: function() {
+                wantSwapTable.ajax.reload();
+            }
         });
     });
 
     $("#availableEmployeesTable").DataTable({
-        "autoWidth": true,
-        "select" : {
-            style: 'single'
-        },
-        "responsive": true,
         columns: [
             { data: 'firstname' },
             { data: 'surname' },
@@ -97,14 +95,18 @@ $(document).ready(function() {
         processing: true,
         searching: false,
         paging: false,
-        retrieve: true
+        retrieve: true,
+        autoWidth: true,
+        select: {
+            style: 'single'
+        },
+        responsive: true
     });
 
     //function to get employees qualified for a shift
     //is used in kvalifisert_for_vakt.html
     function getAvailableEmployees(shift_id, my_date, category){
         availableTable = $('#availableEmployeesTable').DataTable();
-
         $.ajax({
             type: 'POST',
             contentType: 'application/json',
@@ -138,7 +140,11 @@ $(document).ready(function() {
         } else{
             shift_id = 3;
         }
-        getAvailableEmployees(shift_id, my_date, category);
+        if(my_date != "") {
+            getAvailableEmployees(shift_id, my_date, category);
+        } else {
+            alert("Velg en bruker først.");
+        }
     });
 
 
@@ -179,6 +185,7 @@ $(document).ready(function() {
             },
             error: function(data, textStatus, jqXHR){
                 console.log("Error: " + textStatus);
+                wantSwapTable.ajax.reload();
             }
         });
     }
