@@ -79,7 +79,7 @@ public class EmployeeResource {
 
     @Path("{id}")
     @DELETE
-    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    //@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean removeEmployee(@PathParam("id") String id) {
         return dao.removeEmployee(id);
     }
