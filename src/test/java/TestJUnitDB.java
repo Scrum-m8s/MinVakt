@@ -925,7 +925,7 @@ public class TestJUnitDB extends DatabaseManagement{
         shiftListResource.createShiftlist(new ShiftList("dummy3", 1, false, new Date(2017-01-01), 0, true));
 
         //clean up and test
-        assertTrue(shiftListResource.removeShiftlist(new Date(2017-01-01), 1, "dummy3"));
+        assertEquals(SUCCESS_RESULT,shiftListResource.removeShiftlist(new Date(2017-01-01), 1, "dummy3"));
 
         userDAO.removeUser(("dummy3"));
     }
@@ -936,7 +936,7 @@ public class TestJUnitDB extends DatabaseManagement{
         shiftListResource.createShiftlist(new ShiftList("dummy3", 1, false, new Date(2017-01-01), 0, true));
 
         //clean up and test
-        assertFalse(shiftListResource.removeShiftlist(new Date(2017-01-01), 1, "notdummy3"));
+        assertEquals(FAILURE_RESULT,shiftListResource.removeShiftlist(new Date(2017-01-01), 1, "notdummy3"));
 
         shiftListResource.removeShiftlist(new Date(2017-01-01), 1, "dummy3");
         userDAO.removeUser(("dummy3"));

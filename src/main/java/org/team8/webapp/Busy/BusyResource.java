@@ -13,7 +13,7 @@ import java.util.List;
 
 @Path("/busy")
 public class BusyResource{
-        BusyDAO dao = new BusyDAO();
+    BusyDAO dao = new BusyDAO();
 
     private static final String SUCCESS_RESULT="<result>success</result>";
     private static final String FAILURE_RESULT="<result>failure</result>";
@@ -47,7 +47,7 @@ public class BusyResource{
             return dao.createBusy(b);
     }
 
-    //@Path("{my_date}/{shift_id}/{user_id}")
+    @Path("{my_date}/{shift_id}/{user_id}")
     @PUT
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean updateBusy(ArrayList<Busy> busies) {
@@ -56,7 +56,7 @@ public class BusyResource{
 
     @Path("{my_date}/{shift_id}/{user_id}")
     @DELETE
-    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public String removeBusy(@PathParam("my_date") Date my_date, @PathParam("shift_id") int shift_id, @PathParam("user_id") String user_id) {
             boolean result = dao.removeBusy(my_date, shift_id, user_id);
             if (result){return SUCCESS_RESULT;}
