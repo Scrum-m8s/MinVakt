@@ -243,13 +243,13 @@ public class ShiftListDAO extends DatabaseManagement{
         return numb > 0;
     }
 
-    public boolean updateShiftByUserId(String user_id, String new_user_id, int shift_id, Date my_date){
+    public boolean updateShiftByUserId(String new_user_id, String user_id, int shift_id, Date my_date){
         int numb = 0;
         if(setUp()) {
             try {
                 conn = getConnection();
                 conn.setAutoCommit(false);
-                prep = conn.prepareStatement("UPDATE Shift_list SET user_id=? WHERE shift_id=? AND my_date=? AND user_id=?;");
+                prep = conn.prepareStatement("UPDATE Shift_list SET user_id=?, want_swap=false WHERE shift_id=? AND my_date=? AND user_id=?;");
                 prep.setString(1, new_user_id);
                 prep.setInt(2, shift_id);
                 prep.setDate(3, my_date);

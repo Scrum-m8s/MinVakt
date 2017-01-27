@@ -4,6 +4,8 @@
  */
 
 var editor;
+var wantSwapTable;
+var availableTable;
 $(document).ready(function() {
     // Bind opp tabellen mot rest-ressursen
     $('#table_wantSwap').DataTable( {
@@ -50,23 +52,23 @@ $(document).ready(function() {
         ]
     });
 
-    var table = $('#table_wantSwap').DataTable();
-    table.draw();
+    wantSwapTable  = $('#table_wantSwap').DataTable();
+    wantSwapTable.draw();
 
     $("#avslaa").click(function () {
-        if (table.rows( { selected: true } ).data()[0].shift_id === 'Nattevakt') {
-            table.rows( { selected: true } ).data()[0].shift_id = 1;
-        } else if (table.rows( { selected: true } ).data()[0].shift_id === 'Dagvakt') {
-            table.rows( { selected: true } ).data()[0].shift_id = 2;
-        } else if (table.rows( { selected: true } ).data()[0].shift_id === 'Aftenvakt'){
-            table.rows( { selected: true } ).data()[0].shift_id = 3;
+        if (wantSwapTable.rows( { selected: true } ).data()[0].shift_id === 'Nattevakt') {
+            wantSwapTable.rows( { selected: true } ).data()[0].shift_id = 1;
+        } else if (wantSwapTable.rows( { selected: true } ).data()[0].shift_id === 'Dagvakt') {
+            wantSwapTable.rows( { selected: true } ).data()[0].shift_id = 2;
+        } else if (wantSwapTable.rows( { selected: true } ).data()[0].shift_id === 'Aftenvakt'){
+            wantSwapTable.rows( { selected: true } ).data()[0].shift_id = 3;
         }
-        alert(JSON.stringify(table.rows( { selected: true } ).data()[0].user_id + "  er valgt"));
+        alert(JSON.stringify(wantSwapTable.rows( { selected: true } ).data()[0].user_id + "  er valgt"));
         $.ajax({
-            url: 'api/function/setwantswap/' + table.rows( { selected: true } ).data()[0].my_date + '/' + table.rows( { selected: true } ).data()[0].shift_id + '/' + table.rows( { selected: true } ).data()[0].user_id + '/false',
+            url: 'api/function/setwantswap/' + wantSwapTable.rows( { selected: true } ).data()[0].my_date + '/' + wantSwapTable.rows( { selected: true } ).data()[0].shift_id + '/' + wantSwapTable.rows( { selected: true } ).data()[0].user_id + '/false',
             type: 'PUT',
             success: function(result){
-                table.ajax.reload();
+                wantSwapTable.ajax.reload();
             },
         });
     });
@@ -94,7 +96,7 @@ $(document).ready(function() {
     //function to get employees qualified for a shift
     //is used in kvalifisert_for_vakt.html
     function getAvailableEmployees(shift_id, my_date, category){
-        var table = $('#availableEmployeesTable').DataTable();
+        availableTable = $('#availableEmployeesTable').DataTable();
 
         $.ajax({
             type: 'POST',
@@ -108,9 +110,9 @@ $(document).ready(function() {
             dataType: "json",
             success: function(data, textStatus, jqXHR){
                 console.log("Available employees."+data);
-                table.clear();
-                table.rows.add(data);
-                table.draw();
+                availableTable.clear();
+                availableTable.rows.add(data);
+                availableTable.draw();
             },
             error: function(data, textStatus, jqXHR){
                 console.log("Error: " + textStatus);
@@ -133,12 +135,20 @@ $(document).ready(function() {
     });
 
 
-
     $("#change").click(function () {
         var table1selected = $(".selected")[0];
         var table2selected = $(".selected")[1];
-        var new_user_id = $('tr.selected td:eq(5)').text();
-        var user_id = $('tr.selected td:eq(2)').text();
+        var my_date = table1selected.children[0].textContent;
+        var shift_id = table1selected.children[1].textContent;
+        var user_id = table1selected.children[2].textContent;
+        var new_user_id = table2selected.children[5].textContent;
+        if(shift_id === ("Nattevakt")){
+            shift_id = 1;
+        } else if(shift_id === ("Dagvakt")){
+            shift_id = 2;
+        } else{
+            shift_id = 3;
+        }
         shiftSwap(new_user_id, my_date, shift_id, user_id);
     });
 
@@ -156,17 +166,15 @@ $(document).ready(function() {
         dataType: "json",
         success: function(data, textStatus, jqXHR){
             console.log("Available employees."+data);
-            table.clear();
-            table.rows.add(data);
-            table.draw();
+            //wantSwapTable.clear();
+            //wantSwapTable.draw();
+            wantSwapTable.ajax.reload();
         },
         error: function(data, textStatus, jqXHR){
             console.log("Error: " + textStatus);
         }
     });
-
 }
-
 
     /*
 
