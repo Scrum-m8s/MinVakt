@@ -3,11 +3,7 @@
  */
 
 $(document).ready(function() {
-    var modalNew = document.getElementById('createmodal');
-    var modalUpdt = document.getElementById('updatemodal');
 
-    var btnNew = document.getElementById("register");
-    var btnUpdt = document.getElementById("update");
     var span = document.getElementsByClassName("close")[0];
 
     var table = $('#busy_table').DataTable( {
@@ -44,9 +40,9 @@ $(document).ready(function() {
     });
     table.draw();
 
-    btnNew.onclick = function() {
-        modalNew.style.display = "block";
-    }
+    $("#register").click(function(){
+        $("#registerModal").modal();
+    });
 
     function createBusy() {
         if($("#inputUserId").val() == "") {
@@ -80,16 +76,15 @@ $(document).ready(function() {
     }
 
     $("#confirmNew").click(function () {
-        createBusy()
-        modalNew.style.display = "none";
+        createBusy();
         return false;
     });
 
-    btnUpdt.onclick = function() {
-        modalUpdt.style.display = "block";
+    $("#update").click(function(){
+        $("#updateModal").modal();
         $("#updateShiftId").attr('value', $('tr.selected td:eq(1)').text());
         $("#updateInputDate").attr('value', $('tr.selected td:eq(2)').text());
-    }
+    });
 
     $("#confirmChange").click(function () {
         var user_id = $('tr.selected td:eq(0)').text();
@@ -104,21 +99,23 @@ $(document).ready(function() {
         }
 
         $.ajax({
-            url: '/api/busy/',
             type: 'PUT',
             contentType: 'application/json',
-            data: JSON.stringify([
-            {
-                "user_id": user_id,
-                "shift_id": shift_id,
-                "my_date": my_date
-            },
-            {
+            url: 'api/busy',
+            dataType: "json",
+            data: JSON.stringify({
                 "user_id": user_id,
                 "shift_id": ($("#updateShiftId").prop('selectedIndex')+1),
                 "my_date": $("#updateInputDate").val()
-            }])
-        });
+            }),
+            success: function(data, textStatus, jqXHR){
+                console.log("Busy added.");
+                window.location.reload();
+            },
+            error: function(data, textStatus, jqXHR){
+                console.log("Error: " + textStatus);
+            }
+        })
     });
 });
 
