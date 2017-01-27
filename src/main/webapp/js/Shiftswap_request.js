@@ -1,4 +1,5 @@
-/**
+
+ /**
  * Created by Nina on 16.01.2017.
  */
 
@@ -36,7 +37,6 @@ $(document).ready(function() {
                         'on_duty': json[i].on_duty,
                         'category': json[i].category,
                     })
-
                 }
                 return return_data;
             }
@@ -174,19 +174,4 @@ $(document).ready(function() {
             }
         });
     }
-
-    /*
-     $('#avaialbleEmployees').click(function() {
-     var date = $('tr.selected td:eq(0)').text();
-     var shiftString = $('tr.selected td:eq(1)').text();
-     var category = $('tr.selected td:eq(4)').text();
-     if(shiftString === ("Nattevakt")){
-     shift = 1;
-     } else if(shiftString === ("Dagvakt")){
-     shift = 2;
-     } else{
-     shift = 3;
-     }
-     });
-     */
-});
+}

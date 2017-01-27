@@ -93,6 +93,14 @@ public class ShiftListResource {
         return dao.updateShiftlist(s_l);
     }
 
+    @Path("{new_user_id}/{my_date}/{shift_id}/{user_id}")
+    @PUT
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public boolean updateShiftByUserId(@PathParam("new_user_id") String new_user_id, @PathParam("my_date") Date my_date, @PathParam("shift_id") int shift_id, @PathParam("user_id") String user_id){
+        System.out.println("update Shift_list");
+        return dao.updateShiftByUserId(new_user_id, user_id, shift_id, my_date);
+    }
+
     @Path("{my_date}/{shift_id}/{user_id}")
     @DELETE
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
