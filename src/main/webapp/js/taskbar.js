@@ -1,4 +1,4 @@
-var app = angular.module('MinVakt', ['ngMaterial', 'ngRoute']);
+var app = angular.module('MinVakt', ['ngMaterial', 'ngRoute', 'ngMessages']);
 
 app.config(function($mdThemingProvider, $routeProvider, $locationProvider) {
     $mdThemingProvider.theme('default').primaryPalette('blue');
@@ -8,13 +8,16 @@ app.config(function($mdThemingProvider, $routeProvider, $locationProvider) {
     }).when("/ansatt", {
         templateUrl:  "partials/employees.html"
     }).when("/innstillinger", {
-        templateUrl: "partials/settings.html"
+        templateUrl: "partials/settings.html",
     }).when("/innstillinger/password", {
-        templateUrl: "partials/settings_password.html"
+        templateUrl: "partials/settings_password.html",
+        controller: "SettingsCtrl"
     }).when("/innstillinger/email", {
-        templateUrl: "partials/settings_email.html"
+        templateUrl: "partials/settings_email.html",
+        controller: "SettingsCtrl"
     }).when("/innstillinger/tlf", {
-        templateUrl: "partials/settings_phone.html"
+        templateUrl: "partials/settings_phone.html",
+        controller: "SettingsCtrl"
     }).when("/skift", {
         templateUrl: "partials/shiftlist.html"
     }).when("/opptatt", {
@@ -24,7 +27,7 @@ app.config(function($mdThemingProvider, $routeProvider, $locationProvider) {
     }).when("/kontrollpanel", {
         templateUrl: "partials/controlpanel.html"
     }).when("/timelister_current", {
-        templateUrl: "partials/timelists_current.html"
+        templateUrl: "partials/timelists_current.html",
     }).when("/timelister/:id", {
         templateUrl: "partials/timelists.html",
         controller: 'TimelistsCtrl'
@@ -183,8 +186,98 @@ app.controller('MinVaktCtrl', function($scope, $mdSidenav, $mdToast, $mdDialog ,
         if (idx > -1) list.splice(idx, 1);
         else list.push(item);
     };
+
+    $scope.alert = function(text) {
+        alert(text);
+    };
+
+    $scope.log = function(text){
+        console.log(text);
+    }
+
 });
 
 app.controller('TimelistsCtrl', function($scope, $routeParams){
     $scope.id = $routeParams.id;
+});
+
+app.controller('SettingsCtrl', function($scope, $http){
+
+    $scope.regex = ".*[0-9].*";
+
+    $scope.changePassword = function(oldpassword, newpassword, newpasswordrepeat){
+        console.log("changePassword():");
+        console.log(oldpassword);
+        console.log(newpassword);
+        console.log(newpasswordrepeat);
+
+        if(newpassword != newpasswordrepeat){
+            $scope.passwordsMatch = true;
+            return false;
+        }
+
+        $http({
+            method: 'PUT',
+            url: 'api/users/current/updatepassword',
+            data: {
+                oldpassword: oldpassword,
+                newpassword: newpassword
+            }
+        }).then(function success(response){
+            console.log(response);
+            if(response == 'false'){
+                $scope.oldPasswordIncorrect = true;
+            }else{
+                $scope.passwordChanged = true;
+            }
+        }, function error(response){
+            console.log("PUT password error");
+        });
+    }
+
+    $scope.changePhonenumber = function(newnumber){
+        $http({
+            method: 'GET',
+            url: 'api/employees/current'
+        }).then(function succcess(employee){
+            employee = employee.data;
+            employee.phone_number = newnumber;
+            console.log(employee);
+            $http({
+                method: 'PUT',
+                url: 'api/employees',
+                data: employee
+            }).then(function success(){
+                console.log("Number change success");
+            }, function error(){
+                console.log("Number change error");
+            });
+        }, function error(){
+            console.log("GET employee error");
+        });
+    }
+
+    $scope.changeMail = function(newmail){
+        $http({
+            method: 'GET',
+            url: 'api/employees/current'
+        }).then(function succcess(employee){
+            employee = employee.data;
+            employee.email = newmail;
+            console.log(employee);
+            $http({
+                method: 'PUT',
+                url: 'api/employees',
+                data: employee
+            }).then(function success(){
+                console.log("Mail change success");
+            }, function error(){
+                console.log("Mail change error");
+            });
+        }, function error(){
+            console.log("GET employee error");
+        });
+    }
+
+
 });

@@ -7,11 +7,12 @@
 </div>
 
 <md-input-container class="md-icon-float md-block">
-    <input type="text" placeholder="Ny e-post">
+    <input type="text" ng-model="newmail" placeholder="Ny e-post">
+
 </md-input-container>
 
 <div layout="row" layout-align="end center">
-    <md-button class="md-fab" aria-label="FAB">
+    <md-button class="md-fab" ng-click="changeMail(newmail)" aria-label="FAB">
         <md-icon>check</md-icon>
     </md-button>
 </div>

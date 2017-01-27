@@ -1,5 +1,8 @@
 package org.team8.webapp.User;
 
+import org.team8.webapp.LoginManagment.Hash;
+import org.team8.webapp.LoginManagment.LoginCheck;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -30,6 +33,31 @@ public class UserResource {
         return dao.getUserById(sc.getUserPrincipal().getName());
     }
 
+    @Path("current/updatepassword")
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean changePassword(@Context SecurityContext sc, PasswordChange password){
+
+        User u = dao.getUserById(sc.getUserPrincipal().getName());
+
+        if(u == null) return false;
+
+
+        u.setPassword(password.getOldpassword());
+        if(LoginCheck.validateCredentials(u) < 0) return false;
+
+        String hashedPassword = Hash.createHashedPassword(password.getNewpassword());
+
+        u.setPassword(hashedPassword);
+
+        if(dao.updateUser(u)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     @Path("/isadmin")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
@@ -57,7 +85,7 @@ public class UserResource {
         return dao.createUser(e);
     }
 
-    @Path("{id}")
+ //   @Path("{id}")
     @PUT
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean updateUser(User e) {
@@ -66,6 +94,7 @@ public class UserResource {
         e.setPassword(hashedPassword);
         return dao.updateUser(e);
     }
+
 
     /* TODO:
     @Path("updateRole/{role}")

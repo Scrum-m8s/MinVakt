@@ -7,11 +7,11 @@
 </div>
 
 <md-input-container class="md-icon-float md-block">
-    <input type="text" placeholder="Nytt"telefonnummer>
+    <input type="number" ng-model="newnumber" placeholder="Nytt telefonnummer">
 </md-input-container>
 
 <div layout="row" layout-align="end center">
-    <md-button class="md-fab" aria-label="FAB">
+    <md-button class="md-fab" ng-click="changePhonenumber(newnumber)" aria-label="FAB">
         <md-icon>check</md-icon>
     </md-button>
 </div>

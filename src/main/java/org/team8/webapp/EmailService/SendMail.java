@@ -38,7 +38,7 @@ public class SendMail {
 
             Transport.send(message);
 
-            System.out.println("sendMail: Mail sent");
+            System.out.println("sendMail: Mail sent to:  " + to);
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);

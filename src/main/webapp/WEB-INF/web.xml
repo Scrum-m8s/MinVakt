@@ -26,7 +26,6 @@
         <location>/errorpages/notfound.html</location>
     </error-page>
 
-
     <!-- Sikkerhetskonfigurasjon -->
     <security-role>
         <role-name>admin</role-name>
@@ -42,6 +41,8 @@
                 <url-pattern>/api/dummy</url-pattern>
                 <url-pattern>/api/dummy/userview</url-pattern>
                 <url-pattern>/api/users/current</url-pattern>
+                <url-pattern>/api/users/current/updatepassword</url-pattern>
+                <url-pattern>/api/users/isadmin</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>admin</role-name>
