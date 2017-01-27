@@ -144,11 +144,11 @@ $(document).ready(function() {
             $.ajax({
                 url: '/api/busy/' + my_date + '/' + shift_id + '/' + user_id,
                 type: 'DELETE',
-                success: function (data, textStatus, jqXHR) {
+                success: function () {
                     console.log("User deleted");
                     window.location.reload();
                 },
-                error: function (data, textStatus, jqXHR) {
+                error: function (data, textStatus) {
                     console.log("Error: " + textStatus);
                 }
             });
