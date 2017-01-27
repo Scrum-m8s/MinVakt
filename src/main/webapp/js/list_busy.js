@@ -79,7 +79,7 @@ $(document).ready(function() {
     }
 
     $("#confirmNew").click(function () {
-        createBusy()
+        createBusy();
         modalNew.style.display = "none";
         return false;
     });
@@ -125,6 +125,36 @@ $(document).ready(function() {
                 console.log("Error: " + textStatus);
             }
         });
+    });
+
+    $("#delete").click(function(){
+        var user_id = $('tr.selected td:eq(0)').text();
+        var shift_id = $('tr.selected td:eq(1)').text();
+        var my_date = $('tr.selected td:eq(2)').text();
+
+        if(shift_id == "Nattevakt"){
+            shift_id = 1;
+        }else if(shift_id == 'Dagvakt'){
+            shift_id = 2;
+        }else{
+            shift_id = 3;
+        }
+
+        if(user_id != ""){
+            $.ajax({
+                url: '/api/busy/' + my_date + '/' + shift_id + '/' + user_id,
+                type: 'DELETE',
+                contentType: 'application/json',
+                success: function (data, textStatus, jqXHR) {
+                    console.log("Busy added.");
+                    window.location.reload();
+                },
+                error: function (data, textStatus, jqXHR) {
+                    console.log("Error: " + textStatus);
+                }
+            });
+        }
+
     });
 });
 
