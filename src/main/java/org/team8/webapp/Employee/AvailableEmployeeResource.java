@@ -36,26 +36,4 @@ public class AvailableEmployeeResource{
 
         return dao.getAvailableEmployees(ae.getShift_id(),my_date,ae.getCategory());
     }
-
-    //Overloaded function. Parses parameters in URL if more convenient.
-    @GET
-    @Path("{shift_id}/{my_date}/{category}")
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public ArrayList<Employee> getAvailableEmployees(@PathParam("shift_id") int shift_id, @PathParam("my_date") String my_date_string, @PathParam("category") int category) {
-        System.out.println("getAvailableEmployeesByIdentificators");
-
-
-        //Parses date-string to SQLDate format.
-        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-        java.util.Date my_date_util = null;
-        try {
-            my_date_util = sdf1.parse(my_date_string);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        java.sql.Date my_date = new java.sql.Date(my_date_util.getTime());
-
-        return dao.getAvailableEmployees(shift_id,my_date,category);
-    }
-
 }

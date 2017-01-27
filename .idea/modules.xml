@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/minvakt.iml" filepath="$PROJECT_DIR$/minvakt.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/MinVakt.iml" filepath="$PROJECT_DIR$/.idea/MinVakt.iml" />
     </modules>
   </component>
 </project>

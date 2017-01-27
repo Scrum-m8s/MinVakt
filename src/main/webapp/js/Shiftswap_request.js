@@ -9,10 +9,11 @@ var availableTable;
 $(document).ready(function() {
     // Bind opp tabellen mot rest-ressursen
     $('#table_wantSwap').DataTable( {
-        select: true,
+        "select" : {
+            style: 'single'
+        },
         "paging": false,
         "info" : false,
-        //"ordering": false,
         ajax: {
             url: 'api/function/getwantswap',
             "dataSrc": function (json) {

@@ -1,4 +1,4 @@
-<md-list class="md-2-line" ng-repeat="list in data.settings.user">
+<md-list class="md-2-line" ng-repeat="list in data.settings.admin">
     <md-subheader>{{list.name}}</md-subheader>
     <md-divider></md-divider>
     <md-list-item ng-repeat="item in list.options" ng-click="null; toast(item.toast)" href="{{item.url}}">

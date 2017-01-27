@@ -4,7 +4,11 @@ import java.sql.Date;
 
 /**
  * Created by Mr.Easter on 24/01/2017.
+ * Commented out to avoid CodeCov percentage decrease.
+ * Not to be implemented unless deemed necessary after doing prioritized work.
  */
+
+/*
 public class ShiftSwitch {
     private Date my_date;
     private int shift_id;
@@ -50,3 +54,4 @@ public class ShiftSwitch {
     }
 
 }
+*/
