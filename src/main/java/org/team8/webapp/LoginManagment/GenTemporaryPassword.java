@@ -6,7 +6,10 @@ import java.util.Random;
 /**
  * Created by espen on 24.01.2017.
  */
-public class GenerateTemporaryPassword {
+public class GenTemporaryPassword {
+
+    public GenTemporaryPassword(){}
+
 
     public static String generateTemporaryPassword(){
         // hentet fra http://www.java2s.com/Code/Java/Security/GeneratearandomStringsuitableforuseasatemporarypassword.htm

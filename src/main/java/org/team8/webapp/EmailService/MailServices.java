@@ -13,7 +13,7 @@ import javax.ws.rs.core.MediaType;
 
 import static org.team8.webapp.LoginManagment.Hash.createHashedPassword;
 import static org.team8.webapp.EmailService.SendMail.sendMail;
-import static org.team8.webapp.LoginManagment.GenerateTemporaryPassword.generateTemporaryPassword;
+import static org.team8.webapp.LoginManagment.GenTemporaryPassword.generateTemporaryPassword;
 
 /**
  * Created by espen on 24.01.2017.
