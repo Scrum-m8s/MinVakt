@@ -587,7 +587,8 @@ public class TestJUnitDB extends DatabaseManagement{
       //clean up
       busyDAO.removeBusy(new Date(1974-05-07), 1, "dummy");
       userDAO.removeUser("dummy");
-  }
+    }
+
     @Test
     public void removeBusy() {
         //dummy data and dates
@@ -815,7 +816,7 @@ public class TestJUnitDB extends DatabaseManagement{
         userDAO.createUser(new User("dummy3", "dummy3", 1));
         shiftListResource.createShiftlist(new ShiftList("dummy3", 1, false, new Date(2017-01-01), 0, true));
 
-        assertNotNull(shiftListResource.getShiftListsByDateAndShiftId(new Date(2017-01-01),1));
+        assertNotNull(shiftListResource.getShiftListsByDateAndShiftId("2017-01-01",1));
 
         //clean up
         shiftListResource.removeShiftlist(new Date(2017-01-01),1,"dummy3");
@@ -956,6 +957,7 @@ public class TestJUnitDB extends DatabaseManagement{
         //System.out.println(shiftLists.get(1).isWant_swap());
         //assertTrue(shiftListResource.updateShiftlist(new ShiftList("nina", 1, false, new Date(2017-01-01), 0, false)));
     }
+
     @Test
     public void getShiftsByDate(){
         //creating dummy data to fetch
@@ -963,7 +965,7 @@ public class TestJUnitDB extends DatabaseManagement{
         shiftListResource.createShiftlist(new ShiftList("dummy3", 1, false, new Date(2017-01-01), 0, true));
         employeeResource.createEmployee(new Employee("dummy3","dummy3","dummy3","dummy3","dummy3", 1));
 
-        assertNotNull(shiftListFunctionResource.getShiftsByDate(new Date(2017-01-01)));
+        assertNotNull(shiftListFunctionResource.getShiftsByDate("2017-01-01"));
 
         //clean up
         employeeResource.removeEmployee("dummy3");
@@ -971,18 +973,4 @@ public class TestJUnitDB extends DatabaseManagement{
         userDAO.removeUser(("dummy3"));
 
     }
-    @Test
-    public void getShiftsByDateAndShiftId(){
-        //creating dummy data to fetch
-        userDAO.createUser(new User("dummy3", "dummy3", 1));
-        shiftListResource.createShiftlist(new ShiftList("dummy3", 1, false, new Date(2017-01-01), 0, true));
-
-        assertNotNull(shiftListFunctionResource.getShiftsByDateAndShiftId(new Date(2017-01-01),1));
-
-        //clean up
-        shiftListResource.removeShiftlist(new Date(2017-01-01),1,"dummy3");
-        userDAO.removeUser(("dummy3"));
-
-    }
-
 }

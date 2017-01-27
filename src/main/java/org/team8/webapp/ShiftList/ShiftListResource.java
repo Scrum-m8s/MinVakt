@@ -51,7 +51,7 @@ public class ShiftListResource {
     @Path("{my_date}/{shift_id}")
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public ArrayList<ShiftList> getShiftListsByDateAndShiftId(@PathParam("my_date") Date my_date, @PathParam("shift_id") int shift_id){
+    public ArrayList<ShiftList> getShiftListsByDateAndShiftId(@PathParam("my_date") String my_date, @PathParam("shift_id") int shift_id){
         System.out.println("getShiftListByDateAndId");
         return dao.getShiftListsByDateAndShiftId(my_date, shift_id);
     }
@@ -91,6 +91,14 @@ public class ShiftListResource {
     public boolean updateShiftlist(ShiftList s_l){
         System.out.println("update Shift_list");
         return dao.updateShiftlist(s_l);
+    }
+
+    @Path("{new_user_id}/{my_date}/{shift_id}/{user_id}")
+    @PUT
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public boolean updateShiftByUserId(@PathParam("new_user_id") String new_user_id, @PathParam("my_date") Date my_date, @PathParam("shift_id") int shift_id, @PathParam("user_id") String user_id){
+        System.out.println("update Shift_list");
+        return dao.updateShiftByUserId(new_user_id, user_id, shift_id, my_date);
     }
 
     @Path("{my_date}/{shift_id}/{user_id}")

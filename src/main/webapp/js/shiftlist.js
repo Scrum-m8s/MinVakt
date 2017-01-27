@@ -19,7 +19,7 @@ $(document).ready(function() {
             $("#date_shift").html("Dato: <span>" + calEvent.date + "</span>");
             $("#time_shift").html("Tid: " + calEvent.startTime + " - " + calEvent.endTime + " (<span>" + calEvent.shiftType + "</span>)");
 
-            $.getJSON('api/function/getshifttotal/' + calEvent.date + "/" + calEvent.shiftId, function(data) {
+            $.getJSON('api/shift_lists/' + calEvent.date + "/" + calEvent.shiftId, function(data) {
                     $.each(data, function(index, item) {
                         if (item.on_duty) {
                             $("#employeesOnShiftList").append('<li id="' + item.user_id + '" class="list-group-item justify-content-between">' + item.user_id + '<span style="float: right; margin-right: 0.5%;" class="label label-success">Ansvar</span></li>');
@@ -131,11 +131,12 @@ $(document).ready(function() {
         } else if (shift_type === "Aftenvakt") {
             shift_id = 3;
         }
+        var swapString = Boolean(swap).toString();
         $.ajax({
             type: 'PUT',
             contentType: 'application/json',
             accept: 'application/json',
-            url: 'api/function/getshifttotal/' + date + "/" + shift_id + "/" + user_id,
+            url: 'api/function/setwantswap/' + date + "/" + shift_id + "/" + user_id + "/" + swapString,
             dataType: "json",
             data: JSON.stringify({
                 want_swap: swap
@@ -150,7 +151,13 @@ $(document).ready(function() {
                 }
             },
             error: function(data, textStatus, jqXHR) {
-                console.log("Error: " + data.want_swap + "\n" + data.user_id);
+                console.log("Error with swap change.");
+                $("#shiftModal").modal('hide');
+                if (swap) {
+                    alert("Ønsket om å bytte bort vakten er registrert.");
+                } else {
+                    alert("Ønsket om å bytte bort vakten er fjernet.");
+                }
             }
         });
     }

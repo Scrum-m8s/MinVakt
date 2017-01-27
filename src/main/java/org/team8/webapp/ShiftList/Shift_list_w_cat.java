@@ -1,30 +1,27 @@
 package org.team8.webapp.ShiftList;
 
-import org.team8.webapp.Busy.BusyDAO;
-import org.team8.webapp.Database.DatabaseManagement;
-
 import java.sql.Date;
+
 /**
- * Created by mariyashchekanenko on 12/01/2017.
- * Edited by Mr_Easter on 12/01/2017.
+ * Created by Nina on 27.01.2017.
  */
-public class ShiftList extends BusyDAO {
+public class Shift_list_w_cat {
     private String user_id;
     private int shift_id;
     private boolean on_duty;
     private Date my_date;
-    private int deviance;
-    private boolean want_swap;
+    private int category;
 
-    public ShiftList() {}
+    public Shift_list_w_cat() {
+    }
 
-    public ShiftList(String user_id, int shift_id, boolean on_duty, Date my_date, int deviance, boolean want_swap) {
+    public Shift_list_w_cat(String user_id, int shift_id, boolean on_duty, Date my_date, int category) {
         this.user_id = user_id;
         this.shift_id = shift_id;
         this.on_duty = on_duty;
         this.my_date = my_date;
-        this.deviance = deviance;
-        this.want_swap = want_swap;
+        this.category = category;
+
     }
 
     public String getUser_id() {
@@ -59,19 +56,11 @@ public class ShiftList extends BusyDAO {
         this.my_date = my_date;
     }
 
-    public int getDeviance() {
-        return deviance;
+    public int getCategory() {
+        return category;
     }
 
-    public void setDeviance(int deviance) {
-        this.deviance = deviance;
-    }
-
-    public boolean isWant_swap() {
-        return want_swap;
-    }
-
-    public void setWant_swap(boolean want_swap) {
-        this.want_swap = want_swap;
+    public void setCategory(int category) {
+        this.category = category;
     }
 }
