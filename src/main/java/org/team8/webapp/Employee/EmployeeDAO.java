@@ -10,6 +10,7 @@ import java.sql.Date;
  * Created by asdfLaptop on 10.01.2017.
  * Edited by MisterEaster on 19.01.2017.
  */
+@SuppressWarnings("ALL")
 public class EmployeeDAO extends DatabaseManagement {
 
     public EmployeeDAO() {
@@ -21,7 +22,7 @@ public class EmployeeDAO extends DatabaseManagement {
     ResultSet res = null;
 
     public ArrayList<Employee> getEmployees(){
-        ArrayList<Employee> out = new ArrayList<Employee>();
+        ArrayList<Employee> out = new ArrayList<>();
         if(setUp()){
             try {
                 conn = getConnection();
@@ -32,7 +33,6 @@ public class EmployeeDAO extends DatabaseManagement {
                 }
             }
             catch (SQLException sqle){
-                sqle.printStackTrace();
                 System.err.println("Issue with getting employees. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
                 return null;
             }
@@ -67,7 +67,7 @@ public class EmployeeDAO extends DatabaseManagement {
     }
 
     public ArrayList<Employee> getEmployeeByCategory(int category){
-        ArrayList<Employee> out = new ArrayList<Employee>();
+        ArrayList<Employee> out = new ArrayList<>();
         if(setUp()){
             try {
                 conn = getConnection();
@@ -79,7 +79,7 @@ public class EmployeeDAO extends DatabaseManagement {
                 }
             }
             catch (SQLException sqle){
-                System.err.println("Issue with getting employee by id.");
+                System.err.println("Issue with getting employee by category.");
                 return null;
             }
             finally {
@@ -91,7 +91,7 @@ public class EmployeeDAO extends DatabaseManagement {
 
 
     public ArrayList<Employee> getAvailableEmployees(int shift_id, Date my_date, int category){
-        ArrayList<Employee> out = new ArrayList<Employee>();
+        ArrayList<Employee> out = new ArrayList<>();
         if(setUp()){
             try {
                 conn = getConnection();
@@ -100,12 +100,12 @@ public class EmployeeDAO extends DatabaseManagement {
                             "(SELECT user_id FROM  `Busy` WHERE my_date =? AND shift_id =? " +
                             "UNION " +
                             "SELECT user_id FROM  `Shift_list` WHERE my_date =? AND shift_id =?) " +
-                        "AND category =1;");
+                        "AND category =?;");
                 prep.setDate(1, my_date);
                 prep.setInt(2,shift_id);
                 prep.setDate(3,my_date);
                 prep.setInt(4,shift_id);
-                prep.setInt(3,category);
+                prep.setInt(5,category);
                 res = prep.executeQuery();
                 while (res.next()){
                     out.add(processRow(res));
@@ -139,7 +139,6 @@ public class EmployeeDAO extends DatabaseManagement {
             }
             catch (SQLException sqle) {
                 System.err.println("Issue with creating employee. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
-                sqle.printStackTrace();
                 rollbackStatement();
                 return false;
             }
@@ -167,7 +166,6 @@ public class EmployeeDAO extends DatabaseManagement {
             }
             catch (SQLException sqle) {
                 System.err.println("Issue with updating employee. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
-                sqle.printStackTrace();
                 rollbackStatement();
                 return false;
             }

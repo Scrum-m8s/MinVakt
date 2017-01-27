@@ -25,18 +25,17 @@ public class BusyResource{
         @Path("{user_id}")
         @GET
         @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-        public ArrayList<Busy> getBusy(@PathParam("user_id") String user_id) {
+        public ArrayList<Busy> getBusyByUserId(@PathParam("user_id") String user_id) {
                 System.out.println("getBusy");
                 return dao.getBusyById(user_id);
         }
 
-        @Path("{user_id}/{shift_id}/{my_date}")
+        @Path("{my_date}/{shift_id}/{user_id}")
         @GET
         @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-        public Busy getBusyByUserId(@PathParam("user_id") String user_id, @PathParam("shift_id") int shift_id) {
-
+        public Busy getSingleBusy(@PathParam("my_date") Date my_date, @PathParam("shift_id") int shift_id, @PathParam("user_id") String user_id) {
                 System.out.println("getSingleBusy: " + user_id + " " + shift_id);
-                return dao.getSingleBusy(user_id, shift_id);
+                return dao.getSingleBusy(my_date, shift_id, user_id);
         }
 
         @POST
@@ -46,16 +45,17 @@ public class BusyResource{
                 return dao.createBusy(b);
         }
 
-        //@Path("{user_id}/{shift_id}")
+        @Path("{my_date}/{shift_id}/{user_id}")
         @PUT
         @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-        public void updateBusy(ArrayList<Busy> busies) {
-                dao.updateBusy(busies);
+        public boolean updateBusy(ArrayList<Busy> busies) {
+                return dao.updateBusy(busies);
         }
-        
-        @Path("{user_id}/{shift_id}/{my_date}")
+
+        @Path("{my_date}/{shift_id}/{user_id}")
         @DELETE
-        public void removeBusy(@PathParam("user_id") String user_id, @PathParam("shift_id") int shift_id, @PathParam("my_date") Date my_date) {
-            dao.removeBusy(user_id, shift_id, my_date);
+        @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+        public boolean removeBusy(@PathParam("my_date") Date my_date, @PathParam("shift_id") int shift_id, @PathParam("user_id") String user_id) {
+                return dao.removeBusy(my_date, shift_id, user_id);
         }
 }

@@ -2,10 +2,7 @@ package org.team8.webapp.Busy;
 
 import org.team8.webapp.Database.DatabaseManagement;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
@@ -69,23 +66,22 @@ public class BusyDAO extends DatabaseManagement {
         return out;
     }
 
-    public Busy getSingleBusy(String user_id, int shift_id){
+    public Busy getSingleBusy(Date my_date, int shift_id, String user_id){
         Busy out = null;
         if(setUp()){
             try {
                 conn = getConnection();
-                prep = conn.prepareStatement("SELECT * FROM Busy WHERE user_id=? AND shift_id=?;");
+                prep = conn.prepareStatement("SELECT * FROM Busy WHERE user_id=? AND shift_id=? AND my_date=?;");
                 prep.setString(1, user_id);
                 prep.setInt(2, shift_id);
+                prep.setDate(3, my_date);
                 res = prep.executeQuery();
                 if (res.next()){
                     out = processRow(res);
                 }
             }
             catch (SQLException sqle){
-
                 System.err.println("Issue with getting single busy by user_id and shift_id. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
-
                 return null;
             }
             finally {
@@ -117,7 +113,7 @@ public class BusyDAO extends DatabaseManagement {
         }
         return numb > 0;
     }
-    
+
     public boolean updateBusy(ArrayList<Busy> busies) {
         int numb = 0;
         Busy oldBusy = busies.get(0);
@@ -147,7 +143,7 @@ public class BusyDAO extends DatabaseManagement {
         return numb > 0;
     }
 
-    public boolean removeBusy(String user_id, int shift_id, Date my_date){
+    public boolean removeBusy(Date my_date, int shift_id, String user_id){
         int numb = 0;
         if(setUp()) {
             try {

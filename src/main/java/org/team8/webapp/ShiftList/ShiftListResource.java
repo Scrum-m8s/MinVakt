@@ -40,6 +40,22 @@ public class ShiftListResource {
         return dao.getWantSwap(swap);
     }
 
+    @Path("{my_date}")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public ArrayList<ShiftList> getShiftListsByDate(@PathParam("my_date") Date my_date){
+        System.out.println("getShiftListByDate");
+        return dao.getShiftListsByDate(my_date);
+    }
+
+    @Path("{my_date}/{shift_id}")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public ArrayList<ShiftList> getShiftListsByDateAndShiftId(@PathParam("my_date") Date my_date, @PathParam("shift_id") int shift_id){
+        System.out.println("getShiftListByDateAndId");
+        return dao.getShiftListsByDateAndShiftId(my_date, shift_id);
+    }
+
     @Path("{my_date}/{shift_id}/{user_id}")
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
@@ -52,7 +68,6 @@ public class ShiftListResource {
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public boolean createShiftlist(ShiftList s_l) {
         System.out.println("create Shift_list");
-        System.out.println(s_l.getMy_date());
 
         boolean result = dao.createShiftlist(s_l);
         if (result){tdao.onShiftListCreate(s_l);}
