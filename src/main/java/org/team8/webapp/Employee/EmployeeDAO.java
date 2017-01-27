@@ -99,12 +99,12 @@ public class EmployeeDAO extends DatabaseManagement {
                             "(SELECT user_id FROM  `Busy` WHERE my_date =? AND shift_id =? " +
                             "UNION " +
                             "SELECT user_id FROM  `Shift_list` WHERE my_date =? AND shift_id =?) " +
-                        "AND category =1;");
+                        "AND category =?;");
                 prep.setDate(1, my_date);
                 prep.setInt(2,shift_id);
                 prep.setDate(3,my_date);
                 prep.setInt(4,shift_id);
-                prep.setInt(3,category);
+                prep.setInt(5,category);
                 res = prep.executeQuery();
                 while (res.next()){
                     out.add(processRow(res));
