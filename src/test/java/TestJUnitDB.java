@@ -462,7 +462,7 @@ public class TestJUnitDB extends DatabaseManagement{
         assertFalse(shiftResource.updateShift(updated));
 
         //clean up
-        shiftDAO.removeShift(updated.getShift_id());
+        shiftDAO.removeShift(dummy.getShift_id());
     }
     @Test
     public void removeShift(){
