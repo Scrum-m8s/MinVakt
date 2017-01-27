@@ -130,7 +130,7 @@ $(document).ready(function() {
     $("#delete").click(function(){
         var user_id = $('tr.selected td:eq(0)').text();
         var shift_id = $('tr.selected td:eq(1)').text();
-        var my_date = $('tr.selected td:eq(2)').text();
+        var my_date = $('tr.selected td:eq(2)').text().toDateString();
 
         if(shift_id == "Nattevakt"){
             shift_id = 1;

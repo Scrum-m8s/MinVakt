@@ -157,6 +157,7 @@ public class BusyDAO extends DatabaseManagement {
             }
             catch (SQLException sqle) {
                 System.err.println("Issue with removing busy. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
+                sqle.printStackTrace();
                 rollbackStatement();
                 return false;
             }

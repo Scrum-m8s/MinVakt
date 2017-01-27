@@ -30,6 +30,9 @@ import static org.junit.Assert.*;
 
 public class TestJUnitDB extends DatabaseManagement{
 
+    private static final String SUCCESS_RESULT="<result>success</result>";
+    private static final String FAILURE_RESULT="<result>failure</result>";
+
     private static EmployeeDAO employeeDAO;
     private static ShiftDAO shiftDAO;
     private static UserDAO userDAO;
@@ -596,7 +599,7 @@ public class TestJUnitDB extends DatabaseManagement{
         userDAO.createUser(new User("dummy", "dummy", 1));
         busyDAO.createBusy(new Busy("dummy", 1, date));
 
-        assertTrue(busyResource.removeBusy(date, 1,"dummy"));
+        assertEquals(SUCCESS_RESULT,busyResource.removeBusy(date, 1,"dummy"));
 
         //clean up
         userDAO.removeUser("dummy");
@@ -609,7 +612,7 @@ public class TestJUnitDB extends DatabaseManagement{
       userDAO.createUser(new User("dummy", "dummy", 1));
       busyDAO.createBusy(new Busy("dummy", 1, date));
 
-      assertFalse(busyResource.removeBusy(date, 1,"notdummy"));
+      assertEquals(FAILURE_RESULT,busyResource.removeBusy(date, 1,"notdummy"));
 
       //clean up
       busyResource.removeBusy(date, 1, "dummy");
