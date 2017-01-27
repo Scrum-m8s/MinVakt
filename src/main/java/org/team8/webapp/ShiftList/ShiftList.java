@@ -1,11 +1,14 @@
 package org.team8.webapp.ShiftList;
 
+import org.team8.webapp.Busy.BusyDAO;
+import org.team8.webapp.Database.DatabaseManagement;
+
 import java.sql.Date;
 /**
  * Created by mariyashchekanenko on 12/01/2017.
  * Edited by Mr_Easter on 12/01/2017.
  */
-public class ShiftList {
+public class ShiftList extends BusyDAO {
     private String user_id;
     private int shift_id;
     private boolean on_duty;

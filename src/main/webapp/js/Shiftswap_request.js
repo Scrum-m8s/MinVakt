@@ -1,4 +1,4 @@
-/**
+
  /**
  * Created by Nina on 16.01.2017.
  */
@@ -9,11 +9,10 @@ var availableTable;
 $(document).ready(function() {
     // Bind opp tabellen mot rest-ressursen
     $('#table_wantSwap').DataTable( {
-        "select" : {
-            style: 'single'
-        },
+        select: true,
         "paging": false,
         "info" : false,
+        //"ordering": false,
         ajax: {
             url: 'api/function/getwantswap',
             "dataSrc": function (json) {
@@ -37,8 +36,7 @@ $(document).ready(function() {
                         'user_id': json[i].user_id,
                         'on_duty': json[i].on_duty,
                         'category': json[i].category,
-                        })
-
+                    })
                 }
                 return return_data;
             }
@@ -154,50 +152,26 @@ $(document).ready(function() {
     });
 
     function shiftSwap(new_user_id, my_date, shift_id, user_id) {
-    $.ajax({
-        type: 'PUT',
-        contentType: 'application/json',
-        url: 'api/shift_lists/' + new_user_id + '/' + my_date + '/' + shift_id + '/' + user_id,
-        data: JSON.stringify({
-            new_user_id: new_user_id,
-            my_date: my_date,
-            Shift_id: shift_id,
-            category: user_id
-        }),
-        dataType: "json",
-        success: function(data, textStatus, jqXHR){
-            console.log("Available employees."+data);
-            //wantSwapTable.clear();
-            //wantSwapTable.draw();
-            wantSwapTable.ajax.reload();
-        },
-        error: function(data, textStatus, jqXHR){
-            console.log("Error: " + textStatus);
-        }
-    });
+        $.ajax({
+            type: 'PUT',
+            contentType: 'application/json',
+            url: 'api/shift_lists/' + new_user_id + '/' + my_date + '/' + shift_id + '/' + user_id,
+            data: JSON.stringify({
+                new_user_id: new_user_id,
+                my_date: my_date,
+                Shift_id: shift_id,
+                category: user_id
+            }),
+            dataType: "json",
+            success: function(data, textStatus, jqXHR){
+                console.log("Available employees."+data);
+                //wantSwapTable.clear();
+                //wantSwapTable.draw();
+                wantSwapTable.ajax.reload();
+            },
+            error: function(data, textStatus, jqXHR){
+                console.log("Error: " + textStatus);
+            }
+        });
+    }
 }
-
-    /*
-
-    $('#avaialbleEmployees').click(function() {
-
-        var date = $('tr.selected td:eq(0)').text();
-        var shiftString = $('tr.selected td:eq(1)').text();
-        var category = $('tr.selected td:eq(4)').text();
-        if(shiftString === ("Nattevakt")){
-            shift = 1;
-        } else if(shiftString === ("Dagvakt")){
-            shift = 2;
-        } else{
-            shift = 3;
-        }
-    });
-
-    */
-});
-
-
-
-
-
-
