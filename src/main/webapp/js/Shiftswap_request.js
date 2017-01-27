@@ -8,7 +8,11 @@ var availableTable;
 $(document).ready(function() {
     // Bind opp tabellen mot rest-ressursen
     $('#table_wantSwap').DataTable( {
-        select: true,
+        "autoWidth": true,
+        "select" : {
+            style: 'single'
+        },
+        "responsive": true,
         "paging": false,
         "info" : false,
         //"ordering": false,
@@ -73,7 +77,11 @@ $(document).ready(function() {
     });
 
     $("#availableEmployeesTable").DataTable({
-        select: true,
+        "autoWidth": true,
+        "select" : {
+            style: 'single'
+        },
+        "responsive": true,
         columns: [
             { data: 'firstname' },
             { data: 'surname' },

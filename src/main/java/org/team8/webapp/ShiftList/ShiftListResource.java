@@ -51,7 +51,7 @@ public class ShiftListResource {
     @Path("{my_date}/{shift_id}")
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public ArrayList<ShiftList> getShiftListsByDateAndShiftId(@PathParam("my_date") Date my_date, @PathParam("shift_id") int shift_id){
+    public ArrayList<ShiftList> getShiftListsByDateAndShiftId(@PathParam("my_date") String my_date, @PathParam("shift_id") int shift_id){
         System.out.println("getShiftListByDateAndId");
         return dao.getShiftListsByDateAndShiftId(my_date, shift_id);
     }

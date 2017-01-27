@@ -69,6 +69,7 @@ public class ShiftListDAO extends DatabaseManagement{
         ArrayList<ShiftList> out = new ArrayList<ShiftList>();
         if(setUp()){
             try {
+
                 conn = getConnection();
                 prep = conn.prepareStatement("SELECT * FROM Shift_list WHERE my_date=?;");
                 prep.setDate(1, my_date);
@@ -88,13 +89,36 @@ public class ShiftListDAO extends DatabaseManagement{
         return out;
     }
 
-    public ArrayList<ShiftList> getShiftListsByDateAndShiftId(Date my_date, int shift_id){
+    public ArrayList<ShiftList> getShiftListsByDate1(String my_date){
+        ArrayList<ShiftList> out = new ArrayList<ShiftList>();
+        if(setUp()){
+            try {
+                conn = getConnection();
+                prep = conn.prepareStatement("SELECT * FROM Shift_list WHERE my_date=?;");
+                prep.setString(1, my_date);
+                res = prep.executeQuery();
+                while(res.next()){
+                    out.add(processRow(res));
+                }
+            }
+            catch (SQLException sqle){
+                System.err.println("Issue with getting Shift_list by date. Error code:" + sqle.getErrorCode() + " Message: " +sqle.getMessage());
+                return null;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return out;
+    }
+
+    public ArrayList<ShiftList> getShiftListsByDateAndShiftId(String my_date, int shift_id){
         ArrayList<ShiftList> out = new ArrayList<ShiftList>();
         if(setUp()){
             try {
                 conn = getConnection();
                 prep = conn.prepareStatement("SELECT * FROM Shift_list WHERE my_date=? AND shift_id=?;");
-                prep.setDate(1, my_date);
+                prep.setString(1, my_date);
                 prep.setInt(2, shift_id);
                 res = prep.executeQuery();
                 while(res.next()){
@@ -121,6 +145,32 @@ public class ShiftListDAO extends DatabaseManagement{
                 prep.setString(1, user_id);
                 prep.setInt(2, shift_id);
                 prep.setDate(3, my_date);
+                res = prep.executeQuery();
+                if (res.next()){
+                    out = processRow(res);
+                }
+            }
+            catch (SQLException sqle){
+                sqle.printStackTrace();
+                System.err.println("Issue with getting single shift_list by user id and shift_id. Error code:" + sqle.getErrorCode() + " Message: " + sqle.getMessage());
+                return null;
+            }
+            finally {
+                finallyStatement(res, prep);
+            }
+        }
+        return out;
+    }
+
+    public ShiftList getSpesificShift(String my_date, int shift_id, String user_id){
+        ShiftList out = null;
+        if(setUp()){
+            try {
+                conn = getConnection();
+                prep = conn.prepareStatement("SELECT * FROM Shift_list WHERE user_id=? AND shift_id=? AND my_date=?;");
+                prep.setString(1, user_id);
+                prep.setInt(2, shift_id);
+                prep.setString(3, my_date);
                 res = prep.executeQuery();
                 if (res.next()){
                     out = processRow(res);
@@ -192,7 +242,7 @@ public class ShiftListDAO extends DatabaseManagement{
         return out;
     }
 
-    public boolean setWantSwap(String user_id, int shift_id, Date my_date, boolean want_swap){
+    public boolean setWantSwap(String user_id, int shift_id, String my_date, boolean want_swap){
         int numb = 0;
         if(setUp()) {
             try {
@@ -202,7 +252,7 @@ public class ShiftListDAO extends DatabaseManagement{
                 prep.setBoolean(1, want_swap);
                 prep.setString(2, user_id);
                 prep.setInt(3, shift_id);
-                prep.setDate(4, my_date);
+                prep.setString(4, my_date);
                 numb = prep.executeUpdate();
             }
             catch (SQLException sqle) {

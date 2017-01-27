@@ -33,7 +33,7 @@ public class ShiftListFunctionResource {
         System.out.println(my_date_string);
 
         //Entire shiftlist for that date fetched from database.
-        ArrayList<ShiftList> shift_list = sdao.getShiftListsByDate(my_date_string);
+        ArrayList<ShiftList> shift_list = sdao.getShiftListsByDate1(my_date_string);
 
         //Initiating resulting array after upcoming for-loop.
         ArrayList<ShiftDay> shiftsThisDay = new ArrayList<ShiftDay>();
@@ -74,7 +74,7 @@ public class ShiftListFunctionResource {
     @GET
     public ShiftList getSpesificShift(@PathParam("my_date") String my_date_string, @PathParam("shift_id") int shift_id, @PathParam("user_id") String user_id) {
         System.out.println("getSpesificShift");
-        return sdao.getSingleShift(my_date_string, shift_id, user_id);
+        return sdao.getSpesificShift(my_date_string, shift_id, user_id);
     }
 
     @Path("setwantswap/{my_date}/{shift_id}/{user_id}/{want_swap}")
