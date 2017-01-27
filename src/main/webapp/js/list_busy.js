@@ -106,18 +106,14 @@ $(document).ready(function() {
             url: '/api/busy/',
             type: 'PUT',
             contentType: 'application/json',
-            dataType: "json",
             data: JSON.stringify([
-                {
-                    "my_date": my_date,
+                { "user_id": user_id,
                     "shift_id": shift_id,
-                    "user_id": user_id
+                    "my_date": my_date
                 },
-                {
-                    "my_date": $("#updateInputDate").val(),
+                { "user_id": user_id,
                     "shift_id": ($("#updateShiftId").prop('selectedIndex')+1),
-                    "user_id": user_id
-
+                    "my_date": $("#updateInputDate").val()
                 }]),
             success: function(data, textStatus, jqXHR){
                 console.log("Busy added.");
