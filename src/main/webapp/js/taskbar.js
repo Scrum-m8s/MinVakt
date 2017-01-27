@@ -23,7 +23,7 @@ app.config(function($mdThemingProvider, $routeProvider, $locationProvider) {
     }).when("/opptatt", {
         templateUrl: "partials/busy.html"
     }).when("/vaktbytte", {
-        templateUrl: "partials/swaplist.html"
+        templateUrl: "partials/confirm_swap.html"
     }).when("/kontrollpanel", {
         templateUrl: "partials/controlpanel.html"
     }).when("/timelister_current", {
