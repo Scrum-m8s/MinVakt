@@ -17,6 +17,8 @@ app.config(function($mdThemingProvider, $routeProvider, $locationProvider) {
         templateUrl: "partials/settings_phone.html"
     }).when("/skift", {
         templateUrl: "partials/shiftlist.html"
+    }).when("/opptatt", {
+        templateUrl: "partials/busy.html"
     }).when("/vaktbytte", {
         templateUrl: "partials/swaplist.html"
     }).when("/kontrollpanel", {
@@ -76,6 +78,11 @@ app.service('menuService', function(){
                     icon: 'people',
                     link: 'Ansatte',
                     url: '#ansatt'
+                }, {
+                    name: 'Opptatt',
+                    icon: 'alarm_off',
+                    link: 'Opptatt',
+                    url: '#opptatt'
                 }]
             }, {
                 admin: [{
