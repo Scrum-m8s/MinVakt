@@ -72,18 +72,18 @@ $(document).ready(function() {
         });
     });
 
-    $('#approve').click(function() {
+    $('#btnCheck').click(function() {
         var date = $('tr.selected td:eq(0)').text();
         var shiftString = $('tr.selected td:eq(1)').text();
         var user = $('tr.selected td:eq(2)').text();
 
         var shift = 0;
         if(shiftString.equals("Nattevakt")){
-            shift = 0;
-        } else if(shiftString.equals("Dagvakt")){
             shift = 1;
-        } else{
+        } else if(shiftString.equals("Dagvakt")){
             shift = 2;
+        } else{
+            shift = 3;
         }
 
         var category = 0;
