@@ -130,7 +130,7 @@ $(document).ready(function() {
     $("#delete").click(function(){
         var user_id = $('tr.selected td:eq(0)').text();
         var shift_id = $('tr.selected td:eq(1)').text();
-        var my_date = $('tr.selected td:eq(2)').text().toDateString();
+        var my_date = $('tr.selected td:eq(2)').text();
 
         if(shift_id == "Nattevakt"){
             shift_id = 1;
@@ -144,12 +144,13 @@ $(document).ready(function() {
             $.ajax({
                 url: '/api/busy/' + my_date + '/' + shift_id + '/' + user_id,
                 type: 'DELETE',
-                success: function () {
+                success: function (data, textStatus, jqXHR) {
                     console.log("User deleted");
                     window.location.reload();
                 },
-                error: function (data, textStatus) {
+                error: function (data, textStatus, jqXHR) {
                     console.log("Error: " + textStatus);
+                    window.location.reload();
                 }
             });
         }else {
