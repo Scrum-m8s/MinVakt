@@ -1,9 +1,12 @@
 /**
  * Created by Nina on 23.01.2017.
  */
-
 $(document).ready(function() {
+    var modalNew = document.getElementById('createmodal');
+    var modalUpdt = document.getElementById('updatemodal');
 
+    var btnNew = document.getElementById("register");
+    var btnUpdt = document.getElementById("update");
     var span = document.getElementsByClassName("close")[0];
 
     var table = $('#busy_table').DataTable( {
@@ -40,9 +43,9 @@ $(document).ready(function() {
     });
     table.draw();
 
-    $("#register").click(function(){
-        $("#registerModal").modal();
-    });
+    btnNew.onclick = function() {
+        modalNew.style.display = "block";
+    };
 
     function createBusy() {
         if($("#inputUserId").val() == "") {
@@ -76,15 +79,16 @@ $(document).ready(function() {
     }
 
     $("#confirmNew").click(function () {
-        createBusy();
+        createBusy()
+        modalNew.style.display = "none";
         return false;
     });
 
-    $("#update").click(function(){
-        $("#updateModal").modal();
+    btnUpdt.onclick = function() {
+        modalUpdt.style.display = "block";
         $("#updateShiftId").attr('value', $('tr.selected td:eq(1)').text());
         $("#updateInputDate").attr('value', $('tr.selected td:eq(2)').text());
-    });
+    };
 
     $("#confirmChange").click(function () {
         var user_id = $('tr.selected td:eq(0)').text();
@@ -99,15 +103,20 @@ $(document).ready(function() {
         }
 
         $.ajax({
+            url: '/api/busy/',
             type: 'PUT',
             contentType: 'application/json',
-            url: 'api/busy/',
-            dataType: "json",
-            data: JSON.stringify({
-                "my_date": $("#updateInputDate").val(),
-                "shift_id": ($("#updateShiftId").prop('selectedIndex')+1),
-                "user_id": user_id
-            }),
+            data: JSON.stringify([
+                {
+                    "user_id": user_id,
+                    "shift_id": shift_id,
+                    "my_date": my_date
+                },
+                {
+                    "user_id": user_id,
+                    "shift_id": ($("#updateShiftId").prop('selectedIndex')+1),
+                    "my_date": $("#updateInputDate").val()
+                }]),
             success: function(data, textStatus, jqXHR){
                 console.log("Busy added.");
                 window.location.reload();
@@ -115,7 +124,7 @@ $(document).ready(function() {
             error: function(data, textStatus, jqXHR){
                 console.log("Error: " + textStatus);
             }
-        })
+        });
     });
 });
 
