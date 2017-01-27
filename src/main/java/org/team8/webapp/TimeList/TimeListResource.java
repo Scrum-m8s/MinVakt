@@ -26,7 +26,16 @@ public class TimeListResource {
         System.out.println("getTimeListsById");
         return dao.getTimeListsById(id);
     }
+/*
+    @Path("send")
+    @POST
+    public String sendTimeList(String email, int year, int month){
+        System.out.println("sendTimeList");
+        ArrayList<TimeList> monthTimeList = getTimeListsByMonth(year, month);
 
+        return "Mail sent!";
+    }
+*/
     @Path("{year}/{month}")
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
