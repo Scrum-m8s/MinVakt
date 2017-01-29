@@ -8,7 +8,9 @@ Oppgaven vi fikk av vår produkteier var å lage et digitalt vaktlistesystem for
 2. Åpne det prosjektet i en valgfri IDE
 2. Høyreklikk pom.xml -> Add as Maven Project
 3. Sett opp lokal Tomcat Server
-4. Sjekk at MinVakt-artifakten har alle library filene i seg. (Project settings -> )
+4. Sjekk at MinVakt-artifakten har alle library filene i seg:
+  - IntelliJ: File -> Project structure -> Artifacts -> minvakt:war exploded -> WEB-INF -> lib -> add library files
+  - Legg til alle library filene i lib mappen og apply/ok
 5. Kjør serveren og logg inn:
   - Brukernavn: admin
   - Passord: 12345678
