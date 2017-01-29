@@ -21,6 +21,11 @@ public class BusyDAO extends DatabaseManagement {
     PreparedStatement prep = null;
     ResultSet res = null;
 
+
+    /**
+     * Retrieves all information from Busy table in the database
+     * @return Arraylist with objects that contains every element in Busy table
+     */
     public ArrayList<Busy> getBusy(){
         ArrayList<Busy> out = new ArrayList<Busy>();
         if(setUp()){
@@ -43,6 +48,12 @@ public class BusyDAO extends DatabaseManagement {
         return out;
     }
 
+
+    /**
+     * Retrieves information for a specific id from Busy table in the database
+     * @param id Id of the user
+     * @return Arraylist with objects that contains every element for the specific id in Busy table
+     */
     public ArrayList<Busy> getBusyById(String id){
         ArrayList<Busy> out = new ArrayList<Busy>();
         if(setUp()){
@@ -66,6 +77,13 @@ public class BusyDAO extends DatabaseManagement {
         return out;
     }
 
+    /**
+     * Retrieves information for a single Busy element
+     * @param my_date Date of busy element
+     * @param shift_id Shift id of busy element
+     * @param user_id User id of busy element
+     * @return Object that contains information for the sigle element in the Busy table
+     */
     public Busy getSingleBusy(Date my_date, int shift_id, String user_id){
         Busy out = null;
         if(setUp()){
@@ -91,6 +109,11 @@ public class BusyDAO extends DatabaseManagement {
         return out;
     }
 
+    /**
+     * Creates new busy element in database
+     * @param b Busy object
+     * @return Boolean if object was created successfully
+     */
     public boolean createBusy(Busy b) {
         int numb = 0;
         if(setUp()){
@@ -114,6 +137,11 @@ public class BusyDAO extends DatabaseManagement {
         return numb > 0;
     }
 
+    /**
+     * Updates a busy element in database
+     * @param busies Old and new busy object that's going to be updated
+     * @return Boolean if object was updated successfully
+     */
     public boolean updateBusy(ArrayList<Busy> busies) {
         int numb = 0;
         Busy oldBusy = busies.get(0);
@@ -143,6 +171,13 @@ public class BusyDAO extends DatabaseManagement {
         return numb > 0;
     }
 
+    /**
+     * Removes a busy element in database
+     * @param my_date Date of busy element
+     * @param shift_id Shift id of busy element
+     * @param user_id User id of busy element
+     * @return Boolean if object was removed successfully
+     */
     public boolean removeBusy(Date my_date, int shift_id, String user_id){
         int numb = 0;
         if(setUp()) {

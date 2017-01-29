@@ -21,6 +21,10 @@ public class TimeListDAO extends DatabaseManagement{
     PreparedStatement prep = null;
     ResultSet res = null;
 
+    /**
+     * Retrieves all information from Time_list table in the database
+     * @return Arraylist with objects that contains every element in Time_list table
+     */
     public ArrayList<TimeList> getTimeLists(){
         ArrayList<TimeList> out = new ArrayList<>();
         if(setUp()){
@@ -43,6 +47,11 @@ public class TimeListDAO extends DatabaseManagement{
         return out;
     }
 
+    /**
+     * Retrieves information for a specific id from Time_list table in the database
+     * @param id Id of the user
+     * @return Arraylist with objects that contains every element for the specific id in Time_list table
+     */
     public ArrayList<TimeList> getTimeListsById(String id){
         ArrayList<TimeList> out = new ArrayList<TimeList>();
         if(setUp()){
@@ -91,6 +100,13 @@ public class TimeListDAO extends DatabaseManagement{
         return out;
     }
 
+    /**
+     * Retrieves information for a single time list element
+     * @param year Year of time list element
+     * @param month Month of time list element
+     * @param id User id of time list element
+     * @return Object that contains information for the sigle element in the time list table
+     */
     public TimeList getSingleTimeList(int year, int month, String id){
         TimeList out = null;
         if(setUp()){
@@ -225,6 +241,11 @@ public class TimeListDAO extends DatabaseManagement{
         return out;
     }
 
+    /**
+     * Creates new time list element in database
+     * @param e TimeList object
+     * @return Boolean if object was created successfully
+     */
     public boolean createTimeList(TimeList e) {
         int numb = 0;
         if(setUp()){
@@ -251,6 +272,11 @@ public class TimeListDAO extends DatabaseManagement{
         return numb > 0;
     }
 
+    /**
+     * Updates a time list element in database
+     * @param e TimeList object
+     * @return Boolean if object was updated successfully
+     */
     public boolean updateTimeList(TimeList e) {
         int numb = 0;
         if(setUp()) {
@@ -278,6 +304,13 @@ public class TimeListDAO extends DatabaseManagement{
         return numb > 0;
     }
 
+    /**
+     * Removes a time list element in database
+     * @param year Year of time list element
+     * @param month Month of time list element
+     * @param id Id of user in time list element
+     * @return Boolean if object was removed successfully
+     */
     public boolean removeTimeList(int year, int month, String id) {
         int numb = 0;
         if(setUp()) {

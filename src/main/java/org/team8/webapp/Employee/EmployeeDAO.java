@@ -21,6 +21,10 @@ public class EmployeeDAO extends DatabaseManagement {
     PreparedStatement prep = null;
     ResultSet res = null;
 
+    /**
+     * Retrieves all information from employee table in the database
+     * @return Arraylist with objects that contains every element in employee table
+     */
     public ArrayList<Employee> getEmployees(){
         ArrayList<Employee> out = new ArrayList<>();
         if(setUp()){
@@ -43,6 +47,11 @@ public class EmployeeDAO extends DatabaseManagement {
         return out;
     }
 
+    /**
+     * Retrieves information for a specific id from employee table in the database
+     * @param id Id of the employee
+     * @return Object that contains every element for the specific id in employee table
+     */
     public Employee getEmployeeById(String id){
         Employee out = null;
         if(setUp()){
@@ -66,6 +75,11 @@ public class EmployeeDAO extends DatabaseManagement {
         return out;
     }
 
+    /**
+     * Retrieves all employees that has a specific category in the employee table in the database
+     * @param category Category of the employee
+     * @return Arraylist with objects that contains every element for the specific category in employee table
+     */
     public ArrayList<Employee> getEmployeeByCategory(int category){
         ArrayList<Employee> out = new ArrayList<>();
         if(setUp()){
@@ -89,7 +103,13 @@ public class EmployeeDAO extends DatabaseManagement {
         return out;
     }
 
-
+    /**
+     * Retrieves all available employees for a specific shift from employee table in the database
+     * @param shift_id Id of shift
+     * @param my_date Date of shift
+     * @param category Category of the employee
+     * @return Arraylist with objects that contains every element for available employees from the employee table
+     */
     public ArrayList<Employee> getAvailableEmployees(int shift_id, Date my_date, int category){
         ArrayList<Employee> out = new ArrayList<>();
         if(setUp()){
@@ -122,7 +142,11 @@ public class EmployeeDAO extends DatabaseManagement {
         return out;
     }
 
-
+    /**
+     * Creates new employee element in database
+     * @param e Employee object
+     * @return Boolean if object was created successfully
+     */
     public boolean createEmployee(Employee e) {
         int numb = 0;
         if(setUp()){
@@ -149,6 +173,11 @@ public class EmployeeDAO extends DatabaseManagement {
         return numb > 0;
     }
 
+    /**
+     * Updates a employee element in database
+     * @param e Employee object with updated values
+     * @return Boolean if object was updated successfully
+     */
     public boolean updateEmployee(Employee e) {
         int numb = 0;
         if(setUp()) {
@@ -176,6 +205,11 @@ public class EmployeeDAO extends DatabaseManagement {
         return numb > 0;
     }
 
+    /**
+     * Removes a employee element in database
+     * @param id User id of employee element
+     * @return Boolean if object was removed successfully
+     */
     public boolean removeEmployee(String id) {
         int numb = 0;
         if(setUp()) {
@@ -198,6 +232,11 @@ public class EmployeeDAO extends DatabaseManagement {
         return numb > 0;
     }
 
+    /**
+     * Retrieves employees for a specific date from employee table in the database
+     * @param date Date that employee is available
+     * @return Arraylist with objects that contains every element for the specific date in employee table
+     */
     public ArrayList<Employee> getEmployeesForDate(String date){
         ArrayList<Employee> out = new ArrayList<>();
         if(setUp()){
@@ -223,6 +262,12 @@ public class EmployeeDAO extends DatabaseManagement {
         return out;
     }
 
+    /**
+     * Retrieves employees for a specific shift from employee table in the database
+     * @param shift_id Id of shift
+     * @param date Date that employee is available
+     * @return Arraylist with objects that contains every element for the specific shift in employee table
+     */
     public ArrayList<Employee> getEmployeesForShift(int shift_id, String date){
         ArrayList<Employee> out = new ArrayList<>();
         if(setUp()){

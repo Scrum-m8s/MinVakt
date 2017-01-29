@@ -19,6 +19,10 @@ public class ShiftDAO extends DatabaseManagement {
     PreparedStatement prep = null;
     ResultSet res = null;
 
+    /**
+     * Retrieves all information from shift table in the database
+     * @return Arraylist with objects that contains every element in shift table
+     */
     public ArrayList<Shift> getShifts(){
         ArrayList<Shift> out = new ArrayList<Shift>();
         if(setUp()){
@@ -41,6 +45,11 @@ public class ShiftDAO extends DatabaseManagement {
         return out;
     }
 
+    /**
+     * Retrieves information for a specific id from shift table in the database
+     * @param id Id of the shift
+     * @return Object that contains information for the sigle element in the shift table
+     */
     public Shift getShiftById(int id){
         Shift out = null;
         if(setUp()){
@@ -64,6 +73,11 @@ public class ShiftDAO extends DatabaseManagement {
         return out;
     }
 
+    /**
+     * Creates new shift element in database
+     * @param e Shift object
+     * @return Boolean if object was created successfully
+     */
     public boolean createShift(Shift e) {
         int numb = 0;
         if(setUp()){
@@ -88,6 +102,11 @@ public class ShiftDAO extends DatabaseManagement {
         return numb > 0;
     }
 
+    /**
+     * Updates a busy element in database
+     * @param e Shift object
+     * @return Boolean if object was updated successfully
+     */
     public boolean updateShift(Shift e) {
         int numb = 0;
         if(setUp()) {
@@ -113,6 +132,11 @@ public class ShiftDAO extends DatabaseManagement {
         return numb > 0;
     }
 
+    /**
+     * Removes a shift element in database
+     * @param id Id of shift element
+     * @return Boolean if object was removed successfully
+     */
     public boolean removeShift(int id) {
         int numb = 0;
         if(setUp()) {
