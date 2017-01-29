@@ -1,9 +1,15 @@
 # MinVakt
-Scrumprosjekt 2017 - Team 8
+Dette prosjektet gjennomføres av 8 studenter som går andre året på dataingeniørlinja på NTNU i Trondheim. For å få godkjent faget Systemutvikling 2 med web-applikasjoner skal vi gjennomføre et Scrum-prosjekt som går over 3 uker. Scrum er et enkelt rammeverk for å optimalisere produktutviklingen slik at prosjektet skal bli effektivt og får et resultat av høy kvalitet.
+
+Oppgaven vi fikk av vår produkteier var å lage et digitalt vaktlistesystem for helsetjenesten i Trondheim kommune. Dagens system er manuelt og gjøres med penn og papir. Vi skal lage et system som skal gjøre det lettere for ansatte og administrasjonen å håndtere arbeidsliste, vaktbytte, tilgjengelighet og registrere fravær.
 
 # Install:
-1. Aktiver maven
+1. Last ned eller klon prosjektet
+2. Åpne det prosjektet i en valgfri IDE
 2. Høyreklikk pom.xml -> Add as Maven Project
-3. Sett opp Tomcat Server
-4. Done?? Litt forskjellig fra pc til pc haha, men bare spør hvis dere ikke får til å kjøre prosjektet!
-5. For å sjekke om den er blitt koblet opp til databasen kan dere se om det kommer opp en liste over det som finnes i databasen ved å dra til localhost:8080/api/employees eller localhost:8080/api/shifts
+3. Sett opp lokal Tomcat Server
+4. Sjekk at MinVakt-artifakten har alle library filene i seg. (Project settings -> )
+5. Kjør serveren og logg inn
+**Brukernavn: admin
+Passord: 12345678**
+
