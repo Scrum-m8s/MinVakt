@@ -20,6 +20,10 @@ public class ShiftListDAO extends DatabaseManagement{
     PreparedStatement prep = null;
     ResultSet res = null;
 
+    /**
+     * Retrieves all information from Shift_list table in the database
+     * @return Arraylist with objects that contains every element in Shift_list table
+     */
     public ArrayList<ShiftList> getShiftLists(){
         ArrayList<ShiftList> out = new ArrayList<ShiftList>();
         if(setUp()){
@@ -42,6 +46,11 @@ public class ShiftListDAO extends DatabaseManagement{
         return out;
     }
 
+    /**
+     * Retrieves information for a specific user_id from shift_list table in the database
+     * @param user_id Id of the user
+     * @return Arraylist with objects that contains every element for the specific user_id in shift_list table
+     */
     public ArrayList<ShiftList> getShiftListsById(String user_id){
         ArrayList<ShiftList> out = new ArrayList<ShiftList>();
         if(setUp()){
@@ -65,6 +74,11 @@ public class ShiftListDAO extends DatabaseManagement{
         return out;
     }
 
+    /**
+     * Retrieves information for a specific date from shift_list table in the database
+     * @param my_date Date of shift list
+     * @return Arraylist with objects that contains every element for the specific date in shift_list table
+     */
     public ArrayList<ShiftList> getShiftListsByDate(Date my_date){
         ArrayList<ShiftList> out = new ArrayList<ShiftList>();
         if(setUp()){
@@ -112,6 +126,12 @@ public class ShiftListDAO extends DatabaseManagement{
         return out;
     }
 
+    /**
+     * Retrieves information for a specific id and date from shift_list table in the database
+     * @param my_date Date for the shift list
+     * @param shift_id Id of the shift
+     * @return Arraylist with objects that contains every element for the specific shift id and date in shift_list table
+     */
     public ArrayList<ShiftList> getShiftListsByDateAndShiftId(String my_date, int shift_id){
         ArrayList<ShiftList> out = new ArrayList<ShiftList>();
         if(setUp()){
@@ -136,6 +156,13 @@ public class ShiftListDAO extends DatabaseManagement{
         return out;
     }
 
+    /**
+     * Retrieves information for a single shift_list element
+     * @param my_date date of busy element
+     * @param shift_id shift id of busy element
+     * @param user_id user id of busy element
+     * @return Object that contains information for the sigle element in the shift_list table
+     */
     public ShiftList getSingleShift(Date my_date, int shift_id, String user_id){
         ShiftList out = null;
         if(setUp()){
@@ -294,6 +321,11 @@ public class ShiftListDAO extends DatabaseManagement{
         return numb > 0;
     }
 
+    /**
+     * Creates new shift list element in database
+     * @param s_l ShiftList object
+     * @return Boolean if object was created successfully
+     */
     public boolean createShiftlist(ShiftList s_l){
         int numb = 0;
         if(setUp()){
@@ -320,6 +352,11 @@ public class ShiftListDAO extends DatabaseManagement{
         return numb > 0;
     }
 
+    /**
+     * Updates a shiftlist element in database
+     * @param s_l ShiftList object
+     * @return Boolean if object was updated successfully
+     */
     public boolean updateShiftlist(ShiftList s_l){
         int numb = 0;
         if(setUp()) {
@@ -376,6 +413,13 @@ public class ShiftListDAO extends DatabaseManagement{
         return numb > 0;
     }
 
+    /**
+     * Removes a shift list element in database
+     * @param my_date Date of shift list element
+     * @param shift_id Shift id of shift list element
+     * @param user_id User id of shift list element
+     * @return Boolean if object was removed successfully
+     */
     public boolean removeShiftlist(Date my_date, int shift_id, String user_id){
         int numb = 0;
         if(setUp()) {

@@ -24,6 +24,10 @@ public class UserDAO extends DatabaseManagement {
     PreparedStatement prep = null;
     ResultSet res = null;
 
+    /**
+     * Retrieves all information from User table in the database
+     * @return Arraylist with objects that contains every element in User table
+     */
     public ArrayList<User> getUsers(){
         ArrayList<User> out = new ArrayList<User>();
         if(setUp()){
@@ -46,6 +50,11 @@ public class UserDAO extends DatabaseManagement {
         return out;
     }
 
+    /**
+     * Retrieves information for a single User element
+     * @param id User id of user element
+     * @return Object that contains information for the sigle element in the User table
+     */
     public User getUserById(String id){
         User out = null;
         if(setUp()){
@@ -69,6 +78,11 @@ public class UserDAO extends DatabaseManagement {
         return out;
     }
 
+    /**
+     * Creates new user element in database
+     * @param e User object
+     * @return Boolean if object was created successfully
+     */
     public boolean createUser(User e) {
         int numb = 0;
         if(setUp()){
@@ -92,6 +106,11 @@ public class UserDAO extends DatabaseManagement {
         return numb > 0;
     }
 
+    /**
+     * Updates a user element in database
+     * @param e User object
+     * @return Boolean if object was updated successfully
+     */
     public boolean updateUser(User e) {
         int numb = 0;
         if(setUp()) {
@@ -116,8 +135,11 @@ public class UserDAO extends DatabaseManagement {
         return numb > 0;
     }
 
-
-
+    /**
+     * Removes a user element in database
+     * @param id User id
+     * @return Boolean if object was removed successfully
+     */
     public boolean removeUser(String id) {
         int numb = 0;
         if(setUp()) {
