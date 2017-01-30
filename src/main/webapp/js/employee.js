@@ -74,7 +74,7 @@ $(document).ready(function() {
         $.ajax({
             type: 'PUT',
             contentType: 'application/json',
-            url: rootURL + user_id,
+            url: rootURL,
             dataType: "json",
             data: JSON.stringify({
                 "user_id": user_id,
@@ -183,7 +183,7 @@ $(document).ready(function() {
         $.ajax({
             type: 'PUT',
             contentType: 'application/json',
-            url: "api/users/" + user_id,
+            url: "api/users/",
             dataType: "json",
             data: JSON.stringify({
                 "user_id": user_id,
