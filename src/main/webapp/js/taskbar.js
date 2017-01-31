@@ -33,6 +33,8 @@ app.config(function($mdThemingProvider, $routeProvider, $locationProvider) {
         controller: 'TimelistsCtrl'
     }).when("/kontrollpanel/godkjennevaktbytte", {
         templateUrl: "partials/confirm_swap.html"
+    }).when("/kontrollpanel/registrerskift",{
+        templateUrl: "partials/register_new_shift.html"
     }).when("/feil", {
         templateUrl: "partials/error.html"
     }).otherwise("/feil"
@@ -134,7 +136,7 @@ app.service('menuService', function(){
                     option: 'Lag Vakt',
                     icon: 'add_box',
                     toast: 'Endre passord',
-                    url: '#innstillinger/password'
+                    url: '#kontrollpanel/registrerskift'
                 }, {
                     option: 'Godkjenne Vaktbytte',
                     icon: 'playlist_add_check',
